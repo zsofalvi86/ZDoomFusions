@@ -1,0 +1,72 @@
+Actor PPE_DNShotgun : PPE_DNWeaponBase replaces Shotgun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DNSG"
+	Tag "$TAG_PPE_DNSG"
+	Inventory.PickupSound "weapons/pickup/quote"
+	Weapon.UpSound "weapons/dnshotgun/cock"
+	Weapon.SelectionOrder 1300
+	Weapon.SlotNumber 3
+	Weapon.AmmoUse 1
+	//Weapon.AmmoType "PPE_Shells"
+	Weapon.AmmoType "Shell"
+	Weapon.AmmoGive 8
+	Decal "BulletChip"
+	States
+	{
+	Ready.Ready:
+		PGSG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWZOOM|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3|WRF_ALLOWUSER4)
+    	Loop
+	Deselect:
+    	PGSG A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	PGSG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+    	PGSG A 1
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/dnshotgun/fire")
+		//TNT1 A 0 A_FireCustomMissile("PPE_NukemShotgunPellet",0,1,0,4,1,0)
+		//TNT1 AAAAAAAA 0 A_FireCustomMissile("PPE_NukemShotgunPellet",FRandom(-2.3,2.3),0,0,4,1,FRandom(-1.1,1.1))
+		TNT1 A 0 A_FireBullets(3.0,2.0,7,(10),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+    	PGSF ABC 2 bright
+		PGSG A 2 offset(0,38)
+		PGSG A 2 offset(0,40)
+		PGSG A 2 offset(0,38)
+		PGSG A 2 offset(0,36)
+		//PGSG A 2 offset(0,32)
+		TNT1 A 0 A_PlaySound("weapons/dnshotgun/cock",5)
+		PGSG BCD 2
+		PGSG DEE 1
+		TNT1 A 0 A_FireCustomMissile("PPE_DNSGShellCasingShooter",0,0,0,6)
+		PGSG EED 1
+		PGSG DCBA 2
+		PGSG AA 1
+    	TNT1 A 0 A_ReFire
+    	Goto Ready
+  	Flash:
+    	TNT1 A 2 A_Light1
+		TNT1 AAAAA 1 //A_SetPitch(pitch-0.82)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 //A_SetPitch(pitch+0.79)
+		Goto LightDone
+  	Spawn:
+    	PGSW A -1
+    	Stop
+	}
+}
+
+Actor PPE_DNSGShellCasingShooter : PPE_CasingShooterBase
+{
+	Speed 14
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_ShellCasing",0,0,FRandom(65,80),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-12,-19))
+		Stop
+	}
+}

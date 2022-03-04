@@ -1,0 +1,81 @@
+Actor PPE_DevastatorMissile : PPE_SlowMissileBase
+{
+	Damage (35)
+    +FORCERADIUSDMG
+	Speed 22
+    SeeSound ""
+	DeathSound "weapons/explosion"
+	States
+	{
+	Spawn:
+		TNT1 A 0 //A_SpawnItem("PPE_MiniRocketTrail")
+		ROXF A 1 bright
+		Loop
+	Death:
+		TNT1 A 0 A_Explode(22,96)
+		TNT1 A 0 A_Quake(3,3,0,208,"")
+		TNT1 A 0 A_Quake(2,4,0,480,"")
+		TNT1 A 0 A_Quake(1,4,0,2048,"")
+		BMYP A 4 bright
+		BMYP BCDEF 3 bright
+		Stop
+	}
+}
+
+Actor PPE_DNDevastator : PPE_DNWeaponBase replaces BFG9000
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DNDEV"
+	Tag "$TAG_PPE_DNDEV"
+	Weapon.SelectionOrder 500
+	Weapon.SlotNumber 8
+	//Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoType "Cell"
+	Weapon.AmmoUse 2
+	Weapon.AmmoGive1 40
+	Weapon.UpSound "weapons/select"
+	Inventory.PickupSound "weapons/pickup/quote"
+	States
+	{
+	Spawn:
+		DEVW A -1
+		Stop
+	Ready.Ready:
+		DEVG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		DEVG A 1 A_Lower(12)
+		Loop
+	Select:
+		DEVG A 1 A_Raise(12)
+		Loop
+	Fire:
+		RDVE A 0 //copy this frame for initial fire
+	ContFire:
+		TNT1 "#" 0 A_GunFlash
+		TNT1 "#" 0 A_AlertMonsters
+		TNT1 "#" 0 A_PlaySound("weapons/dnrpg/fire",CHAN_WEAPON)
+		TNT1 "#" 0 A_PlaySound("weapons/freezethrower/fire",5)
+	    TNT1 "#" 0 A_FireCustomMissile("PPE_DevastatorMissile",FRandom(-2.6,2.6),1,9,-4,1,FRandom(-1.8,1.8))
+		TNT1 "#" 0 A_FireCustomMissile("PPE_DevastatorMissile",FRandom(-2.6,2.6),0,9,-4,1,FRandom(-1.8,1.8))
+		RDVE "#" 1 bright
+		RDVE BCDE 1 bright
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/dnrpg/fire",CHAN_WEAPON)
+		TNT1 A 0 A_FireCustomMissile("PPE_DevastatorMissile",FRandom(-2.6,2.6),1,-9,-4,1,FRandom(-1.8,1.8))
+		TNT1 A 0 A_FireCustomMissile("PPE_DevastatorMissile",FRandom(-2.6,2.6),0,-9,-4,1,FRandom(-1.8,1.8))
+		RDVE LHIJK 1 bright
+		RDVE F 0 //copy this frame for refire
+		TNT1 "#" 0 A_ReFire("ContFire")
+		RDVG CA 1
+		goto Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.6)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 //A_SetPitch(pitch+0.8)
+		Goto LightDone
+	}
+}

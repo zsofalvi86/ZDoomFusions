@@ -1,0 +1,428 @@
+Actor PPE_DNShrinker : PPE_DNWeaponBase replaces SuperShotgun
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DNSHR"
+	Tag "$TAG_PPE_DNSHR"
+	Weapon.SelectionOrder 600
+	Weapon.SlotNumber 7
+	Inventory.PickupSound "weapons/pickup/quote"
+	Weapon.UpSound "weapons/select"
+	//Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoType "Cell"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 40
+	States
+	{
+	Spawn:
+		SHRP A -1
+		Stop
+	Ready.Ready:
+		TNT1 A 0 A_JumpIfInventory("PPE_ShrinkerMode",1,"ReadyE")
+	ReadyS:
+		SHRG AAAABBBCCCDDDEEEEDDDCCCBBBAA 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		Loop
+	ReadyE:
+		SHEG AAAABBBCCCDDDEEEEDDDCCCBBBAA 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		Loop
+	Deselect:
+		SHRG A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		SHRG A 1 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+    Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_ShrinkerMode",1,"FireE")
+	FireS:
+		TNT1 A 0 A_PlaySound("Weapons/Shrinker/Fire",1)
+        TNT1 A 0 A_AlertMonsters
+		SHRC ABC 2 bright
+		TNT1 A 0 A_GunFlash("FlashShrinker")
+		TNT1 A 0 A_FireCustomMissile("PPE_ShrinkerMissile",0,1,0,4,1,0)
+		//TNT1 A 0 A_FireCustomMissile("EggFX",0,1,0,4,1,0)
+		SHRF ABCD 2 bright
+		SHRG EDCDE 1
+		TNT1 A 0 A_ReFire("FireS")
+		SHRG DCBA 1
+		Goto Ready
+	FireE:
+		TNT1 A 0 A_PlaySound("Weapons/Expander/Fire",1)
+        TNT1 A 0 A_AlertMonsters
+		SHRC ABC 2 bright
+		TNT1 A 0 A_GunFlash("FlashExpander")
+		TNT1 A 0 A_FireCustomMissile("PPE_StingerShard",0,1,0,4,1,0)
+		SHRF ABCD 2 bright
+		TNT1 A 0 A_ReFire("FireE")
+		Goto Ready
+	Reload:
+		TNT1 A 0 A_JumpIfInventory("PPE_ShrinkerMode",1,"ShrinkerMode")
+		Goto ExpanderMode
+	User2:
+	ExpanderMode:
+		TNT1 A 0 A_SetInventory("PPE_ShrinkerMode",1)
+		TNT1 A 0 A_Print("Expander Mode")
+		PLSR ABBA 2
+		Goto Ready
+	User1:
+	ShrinkerMode:
+		TNT1 A 0 A_SetInventory("PPE_ShrinkerMode",0)
+		TNT1 A 0 A_Print("Shrinker Mode")
+		PLSR ABBA 2
+		Goto Ready
+	FlashShrinker:
+    	TNT1 A 0 A_Light1
+		TNT1 AAAAAA 1 //A_SetPitch(pitch-0.62)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 //A_SetPitch(pitch+1.15)
+		Goto LightDone
+	FlashExpander:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.44)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 //A_SetPitch(pitch+0.7)
+		Goto LightDone
+	}
+}
+
+ACTOR PPE_ShrinkerMissileX : EggFX
+{
+	MorphProjectile.PlayerClass "PPE_ActionFigurePlayer"
+	MorphProjectile.MonsterClass "PPE_ActionFigureMonster"
+	States
+	{
+	Spawn:
+		BMRB ABCD 3 bright
+		Loop
+	Death:
+		BMRB EFGH 3 bright
+		Stop
+	}
+}
+
+ACTOR PPE_ShrinkerMissileXY : MorphProjectile
+{
+	Radius 8
+	Height 8
+	Speed 22
+	//MorphProjectile.PlayerClass "ChickenPlayer"
+	//MorphProjectile.MonsterClass "Chicken"
+	MorphProjectile.PlayerClass "PPE_ActionFigurePlayer"
+	MorphProjectile.MonsterClass "PPE_ActionFigureMonster"
+	MorphProjectile.MorphFlash "PPE_ShrinkFog"
+	MorphProjectile.UnMorphFlash "PPE_ShrinkFogUn"
+	MorphProjectile.Duration 770
+	SeeSound "" DeathSound ""
+	RenderStyle None
+	+HITTRACER
+	States
+	{
+	Spawn:
+		"####" "##" 0 A_Die
+	Death:
+		"####" "#" 2
+		"####" "#" 1 A_CopySpriteFrame(AAPTR_DEFAULT,AAPTR_TRACER)
+		Stop
+	}
+}
+
+ACTOR PPE_ShrinkerMissile : PPE_SlowMissileBase //MorphProjectile
+{
+	Radius 8
+	Height 8
+	Speed 22
+	/*MorphProjectile.PlayerClass "PPE_ActionFigurePlayer"
+	MorphProjectile.MonsterClass "PPE_ActionFigureMonster"
+	MorphProjectile.MorphFlash "PPE_ShrinkFog"
+	MorphProjectile.UnMorphFlash "PPE_ShrinkFogUn"
+	MorphProjectile.MorphStyle MRF_FULLHEALTH|MRF_UNDOBYTOMEOFPOWER|MRF_LOSEACTUALWEAPON 
+	MorphProjectile.Duration 770*/
+	SeeSound ""
+	DeathSound "Weapons/Shrinker/Impact"
+	Damage (0)
+	+HITTRACER
+	States
+	{
+	Spawn:
+		BMRB ABCD 3 bright
+		Loop
+	Death:
+	Crash:
+		BMRB EFGH 3 bright
+		Stop
+	XDeath:
+		TNT1 A 0 A_CheckFlag("DONTMORPH","Death",AAPTR_TRACER)
+		TNT1 A 0 A_JumpIf(IsPointerEqual(AAPTR_TARGET,AAPTR_TRACER)==TRUE,"Death") //No self harm
+		//TNT1 A 0 A_RearrangePointers(AAPTR_TRACER,AAPTR_MASTER,AAPTR_TRACER)
+		TNT1 A 0 A_SpawnItemEx("PPE_ShrinkProcess",0,0,0,0,0,0,GetAngle(0,AAPTR_TRACER),SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS)
+		Goto Death
+	}
+}
+
+Actor PPE_ShrinkPG : CustomInventory
+{
+	States
+	{
+	Pickup:
+		//"####" "#" 0 A_CopySpriteFrame(AAPTR_TRACER, AAPTR_DEFAULT)
+		"####" "#" 0 A_Morph("PPE_ActionFigureMonster",350,0,"PPE_ShrinkFog","PPE_ShrinkFogUn")
+		stop
+	}
+}
+
+ACTOR PPE_ShrinkProcess : PPE_SlowMissileBase //MorphProjectile
+{
+	var int user_i;
+	var int user_h;
+	var float user_scale;
+	Radius 8
+	Height 8
+	Speed 0
+	SeeSound "" DeathSound ""
+	RenderStyle None
+	Damage (0)
+	+HITTRACER
+	States
+	{
+	Death:
+	Crash:
+		TNT1 A 0 
+		Stop
+	Spawn:
+		TNT1 A 0 A_Die
+	XDeath:
+		TNT1 A 0 A_Warp(AAPTR_TRACER)
+		TNT1 A 0 A_CheckFlag("DONTMORPH","Death",AAPTR_TRACER)
+		TNT1 A 0 A_JumpIf(IsPointerEqual(AAPTR_TARGET,AAPTR_TRACER)==TRUE,"Death")
+		TNT1 A 0 A_JumpIf(IsPointerEqual(AAPTR_TRACER,AAPTR_NULL)==TRUE,"Death")
+		//TNT1 A 0 A_PlaySound("weapons/shrinker/hit")
+		//TNT1 A 0 A_RearrangePointers(AAPTR_TRACER,AAPTR_MASTER,AAPTR_TRACER)
+		"####" "#" 0 A_CopySpriteFrame(AAPTR_TRACER, AAPTR_DEFAULT)
+		"####" "#" 0 
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 1000; A_SetUserVar(user_i, user_i + 1))
+			{
+				if (A_JumpIfHealthLower(user_i,"GotHealth",AAPTR_TRACER))
+				{
+					A_SetUserVar(user_h, user_i);
+					return state("GotHealth");
+				}
+			}
+			return state(0);
+		}
+	GotHealth:
+		//"####" "#" 0 A_RemoveTracer
+		//"####" "#" 0 A_SpawnItemEx("PPE_ShrinkerMissileXY",0,0,0,0,0,0,GetAngle(0,AAPTR_TRACER),SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_TRANSFERSPRITEFRAME)
+		//"####" "#" 0 A_SpawnItemEx("PPE_ActionFigureMonster",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER|SXF_TRANSFERSPRITEFRAME)
+		"####" "#" 0 A_GiveInventory("PPE_ShrinkPG",1,AAPTR_TRACER)
+		"####" "#" 0 A_CopySpriteFrame(AAPTR_DEFAULT, AAPTR_TRACER)
+		"####" "#" 0 A_SetHealth(user_h,AAPTR_TRACER)
+		//TNT1 A 0 A_RemoveTarget
+		"####" "#" 0 A_SetUserVarFloat(user_scale,1.0)
+		//"####" "#" 3 //A_RearrangePointers(AAPTR_TRACER,AAPTR_MASTER,AAPTR_TRACER)
+		/*"####" "#######" 3
+		{
+			A_Warp(AAPTR_TRACER);
+			A_SpawnItemEx("PPE_ShrinkShadow100",0,0,0,0,0,0,GetAngle(0,AAPTR_TRACER),SXF_NOCHECKPOSITION|SXF_ISTARGET);
+			A_SetScale(user_scale,0,AAPTR_TARGET);
+			A_SetUserVarFloat(user_scale,user_scale-0.1);
+			A_CopySpriteFrame(AAPTR_DEFAULT, AAPTR_TARGET);
+		}*/
+		//"####" "#" 0 A_SpawnItemEx("PPE_ShrinkerMissileXY",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_TRANSFERPOINTERS|SXF_TRANSFERSPRITEFRAME)
+		//TNT1 A 4
+		//TNT1 A 0 A_Warp(AAPTR_TARGET)
+		//TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow85",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		//TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		//TNT1 A 4
+		//TNT1 A 0 A_Warp(AAPTR_TARGET)
+		//TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow70",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		//TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		//TNT1 A 4
+		//TNT1 A 0 A_Warp(AAPTR_TARGET)
+		//TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow55",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		//TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		//TNT1 A 4
+		//TNT1 A 0 A_Warp(AAPTR_TARGET)
+		//TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow40",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		//TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		Stop
+	}
+}
+
+ACTOR PPE_UnShrinkProcess : PPE_SlowMissileBase //MorphProjectile
+{
+	var int user_i;
+	var int user_h;
+	Radius 8
+	Height 8
+	Speed 0
+	SeeSound "" DeathSound ""
+	Damage (0)
+	+HITTARGET
+	States
+	{
+	Death:
+	Crash:
+		TNT1 A 0 
+		Stop
+	Spawn:
+		TNT1 A 0 A_Die
+	XDeath:
+		TNT1 A 0 A_Warp(AAPTR_TARGET)
+		TNT1 A 0 A_SpawnItemEx("PPE_ActionFigureMonster",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		TNT1 A 0 
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 1000; A_SetUserVar(user_i, user_i + 1))
+			{
+				if (A_JumpIfHealthLower(user_i,"GotHealth",AAPTR_TARGET))
+				{
+					A_SetUserVar(user_h, user_i);
+					return state("GotHealth");
+				}
+			}
+			return state(0);
+		}
+	GotHealth:
+		TNT1 A 0 A_SetHealth(user_h,AAPTR_TRACER)
+		TNT1 A 0 A_RemoveTarget
+		TNT1 A 0 A_RearrangePointers(AAPTR_TRACER,AAPTR_MASTER,AAPTR_TRACER)
+		TNT1 A 0 A_Warp(AAPTR_TARGET)
+		TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow25",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		TNT1 A 4
+		TNT1 A 0 A_Warp(AAPTR_TARGET)
+		TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow40",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		TNT1 A 4
+		TNT1 A 0 A_Warp(AAPTR_TARGET)
+		TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow55",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		TNT1 A 4
+		TNT1 A 0 A_Warp(AAPTR_TARGET)
+		TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow70",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		TNT1 A 4
+		TNT1 A 0 A_Warp(AAPTR_TARGET)
+		TNT1 A 0 A_SpawnItemEx("PPE_ShrinkShadow85",0,0,0,0,0,0,GetAngle(0,AAPTR_TARGET),SXF_NOCHECKPOSITION|SXF_ISTRACER)
+		TNT1 A 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_TRACER)
+		Stop
+	}
+}
+
+Actor PPE_ShrinkerMode : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor PPE_ShrinkFog
+{
+	RenderStyle None
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/shrinker/hit")
+		//TNT1 A 0 A_SetAngle(GetAngle(0,AAPTR_TARGET))
+		//"####" "#" 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_DEFAULT)
+		//"####" "############" 2 A_SetScale(scalex-0.05,scaley-0.05)
+		//TROO AAAAAAAA 2 bright A_SetScale(scalex-0.1,scaley-0.1)
+		Stop
+	}
+}
+
+Actor PPE_ShrinkFogUn
+{
+	RenderStyle Translucent
+	Alpha 0.5
+	Scale 0.2
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SetAngle(GetAngle(0,AAPTR_TARGET))
+		"####" "#" 0 A_CopySpriteFrame(AAPTR_TARGET, AAPTR_DEFAULT)
+		"####" "############" 2 A_SetScale(scalex+0.05,scaley+0.05)
+		Stop
+	}
+}
+
+Actor PPE_ShrinkShadow100
+{
+	+NOINTERACTION +NOBLOCKMAP
+	RenderStyle Translucent
+	Alpha 0.9
+	Scale 1.0
+	Height 56
+	States
+	{
+	Spawn:
+		"####" "#" 1 A_FadeOut(0.1)
+		//TROO A 1 A_FadeOut(0.1)
+		loop
+	}
+}
+
+Actor PPE_ShrinkShadow85 : PPE_ShrinkShadow100 { Scale 0.85 }
+Actor PPE_ShrinkShadow70 : PPE_ShrinkShadow100 { Scale 0.7 }
+Actor PPE_ShrinkShadow55 : PPE_ShrinkShadow100 { Scale 0.55 }
+Actor PPE_ShrinkShadow40 : PPE_ShrinkShadow100 { Scale 0.4 }
+Actor PPE_ShrinkShadow25 : PPE_ShrinkShadow100 { Scale 0.25 }
+
+Actor PPE_ActionFigureMonster : Chicken
+{
+  var float user_scale;
+  var float user_cnt;
+  Health 1000
+  PainChance 0
+  SeeSound "chicken/pain"
+  AttackSound "chicken/attack"
+  PainSound "chicken/pain"
+  DeathSound "chicken/death"
+  ActiveSound "chicken/active"
+  Obituary "$OB_CHICKEN"
+  //+COUNTKILL
+  //+TOUCHY
+  DamageFactor "DukeKick", 1000
+  RenderStyle None
+  Scale 0.25
+  Mass 100000
+  ReactionTime 0
+  States
+  {
+  Spawn:
+	"####" "#" 0
+	"####" "#" 0 {A_SetRenderStyle(1,STYLE_None); A_SetUserVarFloat(user_scale,1.0); A_SetUserVar(user_cnt,1);}
+	"####" "############################" 1
+	{
+		//A_Warp(AAPTR_TRACER);
+		if(user_cnt==3) {A_Wander;A_SetUserVar(user_cnt,1);}
+		else {A_SetUserVar(user_cnt,user_cnt+1);}
+		//A_Wander;
+		A_SpawnItemEx("PPE_ShrinkShadow100",0,0,0,0,0,0,angle,SXF_NOCHECKPOSITION|SXF_ISTRACER);
+		A_SetScale(user_scale,0,AAPTR_TRACER);
+		A_SetUserVarFloat(user_scale,user_scale-0.025);
+		A_CopySpriteFrame(AAPTR_DEFAULT,AAPTR_TRACER);
+	}
+	"####" A 0 A_SetRenderStyle(1,STYLE_Normal)
+  LookLoop:
+	"####" AB 1 A_Look
+    Loop
+  See:
+	"####" A 0 A_SetRenderStyle(1,STYLE_Normal)
+  SeeLoop:
+	"####" AABBCCDD 3 A_Wander
+    Loop
+  Death:
+	"####" A 0 A_SetRenderStyle(1,STYLE_Normal)
+	TROO O 1 A_XScream
+	TROO P 1
+	TROO Q 1 A_NoBlocking
+	TROO RST 1
+	TROO U 1
+	POL5 A -1
+	Stop
+  UnMorph:
+	Stop
+  }
+}

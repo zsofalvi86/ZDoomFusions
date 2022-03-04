@@ -1,0 +1,61 @@
+#library "Itemcycler"
+#include "zcommon.acs"
+
+global int 1:level;
+global int 2:CG;
+global int 3:RL;
+global int 4:SSG;
+global int 5:CS;
+global int 6:BER;
+global int 7:POW;
+
+script "map exit" UNLOADING
+{
+	level += 1;
+	RL = 0;
+}
+
+script "GetLevelNum" (void)
+{
+	SetResultValue(level);
+	Print(i:level); // For debug purposes, it doesn't work on inventory anyway
+}
+
+script "SetSpawn" (int spawnTag)
+{
+	switch(spawnTag)
+	{
+		case 0:CG++;break;
+		case 1:RL++;break;
+		case 2:SSG++;break;
+		case 3:CS++;break;
+		case 4:BER++;break;
+		case 5:POW++;break;
+	}
+	
+	if(CG>2){CG=1;}
+	if(RL>3){RL=1;}
+	if(SSG>2){SSG=1;}
+	if(CS>2){CS=1;}
+	if(BER>2){BER=1;}
+	if(POW>3){POW=1;}
+	
+	if(RL==2 && CS==1) {RL=3;CS=2;} // avoid collission
+	if(RL==3 && CS==2) {RL=1;CS=1;} // avoid collission
+}
+
+script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:ret=CG;break;
+		case 1:ret=RL;break;
+		case 2:ret=SSG;break;
+		case 3:ret=CS;break;
+		case 4:ret=BER;break;
+		case 5:ret=POW;break;
+	}
+	
+	SetResultValue(ret);
+}

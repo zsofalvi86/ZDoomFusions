@@ -1,0 +1,74 @@
+[enu default]
+
+// Items
+GOTARMOR = "Picked up the armor.";
+GOTMEGA = "Picked up the MegaArmor!";
+GOTHTHBONUS = "Picked up a health bonus.";
+GOTARMBONUS = "Picked up an armor bonus.";
+GOTSTIM = "You recover 10 health.";
+GOTMEDINEED = "You recover 25 health with urgency.";
+GOTMEDIKIT = "You recover 25 health.";
+GOTSUPER = "Atomic Health!";
+GOTBLUECARD = "Picked up a blue keycard.";
+GOTYELWCARD = "Picked up a yellow keycard.";
+GOTREDCARD = "Picked up a red keycard.";
+GOTBLUESKUL = "Picked up a blue skull key.";
+GOTYELWSKUL = "Picked up a yellow skull key.";
+GOTREDSKUL = "Picked up a red skull key.";
+GOTINVUL = "Invulnerability!";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Partial Invisibility";
+GOTSUIT = "Radiation Shielding Suit";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTPORTMED = "Portable Medkit";
+
+
+// Holdable
+TAG_PPE_DNPORTMED = "Portable Medkit";
+
+// Ammo
+GOTBULLETS = "Picked up a magazine.";
+GOTBULLETBOX = "Picked up a box of bullets.";
+GOTSHELLS = "Picked up a few shells.";
+GOTSHELLBOX = "Picked up a box of shells.";
+GOTROCKET = "Picked up some explosives.";
+GOTROCKBOX = "Picked up a box of explosives.";
+GOTCELL = "Picked up a plasma cell.";
+GOTCELLBOX = "Picked up a large plasma cell.";
+GOTLIGHT = "Picked up a lightning cell.";
+GOTLIGHTBOX = "Picked up a large lightning cell.";
+GOTNUKE = "Picked up a nuclear cell.";
+GOTNUKEBOX = "Picked up a large nuclear cell.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_PPE_DNFOOT = "You got the Mighty Foot! How did you lose it in the first place?";
+GOT_PPE_DNPS = "You got the Pistol!";
+GOT_PPE_DNSG = "You got the Shotgun!";
+GOT_PPE_DNRIP = "You got the Ripper Chaingun Cannon!";
+GOT_PPE_DNRPG = "You got the RPG!";
+GOT_PPE_DNPB = "You got the Pipebomb!";
+GOT_PPE_DNSHR = "You got the Shrinker/Expander!";
+GOT_PPE_DNDEV = "You got the Devastator Weapon!";
+GOT_PPE_DNTR = "You got the Tripmine!";
+GOT_PPE_DNFRZ = "You got the Freezethrower/Incinerator!";
+
+// Gun Tags
+TAG_PPE_DNFOOT = "Mighty Foot";
+TAG_PPE_DNPS = "Pistol";
+TAG_PPE_DNSG = "Shotgun";
+TAG_PPE_DNRIP = "Ripper Chaingun Cannon";
+TAG_PPE_DNRPG = "RPG";
+TAG_PPE_DNPB = "Pipebomb";
+TAG_PPE_DNSHR = "Shrinker";
+TAG_PPE_DNEXP = "Expander";
+TAG_PPE_DNDEV = "Devastator Weapon";
+TAG_PPE_DNTR = "Tripmine";
+TAG_PPE_DNFRZ = "Freezethrower";
+TAG_PPE_DNINC = "Incinerator";
+
+
+//Other
+SECRETMESSAGE = "Secret Place!";

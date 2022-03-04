@@ -1,0 +1,92 @@
+Actor PPE_DNPistol : PPE_DNWeaponBase replaces Pistol
+{
++WEAPON.NOALERT
+Inventory.Pickupmessage "$GOT_PPE_DNPS"
+Tag "$TAG_PPE_DNPS"
+Inventory.PickupSound "weapons/pickup/quote"
+Weapon.UpSound "weapons/dnpistol/clipin"
+Weapon.SlotNumber 2
+Weapon.AmmoUse 1
+//Weapon.AmmoType "PPE_Bullets"
+Weapon.AmmoType "Clip"
+Weapon.AmmoGive 40
+Decal "BulletChip"
+States
+	{
+	Ready.Ready:
+    	DNAG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+    	Loop
+  	Deselect:
+		TNT1 A 0 A_ResetReloadCounter
+	DeseLoop:
+    	DNAG A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	DNAG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/dnpistol/fire")
+		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(10),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_DPBulletCasingShooter",0,0,0,2)
+		DNAF ABC 1 bright
+		DNAG BA 1
+		//TNT1 A 0 A_JumpIf((CountInv("PPE_Bullets") % 12 = 0),"Reload")
+		TNT1 A 0 A_CheckForReload(12,"Refire")
+		Goto Reload
+	Refire:
+		TNT1 A 0 A_ReFire("Fire2")
+		Goto Ready
+	Fire2:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/dnpistol/fire")
+		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(10),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_DPBulletCasingShooter",0,0,0,2)
+		DNAF DEF 1 bright
+		DNAG BAA 1
+		//TNT1 A 0 A_JumpIf((CountInv("PPE_Bullets") % 12 = 0),"Reload")
+		TNT1 A 0 A_CheckForReload(12,"Refire2")
+		Goto Reload
+	Refire2:
+		TNT1 A 0 A_ReFire("Fire")
+		Goto Ready
+	Reload:
+		TNT1 A 0 A_JumpIfInventory("RD_LaserDukePistol",0,"ReloadLasered")
+		TNT1 A 0 A_PlaySound("weapons/dnpistol/clipout",6)
+		DNAR A 2 Offset(0,36)
+		DNAR A 2 Offset(0,40)
+		DNAR B 2 Offset(0,44)
+		DNAR B 10 Offset(0,48)
+		TNT1 A 0 A_ResetReloadCounter
+		TNT1 A 0 A_PlaySound("weapons/dnpistol/clipin",7)
+		DNAR B 10 Offset(0,48)
+		DNAR B 2 Offset(0,44)
+		DNAR A 2 Offset(0,40)
+		DNAR A 2 Offset(0,36)
+		Goto Ready
+  	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.72)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 //A_SetPitch(pitch+0.86)
+		Goto LightDone
+	Spawn:
+    	//RIPP A -1
+		Stop
+	}
+}
+
+Actor PPE_DPBulletCasingShooter : PPE_CasingShooterBase
+{
+	Speed 11
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_BulletCasing",0,0,FRandom(65,80),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-12,-19))
+		Stop
+	}
+}

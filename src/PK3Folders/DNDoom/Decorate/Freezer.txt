@@ -1,0 +1,87 @@
+Actor PPE_FreezerMissile : PPE_SlowMissileBase
+{
+	var int user_bouncecnt;
+	Damage (30/(user_bouncecnt+1))
+    +FORCERADIUSDMG
+	+DOOMBOUNCE
+	+USEBOUNCESTATE
+	-BLOODSPLATTER
+	DamageType "Ice"
+	BounceFactor 1.0
+	WallBounceFactor 1.0
+	BounceCount 3
+	Speed 30
+    SeeSound ""
+	DeathSound ""
+	States
+	{
+	Spawn:
+		//TNT1 A 0
+		//TNT1 A 0 A_SetUserVar("user_bouncecnt",1)
+	MissileLoop:
+		FRBL ABCDEF 1 bright
+		Loop
+	Bounce:
+		TNT1 A 0 A_ChangeFlag("HITOWNER",1)
+		TNT1 A 0 A_SetUserVar("user_bouncecnt",user_bouncecnt+1)
+		Goto MissileLoop
+	Death:
+		FRBE ABCDEF 3 bright
+		Stop
+	}
+}
+
+Actor PPE_DNFreezer : PPE_DNWeaponBase replaces PlasmaRifle
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DNFRZ"
+	Tag "$TAG_PPE_DNFRZ"
+	Weapon.SelectionOrder 500
+	Weapon.SlotNumber 8
+	//Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoType "Cell"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive1 40
+	Weapon.UpSound "weapons/select"
+	Inventory.PickupSound "weapons/pickup/quote"
+	States
+	{
+	Spawn:
+		DFTW A -1
+		Stop
+	Ready.Ready:
+		DFTG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		DFTG A 1 A_Lower(12)
+		Loop
+	Select:
+		DFTG A 1 A_Raise(12)
+		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/freezethrower/fire",CHAN_WEAPON)
+	    TNT1 A 0 A_FireCustomMissile("PPE_FreezerMissile",0,1,0,2,1,0)
+		DFTF ABC 1 bright
+		DFTG A 1 bright
+		TNT1 A 0 A_ReFire("AFire")
+		goto Ready
+	AFire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/freezethrower/fire",CHAN_WEAPON)
+	    TNT1 A 0 A_FireCustomMissile("PPE_FreezerMissile",0,1,0,2,1,0)
+		DFTF ABC 1 bright
+		DFTG A 2 bright
+		TNT1 A 0 A_ReFire("Fire")
+		goto Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.6)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 //A_SetPitch(pitch+0.8)
+		Goto LightDone
+	}
+}

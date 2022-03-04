@@ -1,0 +1,142 @@
+
+//Pickups
+items/q3ammo			ampkup
+items/q3weapon			wpkup
+items/q3switch			change
+items/health1			shealth
+items/health2			nhealth
+items/health3			lhealth
+items/health4			mhealth
+items/armor1			ar1pkup
+items/armor2			ar2pkup
+items/holdable			holdable
+items/meduse			pmedu
+
+//Knuckle
+weapons/knuckle knuckle
+
+//Kick
+weapons/mightyfoot/hit kickhit
+
+//Pistol
+weapons/dnpistol/fire pistol
+weapons/dnpistol/clipin clipin
+weapons/dnpistol/clipout clipout
+
+//Shotgun
+weapons/dnshotgun/fire shotgun7
+weapons/dnshotgun/cock shotgnck
+
+//Ripper Chaingun Cannon
+weapons/dnripper/fire chaingun
+
+//RPG
+weapons/dnrpg/fire rpgfire
+
+//Pipebomb
+weapons/pipebomb/bounce pbombbnc
+
+//Shrinker
+weapons/shrinker/fire shrinker
+weapons/shrinker/impact thud
+weapons/shrinker/hit shrink
+
+//Tripbomb
+weapons/tripbomb/impact lsrbmbpt
+weapons/tripbomb/activate lsrbmbwn
+
+//Freezer
+weapons/freezethrower/fire catfire
+weapons/freezethrower/freeze freeze
+
+//Generic
+weapons/ric ricochet
+weapons/select wpnsel21
+weapons/explosion bombexpl
+$limit weapons/explosion 55 
+$attenuation weapons/explosion 0.1
+quwe1 cool01 quwe2 getsom1a quwe3 groovy02 quwe4 hail01 quwe5 wansom4a
+$random weapons/pickup/quote { quwe1 quwe2 quwe3 quwe4 quwe5 }
+
+//Powerups
+items/quad/pickup		v_quad
+items/quad/active		quada
+items/quad/wearoff		quadx
+items/regen/pickup		v_regen
+items/regen/active		regen
+items/regen/wearoff		wearoff
+items/invis/pickup		v_invis
+items/invis/wearoff		wearoff
+items/haste/pickup		v_haste
+items/haste/wearoff		wearoff
+items/suit/pickup		holdable
+items/suit/wearoff		wearoff
+items/invul/pickup		invul_ac
+invi1 invul_i1 invi2 invul_i2 invi3 invul_i3
+$random items/invul/active { invi1 invi2 invi3 }
+items/invul/juice		invul_ju
+
+//Kamikaze
+weapons/kamikaze/explode kamif
+weapons/kamikaze/fire	kamis
+
+//Player
+pushum pain87 pushwhere whrsit05
+$random player/push { pushum pushum pushum pushum pushum pushum pushwhere }
+pscr1 dscrem04 pscr2 dscrem15 pscr3 dscrem16 pscr4 dscrem17 pscr5 dscrem18 pscr6 dscrem38
+$random player/scream { pscr2 pscr3 pscr4 pscr5 }
+pquo1 amess06 pquo2 bitchn04 pquo3 blowit01 pquo4 eatshit01 pquo5 face01
+pquo6 gothrt01 pquo7 holycw01 pquo8 holysh02 pquo9 imgood12 pquo10 inhell01
+pquo11 letgod01 pquo12 piece02 quo13 mdevl01
+pqrdy1 ripem08 pqrdy2 rockin02 pqrdy3 ready2a pqrdy4 letsrk03
+pqsp1 yippie01
+
+$playersound	PPE_DukePlayer	male	*death		dmdeath
+$playersound	PPE_DukePlayer	male	*xdeath		udeath
+$playersound	PPE_DukePlayer	male	*gibbed		udeath
+$playersound	PPE_DukePlayer	male	*gibbed-telefrag	teledth1
+$playersound	PPE_DukePlayer	male	*pain100	gasps07
+$playersound	PPE_DukePlayer	male	*pain75		gasps07
+$playersound	PPE_DukePlayer	male	*pain50		gasps07
+$playeralias	PPE_DukePlayer	male	*pain25		player/scream
+$playersounddup	PPE_DukePlayer	male	*pain100-fire	*pain100
+$playersounddup	PPE_DukePlayer	male	*pain75-fire	*pain75
+$playersounddup	PPE_DukePlayer	male	*pain50-fire	*pain50
+$playersounddup	PPE_DukePlayer	male	*pain25-fire	*pain25
+$playersounddup	PPE_DukePlayer	male	*pain100-slime	*pain100
+$playersounddup	PPE_DukePlayer	male	*pain75-slime	*pain75
+$playersounddup	PPE_DukePlayer	male	*pain50-slime	*pain50
+$playersounddup	PPE_DukePlayer	male	*pain25-slime	*pain25
+$playersounddup	PPE_DukePlayer	male	*pain100-drowning	*pain100
+$playersounddup	PPE_DukePlayer	male	*pain75-drowning	*pain75
+$playersounddup	PPE_DukePlayer	male	*pain50-drowning	*pain50
+$playersounddup	PPE_DukePlayer	male	*pain25-drowning	*pain25
+$playersound	PPE_DukePlayer	male	*pain100-falling	fall1
+$playersounddup	PPE_DukePlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	PPE_DukePlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	PPE_DukePlayer	male	*pain25-falling		*pain100-falling
+$playersound	PPE_DukePlayer	male	*grunt		pain39
+$playersound	PPE_DukePlayer	male	*land		land02
+$playersound	PPE_DukePlayer	male	*jump		jump1
+$playeralias	PPE_DukePlayer	male	*usefail	player/push
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+$random misc/secret	{ pquo2 pquo7 pquo8 pquo9 pquo12 pqsp1 quwe1 quwe3 }
+intermission/nextstage shotgnck
+$random	intermission/paststats { pqrdy1 pqrdy2 pqrdy3 pqrdy4 }
+$random	intermission/pastcoopstats { pqrdy1 pqrdy2 pqrdy3 pqrdy4 }
+misc/chat			talk		// Doom 2 chat sound
+misc/chat2			talk		// Chat sound for everything else
+
+//Teleport
+misc/teleport teleport
