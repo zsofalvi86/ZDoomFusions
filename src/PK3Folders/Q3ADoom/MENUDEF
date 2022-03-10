@@ -1,0 +1,28 @@
+OptionMenu "Q3ADOptions"
+{
+    Title "Quake 3 Arena Settings"
+    Option "Health / Armor Values", "q3ahealth", "Q3AHT"
+    Option "BFG Extra Effect", "q3abfg", "Q3ABFG"
+	Option "Team Arena Nailgun (SSG Spawn)", "tang", "TANG"
+	Option "Team Arena Chaingun (CG Spawn)", "tacg", "TACG"
+	Option "Team Arena Proximity Launcher (RL/CS Spawn)", "tapl", "TAPL"
+	Option "Plasma Gun (PG Spawn)", "tapg", "TAPG"
+	Option "Invisibility (Invis Spawn)", "powinvis", "ENABLEDISABLE"
+	Option "Quad Damage (Invis Spawn)", "powquad", "ENABLEDISABLE"
+	Option "Haste (Invis Spawn)", "powhaste", "ENABLEDISABLE"
+	Option "Regeneration (Soulsphere Spawn)", "powregen", "ENABLEDISABLE"
+}
+
+OptionValue "ENABLEDISABLE" { 0, "Disable" 1, "Enable"}
+OptionValue "Q3AHT" { 0, "Doom Style" 1, "Quake 3 Style"}
+OptionValue "Q3ABFG" { 0, "Doom Style Tracers" 1, "Extra Impact Damage"}
+OptionValue "TANG" { 0, "Disable" 1, "Team Arena (No Ricochet)" 2, "Quake Live (Nails Ricochet)"}
+OptionValue "TACG" { 0, "Disable" 1, "Team Arena (Instant Full Speed)" 2, "Quake Live (1s Half Speed)"}
+OptionValue "TAPL" { 0, "Disable" 1, "Enable"}
+OptionValue "TAPG" { 0, "Quake 3 (Projectile)" 1, "Quake Live (Prestep)"}
+
+AddOptionMenu "OptionsMenu"
+{
+    StaticText ""
+    Submenu "Quake 3 Arena Settings", "Q3ADOptions"
+}

@@ -1,0 +1,10 @@
+server bool q3ahealth = true;
+server bool q3abfg = true;
+server int tang = 2;
+server int tacg = 2;
+server int tapl = 1;
+server int tapg = 1;
+server int powinvis = 1;
+server int powquad = 1;
+server int powhaste = 1;
+server int powregen = 1;

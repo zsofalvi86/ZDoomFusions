@@ -1,0 +1,34 @@
+Class PPE_Q3Replace : EventHandler
+{	
+	//override void WorldLoaded (WorldEvent e)
+	//{
+	//	console.printf("%s", "loaded");
+	//}
+	
+	override void CheckReplacement (ReplaceEvent e)
+	{
+		CVar q3ah = CVar.FindCVar('q3ahealth');
+		
+		if (e.Replacee == "Stimpack" && q3ah.GetBool()) {e.Replacement = "PPE_Stimpack_Q3";}
+		if (e.Replacee == "MediKit" && q3ah.GetBool()) {e.Replacement = "PPE_MediKit_Q3";}
+		if (e.Replacee == "HealthBonus" && q3ah.GetBool()) {e.Replacement = "PPE_Q3HealthBonus_Q3";}
+		if (e.Replacee == "ArmorBonus" && q3ah.GetBool()) {e.Replacement = "PPE_Q3ArmorBonus_Q3";}
+		if (e.Replacee == "GreenArmor" && q3ah.GetBool()) {e.Replacement = "PPE_YellowArmor_Q3";}
+		if (e.Replacee == "BlueArmor" && q3ah.GetBool()) {e.Replacement = "PPE_RedArmor_Q3";}
+	}
+	
+	/*override void WorldThingSpawned (WorldEvent e)
+	{
+		string aname = e.Thing.GetClassName();
+		if (aname == "Clip")
+		{
+			console.printf("%s%s", "spawn:", aname);
+		}
+		if (aname == "PPE_SmallBullet")
+		{
+			console.printf("%s%s", "spawn:", aname);
+		}
+	}*/
+	
+	//void CheckForR 
+}

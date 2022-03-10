@@ -1,0 +1,179 @@
+Actor PPE_TAProximityLauncher : RocketLauncher
+{
+	Weapon.SelectionOrder 2200
+	Weapon.AmmoUse1 1
+	Weapon.AmmoUse2 1
+	Weapon.AmmoGive 2
+	Weapon.AmmoType1 "PPE_Proxs"
+	Weapon.SlotNumber 4
+	Weapon.UpSound "items/q3switch"
+	Inventory.PickupSound "items/q3weapon"
+	Inventory.Pickupmessage "$GOT_PPE_PL"
+	Tag "$TAG_PPE_PL"
+	+NOAUTOFIRE
+	+NOALERT
+	+NOAUTOAIM
+	States
+	{
+	Ready:
+		3PRG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		3PRG A 1 A_Lower(18)
+		Loop
+	Select:
+		3PRG A 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/prox/fire",1)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"FireH")
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3Prox",0,1,0,1,1,7)
+		3PRG A 2 Offset(0,40)
+		3PRG A 2 Offset(0,50)
+		3PRG A 2 Offset(0,45)
+		3PRG A 2 Offset(0,40)
+		3PRG A 2 Offset(0,36)
+		3PRG A 18
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	FireH:
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3ProxHaste",0,1,0,1,1,6)
+		3PRG A 2 Offset(0,40)
+		3PRG A 2 Offset(0,50)
+		3PRG A 2 Offset(0,45)
+		3PRG A 2 Offset(0,40)
+		3PRG A 2 Offset(0,36)
+		3PRG A 10
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 //A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 //A_SetPitch(pitch+0.8)
+		Goto LightDone
+	Spawn:
+		3PRW A -1
+		Stop
+   }
+}
+
+actor PPE_Q3Prox : PPE_SlowMissileBase
+{
+  var int user_countdown;
+  var int user_x;
+  var int user_y;
+  var int user_z;
+  SeeSound ""
+  BounceSound "weapons/prox/impact"
+  DeathSound ""
+  DamageType "Quake3Prox"
+  Gravity 0.4
+  Speed 24
+  +HITTRACER
+  +VULNERABLE
+  -NOBLOCKMAP
+  -NOGRAVITY
+  +FOILINVUL
+  Damage (5)
+  Health 15
+  Mass 10000
+  States
+  {
+  Spawn:
+	DGRD A 1 A_SpawnItemEx("PPE_SmokeTrail",0,0,0,0,0,0,0,0,16)
+	Loop
+  Death:
+    TNT1 A 0 A_PlaySound("weapons/prox/impact",1)
+	TNT1 A 0 A_NoGravity
+	DGRD A 75
+	TNT1 A 0 A_SpawnItem("PPE_Q3ProxStuck")
+	stop
+  Crash:
+  XDeath:
+    TNT1 A 0 A_SetInvulnerable
+	TNT1 A 0 A_PlaySound("weapons/prox/hit",1)
+    TNT1 A 0 A_SetUserVar("user_countdown",70)
+	//TNT1 A 0 A_SetUserVar("user_x",Random(6,32))
+	TNT1 A 0 A_SetUserVar("user_x",Random(-50,50))
+	TNT1 A 0 A_SetUserVar("user_y",Random(-15,15))
+	TNT1 A 0 A_SetUserVar("user_z",Random(25,90))
+	Goto StickLoop
+  StickLoop:
+	TNT1 A 0 A_JumpIf(user_countdown==0,"StickEnd")
+	DGRD A 1 A_Warp(AAPTR_TRACER,0,user_y,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,0,user_z*0.01,user_x*0.01)
+	TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+	Goto StickLoop
+  StickEnd:
+	TNT1 A 0 A_PlaySound("weapons/prox/activate",2)
+	TNT1 A 0 A_SetUserVar("user_countdown",18)
+  DetLoop:
+	TNT1 A 0 A_JumpIf(user_countdown==0,"DetEnd")
+	DGRD A 1 A_Warp(AAPTR_TRACER,user_x,user_y,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,0,user_z*0.01,user_x*0.01)
+	TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+	Goto DetLoop
+  DetEnd:
+	TNT1 A 0 A_NoGravity
+	TNT1 A 0 A_PlaySound("weapons/prox/explode",1) // 28, 67
+	TNT1 A 0 A_DamageTracer(65,"Quake3SplashImpact")
+	TNT1 A 0 A_Explode(150,192,0)
+	TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE)
+	TNT1 A 0 A_Quake(4,5,0,320,"")
+	TNT1 A 0 A_Quake(2,6,0,720,"")
+	TNT1 A 0 A_Quake(1,6,0,3256,"")
+	BMXP A 4 bright
+	BMXP BCDEF 3 bright
+	Stop
+  }
+}
+
+actor PPE_Q3ProxHaste : PPE_Q3Prox
+{
+	Speed 31
+}
+
+Actor PPE_Q3ProxStuck : PPE_Q3Prox
+{
+	+NOGRAVITY
+	+DONTTHRUST
+	-HITTRACER
+	+BLOODLESSIMPACT
+	DeathSound ""
+	DamageType "Quake3Prox"
+	Speed 0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SetUserVar("user_countdown",20)
+	SpawnLoop:
+		TNT1 A 0 A_JumpIf(user_countdown==0,"DetEnd")
+		DGRD A 75 A_SpawnItem("PPE_ProxBeep",0,6)
+		TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+		loop
+	Crash:
+	XDeath:
+	Death:
+		TNT1 A 0 A_Jump(256,"StickEnd")
+		stop
+	}
+}
+
+Actor PPE_ProxBeep : PPE_TrailBase
+{
+	+FORCEXYBILLBOARD
+	RenderStyle Normal
+	Alpha 1.0
+	Vspeed 0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/prox/tick")
+		LAZP CBABC 1 Bright
+		stop
+	}
+}

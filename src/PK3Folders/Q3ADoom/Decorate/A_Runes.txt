@@ -1,0 +1,56 @@
+Actor PPE_AmmoRegen : Backpack replaces Backpack
+{
+	+FLOATBOB
+	Inventory.PickupSound "items/ammoregen/pickup"
+	Inventory.PickupMessage "$GOTQ3AMMOREGEN"
+	States
+	{
+	Spawn:
+		3ARR ABCDEF 2 Bright
+		loop
+	}
+}
+
+
+Actor PPE_AmmoRegen_Q3 : CustomInventory
+{
+	+FLOATBOB
+	Inventory.PickupSound "items/ammoregen/pickup"
+	Inventory.PickupMessage "$GOTQ3AMMOREGEN"
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		3ARR ABCDEF 2 Bright
+		loop
+	Pickup:
+		
+	Use:
+		TNT1 A 0 A_GiveInventory("PPE_Invul")
+		TNT1 A 0 A_GiveInventory("PPE_InvulFake")
+		stop
+	}
+}
+
+Actor PPE_Guard : CustomInventory replaces MegaSphere
+{
+	Inventory.PickupSound "items/guard/pickup"
+	Inventory.PickupMessage "$GOTQ3GUARD"
+	+INVENTORY.AUTOACTIVATE
+	+COUNTITEM
+	+FLOATBOB
+	States
+	{
+	Spawn:
+		3GUR ABCDEF 2 Bright
+		loop
+	Use:
+		TNT1 A 0 A_GiveInventory("PPE_RedArmor")
+		TNT1 A 0 A_GiveInventory("PPE_MegasphereHealth")
+		stop
+	}
+}
+
+Actor PPE_MegasphereHealth : MegasphereHealth {}

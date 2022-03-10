@@ -1,0 +1,32 @@
+Class PPE_Headshot : Actor
+{	
+	private double dmgHead; bool isHeadshot;
+	property HeadShotDamage: dmgHead;
+	
+	Default
+	{
+		SeeSound ""; DeathSound "";
+		Radius 11; Height 8;
+		Speed 20; Damage 20;
+	}
+	
+	override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		if (isHeadshot) 
+		{
+			SetStateLabel("Headshot");
+			return Super.DoSpecialDamage(target,dmgHead,damagetype);
+		}
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	override int SpecialMissileHit(Actor victim)
+	{	
+		if (dmgHead > 0 && (self.pos.z - victim.pos.z) >= (victim.height - 18))
+		{
+			isHeadshot = true;
+		}
+		
+		return Super.SpecialMissileHit(victim);
+	}
+}

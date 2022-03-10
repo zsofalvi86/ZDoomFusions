@@ -1,0 +1,122 @@
+[enu default]
+
+// Items
+GOTARMOR1 = "Picked up the light armor.";
+GOTARMOR2 = "Picked up the heavy armor.";
+GOTHTHBONUS = "Picked up a health bonus.";
+GOTARMBONUS = "Picked up an armor bonus.";
+GOTHTHBONUS3 = "Picked up a 5 health bonus.";
+GOTARMBONUS3 = "Picked up an armor shard.";
+GOTADRENALINE = "Picked up Adrenaline! +5 Max Health.";
+GOTSTIM = "You recover 10 health.";
+GOTMEDINEED = "You recover 25 health with urgency.";
+GOTMEDIKIT = "You recover 25 health.";
+GOTSTIM3 = "You recover 25 health.";
+GOTMEDINEED3 = "You recover 50 health with urgency.";
+GOTMEDIKIT3 = "You recover 50 health.";
+GOTSUPER = "Mega-Health!";
+GOTBLUECARD = "Picked up a blue keycard.";
+GOTYELWCARD = "Picked up a yellow keycard.";
+GOTREDCARD = "Picked up a red keycard.";
+GOTBLUESKUL = "Picked up a blue skull key.";
+GOTYELWSKUL = "Picked up a yellow skull key.";
+GOTREDSKUL = "Picked up a red skull key.";
+GOTINVUL = "Invulnerability!";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Partial Invisibility";
+GOTSUIT = "Radiation Shielding Suit";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTPORTMED = "Personal Medkit";
+GOTTELE = "Personal Teleporter!";
+GOTKAMI = "Kamikaze!";
+GOTQ3INVUL = "Invulnerability!";
+GOTQ3INVIS = "Invisibility!";
+GOTQ3SUIT = "Battle Suit!";
+GOTQ3QUAD = "Quad Damage!";
+GOTQ3REGEN = "Regeneration!";
+GOTQ3HASTE = "Haste!";
+
+GOTQ3GUARD = "Guard!";
+GOTQ3DOUBLER = "Doubler!";
+GOTQ3SCOUT = "Scout!";
+GOTQ3AMMOREGEN = "Ammo-Regen!";
+
+// Holdable
+TAG_PPE_Q3PORTMED = "Personal Medikit";
+TAG_PPE_Q3TELE = "Personal Teleporter";
+TAG_PPE_Q3KAMI = "Kamikaze";
+TAG_PPE_Q3INVUL = "Invulnerability";
+
+// Ammo
+GOTBULLETS = "Picked up a magazine of machinegun bullets.";
+GOTBULLETBOX = "Picked up a large box of machinegun bullets.";
+GOTCBULLETS = "Picked up a magazine of chaingun bullets.";
+GOTCBULLETBOX = "Picked up a large box of chaingun bullets.";
+GOTSLUGS = "Picked up a few slugs.";
+GOTSLUGBOX = "Picked up a box of slugs.";
+GOTSHELLS = "Picked up a few shells.";
+GOTSHELLBOX = "Picked up a box of shells.";
+GOTNAILS = "Picked up a few nails.";
+GOTNAILBOX = "Picked up a box of nails.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTGRENADE = "Picked up a grenade.";
+GOTGRENBOX = "Picked up a box of grenades.";
+GOTPROX = "Picked up a proximity mine.";
+GOTPROXBOX = "Picked up a box of proximity mines.";
+GOTCELL = "Picked up a plasma cell.";
+GOTCELLBOX = "Picked up a large plasma cell.";
+GOTLIGHT = "Picked up a lightning cell.";
+GOTLIGHTBOX = "Picked up a large lightning cell.";
+GOTNUKE = "Picked up a nuclear cell.";
+GOTNUKEBOX = "Picked up a large nuclear cell.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_PPE_GNT = "You got the Gauntlet!";
+GOT_PPE_MG = "You got the Machinegun!";
+GOT_PPE_NG = "You got the Nailgun!";
+GOT_PPE_SG = "You got the Shotgun!";
+GOT_PPE_GL = "You got the Grenade Launcher!";
+GOT_PPE_RL = "You got the Rocket Launcher!";
+GOT_PPE_LG = "You got the Lightning Gun!";
+GOT_PPE_RG = "You got the Railgun!";
+GOT_PPE_PG = "You got the Plasma Gun!";
+GOT_PPE_BFG = "You got the BFG10k!";
+GOT_PPE_CG = "You got the Chaingun!";
+GOT_PPE_PL = "You got the Proximity Launcher!";
+
+// Gun Tags
+TAG_PPE_GNT = "Gauntlet";
+TAG_PPE_MG = "Machinegun";
+TAG_PPE_NG = "Nailgun";
+TAG_PPE_SG = "Shotgun";
+TAG_PPE_GL = "Grenade Launcher";
+TAG_PPE_RL = "Rocket Launcher";
+TAG_PPE_LG = "Lightning Gun";
+TAG_PPE_RG = "Railgun";
+TAG_PPE_PG = "Plasma Gun";
+TAG_PPE_BFG = "BFG10k";
+TAG_PPE_TNG = "Nail Shotgun";
+TAG_PPE_CG = "Chaingun";
+TAG_PPE_PL = "Proximity Launcher";
+
+// Obituary strings
+OB_MPAX = "%o was ax-murdered by %k.";
+OB_MPSG = "%o chewed on %k's boomstick";
+OB_MPDSG = "%o ate 2 loads of %k's buckshot.";
+OB_MPNG = "%o was nailed by %k.";
+OB_MPSNG = "%o was punctured by %k.";
+OB_MPGL = "%o eats %k's pineapple.";
+OB_MPRL = "%o rides %k's rocket.";
+OB_MPPL = "%o got too friendly with %k's bomb.";
+OB_MPTB = "%o was melted by %k's plasma gun.";
+OB_MPLC = "%o was toasted by %k's laser.";
+OB_MPMJ = "%o was slammed by %k's hammer.";
+OB_MPTELEFRAG = "%o was telefragged by %k.";
+
+//Other
+
+SECRETMESSAGE = "You've found a secret area!";

@@ -1,0 +1,156 @@
+Actor PPE_TAChainGun : Chaingun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_CG"
+	Tag "$TAG_PPE_CG"
+	Inventory.PickupSound "items/q3weapon"
+	Weapon.UpSound "items/q3switch"
+	Weapon.SelectionOrder 400
+	Weapon.SlotNumber 2
+	Weapon.AmmoType "PPE_ChaingunBullets"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 24
+	Decal "BulletChip"
+	States
+	{
+	Spawn:
+		Q3CW A -1
+		Stop
+	Ready:
+		Q3CG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_SetInventory("PPE_ChaingunSpin",0)
+	DeseLoop:
+		Q3CG A 1 A_Lower(18)
+		Loop
+	Select:
+		Q3CG A 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",0,"FireSpeed")
+		TNT1 A 0 A_PlaySound("weapons/chaingun/run/slow",6,1.0,1)
+		TNT1 A 0 A_GiveInventory("PPE_ChaingunSpin",3)
+		Q3CF A 2 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(3.3,3.1,-1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_GiveInventory("PPE_ChaingunSpin",2)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"FireH")
+		Q3CF B 2 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(3.3,3.1,-1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("Hold")
+		Q3CF CD 2 bright
+		Goto WindDown
+	FireH:
+		Q3CF B 1 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(3.3,3.1,-1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("Hold")
+		Q3CF CD 2 bright
+		Goto WindDown
+	FireSpeed:
+		TNT1 A 0 A_PlaySound("weapons/chaingun/run/fast",6,1.0,1)
+		Q3CF A 1 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(6.3,6.1,-1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q3CF B 1 bright
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(6.3,6.1,-1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("Hold")
+		Q3CF CD 1 bright
+		Goto WindDown
+	Hold:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",0,"HoldSpeed")
+		TNT1 A 0 A_GiveInventory("PPE_ChaingunSpin",3)
+		Q3CF C 2 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(3.3,3.1,1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_GiveInventory("PPE_ChaingunSpin",2)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"HoldH")
+		Q3CF D 2 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(3.3,3.1,1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("Fire")
+		Goto WindDown
+	HoldH:
+		Q3CF D 1 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(3.3,3.1,1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("Fire")
+		Goto WindDown
+	HoldSpeed:
+		Q3CF C 1 bright
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(6.3,6.1,1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q3CF D 1 bright
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire")
+		TNT1 A 0 A_FireBullets(6.3,6.1,1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"HoldSpeedH")
+		TNT1 A 0 A_ReFire("Fire")
+		Goto WindDown
+	HoldSpeedH:
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_FireBullets(6.3,6.1,1,(7),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("Fire")
+		Goto WindDown
+	WindDown:
+		TNT1 A 0 A_PlaySound("weapons/chaingun/cool",6)
+		TNT1 A 0 A_SetInventory("PPE_ChaingunSpin",0)
+		Q3CX ABCD 2 bright
+		Q3CG BB 1
+		Q3CG CCC 1
+		Goto Ready
+	Flash:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2)
+		TNT1 A 1 A_Light1
+		Goto LightDone
+		TNT1 A 1 A_Light2
+		Goto LightDone
+	}
+}
+
+Actor PPE_ChaingunSpin : Inventory
+{
+	Inventory.MaxAmount 35
+}
+
+Actor PPE_CGBulletCasingShooter : PPE_CasingShooterBase
+{
+	Speed 8
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_BulletCasing",0,0,FRandom(60,75),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-13,-22))
+		Stop
+	}
+}

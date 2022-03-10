@@ -1,0 +1,141 @@
+Class PPE_Q3Player : DoomPlayer
+{
+	int tic;
+	double tilt; double desiredTilt;
+	const maxtilt = 1.5;
+
+	Override void Tick ()
+	{
+		Super.Tick();
+		if (!player || !player.mo || player.mo != self){return;}
+		
+		int insm = GetPlayerInput(MODINPUT_SIDEMOVE);
+
+		bool left = insm < -1000;
+		bool right = insm > 1000;
+		
+		SetTilt(left, right);
+		
+		CVar q3ah = CVar.FindCVar('q3ahealth');
+		let uarmor = BasicArmor(FindInventory("BasicArmor"));
+		if (q3ah.GetBool() && (self.Health > 100 || (uarmor != null && uarmor.Amount > 100) || CheckInventory("PowerRegen",1)))
+		{
+			if (tic <= 0) {tic = 35;}
+			else {tic--;}
+			if (tic == 0)
+			{
+				if (CheckInventory("PowerRegen",1)) 
+				{
+					if (self.Health < 100) {A_SetHealth(self.Health+15); A_PlaySound("items/regen/active",4);}
+					else if (self.Health < 200) {A_SetHealth(self.Health+5); A_PlaySound("items/regen/active",4);}
+					if (self.Health > 200) {A_SetHealth(200);}
+				}
+				else
+				{
+					if (self.Health > 100) {A_SetHealth(self.Health-1);}
+				}
+				if (uarmor != null && uarmor.Amount > 100) {uarmor.Amount--;}
+			}
+		}
+		else {tic = 0;}
+	}
+	
+	Override void OnRespawn()
+	{
+		A_SetHealth(125);
+		Super.OnRespawn();
+	}
+	
+	void SetTilt(bool left, bool right)
+	{
+		if (left && !right) {desiredTilt = -maxtilt;}
+		else if (right && !left) {desiredTilt = maxtilt;}
+		else {desiredTilt = 0;}
+		if(tilt < desiredTilt) {tilt += 0.25;}
+		if(tilt > desiredTilt) {tilt -= 0.25;}
+		A_SetRoll(tilt);//,SPF_INTERPOLATE);
+		//A_Print("t: "..tilt);
+	}
+
+	Default
+	{
+		Mass 100;
+		PainChance 255;
+		Gravity 1.0;
+		Species "Player";
+		Player.StartItem "PPE_Q3MachineGun";
+		Player.StartItem "PPE_Bullets", 75;
+		Player.StartItem "PPE_Gauntlet";
+		Player.DisplayName "Sarge";
+		Player.SoundClass "PPE_Quake3Player";
+		
+		Player.WeaponSlot 1, "PPE_Q3Gauntlet";
+		Player.WeaponSlot 2, "PPE_Q3MachineGun", "PPE_TAChainGun";
+		Player.WeaponSlot 3, "PPE_Q3Shotgun", "PPE_TANailShotgun";
+		Player.WeaponSlot 4, "PPE_TAProximityLauncher", "PPE_Q3GrenadeLauncher";
+		Player.WeaponSlot 5, "PPE_Q3RocketLauncher";
+		Player.WeaponSlot 6, "PPE_Q3LightningGun";
+		Player.WeaponSlot 7, "PPE_Q3RailGun";
+		Player.WeaponSlot 8, "PPE_Q3PlasmaGun";
+		Player.WeaponSlot 9, "PPE_Q3Bfg";
+		
+		DamageFactor "Quake3", 0.5;
+		DamageFactor "Quake3Plasma", 0.5;
+		DamageFactor "Quake3Rail", 0.5;
+		DamageFactor "Quake3SplashImpact", 0.0;
+		DamageFactor "Quake3Splash", 0.78;
+	}
+	
+	States
+	{
+	Spawn:
+		PLAY A -1;
+		Loop;
+	See:
+		PLAY ABCD 4;
+		Loop;
+	Missile:
+		PLAY E 12;
+		Goto Spawn;
+	Melee:
+		PLAY F 6 BRIGHT;
+		Goto Missile;
+	Pain:
+		PLAY G 4;
+		PLAY G 4 A_Pain();
+		Goto Spawn;
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath");
+	Death1:
+		PLAY H 10;
+		PLAY I 10 A_PlayerScream();
+		PLAY J 10 A_NoBlocking();
+		PLAY KLM 10;
+		PLAY N -1;
+		Stop;
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath");
+	XDeath1:
+		PLAY O 5;
+		PLAY P 5 A_XScream();
+		PLAY Q 5 A_NoBlocking();
+		PLAY RSTUV 5;
+		PLAY W -1;
+		Stop;
+	AltSkinDeath:
+		PLAY H 6;
+		PLAY I 6 A_PlayerScream();
+		PLAY JK 6;
+		PLAY L 6 A_NoBlocking();
+		PLAY MNO 6;
+		PLAY P -1;
+		Stop;
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream();
+		PLAY R 0 A_NoBlocking();
+		PLAY R 5 A_SkullPop();
+		PLAY STUVWX 5;
+		PLAY Y -1;
+		Stop;
+	}
+}
