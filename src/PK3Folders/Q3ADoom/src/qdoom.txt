@@ -9,6 +9,7 @@ global int 5:CS;
 global int 6:BER;
 global int 7:POW;
 global int 8:SOUL;
+global int 9:MEGA;
 
 script "map exit" UNLOADING
 {
@@ -33,6 +34,7 @@ script "SetSpawn" (int spawnTag)
 		case 4:BER++;break;
 		case 5:POW++;break;
 		case 6:SOUL++;break;
+		case 7:MEGA++;break;
 	}
 	
 	if(CG>2){CG=1;}
@@ -42,6 +44,7 @@ script "SetSpawn" (int spawnTag)
 	if(BER>2){BER=1;}
 	if(POW>3){POW=1;}
 	if(SOUL>2){SOUL=1;}
+	if(MEGA>2){MEGA=1;}
 	
 	if(RL==2 && CS==1) {RL=3;CS=2;} // avoid collission
 	if(RL==3 && CS==2) {RL=1;CS=1;} // avoid collission
@@ -59,6 +62,7 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 		case 4:ret=BER;break;
 		case 5:ret=POW;break;
 		case 6:ret=SOUL;break;
+		case 7:ret=MEGA;break;
 	}
 	
 	SetResultValue(ret);

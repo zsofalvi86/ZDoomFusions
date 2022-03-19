@@ -1,0 +1,155 @@
+Class PPE_DoomFusionPlayer : DoomPlayer
+{
+	double xPos, yPos, zPos;
+	int tic;
+	int breath;
+	int ddgTimer; int airTime;
+	int fwdT; int bwdT; int ltT; int rtT;
+	double tilt;
+	bool landed, jJmp, jAcro, canDJmp;
+	bool canDLt, canDRt, canDFw, canDBw;
+	const maxtilt = 1.5;
+	
+	Override void Tick ()
+	{
+		Super.Tick();
+		if (!player || !player.mo || player.mo != self){return;}
+		
+		int inp = GetPlayerInput(MODINPUT_BUTTONS);
+		int insm = GetPlayerInput(MODINPUT_SIDEMOVE);
+		int pinp = GetPlayerInput(MODINPUT_OLDBUTTONS);
+		Vector2 ppos; ppos.x = self.pos.x; ppos.y = self.pos.y;
+		FCheckPosition fcp; CheckPosition(ppos,false,fcp);
+		bool fwd = inp & BT_FORWARD; bool bwd = inp & BT_BACK;
+		//bool left = (inp & BT_MOVELEFT) || (insm < -1000);
+		//bool right = (inp & BT_MOVERIGHT) || (insm > 1000);
+		bool left = insm < -1000;
+		bool right = insm > 1000;
+		
+		SetTilt(insm);
+		
+		if (CheckInventory("PowerQ2Enviro_Fake",1))
+		{
+			//A_Print("br: "..breath);
+			if (breath <= 0) {breath = 120;}
+			else {breath--;}
+			if (breath == 60) {A_PlaySound("items/suit/breath1",5);}
+			if (breath == 1) {A_PlaySound("items/suit/breath2",5);}
+		}
+		else {breath = 0;}
+		
+		if(tic < 35) {tic++;}
+		else // per sec
+		{
+			if (!CheckInventory("PPE_Fuel",25)){GiveInventory("PPE_Fuel",1);}
+		}
+	}
+	
+	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
+	{
+		if(CheckInventory("PPE_PowerArmorOn",1)) 
+		{
+			double ratio = 0.6666;
+			//if (inflictor && absangle(angle, AngleTo(inflictor)) < 45){ratio = 0.6666;}
+			//else {ratio = 0.3333;}
+			int absorbed = damage * ratio;
+			int cells = CountInv("PPE_Cells");
+			if (cells < absorbed){ absorbed = cells; SetInventory("PPE_PowerArmorOn",0); A_PlaySound("items/powershield/off");}
+			A_PlaySound("items/powershield/hit",5);
+			TakeInventory("PPE_Cells",absorbed);
+			//A_Print("abs: "..ratio);
+			return Super.TakeSpecialDamage(inflictor, source, damage - absorbed, damagetype);
+		}
+		return Super.TakeSpecialDamage(inflictor, source, damage, damagetype);;
+	}
+	
+	void SetTilt(int sidemove)//(bool left, bool right)
+	{
+		//if (left && !right) {tilt-=0.45;}
+		//else if (right && !left) {tilt+=0.45;}
+		//else if (tilt > 0.82 && !canDLt) {tilt-=0.82;}
+		//else if (tilt < -0.82 && !canDRt) {tilt+=0.82;}
+		//else if (!canDLt && !canDRt) {tilt = 0;}
+		//if(tilt < -maxtilt){tilt = -maxtilt;} if(tilt > maxtilt){tilt = maxtilt;}
+		A_SetRoll(sidemove / 1000);//,SPF_INTERPOLATE);
+		//A_Print("t: "..tilt);
+	}
+
+	Default
+	{
+		Mass 100;
+		PainChance 255;
+		Gravity 1.0;
+		Species "Player";
+		Player.JumpZ 7.5;
+		Player.StartItem "PPE_AssaultRifle";
+		Player.StartItem "PPE_EquipmentLauncher";
+		Player.StartItem "PPE_Bullets" 50;
+		Player.DisplayName "Slayer";
+		Player.SoundClass "PPE_DoomFusionPlayer";
+	
+		Player.WeaponSlot 1, "PPE_EquipmentLauncher";
+		Player.WeaponSlot 2, "PPE_AssaultRifle";
+		Player.WeaponSlot 3, "PPE_Shotgun";
+		Player.WeaponSlot 4, "PPE_Chaingun";
+		Player.WeaponSlot 5, "PPE_RocketLauncher";
+		Player.WeaponSlot 6, "PPE_SuperShotgun";
+		Player.WeaponSlot 7, "PPE_GaussCannon";
+		Player.WeaponSlot 8, "PPE_PlasmaGun";
+		Player.WeaponSlot 9, "PPE_BFG";
+		Player.WeaponSlot 0, "PPE_ChainsawCrucible";
+	}
+	
+	States
+	{
+	Spawn:
+		PLAY A -1;
+		Loop;
+	See:
+		PLAY ABCD 4;
+		Loop;
+	Missile:
+		PLAY E 12;
+		Goto Spawn;
+	Melee:
+		PLAY F 6 BRIGHT;
+		Goto Missile;
+	Pain:
+		PLAY G 4;
+		PLAY G 4 A_Pain();
+		Goto Spawn;
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath");
+	Death1:
+		PLAY H 10;
+		PLAY I 10 A_PlayerScream();
+		PLAY J 10 A_NoBlocking();
+		PLAY KLM 10;
+		PLAY N -1;
+		Stop;
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath");
+	XDeath1:
+		PLAY O 5;
+		PLAY P 5 A_XScream();
+		PLAY Q 5 A_NoBlocking();
+		PLAY RSTUV 5;
+		PLAY W -1;
+		Stop;
+	AltSkinDeath:
+		PLAY H 6;
+		PLAY I 6 A_PlayerScream();
+		PLAY JK 6;
+		PLAY L 6 A_NoBlocking();
+		PLAY MNO 6;
+		PLAY P -1;
+		Stop;
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream();
+		PLAY R 0 A_NoBlocking();
+		PLAY R 5 A_SkullPop();
+		PLAY STUVWX 5;
+		PLAY Y -1;
+		Stop;
+	}
+}

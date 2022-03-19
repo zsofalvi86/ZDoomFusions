@@ -1,0 +1,123 @@
+Actor PPE_AssaultRifle : PPE_GunBase
+{
+	Inventory.Pickupmessage "$GOT_PPE_MG"
+	Tag "$TAG_PPE_MG"
+	Inventory.PickupSound "items/q3weapon"
+	Weapon.UpSound "items/q3switch"
+	Weapon.SelectionOrder 800
+	Weapon.SlotNumber 2
+	Weapon.AmmoType "PPE_Bullets"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 30
+	Decal "BulletChip"
+	States
+	{
+	Spawn:
+		MACW A -1
+		Stop
+	Ready:
+	Ready.V1:
+		MASG AB 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Loop
+	Ready.V2:
+		MACG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Loop
+	Deselect:
+	Deselect.V1:
+		MASG AB 1 A_Lower(18)
+		Loop
+	Deselect.V2:
+		MACG A 1 A_Lower(18)
+		Loop
+	Select:
+	Select.V1:
+		MASG AB 1 A_Raise(18)
+		Loop
+	Select.V2:
+		MACG A 1 A_Raise(18)
+		Loop
+	Fire:
+	Fire.V1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/machinegun/fire")
+	    TNT1 A 0 A_FireBullets(2.1,2.1,1,(10),"PPE_BulletPuffBaseQ3",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_MGBulletCasingShooter",0,0,0,4)
+		MASF ABC 1 bright
+		MASG B 1
+		TNT1 A 0 A_Refire
+		Goto Ready.V1
+	Fire.V1C:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/machinegun/fire")
+	    TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_BulletPuffBaseQ3",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_MGBulletCasingShooter",0,0,0,4)
+		SSSS Z 25 bright
+		Goto ZoomLoop
+	Fire.V2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/machinegun/fire")
+	    TNT1 A 0 A_FireBullets(2.1,2.1,1,(10),"PPE_BulletPuffBaseQ3",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_MGBulletCasingShooter",0,0,0,4)
+		MACF ABC 1 bright
+		MACG B 1
+		TNT1 A 0 A_Refire
+		Goto Ready.V2
+	Fire.V2C:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/machinegun/fire")
+	    TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_BulletPuffBaseQ3",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_MGBulletCasingShooter",0,0,0,4)
+		MACF ABC 1 bright
+		MACG B 1
+		Goto RocketLoop
+	AltFire:
+	AltFire.V1:
+		TNT1 A 0 A_ZoomFactor(2)
+		SSSS Z 3 bright
+	ZoomLoop:
+		SSSS Z 1 bright 
+		{ 
+			If(GetPlayerInput(INPUT_BUTTONS) & BT_ATTACK) 
+			{
+				return state("Fire.V1C");
+			}
+		}
+		TNT1 A 0 A_ReFire("ZoomLoop")
+		TNT1 A 0 A_ZoomFactor(1)
+		Goto Ready.V1
+	AltFire.V2:
+		
+	RocketLoop:	
+		
+	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 A 1 A_Light2
+		Goto LightDone
+	}
+}
+
+Actor PPE_MGBulletCasingShooter : PPE_CasingShooterBase
+{
+	Speed 8
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_BulletCasing",0,0,FRandom(-60,-75),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-13,-22))
+		Stop
+	}
+}
+
+Actor PPE_MachineGunZoom : Inventory
+{
+	Inventory.MaxAmount 1
+}

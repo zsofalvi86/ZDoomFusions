@@ -114,9 +114,9 @@
             // 
             this.btnDoAll.Location = new System.Drawing.Point(3, 33);
             this.btnDoAll.Name = "btnDoAll";
-            this.btnDoAll.Size = new System.Drawing.Size(75, 24);
+            this.btnDoAll.Size = new System.Drawing.Size(89, 24);
             this.btnDoAll.TabIndex = 5;
-            this.btnDoAll.Text = "Pack All";
+            this.btnDoAll.Text = "Pack Selected";
             this.btnDoAll.UseVisualStyleBackColor = true;
             this.btnDoAll.Click += new System.EventHandler(this.btnDoAll_Click);
             // 

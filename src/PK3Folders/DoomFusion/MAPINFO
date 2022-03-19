@@ -1,0 +1,5 @@
+GameInfo
+{
+   PlayerClasses = "PPE_Q3Player"
+   AddEventHandlers = "PPE_Q3Replace"
+}

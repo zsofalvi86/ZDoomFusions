@@ -41,6 +41,7 @@ ACTOR PPE_Q3HealthBonus : HealthBonus replaces HealthBonus
 {
 	+FLOATBOB
     Inventory.PickupSound "items/health1"
+	Inventory.PickupMessage "$GOTHTHBONUS"
     Inventory.Amount 1
     Inventory.MaxAmount 200
     States
@@ -53,6 +54,7 @@ ACTOR PPE_Q3HealthBonus : HealthBonus replaces HealthBonus
 
 ACTOR PPE_Q3HealthBonus_Q3 : PPE_Q3HealthBonus
 {
+	Inventory.PickupMessage "$GOTHTHBONUS3"
 	Inventory.Amount 5
 }
 
@@ -114,6 +116,7 @@ ACTOR PPE_Q3ArmorBonus : ArmorBonus replaces ArmorBonus
 	+FLOATBOB
     Inventory.PickupSound "items/armor1"
     Inventory.Icon "IARMA0"
+	Inventory.PickupMessage "$GOTARMBONUS"
     Armor.SaveAmount 1
     Armor.MaxSaveAmount 200
     States
@@ -126,7 +129,7 @@ ACTOR PPE_Q3ArmorBonus : ArmorBonus replaces ArmorBonus
 
 ACTOR PPE_Q3ArmorBonus_Q3 : PPE_Q3ArmorBonus
 {
-	Inventory.PickupMessage "$GOTARMOR1"
+	Inventory.PickupMessage "$GOTARMBONUS3"
     Armor.SaveAmount 5
 }
 

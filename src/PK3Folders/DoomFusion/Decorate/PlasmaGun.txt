@@ -1,0 +1,211 @@
+actor PPE_Q3PlasmaGun : PlasmaRifle
+{
+	Weapon.SelectionOrder 400
+	Weapon.AmmoGive 40
+	Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoUse 1
+	Weapon.SlotNumber 8
+	Weapon.UpSound "items/q3switch"
+	Inventory.PickupSound "items/q3weapon"
+	Inventory.Pickupmessage "$GOT_PPE_PG"
+	Tag "$TAG_PPE_PG"
+	+NOAUTOFIRE
+	+NOALERT
+	+NOAUTOAIM
+	States
+	{
+	Ready:
+		Q3PG IIIIJJKKKJJ 1 A_WeaponReady
+		Loop
+	Deselect:
+		Q3PG I 1 A_Lower(18)
+		Loop
+	Select:
+		Q3PG I 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("weapons/plasma/fire",1)
+		TNT1 A 0 A_JumpIfInventory("PowerQuadDamage",1,"FireQuad")
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_Q3PlasmaPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_NORANDOMPUFFZ,256)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"SpawnMissileHaste")
+		Goto SpawnMissile
+	FireQuad:
+		TNT1 A 0 A_PlaySound("items/quad/active",2)
+		TNT1 A 0 A_PlaySound("weapons/plasma/fire",1)
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_Q3PlasmaPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_NORANDOMPUFFZ,256)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"SpawnMissileQuadHaste")
+		Goto SpawnMissileQuad
+	SpawnMissile:
+		TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuff",FBF_NORANDOMPUFFZ,256)
+		Goto AnimNormal
+	SpawnMissileHaste:
+		TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuffHaste",FBF_NORANDOMPUFFZ,256)
+		Goto AnimHaste
+	SpawnMissileQuad:
+		TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuffQuad",FBF_NORANDOMPUFFZ,256)
+		Goto AnimNormal
+	SpawnMissileQuadHaste:
+		TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuffQuadHaste",FBF_NORANDOMPUFFZ,256)
+		Goto AnimHaste
+	AnimNormal:
+		TNT1 A 0 A_CheckForReload(2,"Anim2")
+	Anim1:
+		Q3PG ABC 1 bright
+		TNT1 A 0 A_ReFire
+		Q3PG D 1 bright
+    	Goto Ready
+	Anim2:
+		Q3PG EFGH 1 bright
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	AnimHaste:
+		TNT1 A 0 A_CheckForReload(2,"Anim2H")
+	Anim1H:
+		Q3PG AB 1 bright
+		TNT1 A 0 A_ReFire
+		Q3PG CD 1 bright
+    	Goto Ready
+	Anim2H:
+		Q3PG EFG 1 bright
+		TNT1 A 0 A_ReFire
+		Q3PG H 1 bright
+    	Goto Ready
+	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.2)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 //A_SetPitch(pitch+0.4)
+		Goto LightDone
+	Spawn:
+		Q3PG W -1
+		Stop
+   }
+}
+
+Actor PPE_Q3PlasmaPuff : BulletPuff
+{
+	+PUFFONACTORS
+	+FORCERADIUSDMG
+	-ALLOWPARTICLES
+	RenderStyle Normal
+	Vspeed 0
+	DamageType "Quake3Plasma"
+	Decal PlasmaScorch
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/plasma/impact",3)
+		TNT1 A 0 A_Explode(16,40,1,0,16,0,0,"None","Quake3PlasmaSplash")
+		PLCR ABCD 3 bright
+		Stop
+	}
+}
+
+Actor PPE_Q3PlasmaSpawnPuff : BulletPuff
+{
+	+ALWAYSPUFF
+	+PUFFONACTORS
+	+PUFFGETSOWNER
+	-ALLOWPARTICLES
+	+PAINLESS
+	+SEEINVISIBLE
+	Vspeed 0
+	States
+	{
+	Crash:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnProjectile("PPE_Q3Plasma",0,0,0,CMF_TRACKOWNER)//,180,CMF_TRACKOWNER|CMF_AIMOFFSET,-pitch)
+		Stop
+	Death:
+	XDeath:
+		TNT1 A 0
+		Stop
+	}
+}
+
+Actor PPE_Q3PlasmaSpawnPuffHaste : PPE_Q3PlasmaSpawnPuff
+{
+	States
+	{
+	Crash:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnProjectile("PPE_Q3PlasmaHaste",0,0,0,CMF_TRACKOWNER)
+		Stop
+	}
+}
+
+Actor PPE_Q3PlasmaSpawnPuffQuad : PPE_Q3PlasmaSpawnPuff
+{
+	States
+	{
+	Crash:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnProjectile("PPE_Q3PlasmaQuad",0,0,0,CMF_TRACKOWNER)
+		Stop
+	}
+}
+
+Actor PPE_Q3PlasmaSpawnPuffQuadHaste : PPE_Q3PlasmaSpawnPuff
+{
+	States
+	{
+	Crash:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnProjectile("PPE_Q3PlasmaQuadHaste",0,0,0,CMF_TRACKOWNER)
+		Stop
+	}
+}
+
+Actor PPE_Q3Plasma : PPE_SlowMissileBase
+{
+	Speed -60
+	ProjectileKickBack 120
+	Damage (10)
+	DamageType "Quake3Plasma"
+	Decal PlasmaScorch
+	SeeSound ""
+	DeathSound "weapons/plasma/impact"
+	Obituary "$OB_MPROCKET"
+	+FORCERADIUSDMG
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/plasma/fly",6,1,1)
+		TNT1 A 0 A_Jump(256,1,2,3,4,5)
+	Loopy:
+		PLSB ABCDEF 1 bright
+		loop
+	Death:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_Explode(16,40,1,0,16,0,0,"None","Quake3PlasmaSplash")
+		PLCR ABCD 3 bright
+		Stop
+	}
+}
+
+Actor PPE_Q3PlasmaHaste : PPE_Q3Plasma
+{
+	Speed -75
+}
+
+Actor PPE_Q3PlasmaQuad : PPE_Q3Plasma
+{
+	Damage (30)
+	States
+	{
+	Death:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_Explode(46,40,1,0,16,0,0,"None","Quake3PlasmaSplash")
+		PLCR ABCD 3 bright
+		Stop
+	}
+}
+
+Actor PPE_Q3PlasmaQuadHaste : PPE_Q3PlasmaQuad
+{
+	Speed -75
+}

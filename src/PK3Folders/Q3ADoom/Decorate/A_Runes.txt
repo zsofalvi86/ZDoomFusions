@@ -19,6 +19,7 @@ Actor PPE_AmmoRegen_Q3 : CustomInventory
 	Inventory.PickupMessage "$GOTQ3AMMOREGEN"
 	+INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.PERSISTENTPOWER
 	+COUNTITEM
 	States
 	{
@@ -34,11 +35,13 @@ Actor PPE_AmmoRegen_Q3 : CustomInventory
 	}
 }
 
-Actor PPE_Guard : CustomInventory replaces MegaSphere
+Actor PPE_Guard : CustomInventory
 {
 	Inventory.PickupSound "items/guard/pickup"
 	Inventory.PickupMessage "$GOTQ3GUARD"
 	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.PERSISTENTPOWER
 	+COUNTITEM
 	+FLOATBOB
 	States
@@ -46,11 +49,58 @@ Actor PPE_Guard : CustomInventory replaces MegaSphere
 	Spawn:
 		3GUR ABCDEF 2 Bright
 		loop
+	Pickup:
 	Use:
+		TNT1 A 0 A_TakeInventory("PowerDoubleDamage")
+		//TNT1 A 0 A_TakeInventory("PowerAmmoRegen")
+		//TNT1 A 0 A_TakeInventory("PowerScout")
 		TNT1 A 0 A_GiveInventory("PPE_RedArmor")
 		TNT1 A 0 A_GiveInventory("PPE_MegasphereHealth")
+		TNT1 A 0 A_GiveInventory("PPE_GuardPowerToken")
 		stop
 	}
 }
 
 Actor PPE_MegasphereHealth : MegasphereHealth {}
+
+Actor PPE_GuardPowerToken : Inventory {}
+
+Actor PPE_Doubler : CustomInventory
+{
+	Inventory.PickupSound "items/doubler/pickup"
+	Inventory.PickupMessage "$GOTQ3DOUBLER"
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.PERSISTENTPOWER
+	+COUNTITEM
+	+FLOATBOB
+	States
+	{
+	Spawn:
+		3DBR ABCDEF 2 Bright
+		loop
+	Pickup:
+	Use:
+		TNT1 A 0 A_TakeInventory("PPE_GuardPowerToken")
+		//TNT1 A 0 A_TakeInventory("PowerAmmoRegen")
+		//TNT1 A 0 A_TakeInventory("PowerScout")
+		TNT1 A 0 A_GiveInventory("PPE_DoubleG")
+		stop
+	}
+}
+
+Actor PPE_DoubleG : PowerupGiver
+{
+	powerup.duration 0x7FFFFFFD
+	powerup.type PowerDoubleDamage
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+}
+
+Actor PowerDoubleDamage : PowerDamage
+{
+	+INVENTORY.PERSISTENTPOWER
+	DamageFactor "Normal", 2
+	//Inventory.Icon "PINSD0"
+	SeeSound ""
+}

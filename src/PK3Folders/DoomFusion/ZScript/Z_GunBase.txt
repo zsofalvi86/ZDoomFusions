@@ -1,0 +1,109 @@
+Class PPE_GunBase : Weapon
+{
+	int alt;
+	
+	Override State GetReadyState()
+	{
+		A_Overlay(2,"EquipmentOverlay",true);
+		A_Overlay(-2,"HandOverlay",true);
+		A_Overlay(-3,"FlashOverlay",true);
+		if (invoker.alt == 1) { return ResolveState("Ready.V1"); }
+		if (invoker.alt == 2) { return ResolveState("Ready.V2"); }
+		else { return ResolveState("Ready"); }
+	}
+
+	Override State GetUpState()
+	{
+		if (invoker.alt == 1) { return ResolveState("Select.V1"); }
+		if (invoker.alt == 2) { return ResolveState("Select.V2"); }
+		else { return ResolveState("Select"); }
+	}
+	
+	Override State GetDownState()
+	{
+		A_StopSound(6);
+		if (invoker.alt == 1) { return ResolveState("Deselect.V1"); }
+		if (invoker.alt == 2) { return ResolveState("Deselect.V2"); }
+		else { return ResolveState("Deselect"); }
+	}
+	
+	Override State GetAtkState(bool hold) // don't care about hold, use refire with a state
+	{
+		if (invoker.alt == 1) { return ResolveState("Fire.V1"); }
+		if (invoker.alt == 2) { return ResolveState("Fire.V2"); }
+		else { return ResolveState("Fire"); }
+	}
+
+	Override State GetAltAtkState(bool hold) // don't care about hold, use refire with a state 
+	{
+		if (invoker.alt == 1) { return ResolveState("AltFire.V1"); }
+		if (invoker.alt == 2) { return ResolveState("AltFire.V2"); }
+		else { return ResolveState("AltFire"); }
+	}
+	
+	Action State A_ReadyPunchUse(int offset)
+	{
+		if(GetPlayerInput(INPUT_BUTTONS) & BT_USE) 
+		{
+			FLineTraceData trc;
+			if (!LineTrace(angle,64,pitch,0,hgt,0,0,trc)) { ResolveState("Press"); }
+			if (trc.HitType == TRACE_HitWall) { ResolveState("Press"); }
+			if (trc.HitType == TRACE_HitActor) { ResolveState("Punch"); }
+		}
+		return ResolveState(null);
+	}
+	
+	Action State A_ReadyEquipment()
+	{
+		if(GetPlayerInput(INPUT_BUTTONS) & BT_USER1) { ResolveState("EquipmentFlamethrower"); } 
+		if(GetPlayerInput(INPUT_BUTTONS) & BT_USER2) { ResolveState("EquipmentGrenade"); } 
+		if(GetPlayerInput(INPUT_BUTTONS) & BT_USER3) { ResolveState("EquipmentIcebomb"); } 
+		return ResolveState(null);
+	}
+
+	Default 
+	{
+		+Weapon.NoAlert; +Weapon.NoAutoAim; Weapon.Kickback 100;
+		Weapon.BobRangeX 0.45; Weapon.BobRangeY 0.65; Weapon.BobSpeed 2.5;
+	}
+	
+	States
+	{
+	Reload:
+		"####" "#" 0 { if(invoker.alt==1){invoker.alt=2;}else{invoker.alt=1;} }
+		"####" "#" 0 A_SelectWeapon(invoker);
+		"####" "#" 0 { return invoker.GetDownState(); }
+		Wait;
+	HandOverlay:
+		TNT1 A 1 A_ReadyPunchUse(0);
+    	Loop;
+	Punch:
+		PUNG B 2 offset(0,24);
+		PUNG B 2 offset(0,32);
+		PUNG C 2 offset(0,28);
+		PUNG C 2 offset(0,32);
+		TNT1 A 0 A_Punch();
+		PUNG D 1 offset(0,28);
+		PUNG D 2 offset(0,32);
+		PUNG D 2 offset(0,24);
+		PUNG C 2 offset(0,32);
+		PUNG C 2 offset(0,22);
+		Goto HandOverlay;
+	Press:
+		PUNG A 1 offset(0,72);
+		PUNG A 1 offset(0,64);
+		PUNG A 1 offset(0,48);
+		PUNG A 1 offset(0,32);
+		PUNG A 1 offset(0,48);
+		PUNG A 1 offset(0,64);
+		PUNG A 1 offset(0,72);
+		Goto HandOverlay;
+	EquipmentOverlay:
+		TNT1 A 1 A_ReadyEquipment();
+    	Loop;
+	EquipmentFlamethrower:
+	EquipmentGrenade:
+	EquipmentIcebomb:
+		Goto EquipmentOverlay;
+	}
+}

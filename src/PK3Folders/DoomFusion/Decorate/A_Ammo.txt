@@ -1,0 +1,195 @@
+Actor PPE_Bullets : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 10
+  Ammo.BackpackMaxAmount 400
+  Inventory.Icon "IBULA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Shells : Ammo
+{
+  Inventory.Amount 4
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 4
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "ISHLA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Rockets : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "IRKTA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Cells : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 600
+  Inventory.Icon "ICELA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Fuel : Ammo
+{
+  Inventory.Amount 0
+  Inventory.MaxAmount 100
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "ILGTA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Souls : Ammo
+{
+  Inventory.Amount 0
+  Inventory.MaxAmount 5
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 5
+  Inventory.Icon "ISLGA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+ACTOR PPE_SmallBullet : PPE_Bullets replaces Clip
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTBULLETS"
+  Inventory.PickupSound "items/bullet/small"
+  States
+  {
+  Spawn:
+    SBLA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallShell : PPE_Shells replaces Shell
+{
+  Inventory.Amount 4
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/shell/small"
+  States
+  {
+  Spawn:
+    SSHA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallRocket : PPE_Rockets replaces RocketAmmo
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/rocket/small"
+  States
+  {
+  Spawn:
+    SRKA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallCell : PPE_Cells replaces Cell
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCELL"
+  Inventory.PickupSound "items/cell/small"
+  States
+  {
+  Spawn:
+    SCEA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
+{
+  Inventory.Amount 50
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTBULLETBOX"
+  Inventory.PickupSound "items/bullet/large"
+  States
+  {
+  Spawn:
+    LBLA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLBOX"
+  Inventory.PickupSound "items/shell/large"
+  States
+  {
+  Spawn:
+    LSHA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketBox
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKBOX"
+  Inventory.PickupSound "items/rocket/large"
+  States
+  {
+  Spawn:
+    LRKA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeCell : PPE_Cells replaces CellPack
+{
+  Inventory.Amount 100
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCELLBOX"
+  Inventory.PickupSound "items/cell/large"
+  States
+  {
+  Spawn:
+    LCEA A -1
+    Stop
+  }
+}

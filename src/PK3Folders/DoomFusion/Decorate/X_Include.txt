@@ -1,0 +1,17 @@
+#Include Decorate/G_MissileBases.txt
+#Include Decorate/G_MissileParticles.txt
+#Include Decorate/A_Ammo.txt
+#Include Decorate/ChainsawCrucible.txt
+#Include Decorate/AssaultRifle.txt
+#Include Decorate/Shotgun.txt
+#Include Decorate/Chaingun.txt
+#Include Decorate/RocketLauncher.txt
+#Include Decorate/SuperShotgun.txt
+#Include Decorate/GaussGun.txt
+#Include Decorate/PlasmaGun.txt
+#Include Decorate/BFGUnmaker.txt
+#Include Decorate/EquipmentLauncher.txt
+#Include Decorate/A_Player.txt
+#Include Decorate/A_Replacers.txt
+#Include Decorate/A_Misc.txt
+#Include Decorate/A_Powerup.txt

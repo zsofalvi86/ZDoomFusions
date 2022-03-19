@@ -1,0 +1,90 @@
+[enu default]
+
+// Items
+GOTARMOR = "Picked up the armor.";
+GOTMEGA = "Picked up the MegaArmor!";
+GOTHTHBONUS = "Picked up a health bonus.";
+GOTARMBONUS = "Picked up an armor bonus.";
+GOTSTIM = "You recover 10 health.";
+GOTMEDINEED = "You recover 25 health with urgency.";
+GOTMEDIKIT = "You recover 25 health.";
+GOTSUPER = "Mega-Health!";
+GOTBLUECARD = "Picked up a blue keycard.";
+GOTYELWCARD = "Picked up a yellow keycard.";
+GOTREDCARD = "Picked up a red keycard.";
+GOTBLUESKUL = "Picked up a blue skull key.";
+GOTYELWSKUL = "Picked up a yellow skull key.";
+GOTREDSKUL = "Picked up a red skull key.";
+GOTINVUL = "Invulnerability!";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Partial Invisibility";
+GOTSUIT = "Radiation Shielding Suit";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTPORTMED = "Personal Medkit";
+GOTTELE = "Personal Teleporter!";
+GOTKAMI = "Kamikaze!";
+GOTQ3INVUL = "Invulnerability!";
+GOTQ3INVIS = "Invisibility!";
+GOTQ3SUIT = "Battle Suit!";
+GOTQ3QUAD = "Quad Damage!";
+GOTQ3REGEN = "Regeneration!";
+GOTQ3HASTE = "Haste!";
+
+// Ammo
+GOTBULLETS = "Picked up a magazine of machinegun bullets.";
+GOTBULLETBOX = "Picked up a large box of machinegun bullets.";
+GOTCBULLETS = "Picked up a magazine of chaingun bullets.";
+GOTCBULLETBOX = "Picked up a large box of chaingun bullets.";
+GOTSLUGS = "Picked up a few slugs.";
+GOTSLUGBOX = "Picked up a box of slugs.";
+GOTSHELLS = "Picked up a few shells.";
+GOTSHELLBOX = "Picked up a box of shells.";
+GOTNAILS = "Picked up a few nails.";
+GOTNAILBOX = "Picked up a box of nails.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTGRENADE = "Picked up a grenade.";
+GOTGRENBOX = "Picked up a box of grenades.";
+GOTPROX = "Picked up a proximity mine.";
+GOTPROXBOX = "Picked up a box of proximity mines.";
+GOTCELL = "Picked up a plasma cell.";
+GOTCELLBOX = "Picked up a large plasma cell.";
+GOTLIGHT = "Picked up a lightning cell.";
+GOTLIGHTBOX = "Picked up a large lightning cell.";
+GOTNUKE = "Picked up a nuclear cell.";
+GOTNUKEBOX = "Picked up a large nuclear cell.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_PPE_GNT = "You got the Gauntlet!";
+GOT_PPE_MG = "You got the Machinegun!";
+GOT_PPE_NG = "You got the Nailgun!";
+GOT_PPE_SG = "You got the Shotgun!";
+GOT_PPE_GL = "You got the Grenade Launcher!";
+GOT_PPE_RL = "You got the Rocket Launcher!";
+GOT_PPE_LG = "You got the Lightning Gun!";
+GOT_PPE_RG = "You got the Railgun!";
+GOT_PPE_PG = "You got the Plasma Gun!";
+GOT_PPE_BFG = "You got the BFG10k!";
+GOT_PPE_CG = "You got the Chaingun!";
+GOT_PPE_PL = "You got the Proximity Launcher!";
+
+// Gun Tags
+TAG_PPE_GNT = "Gauntlet";
+TAG_PPE_AR = "Machinegun";
+TAG_PPE_SG = "Shotgun";
+TAG_PPE_CG = "Chaingun";
+TAG_PPE_RL = "Rocket Launcher";
+TAG_PPE_SSG = "Super Shotgun";
+TAG_PPE_GAU = "Gauss Cannon";
+TAG_PPE_PG = "Plasma Gun";
+TAG_PPE_BFG = "BFG";
+TAG_PPE_EQ = "Equipment Launcher";
+
+// Obituary strings
+
+// Other
+
+SECRETMESSAGE = "You've found a secret area!";

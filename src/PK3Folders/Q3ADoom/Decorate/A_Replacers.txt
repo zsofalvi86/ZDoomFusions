@@ -159,6 +159,22 @@ Actor PPE_SoulSpawner : CustomInventory replaces SoulSphere
 	}
 }
 
+Actor PPE_MegaSpawner : CustomInventory replaces MegaSphere
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",7) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnItem("PPE_Guard")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_Doubler")
+		stop
+	}
+}
+
 Actor PPE_WeaponSpawnBase { +DONTGIB +NOTONAUTOMAP }
 
 Actor PPE_BulSpawn : PPE_WeaponSpawnBase { }

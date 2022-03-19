@@ -7,7 +7,6 @@ GOTHTHBONUS = "Picked up a health bonus.";
 GOTARMBONUS = "Picked up an armor bonus.";
 GOTHTHBONUS3 = "Picked up a 5 health bonus.";
 GOTARMBONUS3 = "Picked up an armor shard.";
-GOTADRENALINE = "Picked up Adrenaline! +5 Max Health.";
 GOTSTIM = "You recover 10 health.";
 GOTMEDINEED = "You recover 25 health with urgency.";
 GOTMEDIKIT = "You recover 25 health.";

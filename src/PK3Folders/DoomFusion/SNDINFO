@@ -1,0 +1,189 @@
+
+ric1	ric1
+ric2	ric2
+ric3	ric3
+ric4	ric4
+ric5	ric5
+ric6	ric6
+$random weapons/ricbq3 { ric1 ric2 ric3 }
+$random weapons/ricta { ric4 ric5 ric6 }
+weapons/whiz bulletby1
+
+//Pickups
+items/bullet/small		ampkup
+items/bullet/large		ampkup
+items/shell/small		ampkup
+items/shell/large		ampkup
+items/rocket/small		ampkup
+items/rocket/large		ampkup
+items/cell/small		ampkup
+items/cell/large		ampkup
+items/q3weapon			wpkup
+items/q3switch			change
+items/health1			shealth
+items/health2			nhealth
+items/health3			lhealth
+items/health4			mhealth
+items/armor1			ar1pkup
+items/armor2			ar2pkup
+items/holdable			holdable
+items/meduse			pmedu
+
+//Gauntlet
+weapons/gauntlet/hum	fsthum
+weapons/gauntlet/run	fstrun
+weapons/gauntlet/hit	fstatck
+
+//Machinegun
+mgf1	mgf1
+mgf2	mgf2
+mgf3	mgf3
+mgf4	mgf4
+$random weapons/machinegun/fire { mgf1 mgf2 mgf3 mgf4 }
+
+//Shotgun
+weapons/shotgun/fire	sshotf1b
+
+//Nailgun
+weapons/tanailgun/fire	wnalfire
+weapons/nailgun/fly	wnalflit
+ngimp1	wnalimpd
+ngimp2	wnalimpm
+$random weapons/nailgun/impact { ngimp1 ngimp2 }
+weapons/nailgun/hit 	wnalimpl
+
+//Grenade
+weapons/grenade/fire	grenlf1a
+glbnc1 hgrenb1a
+glbnc2 hgrenb2a
+$random weapons/grenade/bounce { glbnc1 glbnc2 }
+
+//Proximity
+weapons/prox/fire		wstbfire
+prximp1 wstbimpd
+prximp2 wstbimpm
+$random weapons/prox/impact { prximp1 prximp2 }
+weapons/prox/hit		wstbimpl
+weapons/prox/tick		wstbtick
+weapons/prox/activate	wstbactv
+weapons/prox/explode	wstbexpl
+
+//Rocket Launcher
+weapons/rocket/fire		rocklf1a
+weapons/rocket/fly		rockfly
+$volume weapons/rocket/fly 0.8
+weapons/q3exp			rocklx1a
+$limit weapons/q3exp 6
+
+//Lightning Gun
+weapons/lightning/fire	lg_fire
+lghit1 lg_hit
+lghit2 lg_hit2
+lghit3 lg_hit3
+$random weapons/lightning/hit { lghit1 lghit2 lghit3 }
+weapons/lightning/hum	lg_hum
+
+//Railgun
+weapons/railgun/fire	railgf1a
+weapons/railgun/hum		rg_hum
+weapons/railgun/impact	plasmx1a
+
+//Plasmagun
+weapons/plasma/fire		hyprbf1a
+weapons/plasma/fly		lasfly
+$volume weapons/plasma/fly 0.6
+weapons/plasma/impact	plasmx1a
+$limit weapons/plasma/impact 10
+
+//Chaingun
+cgf1 cgf1
+cgf2 cgf2
+cgf3 cgf3
+cgf4 cgf4
+$random weapons/chaingun/fire { cgf1 cgf2 cgf3 cgf4 }
+weapons/chaingun/run/slow	w_loop
+weapons/chaingun/run/fast	wvulfire
+weapons/chaingun/cool	wvulwind
+
+//BFG
+weapons/bfg/fire		bfg_fire
+weapons/bfg/hum			bfg_hum
+
+//Powerups
+items/quad/pickup		v_quad
+items/quad/active		quada
+items/quad/wearoff		quadx
+items/regen/pickup		v_regen
+items/regen/active		regen
+items/regen/wearoff		wearoff
+items/invis/pickup		v_invis
+items/invis/wearoff		wearoff
+items/haste/pickup		v_haste
+items/haste/wearoff		wearoff
+items/suit/pickup		holdable
+items/suit/wearoff		wearoff
+items/invul/pickup		invul_ac
+invi1 invul_i1 invi2 invul_i2 invi3 invul_i3
+$random items/invul/active { invi1 invi2 invi3 }
+items/invul/juice		invul_ju
+
+//Kamikaze
+weapons/kamikaze/explode kamif
+weapons/kamikaze/fire	kamis
+
+//Player
+pdth1		death1
+pdth2		death2
+pdth3		death3
+
+$random player/death { pdth1 pdth2 pdth3 }
+
+$playeralias	PPE_DoomFusionPlayer	male	*death		player/death
+$playersound	PPE_DoomFusionPlayer	male	*xdeath		udeath
+$playersound	PPE_DoomFusionPlayer	male	*gibbed		udeath
+$playersound	PPE_DoomFusionPlayer	male	*gibbed-telefrag	teledth1
+$playersound	PPE_DoomFusionPlayer	male	*pain100	pain1
+$playersound	PPE_DoomFusionPlayer	male	*pain75		pain2
+$playersound	PPE_DoomFusionPlayer	male	*pain50		pain3
+$playersound	PPE_DoomFusionPlayer	male	*pain25		pain4
+$playersounddup	PPE_DoomFusionPlayer	male	*pain100-fire	*pain100
+$playersounddup	PPE_DoomFusionPlayer	male	*pain75-fire	*pain75
+$playersounddup	PPE_DoomFusionPlayer	male	*pain50-fire	*pain50
+$playersounddup	PPE_DoomFusionPlayer	male	*pain25-fire	*pain25
+$playersounddup	PPE_DoomFusionPlayer	male	*pain100-slime	*pain100
+$playersounddup	PPE_DoomFusionPlayer	male	*pain75-slime	*pain75
+$playersounddup	PPE_DoomFusionPlayer	male	*pain50-slime	*pain50
+$playersounddup	PPE_DoomFusionPlayer	male	*pain25-slime	*pain25
+$playersounddup	PPE_DoomFusionPlayer	male	*pain100-drowning	*pain100
+$playersounddup	PPE_DoomFusionPlayer	male	*pain75-drowning	*pain75
+$playersounddup	PPE_DoomFusionPlayer	male	*pain50-drowning	*pain50
+$playersounddup	PPE_DoomFusionPlayer	male	*pain25-drowning	*pain25
+$playersound	PPE_DoomFusionPlayer	male	*pain100-falling	fall1
+$playersounddup	PPE_DoomFusionPlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	PPE_DoomFusionPlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	PPE_DoomFusionPlayer	male	*pain25-falling		*pain100-falling
+$playersound	PPE_DoomFusionPlayer	male	*grunt		jump1
+$playersound	PPE_DoomFusionPlayer	male	*land		land1
+$playersound	PPE_DoomFusionPlayer	male	*jump		jump1
+$playersound	PPE_DoomFusionPlayer	male	*usefail	jump1
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+misc/secret			secret
+misc/chat			talk		// Doom 2 chat sound
+misc/chat2			talk		// Chat sound for everything else
+
+//Teleport
+wtp1		telein
+wtp2		teleout
+
+$random misc/teleport { wtp1 wtp2 }

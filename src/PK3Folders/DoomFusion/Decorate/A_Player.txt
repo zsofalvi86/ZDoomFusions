@@ -1,0 +1,82 @@
+ACTOR PPE_DoomFusionPlayer : DoomPlayer
+{
+	Speed 1.0
+	Mass 100
+	PainChance 255
+	Species Player
+	Player.StartItem "PPE_Q3MachineGun"
+	Player.StartItem "PPE_Bullets" 50
+	Player.StartItem "PPE_Gauntlet"
+	Player.DisplayName "Slayer"
+	Player.SoundClass PPE_Quake3Player
+	
+	Player.WeaponSlot 1, PPE_Q3Gauntlet
+	Player.WeaponSlot 2, PPE_Q3MachineGun, PPE_TAChainGun
+	Player.WeaponSlot 3, PPE_Q3Shotgun, PPE_TANailShotgun
+	Player.WeaponSlot 4, PPE_TAProximityLauncher, PPE_Q3GrenadeLauncher
+	Player.WeaponSlot 5, PPE_Q3RocketLauncher
+	Player.WeaponSlot 6, PPE_Q3LightningGun
+	Player.WeaponSlot 7, PPE_Q3RailGun
+	Player.WeaponSlot 8, PPE_Q3PlasmaGun
+	Player.WeaponSlot 9, PPE_Q3Bfg
+	//Player.WeaponSlot 0, PPE_TANailShotgun, PPE_Q3ChainGun
+	
+	DamageFactor "Quake3", 0.5
+	DamageFactor "Quake3Plasma", 0.5
+	DamageFactor "Quake3Rail", 0.5
+	DamageFactor "Quake3SplashImpact", 0.0
+	DamageFactor "Quake3Splash", 0.78
+  
+	States
+	{
+	Spawn:
+		PLAY A -1
+		Loop
+	See:
+		PLAY ABCD 4 
+		Loop
+	Missile:
+		PLAY E 12 
+		Goto Spawn
+	Melee:
+		PLAY F 6 BRIGHT
+		Goto Missile
+	Pain:
+		PLAY G 4 
+		PLAY G 4 A_Pain
+		Goto Spawn
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath")
+	Death1:
+		PLAY H 10
+		PLAY I 10 A_PlayerScream
+		PLAY J 10 A_NoBlocking
+		PLAY KLM 10
+		PLAY N -1
+		Stop
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath")
+	XDeath1:
+		PLAY O 5
+		PLAY P 5 A_XScream
+		PLAY Q 5 A_NoBlocking
+		PLAY RSTUV 5
+		PLAY W -1
+		Stop
+	AltSkinDeath:
+		PLAY H 6
+		PLAY I 6 A_PlayerScream
+		PLAY JK 6
+		PLAY L 6 A_NoBlocking
+		PLAY MNO 6
+		PLAY P -1
+		Stop
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream
+		PLAY R 0 A_NoBlocking
+		PLAY R 5 A_SkullPop
+		PLAY STUVWX 5
+		PLAY Y -1
+		Stop
+	}
+}

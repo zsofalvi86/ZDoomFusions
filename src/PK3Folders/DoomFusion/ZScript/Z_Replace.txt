@@ -1,0 +1,47 @@
+Class PPE_Q3Replace : EventHandler
+{	
+	//override void WorldLoaded (WorldEvent e)
+	//{
+	//	console.printf("%s", "loaded");
+	//}
+	
+	//override void CheckReplacement (ReplaceEvent e)
+	//{
+		//if (e.Replacee == "Clip")
+		//{
+			//if (e.Replacee.bDropped)
+			//{
+			//	e.Replacement = "PPE_SmallBullet";
+			//}
+			//else 
+			/*if (CheckProximity("PPE_TAChainGun",4000,1,CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST))
+			{
+				e.Replacement = "PPE_SmallChaingunBullet";
+			}
+			else if (CheckProximity("PPE_Q3LightningGun",4000,1,CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST))
+			{
+				e.Replacement = "PPE_SmallLightning";
+			}
+			else
+			{*/
+			//	console.printf("%s%p", "replace:", e.Replacee);
+			//	e.Replacement = "PPE_SmallBullet";
+			//}
+		//}
+	//}
+	
+	/*override void WorldThingSpawned (WorldEvent e)
+	{
+		string aname = e.Thing.GetClassName();
+		if (aname == "Clip")
+		{
+			console.printf("%s%s", "spawn:", aname);
+		}
+		if (aname == "PPE_SmallBullet")
+		{
+			console.printf("%s%s", "spawn:", aname);
+		}
+	}*/
+	
+	//void CheckForR 
+}
