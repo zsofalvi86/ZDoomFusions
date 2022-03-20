@@ -1,0 +1,117 @@
+[enu default]
+
+// Items
+GOTARMOR1 = "Picked up the light armor.";
+GOTARMOR2 = "Picked up the medium armor.";
+GOTARMOR3 = "Picked up the heavy armor.";
+GOTPARMOR = "Picked up the power armor!";
+GOTMEGA = "Picked up the MegaArmor!";
+GOTHTHBONUS = "Picked up a health bonus.";
+GOTARMBONUS = "Picked up an armor shard.";
+GOTSTIM = "You recover 10 health.";
+GOTMEDINEED = "You recover 25 health with urgency.";
+GOTMEDIKIT = "You recover 25 health.";
+GOTSUPER = "Mega-Health!";
+GOTADRENALINE = "Adrenaline!";
+GOTBLUECARD = "Picked up a blue keycard.";
+GOTYELWCARD = "Picked up a yellow keycard.";
+GOTREDCARD = "Picked up a red keycard.";
+GOTBLUESKUL = "Picked up a blue skull key.";
+GOTYELWSKUL = "Picked up a yellow skull key.";
+GOTREDSKUL = "Picked up a red skull key.";
+GOTINVUL = "Invulnerability!";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Shadow Power!";
+GOTSUIT = "Picked up a Battle Suit!";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTTRAPSPHERE = "Picked up a trapped soul!";
+GOTQUAD = "Quad Damage!";
+GOTMEDKIT = "Picked up a Portable MedKit.";
+GOTTELEPORT = "Picked up a Personal Teleport.";
+
+// Inventory Tags
+TAG_PPE_MEDKIT = "Portable MedKit";
+TAG_PPE_TELEPORT = "Personal Teleport";
+
+// Ammo
+GOTBULLETS = "Picked up a cartridge of bullets.";
+GOTBULLETBOX = "Picked up a box of bullets.";
+GOTSLUGS = "Picked up a slug.";
+GOTSLUGBOX = "Picked up a box of slugs.";
+GOTSHELLS = "Picked up a bundle of shells.";
+GOTSHELLBOX = "Picked up a box of shells.";
+GOTNAILS = "Picked up a bundle of nails.";
+GOTNAILBOX = "Picked up a box of nails.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTCELL = "Picked up a small energy cell.";
+GOTCELLBOX = "Picked up a large energy cell.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_PPE_BLS = "You got the Blaster!";
+GOT_PPE_FST = "You got the Gauntlet!";
+GOT_PPE_LSG = "You got the Shotgun!";
+GOT_PPE_SG = "You got the Repeater Shotgun!";
+GOT_PPE_DSG = "You got the Double-Barreled Shotgun!";
+GOT_PPE_SSG = "You got the Super Shotgun!";
+GOT_PPE_MG = "You got the Machinegun!";
+GOT_PPE_CG = "You got the Chaingun!";
+GOT_PPE_NG = "You got the Nailgun!";
+GOT_PPE_SNG = "You got the Super Nailgun!";
+GOT_PPE_GL = "You got the Grenade Launcher!";
+GOT_PPE_UGL = "You got the Utility Grenade Launcher!";
+GOT_PPE_RL = "You got the Rocket Launcher!";
+GOT_PPE_ML = "You got the Missile Launcher!";
+GOT_PPE_HYB = "You got the Hyperblaster!";
+GOT_PPE_LG = "You got the Lightning Gun!";
+GOT_PPE_PG = "You got the Plasma Gun!";
+GOT_PPE_RG = "You got the Railgun!";
+GOT_PPE_PHX = "You got the Phalanx Particle Cannon!";
+GOT_PPE_TB = "You got the Thunderbolt!";
+GOT_PPE_BFG = "You got the BFG10k!";
+GOT_PPE_DMG = "You got the Dark Matter Gun!";
+
+// Gun Tags
+TAG_PPE_BLS = "Blaster";
+TAG_PPE_FST = "Gauntlet";
+TAG_PPE_LSG = "Shotgun";
+TAG_PPE_SG = "Repeater Shotgun";
+TAG_PPE_SSG = "Double-Barreled Shotgun";
+TAG_PPE_SSG = "Super Shotgun";
+TAG_PPE_MG = "Machinegun";
+TAG_PPE_CG = "Chaingun";
+TAG_PPE_NG = "Nailgun";
+TAG_PPE_SNG = "Super Nailgun";
+TAG_PPE_GL = "Grenade Launcher";
+TAG_PPE_UGL = "Utility Grenade Launcher";
+TAG_PPE_RL = "Rocket Launcher";
+TAG_PPE_ML = "Missile Launcher";
+TAG_PPE_HYB = "Hyperblaster";
+TAG_PPE_LG = "Lightning Gun";
+TAG_PPE_PG = "Plasma Gun";
+TAG_PPE_RG = "Railgun";
+TAG_PPE_PHX = "Phalanx Particle Cannon";
+TAG_PPE_TB = "Thunderbolt";
+TAG_PPE_BFG = "BFG10k";
+TAG_PPE_DMG = "Dark Matter Gun";
+
+// Obituary strings
+OB_MPAX = "%o was ax-murdered by %k.";
+OB_MPSG = "%o chewed on %k's boomstick";
+OB_MPDSG = "%o ate 2 loads of %k's buckshot.";
+OB_MPNG = "%o was nailed by %k.";
+OB_MPSNG = "%o was punctured by %k.";
+OB_MPGL = "%o eats %k's pineapple.";
+OB_MPRL = "%o rides %k's rocket.";
+OB_MPPL = "%o got too friendly with %k's bomb.";
+OB_MPTB = "%o was melted by %k's plasma gun.";
+OB_MPLC = "%o was toasted by %k's laser.";
+OB_MPMJ = "%o was slammed by %k's hammer.";
+OB_MPTELEFRAG = "%o was telefragged by %k.";
+
+//Other
+
+SECRETMESSAGE = "You've found a secret area!";

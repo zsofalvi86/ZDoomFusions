@@ -1,0 +1,76 @@
+Actor PPE_RepeaterShotgun : Shotgun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_SG"
+	Tag "$TAG_PPE_SG"
+	Inventory.PickupSound "items/weapon2"
+	Weapon.UpSound "weapons/switch"
+	Weapon.SelectionOrder 800
+	Weapon.SlotNumber 3
+	Weapon.AmmoType1 "PPE_HeavyShells"
+	Weapon.AmmoType2 "PPE_HeavyShells"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoUse2 1
+	Weapon.AmmoGive 8
+	Decal "BulletChip"
+	DamageType "Quake2Shell"
+	States
+	{
+	Ready:
+    	Q2SG A 1 A_WeaponReady
+    	Loop
+  	Deselect:
+		TNT1 A 0 A_StopSound(6)
+	DeseLoop:
+		Q2SG A 1 A_Lower(18)
+    	Loop
+  	Select:
+		Q2SG A 1 A_Raise(18)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash //4 - should one shot imps
+		TNT1 A 0 A_FireBullets(3.5,3.5,12,(7),"PPE_RicBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_PlaySound("weapons/shotgun/fire",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+    	Q2SF ABC 2 bright
+		Goto Pump
+	AltFire:
+		TNT1 A 0 A_PlaySound("weapons/shotgun/spin",3)
+		Q2SG AB 2
+	AltFireLoop:
+		TNT1 A 0 A_PlaySound("weapons/shotgun/altfire",6)
+		Q2SG CD 2
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash //4 - should one shot imps
+		TNT1 A 0 A_FireBullets(4.0,4.0,12,(7),"PPE_RicBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_PlaySound("weapons/shotgun/fire",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+    	Q2SF ABC 1 bright
+		Q2SG B 2
+		TNT1 A 0 A_ReFire("AltFireLoop")
+	Pump:
+		TNT1 A 0 A_PlaySound("weapons/shotgun/reload",4)
+		//Q2SG DEFGHI 2
+		//Q2SG J 3
+		//Q2SG IHGFED 2
+		Q2SG EFGHIJ 2
+		Q2SG JIHGFE 2
+		//Q2SG A 8
+		Q2SG BCDA 2
+		TNT1 A 0 A_ReFire
+		Goto Ready
+  	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAA 1 A_SetPitch(pitch-0.45)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 A_SetPitch(pitch+0.9)
+		Goto LightDone
+  	Spawn:
+    	Q2SW A -1
+    	Stop
+	}
+}
+

@@ -1,0 +1,183 @@
+ACTOR PPE_Q2Stimpack : Stimpack replaces Stimpack
+{
+	Inventory.PickupSound "items/health2"
+	Inventory.Amount 10
+	States
+	{
+	Spawn:
+		MEDS A -1 bright
+		Stop
+	}
+}
+
+ACTOR PPE_Q2MediKit : MediKit replaces MediKit
+{
+	Inventory.PickupSound "items/health3"
+	Inventory.Amount 25
+	States
+	{
+	Spawn:
+		MEDL A -1 bright
+		Stop
+	}
+}
+
+ACTOR PPE_HealthBonus : HealthBonus replaces HealthBonus
+{
+  Inventory.PickupSound "items/health1"
+  Inventory.Amount 1
+  Inventory.MaxAmount 250
+  States
+  {
+  Spawn:
+		HBSP ABCDDCBA 2 bright
+		Loop
+  }
+}
+
+ACTOR PPE_Adrenaline_Upgrade : UpgradeStamina //replaces Berserk
+{
+  Inventory.PickupMessage "$GOTADRENALINE"
+  Inventory.PickupSound "items/q2pickup"
+  Inventory.Amount 1
+  Inventory.MaxAmount 200
+  States
+  {
+  Spawn:
+		2ADR A -1
+		Stop
+  }
+}
+
+ACTOR PPE_ArmorBonus : ArmorBonus replaces ArmorBonus
+{
+  Inventory.PickupSound "items/armor1"
+  Inventory.Icon "ARMLA0"
+  Armor.SavePercent 30
+  Armor.SaveAmount 1
+  Armor.MaxSaveAmount 200
+  States
+  {
+  Spawn:
+		ARSD AABCDDCBA 2 bright
+		Loop
+  }
+}
+
+ACTOR PPE_Q2MegaHealth : CustomInventory replaces Soulsphere
+{
+  +COUNTITEM
+  +INVENTORY.ALWAYSPICKUP
+  Inventory.PickupMessage "$GOTSUPER"
+  Inventory.PickupSound "items/health4"
+  States
+  {
+  Spawn:
+    2MGH A -1
+    Stop
+  Pickup:
+    TNT1 A 0 A_GiveInventory("PPE_HealthBonus",100)
+	TNT1 A 0 A_GiveInventory("PPE_TempHealth",100)
+    Stop
+  }
+}
+
+Actor PPE_GreenArmorSpawner : CustomInventory replaces GreenArmor
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 4,"Spawn2")
+		TNT1 A 0 A_SpawnItem("PPE_GreenArmor")
+		stop
+	Spawn2:
+		TNT1 A 0 A_Jump(256,1,2)
+		TNT1 A 0 A_SpawnItem("PPE_GreenArmor")
+		stop
+		TNT1 A 0 A_SpawnItem("PPE_YellowArmor")
+		stop
+	}
+}
+
+Actor PPE_BlueArmorSpawner : CustomInventory replaces BlueArmor
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 3,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 6,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_YellowArmor")
+		stop
+	Spawn2:
+		TNT1 A 0 A_Jump(256,1,2)
+		TNT1 A 0 A_SpawnItem("PPE_YellowArmor")
+		stop
+		TNT1 A 0 A_SpawnItem("PPE_RedArmor")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_RedArmor")
+		stop
+	}
+}
+
+ACTOR PPE_GreenArmor : GreenArmor
+{
+	Inventory.PickupSound "items/armor2"
+	Inventory.Icon "ARMLA0"
+	Inventory.PickupMessage "$GOTARMOR1"
+	Armor.SavePercent 30
+	Armor.SaveAmount 100
+	States
+	{
+	Spawn:
+		ARML AABCDDCBA 2 bright
+		Loop
+	}
+}
+
+ACTOR PPE_YellowArmor : BlueArmor
+{
+	Inventory.PickupSound "items/armor3"
+	Inventory.Icon "ARMMA0"
+	Inventory.PickupMessage "$GOTARMOR2"
+	Armor.SavePercent 60
+	Armor.SaveAmount 150
+	States
+	{
+	Spawn:
+		ARMM AABCDDCBA 2 bright
+		Loop
+	}
+}
+
+ACTOR PPE_RedArmor : BlueArmor
+{
+	Inventory.PickupSound "items/armor4"
+	Inventory.Icon "ARMHA0"
+	Inventory.PickupMessage "$GOTARMOR3"
+	Armor.SavePercent 80
+	Armor.SaveAmount 200
+	States
+	{
+	Spawn:
+		ARMH AABCDDCBA 2 bright
+		Loop
+	}
+}
+
+ACTOR PPE_PowerArmor : BlueArmor replaces MegaSphere
+{
+	Inventory.PickupSound "items/armor4"
+	Inventory.Icon "MEGAA0"
+	Inventory.PickupMessage "$GOTPARMOR"
+	Armor.SavePercent 100
+	Armor.SaveAmount 300
+	States
+	{
+	Spawn:
+		MEGA C -1
+		stop
+	}
+}

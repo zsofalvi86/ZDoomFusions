@@ -1,0 +1,79 @@
+Actor PPE_ChainGun_Q3 : Chaingun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_CG"
+	Tag "$TAG_PPE_CG"
+	Inventory.PickupSound "items/weapon2"
+	Weapon.UpSound "weapons/switch"
+	Weapon.SelectionOrder 400
+	Weapon.SlotNumber 5
+	Weapon.AmmoType "PPE_Bullets"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 40
+	Decal "BulletChip"
+	States
+	{
+	Spawn:
+		Q3CW A -1
+		Stop
+	Ready:
+		Q3CG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_StopSound(6)
+	DeseLoop:
+		Q3CG A 1 A_Lower
+		TNT1 A 0 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		Q3CG A 1 A_Raise
+		TNT1 A 0 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("weapons/chaingun/run",6,1.0,1)
+		TNT1 A 0 A_AlertMonsters
+		Q3CF A 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire2")
+		TNT1 A 0 A_FireBullets(6.3,6.1,-1,(13),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		Q3CF B 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire2")
+		TNT1 A 0 A_FireBullets(6.3,6.1,-1,(13),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_ReFire("Hold")
+		Q3CF CD 1 bright
+		Goto WindDown
+	Hold:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		Q3CF C 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire2")
+		TNT1 A 0 A_FireBullets(6.3,6.1,1,(13),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		Q3CF D 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlayWeaponSound("weapons/chaingun/fire2")
+		TNT1 A 0 A_FireBullets(6.3,6.1,1,(13),"PPE_BulletPuffTA",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_ReFire("Fire")
+		Goto WindDown
+	WindDown:
+		TNT1 A 0 A_PlaySound("weapons/chaingun/cool",6)
+		Q3CX ABCD 1 bright
+		Q3CG A 1
+		Q3CG BB 1
+		Q3CG CCC 1
+		Goto Ready
+	Flash:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2)
+		TNT1 A 1 A_Light1
+		Goto LightDone
+		TNT1 A 1 A_Light2
+		Goto LightDone
+	}
+}

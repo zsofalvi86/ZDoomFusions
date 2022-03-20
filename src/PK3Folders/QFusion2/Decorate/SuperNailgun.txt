@@ -1,0 +1,327 @@
+Actor PPE_SuperNail : PPE_Nail1Base
+{
+	DamageType "Quake1Nail"
+	Speed 40
+	DamageType LesserCloseSplatter
+	Damage (24) // 18
+}
+
+Actor PPE_SuperFireNail : PPE_FireNail1Base
+{
+	+PIERCEARMOR
+	DamageType "Quake1Nail"
+	Speed 40
+	DamageType CloseSplatter
+	Damage (40) // 30
+}
+
+Actor PPE_ShotNailBounce0 : PPE_ShotNailBounceBase
+{
+	Damage (24)
+}
+
+Actor PPE_ShotNailBounceLava0 : PPE_ShotNailBounceLavaBase
+{
+	Damage (40)
+}
+
+Actor PPE_SuperNailgun : Plasmarifle
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_SNG"
+	Tag "$TAG_PPE_SNG"
+	Inventory.PickupSound "items/weapon1"
+	Weapon.UpSound "weapons/switch"
+	Weapon.SelectionOrder 400
+	Weapon.SlotNumber 5
+	Weapon.AmmoType1 "PPE_Nails"
+	Weapon.AmmoType2 "PPE_Nails"
+	Weapon.AmmoUse1 2
+	Weapon.AmmoUse2 20
+	Weapon.AmmoGive1 40
+	States
+	{
+	Spawn:
+		SNGW A -1
+		Stop
+	Ready:
+		TNT1 A 0 A_JumpIfInventory("PPE_SngHeat",64,"ReadyLava")
+		NG2G A 1 A_WeaponReady//{ A_WeaponReady; A_TakeInventory("PPE_SngHeat",1); }
+		Loop
+	ReadyLava:
+		NG2L BAAABBCCCB 1 A_WeaponReady//{ A_WeaponReady; A_TakeInventory("PPE_SngHeat",1); }
+		Loop
+		//Goto Ready
+	Deselect:
+		//TNT1 A 0 A_SetInventory("PPE_SngHeat",0)
+	//DeseLoop:
+		TNT1 A 0 A_Lower
+		TNT1 A 0 A_Lower
+		NG2G A 1 A_Lower
+		Loop
+	Select:
+		TNT1 A 0 A_Raise
+		TNT1 A 0 A_Raise
+		NG2G A 1 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_PlaySound("weapons/supernailgun/windup",5)
+	FireLoop:
+		TNT1 A 0 A_JumpIfInventory("PPE_SngHeat",48,"FireLava")
+		//TNT1 A 0 A_GiveInventory("PPE_SngHeat",4)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/supernailgun/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("weapons/supernailgun/loop",6)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireCustomMissile("PPE_SuperNail",0,1,0,3,1,0)
+	FireAnimation:
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",5,"FireCont5")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",4,"FireCont4")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",3,"FireCont3")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",2,"FireCont2")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",1,"FireCont1")
+		TNT1 A 0 A_Jump(256,"FireCont")
+	FireCont: // SngState: 0, frames: 4
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2F A 1 bright
+		NG2F B 1 bright
+		NG2F C 1 bright
+		NG2G D 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		NG2G EF 1
+		Goto Spindown
+	FireCont1: // SngState: 1, frames: 3
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2F D 1 bright
+		NG2F E 1 bright
+		NG2F F 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		goto Spindown
+	FireCont2: // SngState: 2, frames: 4
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2F G 1 bright
+		NG2F H 1 bright
+		NG2F I 1 bright
+		NG2G D 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		NG2G EF 1
+		Goto Spindown
+	FireCont3: // SngState: 3, frames: 3
+		TNT1 A 0 A_TakeInventory("PPE_SngState",3)
+		NG2F J 1 bright
+		NG2F K 1 bright
+		NG2F L 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		goto Spindown
+	FireCont4: // SngState: 4, frames: 4
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2F G 1 bright
+		NG2F H 1 bright
+		NG2F I 1 bright
+		NG2G D 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		NG2G EF 1
+		Goto Spindown
+	FireCont5: // SngState: 5, frames: 3
+		TNT1 A 0 A_TakeInventory("PPE_SngState",3)
+		NG2F J 1 bright
+		NG2F K 1 bright
+		NG2F L 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		goto Spindown
+	Spindown:
+		NG2G ABC 1
+		NG2G DE 2
+		NG2G F 3
+		TNT1 A 0 A_TakeInventory("PPE_SngState",3)
+		Goto Ready
+	FireLava:
+		//TNT1 A 0 A_GiveInventory("PPE_SngHeat",4)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/supernailgun/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/supernailgun/loop",6)
+		TNT1 A 0 A_FireCustomMissile("PPE_SuperFireNail",0,1,0,3,1,0)
+		TNT1 A 0 A_FireCustomMissile("none",0,1,0,3,1,0)
+		TNT1 A 0 A_Jump(256,"FireAnimationLava")
+		Stop
+	FireAnimationLava:
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",5,"FireCont5Lava")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",4,"FireCont4Lava")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",3,"FireCont3Lava")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",2,"FireCont2Lava")
+		TNT1 A 0 A_JumpIfInventory("PPE_SngState",1,"FireCont1Lava")
+		TNT1 A 0 A_Jump(256,"FireContLava")
+	FireContLava: // SngState: 0, frames: 4
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2N A 1 bright
+		NG2N B 1 bright
+		NG2N C 1 bright
+		NG2M D 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		NG2G EF 1
+		Goto SpindownLava
+	FireCont1Lava: // SngState: 1, frames: 3
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2N D 1 bright
+		NG2N E 1 bright
+		NG2N F 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		goto SpindownLava
+	FireCont2Lava: // SngState: 2, frames: 4
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2N G 1 bright
+		NG2N H 1 bright
+		NG2N I 1 bright
+		NG2M D 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		NG2G EF 1
+		Goto SpindownLava
+	FireCont3Lava: // SngState: 3, frames: 3
+		TNT1 A 0 A_TakeInventory("PPE_SngState",3)
+		NG2N J 1 bright
+		NG2N K 1 bright
+		NG2N L 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		goto SpindownLava
+	FireCont4Lava: // SngState: 4, frames: 4
+		TNT1 A 0 A_GiveInventory("PPE_SngState",1)
+		NG2N G 1 bright
+		NG2N H 1 bright
+		NG2N I 1 bright
+		NG2M D 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		NG2G EF 1
+		Goto SpindownLava
+	FireCont5Lava: // SngState: 5, frames: 3
+		TNT1 A 0 A_TakeInventory("PPE_SngState",3)
+		NG2N J 1 bright
+		NG2N K 1 bright
+		NG2N L 1 bright
+		TNT1 A 0 A_ReFire("FireLoop")
+		goto SpindownLava
+	SpindownLava:
+		TNT1 A 0 A_PlaySound("weapons/nailgun/cool",6)
+		NG2L A 1
+		NG2M BC 1
+		NG2M DE 2
+		NG2M F 3
+		TNT1 A 0 A_TakeInventory("PPE_SngState",3)
+		Goto Ready
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory("PPE_SngHeat",64,"UnLava")
+		TNT1 A 0 A_SetInventory("PPE_SngHeat",65)
+		TNT1 A 0 A_PlaySound("weapons/nailgun/lavaon",5)
+		NG2G A 2
+		NG2L CBA 2
+		Goto Ready
+	UnLava:
+		TNT1 A 0 A_SetInventory("PPE_SngHeat",0)
+		TNT1 A 0 A_PlaySound("weapons/nailgun/lavaoff",5)
+		NG2L ABC 2
+		NG2G A 2
+		Goto Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.3)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.6)
+		Goto LightDone
+	//AltFire:
+		TNT1 A 0 A_JumpIfInventory("PPE_SngHeat",48,"AltFireLava")
+		TNT1 A 0 A_GiveInventory("PPE_SngHeat",12)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/nailgun/fireta",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounce1",FRandom(-4.3,4.3),1,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounce1",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AA 0 A_FireProjectile("PPE_ShotNailBounce4",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounce2",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounce3",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		NG2F ABC 2 bright
+		NG2G DEF 2
+		NG2G ABC 3
+		NG2G DEF 4
+		NG2G A 2
+		TNT1 A 0 A_ReFire
+		goto Ready
+	//AltFireLava:
+		TNT1 A 0 A_GiveInventory("PPE_SngHeat",12)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/nailgun/fireta",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounceLava1",FRandom(-4.3,4.3),1,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounceLava1",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AA 0 A_FireProjectile("PPE_ShotNailBounceLava4",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounceLava2",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounceLava3",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireCustomMissile("none",0,1,0,3,1,0)
+		NG2N ABC 2 bright
+		NG2M DEF 2
+		TNT1 A 0 A_PlaySound ("weapons/nailgun/cool",6)
+		NG2L CBA 1
+		NG2M BC 3
+		NG2M DEF 4
+		NG2L AB 1
+		TNT1 A 0 A_ReFire
+		goto Ready
+	}
+}
+
+Actor PPE_SngState : Inventory
+{
+	Inventory.MaxAmount 5
+}
+
+Actor PPE_SngHeat : Inventory
+{
+	Inventory.MaxAmount 96
+}
+
+Actor PPE_ShotNailBounce1 : PPE_ShotNailBounce0
+{
+	Speed 35
+}
+
+Actor PPE_ShotNailBounce2 : PPE_ShotNailBounce0
+{
+	Speed 37
+}
+
+Actor PPE_ShotNailBounce3 : PPE_ShotNailBounce0
+{
+	Speed 39
+}
+
+Actor PPE_ShotNailBounce4 : PPE_ShotNailBounce0
+{
+	Speed 41
+}
+
+Actor PPE_ShotNailBounceLava1 : PPE_ShotNailBounceLava0
+{
+	Speed 35
+}
+
+Actor PPE_ShotNailBounceLava2 : PPE_ShotNailBounceLava0
+{
+	Speed 37
+}
+
+Actor PPE_ShotNailBounceLava3 : PPE_ShotNailBounceLava0
+{
+	Speed 39
+}
+
+Actor PPE_ShotNailBounceLava4 : PPE_ShotNailBounceLava0
+{
+	Speed 41
+}

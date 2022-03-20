@@ -1,0 +1,309 @@
+
+ric1	ric1
+ric2	ric2
+ric3	ric3
+$random weapons/ric { ric1 ric2 ric3 }
+$random weapons/nailric { ric2 ric3 }
+
+//Pickups
+items/ammo1				ampkup1
+items/ammo2				ampkup2
+items/weapon1			wpkup1
+items/weapon2			wpkup2
+items/adrenaline		ipkup
+items/health1			hpkup1
+items/health2			hpkup2
+items/health3			hpkup3
+items/health4			hpkup4
+items/armor1			arpkup1
+items/armor2			arpkup2
+items/armor3			arpkup3
+items/armor4			arpkup4
+
+//Powerup
+items/biosuit/pickup	suit
+items/biosuit/fade		suit2
+items/quad/pickup		damage
+items/quad/fade			damage2
+items/quad/use			damage3
+items/invul/pickup		protect
+items/invul/fade		protect2
+items/invul/absorb		protect3
+items/ring/pickup		inv1
+items/ring/fade			inv2
+items/ring/loop			inv3
+
+//Generic
+weapons/switch			change
+
+//Melee
+weapons/melee/idle	sawidle
+weapons/melee/saw	sawhit
+weapons/melee/hit	fstatck
+weapons/melee/run	fstrun
+
+//Grappling Hook
+weapons/hook/fire	grfire
+weapons/hook/hang	grhang
+weapons/hook/hit	grhit
+weapons/hook/pull	grpull
+weapons/hook/reset	grreset
+
+//Blaster
+weapons/blaster/fire1	blastf
+weapons/blaster/fire2	enfire
+weapons/blaster/fire3	rippfire
+weapons/blaster/fly		lasfly
+weapons/blaster/hit		lashit
+$volume weapons/blaster/fly 0.5
+$limit weapons/blaster/hit 5
+
+//Shotguns
+weapons/shotgun/fire		shotgf
+weapons/shotgun/reload		shotgr
+weapons/shotgun/spin		infatck3
+weapons/shotgun/altfire		sgrot
+weapons/lightshotgun/fire	shotgn1
+weapons/dbshotgun/fire		shotgn2
+weapons/dbshotgun/cycler1	cycler1
+weapons/dbshotgun/cycler2	cycler2
+weapons/supershotgun/fire1	sshotf1
+weapons/supershotgun/fire2	sshotf2
+
+weapons/phalanx/init		gunatck1
+weapons/phalanx/tick		ticktock
+weapons/phalanx/powerup		rpup
+weapons/phalanx/fire		phaf
+weapons/phalanx/fly			phafly
+weapons/phalanx/explode		rocklx1a
+
+//Machinegun
+mgf1	q3mgf1
+mgf2	q3mgf2
+mgf3	q3mgf3
+mgf4	q3mgf4
+$random weapons/machinegun/fire { mgf1 mgf2 mgf3 mgf4 }
+
+//Chaingun
+cgf11	mgf1
+cgf12	mgf2
+cgf13	mgf3
+cgf14	mgf4
+cgf15	mgf5
+$random weapons/chaingun/fire1 { cgf11 cgf12 cgf13 cgf14 cgf15 }
+cgf21 cgf1
+cgf22 cgf2
+cgf23 cgf3
+cgf24 cgf4
+$random weapons/chaingun/fire2 { cgf21 cgf22 cgf23 cgf24 }
+weapons/chaingun/xfire	xfire
+weapons/chaingun/xloop	mcnloop
+weapons/chaingun/windup	chgwu
+weapons/chaingun/loop	chgloop
+weapons/chaingun/winddown	chgwd
+weapons/chaingun/run	wvulfire
+weapons/chaingun/cool	wvulwind
+
+//Nailguns
+weapons/nailgun/fire	spike1
+weapons/nailgun/shoot	tspike1
+weapons/nailgun/wallhit	tink1
+$limit weapons/nailgun/fire 0
+weapons/supernailgun/fire	spike2
+weapons/supernailgun/windup	tsnglb
+weapons/supernailgun/loop	tspike2
+$limit weapons/supernailgun/fire 0
+weapons/nailgun/lavaon	lavaon
+weapons/nailgun/lavaoff	lavaoff
+weapons/nailgun/cool	nailcd
+weapons/nailgun/fireta	wnalfire
+weapons/nailgun/fly	wnalflit
+weapons/nailgun/bounce wnalimpm
+weapons/nailgun/impact wnalimpd
+weapons/nailgun/hit 	wnalimpl
+weapons/etf/fire		spike1
+weapons/etf/hit			lashit
+weapons/etf/shoot		spike3
+
+//Grenade
+hgrb1	hgrenb1
+hgrb2	hgrenb2
+$random weapons/grenade/bounce3 { hgrb1 hgrb2 }
+weapons/grenade/fire2	grenlf
+weapons/grenade/reload	grenlr
+weapons/grenade/bounce2	grenlb
+weapons/grenade/fire1	qnade
+weapons/grenade/bounce1	qbnc
+weapons/grenade/explode	qexp
+weapons/proximity/fire1	proxf
+weapons/proximity/fire3	wstbfire
+prximp1 wstbimpd
+prximp2 wstbimpm
+$random weapons/prox/impact { prximp1 prximp2 }
+weapons/proximity/open	proxopen
+weapons/proximity/hit	wstbimpl
+weapons/proximity/tick	wstbtick
+weapons/proximity/warn	proxwarn
+weapons/tesla/open		teslaopen
+weapons/tesla/lash		tesla
+
+//Rocket Launcher
+weapons/rocket/fire1	qrocket
+weapons/rocket/fire2	rocklf
+weapons/rocket/fire3	rocklf1a
+weapons/rocket/reload	rocklr
+weapons/rocket/fly		rockfly
+$volume weapons/rocket/fly 0.8
+weapons/rocket/explode	qexp
+weapons/rocket/explode3	rocklx1a
+
+//Energy Weapons
+weapons/plasma/fire1		hyprbf1a
+weapons/plasma/fire2		lpfire
+weapons/plasma/hit			plasmx1a
+$limit weapons/plasma/hit 10
+weapons/plasma/explode		lpexp
+weapons/plasma/fly1			lasfly
+weapons/plasma/fly2			lpfly
+weapons/hyperblaster/fire		hybf
+weapons/hyperblaster/windup		hybwu
+weapons/hyperblaster/loop		hybloop
+weapons/hyperblaster/winddown	hybwd
+weapons/hyperblaster/fly		lasfly
+weapons/hyperblaster/bounce		laserric
+weapons/hyperblaster/hit		lashit
+$alias weapons/plasmabeam/fire 	weapons/bfg/fly
+weapons/plasmabeam/run			laserr
+weapons/plasmabeam/winddown		lasoff
+
+//Railgun
+weapons/railgun/fire1	railgf
+weapons/railgun/reload	railgs
+weapons/railgun/fire2	railgf1a
+weapons/railgun/hit		plasmx1a
+weapons/railgun/hum		rghum
+
+//Lightning Gun
+lghit1 lg_hit
+lghit2 lg_hit2
+lghit3 lg_hit3
+$random weapons/lightning/hit { lghit1 lghit2 lghit3 }
+$limit weapons/lightning/hit 10
+$volume weapons/lightning/hit 0.6
+lgimp1 lg_imp1
+lgimp2 lg_imp2
+lgimp3 lg_imp3
+$random weapons/lightning/impact { lgimp1 lgimp2 lgimp3 }
+$limit weapons/lightning/impact 10
+$volume weapons/lightning/impact 0.4
+weapons/lightning/start			lstart
+weapons/lightning/loop			lhit
+weapons/lightning/tesla			power
+weapons/lightning/mjolnir		mjolhit
+weapons/lightning/start3		lg3fire
+weapons/lightning/loop3			lg3hum
+weapons/lightning/startta		lgtfire
+weapons/lightning/loopta		lgthum
+
+//BFG
+weapons/bfg/fire2		bfgf
+weapons/bfg/fly			bfgfly
+weapons/bfg/explode2	bfgx
+weapons/bfg/fire3		bfg_fire
+weapons/bfg/explode3	rocklx1a
+$limit weapons/bfg/explode3 6
+weapons/bfg/hum			bfghum
+weapons/dmg/fire1		dmg_fire
+weapons/dmg/fire2		dmgfire
+weapons/dmg/explode1	dmgexp
+weapons/dmg/explode2	plasexpl
+weapons/dmg/explode3	kamimpl
+weapons/dmg/suck		blckhle
+weapons/dmg/fly			bholefly
+
+//Trap
+weapons/trap/cock		trapcock
+weapons/trap/open		trapdown
+weapons/trap/loop		traploop
+weapons/trap/suck		trapsuck
+
+//Player
+ppain1		pain1
+ppain2		pain2
+ppain3		pain3
+ppain4		pain4
+ppain5		pain5
+ppain6		pain6
+
+$random player/pain { ppain1 ppain2 ppain3 ppain4 ppain5 ppain6 }
+
+pdth1		death1
+pdth2		death2
+pdth3		death3
+pdth4		death4
+pdth5		death5
+pdth6		death6
+
+$random player/death { pdth1 pdth2 pdth3 pdth4 pdth5 pdth6 }
+
+pbrn1		lburn1
+pbrn2		lburn2
+
+$random player/burn { pbrn1 pbrn2 }
+
+pdrn1		drown1
+pdrn2		drown2
+
+$random player/drown { pdrn1 pdrn2 }
+
+$playeralias	PPE_QuakePlayer	male	*death		player/death
+$playersound	PPE_QuakePlayer	male	*xdeath		udeath
+$playersound	PPE_QuakePlayer	male	*gibbed		udeath
+$playersound	PPE_QuakePlayer	male	*gibbed-telefrag	teledth1
+$playeralias	PPE_QuakePlayer	male	*pain100	player/pain
+$playersounddup	PPE_QuakePlayer	male	*pain75		*pain100
+$playersounddup	PPE_QuakePlayer	male	*pain50		*pain100
+$playersounddup	PPE_QuakePlayer	male	*pain25		*pain100
+$playeralias	PPE_QuakePlayer	male	*pain100-fire	player/burn
+$playersounddup	PPE_QuakePlayer	male	*pain75-fire	*pain100-fire
+$playersounddup	PPE_QuakePlayer	male	*pain50-fire	*pain100-fire
+$playersounddup	PPE_QuakePlayer	male	*pain25-fire	*pain100-fire
+$playersounddup	PPE_QuakePlayer	male	*pain100-slime	*pain100-fire
+$playersounddup	PPE_QuakePlayer	male	*pain75-slime	*pain100-fire
+$playersounddup	PPE_QuakePlayer	male	*pain50-slime	*pain100-fire
+$playersounddup	PPE_QuakePlayer	male	*pain25-slime	*pain100-fire
+$playeralias	PPE_QuakePlayer	male	*pain100-drowning	player/burn
+$playersounddup	PPE_QuakePlayer	male	*pain75-drowning	*pain100-drowning
+$playersounddup	PPE_QuakePlayer	male	*pain50-drowning	*pain100-drowning
+$playersounddup	PPE_QuakePlayer	male	*pain25-drowning	*pain100-drowning
+$playersound	PPE_QuakePlayer	male	*pain100-falling	land2
+$playersounddup	PPE_QuakePlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	PPE_QuakePlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	PPE_QuakePlayer	male	*pain25-falling		*pain100-falling
+$playersound	PPE_QuakePlayer	male	*grunt		land
+$playersounddup	PPE_QuakePlayer	male	*land		*grunt
+$playersound	PPE_QuakePlayer	male	*jump		plyrjmp8
+$playersounddup	PPE_QuakePlayer	male	*usefail	*grunt
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+misc/secret			secret
+misc/chat			talk		// Doom 2 chat sound
+misc/chat2			talk		// Chat sound for everything else
+
+//Teleport
+wtp1		r_tele1
+wtp2		r_tele2
+wtp3		r_tele3
+wtp4		r_tele4
+
+$random misc/teleport { wtp1 wtp2 wtp3 wtp4 }

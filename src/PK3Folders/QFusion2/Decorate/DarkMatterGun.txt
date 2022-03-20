@@ -1,0 +1,225 @@
+Actor PPE_DarkMatterGun : BFG9000
+{
+	+WEAPON.NOALERT
+	+WEAPON.AMMO_OPTIONAL
+	Inventory.Pickupmessage "$GOT_PPE_DMG"
+	Tag "$TAG_PPE_DMG"
+	Inventory.PickupSound "items/weapon2"
+	Weapon.UpSound "weapons/switch"
+	Weapon.SlotNumber 0
+	Weapon.AmmoUse1 20
+	Weapon.AmmoUse2 100
+	Weapon.AmmoType1 "PPE_Cells"
+	Weapon.AmmoType2 "PPE_Cells"
+	Weapon.AmmoGive 50
+	States
+	{
+	Ready:
+    	DMGG F 1 bright A_WeaponReady
+    	Loop
+  	Deselect:
+		TNT1 A 0 A_Lower
+		TNT1 A 0 A_Lower
+		DMGG F 1 bright A_Lower
+    	Loop
+  	Select:
+		TNT1 A 0 A_Raise
+		TNT1 A 0 A_Raise
+		DMGG F 1 bright A_Raise
+    	Loop
+  	Fire:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/dmg/fire1")
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireCustomMissile("PPE_TrapBall",0,1,0,4,1,0)
+    	DMGF IJ 3 bright
+		DMGG B 4
+		DMGG A 12
+		DMGG CDEF 3 bright
+		TNT1 A 0 A_ReFire
+		Goto Ready
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/dmg/fire2")
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		DMGF ABCD 3 bright
+		DMGF EFGH 3 bright
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_VortexBall",0,1,0,4,1,0)
+		TNT1 A 0 A_PlaySound("items/quad/use",3,CountInv("PowerQuadDamage"))
+		DMGF IJ 3 bright
+		DMGG B 4
+		DMGG A 12
+		DMGG CDEF 3 bright
+		TNT1 A 0 A_ReFire
+		Goto Ready
+  	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAA 1 A_SetPitch(pitch-0.7)
+    	TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch-0.7)
+		TNT1 A 0 A_Light(3)
+		TNT1 AAA 1 A_SetPitch(pitch+0.7)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+0.7)
+		TNT1 A 0 A_Light1
+    	Goto LightDone
+  	Spawn:
+    	DMGW A -1
+    	Stop
+	}
+}
+
+Actor PPE_TrapBall : BFGBall
+{
+	SeeSound ""
+	DeathSound ""
+	Speed 32
+	Damage (0)
+	RenderStyle Normal
+	Radius 19
+	Height 21
+	+EXTREMEDEATH
+	+FORCERADIUSDMG
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/dmg/fly",1,1.0,1)
+	Loopy:
+		DMGB ABCDE 2 bright
+		Loop
+	Death:
+		TNT1 A 0 A_SpawnItem("PPE_SuckWave")
+		TNT1 A 0 A_PlaySound("weapons/dmg/explode1",2)
+		DMGB ABCDEABC 2 bright A_RadiusThrust(-1400,920,RTF_NOIMPACTDAMAGE,480)
+		TNT1 A 0 A_PlaySound("weapons/dmg/explode2",3)
+		TNT1 A 0 A_StopSound(1)
+		TNT1 A 0 A_Explode(448,192,0,1,64)
+		TNT1 A 0 A_Quake(5,4,0,384,"")
+		TNT1 A 0 A_Quake(3,5,0,640,"")
+		TNT1 A 0 A_Quake(2,5,0,4000,"")
+		TNT1 A 0 A_SpawnItem("PPE_WhiteQuakeExplo")
+		BVSL BCDA 3 bright
+		stop
+	}
+}
+
+Actor PPE_BFGSuckLine : PPE_TrailBase
+{
+	+RANDOMIZE
+	RenderStyle Normal
+	States
+	{
+	Spawn:
+    	BVSL ABCD 3 bright
+		Stop
+	}
+}
+
+actor PPE_SuckWave : PPE_TrailBase
+{
+	RenderStyle Normal
+	Alpha 1.0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		VSHK RQPONMLKJIHGFEDCBA 1 bright
+		stop
+	}
+}
+
+actor PPE_VortexShockWave : PPE_TrailBase
+{
+	RenderStyle Normal
+	Alpha 1.0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		VSHK ABCDEFGHIJKLMNOPQR 1 bright
+		stop
+	}
+}
+
+Actor PPE_VortexBall : BFGBall
+{
+	var int user_countdown;
+	SeeSound ""
+	DeathSound ""
+	Speed 12
+	Damage (4)
+	RenderStyle Normal
+	Radius 10
+	Height 16
+	+RIPPER
+	+EXTREMEDEATH
+	+FORCERADIUSDMG
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/dmg/suck",1,1.0,1)
+		BVTX BCDA 3 bright
+		TNT1 A 0 A_SpawnItem("PPE_BFGSuckLine")
+		TNT1 A 0 A_SpawnItem("PPE_SuckWave")
+		TNT1 A 0 A_SetUserVar("user_countdown",250)
+	Loopy:
+		BVTX BCDA 3 bright A_CustomMissile("PPE_VortexSuckBundle",0,0,0,CMF_TRACKOWNER)
+		TNT1 A 0 A_SpawnItem("PPE_BFGSuckLine")
+		TNT1 A 0 A_JumpIf(user_countdown%2==0,2)
+		TNT1 A 0 A_SpawnItem("PPE_SuckWave")
+		TNT1 A 0 A_JumpIf(user_countdown==0,"End")
+		TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+		Goto Loopy
+	End:
+		TNT1 A 0 A_StopSound(1)
+		TNT1 A 0 A_SpawnItem("PPE_VortexShockWave")
+		TNT1 A 0 A_Explode(666,512,0,1,64)
+		TNT1 A 0 A_Quake(8,9,0,512,"")
+		TNT1 A 0 A_Quake(5,10,0,1024,"")
+		TNT1 A 0 A_Quake(3,12,0,7000,"")
+		TNT1 A 0 A_SpawnItem("PPE_WhiteQuakeExploBig")
+		BVSL BCDA 3 bright
+		stop
+	Death:
+		TNT1 A 0 A_SpawnItem("PPE_VortexBallStill")
+		stop
+	}
+}
+
+Actor PPE_VortexSuckBundle : PPE_SlowMissileBase
+{
+	SeeSound ""
+	DeathSound ""
+	Speed 0
+	Damage (0)
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_RadiusThrust(-800,1280,0,256)
+		TNT1 A 0 A_RadiusThrust(-50,1280,RTF_THRUSTZ,256)
+		TNT1 A 0 A_Explode(10,512,0,0,512)
+		Stop
+	}
+}
+
+Actor PPE_VortexBallStill : PPE_VortexBall
+{
+	Speed 0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SetUserVar("user_countdown",5)
+		TNT1 A 0 A_PlaySound("weapons/dmg/suck",1,1.0,1)
+		Goto Loopy
+	Death:
+		Goto End
+	}
+}
