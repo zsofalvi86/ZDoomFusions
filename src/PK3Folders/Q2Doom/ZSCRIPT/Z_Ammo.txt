@@ -1,0 +1,73 @@
+Class PPE_Q2BackPack : Backpack
+{
+	Default 
+	{
+		Inventory.PickupSound "items/q2pickup";
+		Inventory.PickupMessage "$GOTBACKPACK";
+	}
+	
+	States
+	{
+	Spawn:
+		2BPK A -1;
+		Stop;
+	}
+} 
+
+Class PPE_Q2Bandolier : CustomInventory
+{
+	Default 
+	{
+		Inventory.PickupSound "items/q2pickup";
+		Inventory.PickupMessage "$GOTBANDOLIER";
+	}
+	
+	States
+	{
+	Spawn:
+		2BAN A -1;
+		Stop;
+	Pickup:
+		TNT1 A 0
+		{
+			CallAcs("SetBandolierAmmo");
+			GiveAmmo("PPE_Bullets",10);
+			GiveAmmo("PPE_Shells",4);
+			GiveAmmo("PPE_Slugs",1);
+			GiveAmmo("PPE_MagSlugs",1);
+			GiveAmmo("PPE_Cells",20);
+			GiveAmmo("PPE_Flechettes",10);
+		}
+		Stop;
+	}
+}
+
+Class PPE_Q2BackstabPuff : Actor
+{	
+	Default
+	{
+		+PUFFONACTORS;
+		+NOGRAVITY;
+		+ALLOWPARTICLES;
+		VSpeed 1;
+	}
+
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		//console.printf("%s%p", "tt:", target.Target);
+		if(target.Target == null && !target.Player)
+		{
+			//console.printf("%s", "ambush");
+			return Super.DoSpecialDamage(target,damage*2,damagetype);
+		}
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	States
+	{
+	Spawn:
+	Melee:
+		TNT1 A 0;
+		Stop;
+	}
+}

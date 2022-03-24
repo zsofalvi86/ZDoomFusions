@@ -1,0 +1,171 @@
+Class PPE_Q2Player : DoomPlayer
+{
+	double xPos, yPos, zPos;
+	int breath;
+	int ddgTimer; int airTime;
+	int fwdT; int bwdT; int ltT; int rtT;
+	double tilt;
+	bool landed, jJmp, jAcro, canDJmp;
+	bool canDLt, canDRt, canDFw, canDBw;
+	const maxtilt = 1.5;
+	
+	/*bool wasOnDry, wasOnWater, wasOnBlood, wasOnShit, wasOnSlime, wasOnLava;
+	int wet; int wetType;
+	const notwet = 0; const watery=1; const bloody=2; const shitty=3; const slimy=4; const lavay=5;
+	
+	const dblTap = 10; const noDdg = 4; const dDelay = 20;
+	const jmpPwr = 6.5; const dJmpPwr = 7.5; const dUPwr = 1.75; 
+	const speed = 10; const dodgePwr = 12;
+	
+	const wetTics = 120;*/
+	
+	Override void Tick ()
+	{
+		Super.Tick();
+		if (!player || !player.mo || player.mo != self){return;}
+		
+		int inp = GetPlayerInput(MODINPUT_BUTTONS);
+		int insm = GetPlayerInput(MODINPUT_SIDEMOVE);
+		int pinp = GetPlayerInput(MODINPUT_OLDBUTTONS);
+		Vector2 ppos; ppos.x = self.pos.x; ppos.y = self.pos.y;
+		FCheckPosition fcp; CheckPosition(ppos,false,fcp);
+		bool fwd = inp & BT_FORWARD; bool bwd = inp & BT_BACK;
+		//bool left = (inp & BT_MOVELEFT) || (insm < -1000);
+		//bool right = (inp & BT_MOVERIGHT) || (insm > 1000);
+		bool left = insm < -1000;
+		bool right = insm > 1000;
+		
+		SetTilt(left, right);
+		
+		if (CheckInventory("PowerQ2Enviro_Fake",1))
+		{
+			//A_Print("br: "..breath);
+			if (breath <= 0) {breath = 120;}
+			else {breath--;}
+			if (breath == 60) {A_PlaySound("items/suit/breath1",5);}
+			if (breath == 1) {A_PlaySound("items/suit/breath2",5);}
+		}
+		else {breath = 0;}
+	}
+	
+	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
+	{
+		if(CheckInventory("PPE_PowerArmorOn",1)) 
+		{
+			double ratio = 0.6666;
+			//if (inflictor && absangle(angle, AngleTo(inflictor)) < 45){ratio = 0.6666;}
+			//else {ratio = 0.3333;}
+			int absorbed = damage * ratio;
+			int cells = CountInv("PPE_Cells");
+			if (cells < absorbed){ absorbed = cells; SetInventory("PPE_PowerArmorOn",0); A_PlaySound("items/powershield/off");}
+			A_PlaySound("items/powershield/hit",5);
+			TakeInventory("PPE_Cells",absorbed);
+			//A_Print("abs: "..ratio);
+			return Super.TakeSpecialDamage(inflictor, source, damage - absorbed, damagetype);
+		}
+		return Super.TakeSpecialDamage(inflictor, source, damage, damagetype);;
+	}
+	
+	Override class<Actor> GetBloodType(int type)
+	{
+		if(CheckInventory("PPE_PowerArmorOn",1)) { return "PPE_PowerShieldBlood";}
+		return Super.GetBloodType(type);
+	}
+	
+	void SetTilt(bool left, bool right)
+	{
+		if (left && !right) {tilt-=0.45;}
+		else if (right && !left) {tilt+=0.45;}
+		else if (tilt > 0.82 && !canDLt) {tilt-=0.82;}
+		else if (tilt < -0.82 && !canDRt) {tilt+=0.82;}
+		else if (!canDLt && !canDRt) {tilt = 0;}
+		if(tilt < -maxtilt){tilt = -maxtilt;} if(tilt > maxtilt){tilt = maxtilt;}
+		A_SetRoll(tilt);//,SPF_INTERPOLATE);
+		//A_Print("t: "..tilt);
+	}
+
+	Default
+	{
+		Mass 100;
+		PainChance 255;
+		Gravity 1.0;
+		Species "Player";
+		Player.JumpZ 7.5;
+		Player.StartItem "PPE_Q2Blaster";
+		Player.DisplayName "Grunt";
+		Player.SoundClass "PPE_Quake2Player";
+	
+		Player.WeaponSlot 1, "PPE_Q2Blaster", "PPE_Q2Chainsaw";
+		Player.WeaponSlot 2, "PPE_Q2Shotgun";
+		Player.WeaponSlot 3, "PPE_Q2SuperShotgun";
+		Player.WeaponSlot 4, "PPE_Q2Machinegun";
+		Player.WeaponSlot 5, "PPE_Q2ETF", "PPE_Q2Chaingun";
+		Player.WeaponSlot 6, "PPE_Q2HandGrenade", "PPE_Q2ProximityLauncher", "PPE_Q2GrenadeLauncher";
+		Player.WeaponSlot 7, "PPE_Q2IonRipper","PPE_Q2RocketLauncher";
+		Player.WeaponSlot 8, "PPE_Q2PlasmaBeam", "PPE_Q2Hyperblaster";
+		Player.WeaponSlot 9, "PPE_Q2Phalanx", "PPE_Q2Railgun";
+		Player.WeaponSlot 0, "PPE_Q2Trap", "PPE_Q2Bfg";
+	  
+		DamageFactor "Barrel", 1.0;
+		DamageFactor "Crushsplosive", 1.0;
+		DamageFactor "Slime", 1.0;
+		/*DamageFactor "ShotgunGuy", 0.5;
+		DamageFactor "Chaingunner", 0.5;
+		DamageFactor "Revenant", 0.75;
+		DamageFactor "BioBlobMonster", 0.25;*/
+		//+ALLOWPAIN
+	}
+	
+	States
+	{
+	Spawn:
+		PLAY A -1;
+		Loop;
+	See:
+		PLAY ABCD 4;
+		Loop;
+	Missile:
+		PLAY E 12;
+		Goto Spawn;
+	Melee:
+		PLAY F 6 BRIGHT;
+		Goto Missile;
+	Pain:
+		PLAY G 4;
+		PLAY G 4 A_Pain();
+		Goto Spawn;
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath");
+	Death1:
+		PLAY H 10;
+		PLAY I 10 A_PlayerScream();
+		PLAY J 10 A_NoBlocking();
+		PLAY KLM 10;
+		PLAY N -1;
+		Stop;
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath");
+	XDeath1:
+		PLAY O 5;
+		PLAY P 5 A_XScream();
+		PLAY Q 5 A_NoBlocking();
+		PLAY RSTUV 5;
+		PLAY W -1;
+		Stop;
+	AltSkinDeath:
+		PLAY H 6;
+		PLAY I 6 A_PlayerScream();
+		PLAY JK 6;
+		PLAY L 6 A_NoBlocking();
+		PLAY MNO 6;
+		PLAY P -1;
+		Stop;
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream();
+		PLAY R 0 A_NoBlocking();
+		PLAY R 5 A_SkullPop();
+		PLAY STUVWX 5;
+		PLAY Y -1;
+		Stop;
+	}
+}

@@ -1,0 +1,329 @@
+Actor PPE_ChainsawSpawner : CustomInventory replaces Chainsaw
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",8) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnItem("PPE_ChainsawSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_ProximityLauncherSpawn")
+		stop
+	}
+}
+
+Actor PPE_ShotgunSpawner : CustomInventory replaces Shotgun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",2) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_ShotgunSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_SuperShotgunSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_RailgunSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_Q2Shotgun")
+		stop
+	}
+}
+
+Actor PPE_SuperShotgunSpawner : CustomInventory replaces SuperShotgun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",3) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_SuperShotgunSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_RailgunSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_PhalanxSpawn")
+		stop
+	}
+}
+
+Actor PPE_ChaingunSpawner : CustomInventory replaces Chaingun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",4) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_MachinegunSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_ETFSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_ChaingunSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_Q2MachineGun")
+		stop
+	}
+}
+
+Actor PPE_RocketLauncherSpawner : CustomInventory replaces RocketLauncher
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",5) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_GrenadeLauncherSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_RocketLauncherSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_ProximityLauncherSpawn")
+		stop
+	}
+}
+
+Actor PPE_PlasmaGunSpawner : CustomInventory replaces PlasmaRifle
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",6) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_IonRipperSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_HyperblasterSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_PlasmaBeamSpawn")
+		stop
+	}
+}
+
+Actor PPE_BFGSpawner : CustomInventory replaces BFG9000
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",7) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnItem("PPE_BfgSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_PlasmaBeamSpawn")
+		stop
+	}
+}
+
+Actor PPE_WeaponSpawnBase
+{
+	+DONTGIB +NOTONAUTOMAP
+}
+
+Actor PPE_BulSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_ShelSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_RcktSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_CelSpawn : PPE_WeaponSpawnBase { }
+
+Actor PPE_ChainsawSpawn : PPE_WeaponSpawnBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Chainsaw")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_MachineGunSpawn : PPE_BulSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Machinegun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_ETFSpawn : PPE_BulSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2ETF")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_ShotgunSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Shotgun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_SuperShotgunSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2SuperShotgun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_ChaingunSpawn : PPE_BulSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Chaingun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_GrenadeLauncherSpawn : PPE_RcktSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2GrenadeLauncher")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_ProximityLauncherSpawn : PPE_RcktSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2ProximityLauncher")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_RocketLauncherSpawn : PPE_RcktSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2RocketLauncher")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_IonRipperSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2IonRipper")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_HyperblasterSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Hyperblaster")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_PlasmaBeamSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2PlasmaBeam")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_RailgunSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Railgun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_PhalanxSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Phalanx")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_BfgSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Bfg")
+        TNT1 A 100
+		stop
+	}
+}

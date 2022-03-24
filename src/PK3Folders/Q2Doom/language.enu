@@ -1,0 +1,121 @@
+[enu default]
+
+// Items
+GOTARMOR1 = "Picked up a Jacket Armor.";
+GOTARMOR2 = "Picked up the Combat Armor.";
+GOTARMOR3 = "Picked up the Body Armor.";
+GOTSTIM = "Picked up a stim pack.";
+GOTSHARD = "Picked up an armor shard.";
+GOTADRENALINE = "Picked up Adrenaline! +1 Max Health.";
+GOTMED1 = "Picked up a First Aid Kit.";
+GOTMEDINEED = "Picked up a Medikit. You needed it.";
+GOTMEDIKIT = "Picked up a Medikit.";
+GOTMEGA = "Mega-Health!";
+GOTADRENALINE = "Adrenaline!";
+GOTBLUECARD = "Picked up a blue keycard.";
+GOTYELWCARD = "Picked up a yellow keycard.";
+GOTREDCARD = "Picked up a red keycard.";
+GOTBLUESKUL = "Picked up a blue skull key.";
+GOTYELWSKUL = "Picked up a yellow skull key.";
+GOTREDSKUL = "Picked up a red skull key.";
+GOTINVULN = "Picked up the Invulnerability";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Partial Invisibility";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTTRAPSPHERE = "Picked up a trapped soul!";
+GOTQUAD = "Picked up the Quad Damage";
+GOTPOWERSHIELD = "Picked up a Power Shield";
+GOTSILENCER = "Picked up a silencer";
+GOTIRGOGGLES = "Picked up the IR Goggles";
+GOTENVIRO = "Picked up the Environment Suit";
+GOTBACKPACK = "Picked up an Ammo Pack";
+GOTBANDOLIER = "Picked up a Bandolier";
+
+// Inventory Tags
+TAG_PPE_INVULN = "Invulnerability";
+TAG_PPE_QUAD = "Quad Damage";
+TAG_PPE_POWERSHIELD = "Power Shield";
+TAG_PPE_SILENCER = "Silencer";
+TAG_PPE_ENVIRO = "Enviro-Suit";
+TAG_PPE_IRGOGGLES = "IR Goggles";
+
+// Ammo
+GOTBULLETS = "Picked up a small box of bullets.";
+GOTBULLETBOX = "Picked up a large box of bullets.";
+GOTSLUGS = "Picked up 2 slugs.";
+GOTSLUGBOX = "Picked up a box of slugs.";
+GOTSHELLS = "Picked up 4 shells.";
+GOTSHELLBOX = "Picked up a box of shells.";
+GOTFLECHETTES = "Picked up a small box of flechettes.";
+GOTFLECHETTEBOX = "Picked up a large box of flechettes.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTGRENADE = "Picked up a grenade.";
+GOTGRENBOX = "Picked up a box of grenades.";
+GOTCELL = "Picked up a small energy cell.";
+GOTCELLBOX = "Picked up a large energy cell.";
+GOTMAGSLUG = "Picked up 2 magnesium slugs.";
+GOTMAGSLUGBOX = "Picked up a box of magnesium slugs.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_PPE_BLS = "You got the Blaster!";
+GOT_PPE_CS = "You got the Chainsaw!";
+GOT_PPE_SG = "You got the Shotgun!";
+GOT_PPE_SSG = "You got the Super Shotgun!";
+GOT_PPE_MG = "You got the Machinegun!";
+GOT_PPE_CG = "You got the Chaingun!";
+GOT_PPE_ETF = "You got the ETF Rifle!";
+GOT_PPE_HG = "You got the Hand Grenade!";
+GOT_PPE_HGT = "You got the Tesla Mine!";
+GOT_PPE_GL = "You got the Grenade Launcher!";
+GOT_PPE_RL = "You got the Rocket Launcher!";
+GOT_PPE_PXL = "You got the Proximity Launcher!";
+GOT_PPE_RIP = "You got the Ion Ripper!";
+GOT_PPE_HYB = "You got the Hyperblaster!";
+GOT_PPE_PB = "You got the Plasma Beam!";
+GOT_PPE_RG = "You got the Railgun!";
+GOT_PPE_PHX = "You got the Phalanx Particle Cannon!";
+GOT_PPE_BFG = "You got the BFG10k!";
+GOT_PPE_TRP = "You got the Trap!";
+
+// Gun Tags
+TAG_PPE_BLS = "Blaster";
+TAG_PPE_CS = "Chainsaw";
+TAG_PPE_SG = "Shotgun";
+TAG_PPE_SSG = "Super Shotgun";
+TAG_PPE_MG = "Machinegun";
+TAG_PPE_CG = "Chaingun";
+TAG_PPE_ETF = "ETF Rifle";
+TAG_PPE_HG = "Hand Grenade";
+TAG_PPE_HGT = "Tesla Mine";
+TAG_PPE_GL = "Grenade Launcher";
+TAG_PPE_RL = "Rocket Launcher";
+TAG_PPE_PXL = "Proximity Launcher";
+TAG_PPE_RIP = "Ion Ripper";
+TAG_PPE_HYB = "Hyperblaster";
+TAG_PPE_PB = "Plasma Beam";
+TAG_PPE_RG = "Railgun";
+TAG_PPE_PHX = "Phalanx Particle Cannon";
+TAG_PPE_BFG = "BFG10k";
+TAG_PPE_TRP = "Trap";
+
+// Obituary strings
+OB_MPAX = "%o was ax-murdered by %k.";
+OB_MPSG = "%o chewed on %k's boomstick";
+OB_MPDSG = "%o ate 2 loads of %k's buckshot.";
+OB_MPNG = "%o was nailed by %k.";
+OB_MPSNG = "%o was punctured by %k.";
+OB_MPGL = "%o eats %k's pineapple.";
+OB_MPRL = "%o rides %k's rocket.";
+OB_MPPL = "%o got too friendly with %k's bomb.";
+OB_MPTB = "%o was melted by %k's plasma gun.";
+OB_MPLC = "%o was toasted by %k's laser.";
+OB_MPMJ = "%o was slammed by %k's hammer.";
+OB_MPTELEFRAG = "%o was telefragged by %k.";
+
+//Other
+
+SECRETMESSAGE = "You've found a secret area!";

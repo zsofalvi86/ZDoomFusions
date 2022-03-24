@@ -1,0 +1,414 @@
+const int PPE_C_SA_REPEATS = 2;
+const int PPE_C_SA_LARGE_CIRCLE = 7200;
+const int PPE_C_SA_MEDIUM_CIRCLE = 420;
+const int PPE_C_SA_SMALL_CIRCLE = 166;
+
+Actor PPE_SmartSpawnerBase
+{
+	var int user_repeat;
+	+DONTGIB +NOTONAUTOMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SetUserVar("user_repeat",PPE_C_SA_REPEATS)
+		TNT1 A 0 A_Jump(256,"CheckLoop") //Virtual jump
+		stop
+	}
+}
+
+Actor PPE_SmartSmallClip : PPE_SmartSpawnerBase
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_SetUserVar("user_repeat",user_repeat-1)
+		TNT1 A 0 A_JumpIf(user_repeat > 0,"CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnBullet")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_MachinegunSpawn", AAPTR_TARGET), "SpawnBullet")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_ChaingunSpawn", AAPTR_TARGET), "SpawnBullet")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_ETFSpawn", AAPTR_TARGET), "SpawnFlechette")
+		TNT1 A 0 A_Jump(256,"SpawnBullet")
+	SpawnBullet:
+		TNT1 A 0 A_SpawnItem("PPE_SmallBullet")
+		stop
+    SpawnFlechette:
+		TNT1 A 0 A_SpawnItem("PPE_SmallFlechette")
+		stop
+	}
+}
+
+Actor PPE_ClipSpawner : CustomInventory replaces Clip
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_SmartSmallClip")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_SmallBullet")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeClip : PPE_SmartSmallClip replaces ClipBox
+{
+	States
+	{
+	SpawnBullet:
+		TNT1 A 0 A_SpawnItem("PPE_LargeBullet")
+		stop
+	SpawnFlechette:
+		TNT1 A 0 A_SpawnItem("PPE_LargeFlechette")
+		stop
+	}
+}
+
+Actor PPE_SmartSmallShell : PPE_SmartSpawnerBase replaces Shell
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_SetUserVar("user_repeat",user_repeat-1)
+		TNT1 A 0 A_JumpIf(user_repeat > 0,"CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnShell")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_ShotgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_SuperShotgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_RailgunSpawn", AAPTR_TARGET), "SpawnSlug")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_PhalanxSpawn", AAPTR_TARGET), "SpawnMagSlug")
+		TNT1 A 0 A_Jump(256,"SpawnShell")
+	SpawnShell:
+		TNT1 A 0 A_SpawnItem("PPE_SmallShell")
+		stop
+    SpawnSlug:
+		TNT1 A 0 A_SpawnItem("PPE_SmallSlug")
+		stop
+	SpawnMagSlug:
+		TNT1 A 0 A_SpawnItem("PPE_SmallMagSlug")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeShell : PPE_SmartSmallShell replaces ShellBox
+{
+	States
+	{
+	SpawnShell:
+		TNT1 A 0 A_SpawnItem("PPE_LargeShell")
+		stop
+    SpawnSlug:
+		TNT1 A 0 A_SpawnItem("PPE_LargeSlug")
+		stop
+	SpawnMagSlug:
+		TNT1 A 0 A_SpawnItem("PPE_LargeMagSlug")
+		stop
+	}
+}
+
+Actor PPE_SmartSmallRocket : PPE_SmartSpawnerBase replaces RocketAmmo
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_SetUserVar("user_repeat",user_repeat-1)
+		TNT1 A 0 A_JumpIf(user_repeat > 0,"CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnRocket")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_RocketLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_GrenadeLauncherSpawn", AAPTR_TARGET), "SpawnGrenade")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_ProximityLauncherSpawn", AAPTR_TARGET), "SpawnGrenade")
+		TNT1 A 0 A_Jump(256,"SpawnRocket")
+	SpawnRocket:
+		TNT1 A 0 A_SpawnItem("PPE_SmallRocket")
+		stop
+    SpawnGrenade:
+		TNT1 A 0 A_SpawnItem("PPE_SmallGrenade")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeRocket : PPE_SmartSmallRocket replaces RocketBox
+{
+	States
+	{
+	SpawnRocket:
+		TNT1 A 0 A_SpawnItem("PPE_LargeRocket")
+		stop
+	SpawnGrenade:
+		TNT1 A 0 A_SpawnItem("PPE_LargeGrenade")
+		stop
+	}
+}
+
+Actor PPE_SmartSmallCell : PPE_SmartSpawnerBase replaces Cell
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("SpawnCell","PPE_CelSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_NOZ|CPXF_CLOSEST|CPXF_ANCESTOR)
+		//TNT1 A 0 A_CheckProximity("SpawnMagSlug","PPE_PhalanxSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_NOZ|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("SpawnCell","PPE_CelSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_NOZ|CPXF_CLOSEST|CPXF_ANCESTOR)
+		//TNT1 A 0 A_CheckProximity("SpawnMagSlug","PPE_PhalanxSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_NOZ|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("SpawnCell","PPE_CelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_NOZ|CPXF_CLOSEST|CPXF_ANCESTOR)
+		//TNT1 A 0 A_CheckProximity("SpawnMagSlug","PPE_PhalanxSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_NOZ|CPXF_CLOSEST)
+		TNT1 A 0 A_SetUserVar("user_repeat",user_repeat-1)
+		TNT1 A 0 A_JumpIf(user_repeat > 0,"CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnCell")
+	SpawnCell:
+		TNT1 A 0 A_SpawnItem("PPE_SmallCell")
+		stop
+    SpawnMagSlug:
+		TNT1 A 0 A_SpawnItem("PPE_SmallMagSlug")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeCell : PPE_SmartSmallCell replaces CellPack
+{
+	States
+	{
+	SpawnCell:
+		TNT1 A 0 A_SpawnItem("PPE_LargeCell")
+		stop
+	SpawnMagSlug:
+		TNT1 A 0 A_SpawnItem("PPE_LargeMagSlug")
+		stop
+	}
+}
+
+ACTOR PPE_SmallBullet : PPE_Bullets
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTBULLETS"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    BBXS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallShell : PPE_Shells
+{
+  Inventory.Amount 4
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    SHLS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallRocket : PPE_Rockets
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    RCKP A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallCell : PPE_Cells
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCELL"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    GCLQ ABCDCB 2 bright 
+    Loop
+  }
+}
+
+ACTOR PPE_LargeBullet : PPE_Bullets
+{
+  Inventory.Amount 50
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTBULLETBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    BBXB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeShell : PPE_Shells
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    SHLB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRocket : PPE_Rockets
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    RTBX A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeCell : PPE_Cells
+{
+  Inventory.Amount 100
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCELLBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    GCLR ABCDCB 2 bright
+    Loop
+  }
+}
+
+ACTOR PPE_SmallSlug : PPE_Slugs
+{
+  Inventory.Amount 2
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSLUGS"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    SLUG B -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallFlechette : PPE_Flechettes
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTFLECHETTES"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    NBXS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallGrenade : PPE_Grenades
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTGRENADE"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    GRNA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallMagSlug : PPE_MagSlugs
+{
+  Inventory.Amount 2
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTMAGSLUG"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    MSLG A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeSlug : PPE_Slugs
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSLUGBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+	SLGB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeFlechette : PPE_Flechettes
+{
+  Inventory.Amount 25
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTFLECHETTEBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    NBXB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeGrenade : PPE_Grenades
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTGRENBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    GRNB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeMagSlug : PPE_MagSlugs
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTMAGSLUGBOX"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    MSLB A -1
+    Stop
+  }
+}

@@ -1,0 +1,76 @@
+Actor PPE_Q2ETF : Chaingun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_ETF"
+	Tag "$TAG_PPE_ETF"
+	Inventory.PickupSound "items/q2weapon"
+	Weapon.SelectionOrder 800
+	Weapon.SlotNumber 5
+	Weapon.AmmoType "PPE_Flechettes"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 30
+	Decal "BulletChip"
+	DamageType "Quake3"
+	States
+	{
+	Drop:
+	Spawn:
+		2NGN W -1
+		Stop
+	Ready:
+		2NGN A 1 A_WeaponReady
+		Loop
+	Deselect:
+		2NGN A 1 A_Lower
+		Loop
+	Select:
+		2NGN A 1 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/etf/fire",1,1-(CountInv("PowerSilencer")*0.7))
+	    TNT1 A 0 A_FireCustomMissile("PPE_ETFlechette",0,1,-1,1,1,0)
+		2NGN BCD 1 bright
+		TNT1 A 0 A_Refire("Hold")
+		Goto Ready
+	Hold:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/etf/fire",1,1-(CountInv("PowerSilencer")*0.7))
+	    TNT1 A 0 A_FireCustomMissile("PPE_ETFlechette",0,1,1,1,1,0)
+		2NGN EFG 1 bright
+		2NGN A 1
+		TNT1 A 0 A_Refire("Fire")
+		Goto Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.17)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.34)
+		Goto LightDone
+	}
+}
+
+Actor PPE_ETFlechette : PPE_NailBase
+{
+	+PIERCEARMOR
+	//Decal BulletChip
+	DeathSound "weapons/laser/hit"
+	Damage (20) // 14 - upscaled to match shells
+	DamageType "Quake2Flech"
+	Speed 35
+	States
+	{
+	Death:
+	XDeath:
+		TNT1 A 0 A_StopSound(6)
+		PUFF AB 2 Bright
+		PUFF CD 2
+		Stop
+	}
+}

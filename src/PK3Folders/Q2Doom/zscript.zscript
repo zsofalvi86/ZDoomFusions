@@ -1,0 +1,5 @@
+#include "zscript/z_player.txt"
+#include "zscript/z_ammo.txt"
+#include "zscript/z_armor.txt"
+#include "zscript/z_plasmabeam.txt"
+#include "zscript/z_bfg.txt"
