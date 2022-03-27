@@ -103,7 +103,7 @@ script "SetSpawn" (int spawnTag)
 	
 	if(SG==2 && SSG!=0) {SG=3;} // only spawn SSG if no SSG has been spawned
 	
-	if(SG==2 && SSG==1) {SG=2;SSG=2;} // avoid collission
+	if(SG==2 && SSG==1) {SG=1;SSG=2;} // avoid collission
 	if(SG==3 && SSG==2) {SG=1;SSG=3;} // avoid collission
 	
 	if(PG==3 && BFG==2) {PG=1;BFG=1;} // avoid collission

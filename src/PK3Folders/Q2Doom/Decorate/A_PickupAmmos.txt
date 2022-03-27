@@ -130,7 +130,7 @@ Actor PPE_SmartSmallRocket : PPE_SmartSpawnerBase replaces RocketAmmo
 		TNT1 A 0 A_JumpIf(CheckClass("PPE_RocketLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
 		TNT1 A 0 A_JumpIf(CheckClass("PPE_GrenadeLauncherSpawn", AAPTR_TARGET), "SpawnGrenade")
 		TNT1 A 0 A_JumpIf(CheckClass("PPE_ProximityLauncherSpawn", AAPTR_TARGET), "SpawnGrenade")
-		TNT1 A 0 A_Jump(256,"SpawnRocket")
+		TNT1 A 0 A_Jump(256,"SpawnGrenade")
 	SpawnRocket:
 		TNT1 A 0 A_SpawnItem("PPE_SmallRocket")
 		stop

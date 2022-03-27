@@ -27,7 +27,7 @@ Actor PPE_Q2SuperShotgun : SuperShotgun
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters // 6 - should two shot cacodemons
-		TNT1 A 0 A_FireBullets(7.3,3.9,20,(11),"PPE_BulletPuffQ2",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(7.3,3.9,20,(10),"PPE_BulletPuffQ2",FBF_USEAMMO|FBF_NORANDOM)
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_PlaySound("weapons/supershotgun/fire",1,1-(CountInv("PowerSilencer")*0.7))
 		Q2SS BCD 2 bright
