@@ -99,7 +99,7 @@ Class PPE_Q2BFGBall : BFGBall
 		BFGX F 2 Bright;
 		TNT1 A 0 {BFGPhase = 3;}
 		//TNT1 A 0 A_RadiusGive("PPE_BFGFlashItem",1500,RGF_MONSTERS|RGF_PLAYERS|RGF_NOTARGET);
-		TNT1 A 0 A_Explode(625,750,0); // 500
+		TNT1 A 0 A_Explode(625,500,0); // 500
 		BFGX F 1 Bright;
 		BFGX GHIJK 3 Bright;
 		Stop;
