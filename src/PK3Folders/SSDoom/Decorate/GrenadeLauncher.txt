@@ -1,0 +1,138 @@
+Actor DSS_SSGrenadeBase : Rocket
+{
+	+USEBOUNCESTATE
+	-ROCKETTRAIL
+	+GRENADETRAIL
+	-NOGRAVITY
+	BounceType Doom
+	SeeSound ""
+	BounceSound "weapons/grenbnc"
+	DeathSound "weapons/ssexp"
+	BounceFactor 0.6
+	WallBounceFactor 0.6
+	Gravity 0.4
+	BounceCount 4
+	Speed 15
+	Damage (98)
+	DamageType "SeriousGrenade"
+	States
+	{
+	Spawn:
+		DGRD A 1
+		Loop
+	Bounce:
+		DGRR ABCDEFGHIJKL 2
+		Loop
+	Death:
+		TNT1 A 0 A_NoGravity // 75, 100
+		TNT1 A 0 A_Explode(130,192)
+		TNT1 A 0 A_Quake(4,5,0,256,"")
+		TNT1 A 0 A_Quake(2,6,0,720,"")
+		TNT1 A 0 A_Quake(1,6,0,4096,"")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+	}
+}
+
+Actor DSS_SSGrenade1 : DSS_SSGrenadeBase
+{
+	Speed 15
+}
+
+Actor DSS_SSGrenade2 : DSS_SSGrenadeBase
+{
+	Damage (123)
+	Speed 30
+}
+
+Actor DSS_SSGrenade3 : DSS_SSGrenadeBase
+{
+	Damage (149)
+	Speed 45
+}
+
+actor DSS_GrenadeLauncher : RocketLauncher
+{
+	Weapon.SelectionOrder 2500
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 5
+	Weapon.AmmoType "DSS_Grenades"
+	Weapon.SlotNumber 5
+	Inventory.PickupSound "items/ssweapon"
+	Inventory.Pickupmessage "$GOT_DSS_GL"
+	Tag "$TAG_DSS_GL"
+	+NOAUTOFIRE
+	+NOALERT
+	+NOAUTOAIM
+	States
+	{
+	Ready:
+		SSGL A 1 A_WeaponReady
+		Loop
+	Deselect:
+		SSGL A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		SSGL A 1 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+	Fire:
+		SSGL A 3
+		TNT1 A 0 A_SetInventory("DSS_GL_Charge",0)
+		TNT1 A 0 A_SetInventory("DSS_GL_UnloadTolerance",0)
+		Goto GrenadeChargeInitial
+	GrenadeChargeLoopy:
+		SSGL A 2 
+	GrenadeChargeInitial:
+	    TNT1 A 0 A_JumpIfInventory("DSS_GL_Charge",0,"GrenadeChargeReleaseLoopy")
+		TNT1 A 0 A_GiveInventory("DSS_GL_Charge",1)
+		TNT1 A 0 A_ReFire("GrenadeChargeLoopy")
+		Goto GrenadeChargeRelease
+	GrenadeChargeReleaseLoopy:
+		TNT1 A 0 A_JumpIfInventory("DSS_MC_UnloadTolerance",0,"GrenadeChargeRelease")
+		TNT1 A 0 A_GiveInventory("DSS_MC_UnloadTolerance",1)
+		SSGL A 1 
+		TNT1 A 0 A_ReFire("GrenadeChargeReleaseLoopy")
+		Goto GrenadeChargeRelease
+	GrenadeChargeRelease:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("weapons/grenadef",1)
+		TNT1 A 0 A_JumpIfInventory("DSS_GL_Charge",10,"GrenadeChargeRelease3")
+		TNT1 A 0 A_JumpIfInventory("DSS_GL_Charge",5,"GrenadeChargeRelease2")
+		TNT1 A 0 A_FireCustomMissile("DSS_SSGrenade1",0,1,0,0,1,6)
+		Goto Anim
+	GrenadeChargeRelease2:
+		TNT1 A 0 A_FireCustomMissile("DSS_SSGrenade2",0,1,0,0,1,5)
+		Goto Anim
+	GrenadeChargeRelease3:
+		TNT1 A 0 A_FireCustomMissile("DSS_SSGrenade3",0,1,0,0,1,4)
+	Anim:
+		SSGL BCDE 2 bright
+		SSGL A 2
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.5)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+1.0)
+		Goto LightDone
+	Spawn:
+		SSGL W -1
+		Stop
+   }
+}
+
+Actor DSS_GL_Charge : Inventory
+{
+	Inventory.MaxAmount 10
+}
+
+Actor DSS_GL_UnloadTolerance : Inventory
+{
+	Inventory.MaxAmount 30
+}

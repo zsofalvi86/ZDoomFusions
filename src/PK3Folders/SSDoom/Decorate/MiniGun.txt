@@ -1,0 +1,93 @@
+Actor DSS_MiniGun : Chaingun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_DSS_MG"
+	Tag "$TAG_DSS_MG"
+	Inventory.PickupSound "items/ssweapon"
+	Weapon.SelectionOrder 400
+	Weapon.SlotNumber 4
+	Weapon.AmmoType "DSS_Bullets"
+	Weapon.AmmoUse 2
+	Weapon.AmmoGive 40
+	Decal "BulletChip"
+	DamageType "SeriousBullet"
+	States
+	{
+	Spawn:
+		SSMW A -1
+		Stop
+	Ready:
+		SSMG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_StopSound(6)
+	DeseLoop:
+		SSMG A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		SSMG A 1 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_PlaySound("weapons/ssminitr",5)
+		TNT1 A 0 A_SetInventory("DSS_MiniCounter",2)
+	WindUp1:
+		TNT1 A 0 A_PlaySound("weapons/sswindup",6)
+		SSMG AB 2
+		TNT1 A 0 A_ReFire("WindUp2")
+		TNT1 A 0 A_PlaySound("weapons/sswinddown",6)
+		Goto WindDownF2
+	WindUp2:
+		SSMG CD 1
+		TNT1 A 0 A_ReFire("WindUp3")
+		TNT1 A 0 A_PlaySound("weapons/sswinddown",6)
+		Goto WindDownF1
+	WindUp3:
+		SSMG ABCD 1
+		TNT1 A 0 A_ReFire("Hold1")
+		TNT1 A 0 A_PlaySound("weapons/sswinddown",6)
+		Goto WindDownF1
+	Hold1:
+		TNT1 A 0 A_PlaySound("weapons/ssminiloop",6,1.0,1)
+		TNT1 A 0 A_AlertMonsters // 20
+		TNT1 A 0 A_FireBullets(0,0,1,(24),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_ReFire("Hold2")
+		SSMF ABC 1 bright A_GunFlash
+		Goto WindDown
+	Hold2:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_FireBullets(0,0,1,(24),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		SSMF ABCD 1 bright A_GunFlash
+		TNT1 A 0 A_ReFire("Hold1")
+	WindDown:
+		TNT1 A 0 A_PlaySound("weapons/sswinddown",6)
+		SSMX ABCD 1 bright
+	WindDownF1:
+		SSMG AB 1
+		TNT1 A 0 A_ReFire("WindUp2")
+	WindDownF2:
+		SSMG CD 2
+		TNT1 A 0 A_ReFire("WindUp1")
+		Goto Ready
+	Flash:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfInventory("DSS_MiniCounter",0,"SoundAndReset")
+		TNT1 A 0 A_GiveInventory("DSS_MiniCounter",1)
+		Goto ChooseLight
+	SoundAndReset:
+		TNT1 A 0 A_PlaySound("weapons/ssmini",4)
+		TNT1 A 0 A_SetInventory("DSS_MiniCounter",0)
+	ChooseLight:
+		TNT1 A 0 A_Jump(256,1,2)
+		TNT1 A 1 A_Light1
+		Goto LightDone
+		TNT1 A 1 A_Light2
+		Goto LightDone
+	}
+}
+
+Actor DSS_MiniCounter : Inventory
+{
+	Inventory.MaxAmount 2
+}

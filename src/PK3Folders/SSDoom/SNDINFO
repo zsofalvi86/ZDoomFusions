@@ -1,0 +1,193 @@
+
+weapons/ric 			ssric
+
+//Pickups
+items/ssammo			ssammo
+items/ssweapon			ssweap
+items/sspower			pwerup
+items/ssspeed			sspring
+items/powerup/fadewarn	pubeep
+
+//Knife
+weapons/knifeswing		ssknif
+weapons/knifehit		axhit
+weapons/knifeflesh		axflh
+
+//Chainsaw
+weapons/sawoff			sawoff
+weapons/sawon			sawon
+weapons/sawidle			sawidl
+weapons/sawstart		sawst
+weapons/sawstop			sawsp
+weapons/sawloop			sawloop
+
+//Colt
+weapons/coltfire		ssrevf
+weapons/coltload		ssrevr
+
+//Shotguns
+weapons/ssshotgun		sssgf
+weapons/sscoach			ssssgf
+weapons/sscload			ssssgr
+
+//Automatics
+weapons/sstommy			sstomf
+weapons/ssminitr		ssmintr
+weapons/sswindup		ssminst
+weapons/ssminiloop		ssminl
+weapons/sswinddown		ssminsp
+weapons/ssmini			ssminf
+$limit weapons/ssmini	10
+
+//Grenade/Rocket Launcher
+weapons/grenadef		ssglf
+weapons/grenbnc			ssglb
+weapons/rocketf			ssrlf
+weapons/ssexp			ssexpl
+$limit weapons/ssmini	12
+
+//Laser Gun
+weapons/laserf			sslaserf
+$limit weapons/laserf 10
+
+//Flamethrower
+weapons/flame/fire		ssftf
+weapons/flame/start		ssftst
+weapons/flame/stop		ssftx
+weapons/flame/burn		ssftburn
+
+//Sniper Rifle
+weapons/sssniperf		sssnipf
+weapons/sssniperz		sssnipz
+
+//Cannon
+weapons/cannonfire		canf
+weapons/cannonchrg		canc
+weapons/cannonbnc		canb
+
+//Items
+
+items/health1	health1
+items/health2	health2
+items/health3	health3
+items/health4	health4
+items/health5	health5
+
+items/armor1	armor1
+items/armor2	armor2
+items/armor3	armor3
+items/armor4	armor4
+items/armor5	armor5
+
+//Player
+$playeralias	DSS_SeriousPlayer	male	*death		sspdeath
+$playersounddup	DSS_SeriousPlayer	male	*xdeath		*death
+$playersound	DSS_SeriousPlayer	male	*gibbed		
+$playersound	DSS_SeriousPlayer	male	*gibbed-telefrag	teledth1
+$playersound	DSS_SeriousPlayer	male	*pain100	ssphurt1
+$playersounddup	DSS_SeriousPlayer	male	*pain75		*pain100
+$playersound	DSS_SeriousPlayer	male	*pain50		ssphurt2
+$playersound	DSS_SeriousPlayer	male	*pain25		ssphurt3
+$playersounddup	DSS_SeriousPlayer	male	*pain100-fire	*pain100
+$playersounddup	DSS_SeriousPlayer	male	*pain75-fire	*pain100
+$playersounddup	DSS_SeriousPlayer	male	*pain50-fire	*pain50
+$playersounddup	DSS_SeriousPlayer	male	*pain25-fire	*pain25
+$playersounddup	DSS_SeriousPlayer	male	*pain100-slime	*pain100
+$playersounddup	DSS_SeriousPlayer	male	*pain75-slime	*pain100
+$playersounddup	DSS_SeriousPlayer	male	*pain50-slime	*pain50
+$playersounddup	DSS_SeriousPlayer	male	*pain25-slime	*pain25
+$playersound	DSS_SeriousPlayer	male	*pain100-drowning	sspdrown
+$playersounddup	DSS_SeriousPlayer	male	*pain75-drowning	*pain100-drowning
+$playersounddup	DSS_SeriousPlayer	male	*pain50-drowning	*pain100-drowning
+$playersounddup	DSS_SeriousPlayer	male	*pain25-drowning	*pain100-drowning
+$playersound	DSS_SeriousPlayer	male	*pain100-falling	sspfall
+$playersounddup	DSS_SeriousPlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	DSS_SeriousPlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	DSS_SeriousPlayer	male	*pain25-falling		*pain100-falling
+$playersound	DSS_SeriousPlayer	male	*grunt		sspland
+$playersound	DSS_SeriousPlayer	male	*land		sspland
+$playersound	DSS_SeriousPlayer	male	*jump		sspjump
+$playersound	DSS_SeriousPlayer	male	*usefail	sspjump
+
+//Quips
+qcs1 qcs1 qcs2 qcs2 //lumberjack
+qsg1 qsg1 qsg2 qsg2 //old love, groovy
+qtg1 qtg1 qtg2 qtg2 //rythm, tune
+qmini qmini //minigun for max pleasure
+qgren qgren //hot potato
+qrok1 qrok1 qrok2 qrok2 //rocket ranger, roll
+qlas qlas //sci fi mumbo jumbo
+qbowl qbowl //bowling
+qflame qflame //all fired
+qeye qeye //until se loses an eye
+qdbl qdbl //double your...
+qlead1 qlead1 qlead2 qlead2 //enough lead
+qsize1 qsize1 qsize2 qsize2 //size doesn't matter, look at the size
+qinvul qinvul //try and hurt
+qspd qspd //srs speed
+qpow1 qpow1 //cmon play w me
+qpow2 qpow2 //party time
+qpow3 qpow3 //h comes trouble
+qwb1 qwb1 //ticket to hell
+qwb2 qwb2 //warm things up
+qwb3 qwb3 //what I call a gun
+qwb4 qwb4 //serious fpower
+qwb5 qwb5 //srs weapons 4 srs ppl
+qwb6 qwb6 //inflict srs pain
+qwe1 qwe1 //ooh la la
+qwe2 qwe2 //rdy 4 battle
+qwe3 qwe3 //s hello 2 papa
+quip1 quip1 //cool
+quip2 quip2 //w I've always wanted
+quip3 quip3 //get serious
+quip4 quip4 //rdy 4 serious carnage
+quip5 quip5 //rock & roll
+quip6 quip6 //srsly srs
+quip7 quip7 //lucky day
+
+$random q/chainsaw/1 { qcs1 qcs2 }
+$random q/colt/1 { qeye qdbl }
+$random q/shotgun/1 { qsg1 qsg2 qwe2 }
+$random q/shotgun/2 { qsg2 qeye qsize2 quip1 }
+$random q/coachgun/1 { qdbl qwb4 qwb5 qwb6 }
+$random q/coachgun/2 { qwb4 qwb5 qwb6 qwe1 qwe3 }
+$random q/tommygun/1 { qtg1 qtg2 }
+$random q/minigun/1 { qmini qwb3 qwb4 }
+$random q/minigun/2 { qwb3 qwb4 qwe1 qwe3 qlead1 qlead2 }
+$random q/rocket/1 { qrok1 qrok2 quip5 }
+$random q/rocket/2 { qwb1 qwb2 qwb3 qwb4 qwe2 quip5 }
+$random q/grenade/1 { qgren quip3 quip4 }
+$random q/grenade/2 { qwb1 qwb2 qwb4 quip1 quip3 quip4 quip5 }
+$random q/laser/1 { qlas qwb1 }
+$random q/laser/2 { qwb1 qwb2 qwb4 qwb5 qwb6 qwe1 quip1 quip3 }
+$random q/flame/1 { qflame qwb2 qwb4 }
+$random q/flame/2 { qwb1 qwb2 qwb4 qwb5 qwb6 quip2 quip3 quip4 quip7 }
+$random q/sniper/1 { qwb1 qwb3 qwe3 quip2 quip7 }
+$random q/sniper/2 { qwb3 qwb4 qwb5 qwe1 qwe3 quip1 quip3 qeye }
+$random q/cannon/1 { qbowl qsize2 quip6 quip7 }
+$random q/cannon/2 { qwb2 qwb3 qwb4 qwb5 qwb6 qsize2 quip4 quip5 quip6 }
+$random q/backpack/1 { qlead1 qlead2 qwe2 quip2 quip7 }
+$random q/backpack/2 { qlead1 qlead2 qwe2 quip3 quip4 }
+$random q/damage/1 { qpow1 qpow2 qpow3 qwb6 quip3 quip4 }
+$random q/invul/1 { qinvul qpow1 qpow2 qpow3 qwe2 quip1 quip3 quip5 quip7 }
+$random q/speed/1 { qspd qpow2 qpow3 quip5 qtg1 }
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+misc/secret			sstalk
+misc/chat			sstalk		// Doom 2 chat sound
+misc/chat2			sstalk		// Chat sound for everything else
+
+misc/k_pkup			Key
+
+//Teleport
+misc/teleport		sstele

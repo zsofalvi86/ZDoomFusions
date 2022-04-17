@@ -1,0 +1,49 @@
+Actor PPE_SeriousSpeed : PowerupGiver replaces BlurSphere
+{
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+COUNTITEM
+	Inventory.PickupSound "items/ssspeed"
+	Inventory.PickupMessage "$GOTSPEED"
+	powerup.duration -20
+	powerup.type PowerSpeedSS
+	States
+	{
+	Spawn:
+		PSSS A -1 bright
+		Stop
+	}
+}
+
+ACTOR PowerSpeedSS : PowerSpeed
+{
+  Powerup.Duration -20
+  Speed 1.6
+  Inventory.Icon "PSSSA0"
+  +POWERSPEED.NOTRAIL
+}
+
+Actor PPE_SeriousDamage : PowerupGiver replaces Berserk
+{
+	Inventory.PickupSound "items/sspower"
+	Inventory.PickupMessage "$GOTQUAD"
+	powerup.duration -40
+	Powerup.Color 255, 0, 0, 0.125
+	powerup.type PowerSeriousDamage
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		PSDM A -1 bright
+		Stop
+	}
+}
+
+Actor PowerSeriousDamage : PowerDamage
+{
+  DamageFactor "Normal", 4
+  Inventory.Icon "PSDMA0"
+  SeeSound "items/sspower"
+}

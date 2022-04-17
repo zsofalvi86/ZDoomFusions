@@ -1,0 +1,111 @@
+Actor DSS_Bullets : Ammo
+{
+  Inventory.Amount 10
+  Inventory.MaxAmount 500
+  Ammo.BackpackAmount 10
+  Ammo.BackpackMaxAmount 999
+  Inventory.Icon "IBULA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_SniperBullets : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "IBULB0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_Shells : Ammo
+{
+  Inventory.Amount 4
+  Inventory.MaxAmount 100
+  Ammo.BackpackAmount 4
+  Ammo.BackpackMaxAmount 200
+  Inventory.Icon "ISHLA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_Napalm : Ammo
+{
+  Inventory.Amount 8
+  Inventory.MaxAmount 500
+  Ammo.BackpackAmount 8
+  Ammo.BackpackMaxAmount 999
+  Inventory.Icon "ISHLA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_Rockets : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 2
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "IRKTA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_Grenades : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "IGRNA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_Cells : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 600
+  Inventory.Icon "ICELA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_CannonBalls : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 30
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 60
+  Inventory.Icon "CBALA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}

@@ -1,0 +1,202 @@
+Actor QD_LightningBall : BFGBall
+{
+	var int user_radius;
+	var int user_count;
+	Speed 25
+	Damage (150)
+	RenderStyle Normal
+	DeathSound "weapons/lgphit"
+	+FORCERADIUSDMG
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/lgpfly",1,0.9,1)
+		LBAL ABCD 3 Bright
+		Loop
+	Death:
+		TNT1 A 0 
+		TNT1 A 0 A_Quake(7,6,0,320,"")
+		TNT1 A 0 A_Quake(4,8,0,640,"")
+		TNT1 A 0 A_Quake(2,9,0,4096,"")
+		TNT1 A 0 A_SpawnItem("QD_LightBlueQuakeExplo")
+		TNT1 A 0 A_RadiusGive("QD_LGExpItem",384,RGF_MONSTERS|RGF_PLAYERS|RGF_NOTARGET)
+		PLSE ABCDE 2 Bright A_Explode(30,384,0,1,384)
+		Stop
+  }
+}
+
+ACTOR QD_LGExpItem : CustomInventory
+{
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		Stop
+	Pickup:
+		TNT1 A 0 A_CheckProximity("Spawn","QD_LightningBall",384,1,CPXF_CHECKSIGHT|CPXF_SETMASTER|CPXF_CLOSEST|CPXF_ANCESTOR)
+		Stop
+	Spawn:
+		TNT1 A 0 A_SpawnItemEx("QD_LGExpTarget",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS|SXF_SETTRACER)
+		Stop
+	}
+}
+
+ACTOR QD_LGExpTarget : QD_TrailBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Warp(AAPTR_MASTER, 0, 0, 0, 0, WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION)
+		TNT1 A 0 A_SpawnItemEx("QD_LGExpShooter",0,0,0,0,0,0,0,SXF_SETTARGET)
+		TNT1 AAAAAAAAAAAA 1 A_Warp(AAPTR_TRACER, 0, 0, 0, 0, WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,0,0.5)
+		Stop
+	}
+}
+
+ACTOR QD_LGExpShooter : QD_TrailBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/lgloop",5)
+		TNT1 AAAAA 2 A_CustomRailgun((0),0,"none","none",RGF_SILENT|RGF_EXPLICITANGLE,1,0,"BulletPuff",0,0,384,0,5,0,"QD_LightningTrail",0)
+		Stop
+	}
+}
+
+Actor QD_Thunderbolt : Plasmarifle
+{
+	Inventory.Pickupmessage "$GOT_QD_TB"
+	Tag "$TAG_QD_TB"
+	Weapon.BobRangeX 0.1
+	Weapon.BobRangeY 0.75
+	Weapon.BobSpeed 2.0
+	Decal PlasmaScorch
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "QD_Cells"
+	Weapon.AmmoGive 40
+	Weapon.SlotNumber 8
+	Weapon.KickBack 0
+	Inventory.PickupSound "items/qweapon"
+	Weapon.SisterWeapon "QD_PlasmaThunderbolt"
+	States
+	{
+	Ready:
+		TBLG AAAAAAAAAAABBCCDDCCBBAAAAAAA 1 A_WeaponReady
+    	Loop
+  	Deselect:
+		TBLG A 0 A_Lower
+    	Loop
+  	Select:
+		TBLG A 0 A_Raise
+    	Loop
+	Fire:
+		TNT1 A 0 A_PlaySound("weapons/lgstart",5)
+		Goto FireActual
+	Hold:
+		TNT1 A 0 A_PlaySound("weapons/lgloop",6,1.0,1)
+	FireActual:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_RailAttack((30),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,968,0,12,0,"QD_LightningTrail",1)
+		TNT1 A 0 A_Jump(256,"AnimA","AnimB","AnimC")
+	AnimA:
+		TBLF A 2 bright
+		Goto FireEnd
+	AnimB:
+		TBLF B 2 bright
+		Goto FireEnd
+	AnimC:
+		TBLF C 2 bright
+		Goto FireEnd
+	FireEnd:
+		TNT1 A 0 A_ReFire
+		TNT1 A 0 A_StopSound(6)
+		Goto Ready
+	Flash:
+		TNT1 A 0
+		TNT1 A 0 A_SetPitch(pitch-0.5)
+		TNT1 A 1 A_Light(Random(1,3))
+		TNT1 A 0 A_SetPitch(pitch+0.5)
+		TNT1 A 1 A_Light(Random(1,3))
+		Goto LightDone
+	Spawn:
+    	TBLW AAAAAABBCCDDCCBB 1
+		Loop
+	}
+}
+
+Actor QD_PlasmaThunderbolt : QD_Thunderbolt
+{
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "QD_PlasmaCells"
+	Weapon.AmmoGive 0
+	States
+	{
+	Ready:
+		TBLP A 1 A_WeaponReady
+    	Loop
+	Fire:
+		TNT1 A 0 A_PlayWeaponSound("weapons/lgpfire")
+		TBLQ ABCBA 2 bright
+		TNT1 A 0 A_FireCustomMissile("QD_LightningBall",0,1,0,4,1,0)
+		TNT1 A 0 A_GunFlash
+		TBLQ DEFG 2 bright
+		TBLP A 7
+		TNT1 A 0 A_ReFire("Fire")
+		Goto Ready
+	Flash:
+		TNT1 A 1
+		TNT1 AAAA 1 A_SetPitch(pitch-0.9)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 A_SetPitch(pitch+1.8)
+		Goto LightDone
+	}
+}
+
+actor QD_PlasmaThunderbolt_P : WeaponGiver
+{
+  DropItem "QD_PlasmaThunderbolt"
+  Inventory.Pickupmessage "$GOT_QD_TB"
+  Weapon.AmmoGive 5
+  States
+  {
+  Spawn:
+		TBLW AAAAAABBCCDDCCBB 1
+		Loop
+  }
+}
+
+Actor QD_LightningTrail : QD_TrailBase
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,"A","B","C","D","E","F")
+		A:
+    	LSHF AB 1 bright
+		Stop
+		B:
+    	LSHF BC 1 bright
+    	Stop
+		C:
+    	LSHF CD 1 bright
+    	Stop
+		D:
+    	LSHF DE 1 bright
+    	Stop
+		E:
+    	LSHF EF 1 bright
+    	Stop
+		F:
+    	LSHF FA 1 bright
+		Stop
+	Despawn:
+		TNT1 A 0
+    	Stop
+	}
+}

@@ -1,0 +1,98 @@
+#library "SSDoom"
+#include "zcommon.acs"
+
+int levelbuffer = 0;
+int chapterbuffer = 0;
+global int 1:level;
+global int 2:chapter;
+global int 3:SG;
+global int 4:SSG;
+global int 5:CG;
+global int 6:RL;
+global int 7:CS;
+int players;
+
+script "map exit" UNLOADING
+{
+	level += 1;
+	levelbuffer = level;
+	For(int i=0;i<players;i++)
+	{
+		If (GetActorProperty(6000+i, APROP_HEALTH) <= 0) // any player dead, reset the levels
+		{
+			chapterbuffer = chapter;
+			chapter++;
+			level = chapter - 1;
+	
+			SG=chapter;
+			SSG=chapter;
+			CG=chapter;
+			RL=chapter;
+			CS=chapter;
+			break;
+		}
+	}
+}
+
+script "startup" ENTER
+{
+	Thing_ChangeTID(0, 6000 + PlayerNumber());
+	players++;
+	// Like in Quake, set health to at least 50
+	If(GetActorProperty(0, APROP_HEALTH) < 50)
+	{
+		SetActorProperty(0, APROP_HEALTH, 50);
+	}
+}
+
+script "powerupticker" ENTER
+{	
+	while (true)
+	{
+		If((CheckInventory("PowerSpeedSS") && GetActorPowerupTics(0, "PowerSpeedSS") < 300)
+		|| (CheckInventory("PowerSeriousDamage") && GetActorPowerupTics(0, "PowerSeriousDamage") < 300))
+		{
+			PlaySound(0,"items/powerup/fadewarn",3,1.0,0,0,1);
+		}
+		Delay(16);
+	}
+}
+
+script "GetLevelNum" (void)
+{
+	SetResultValue(level);
+	Print(i:level); // For debug purposes, it doesn't work on inventory anyway
+}
+
+script "SetSpawn" (int spawnTag)
+{
+	switch(spawnTag)
+	{
+		case 0:SG++;break;
+		case 1:SSG++;break;
+		case 2:CG++;break;
+		case 3:RL++;break;
+		case 4:CS++;break;
+	}
+	
+	if(spawnTag==0 && SG==1 && CS==2) {SG++;} // if CS spawned revolver, jump ahead on SG
+	if(spawnTag==1 && SSG==1 && level>=1) {SSG++;} // level 1+ should spawn a stronger SSG
+	if(spawnTag==2 && CG==1 && level>=2) {CG++;} // level 2+ should spawn a stronger CG
+	if(spawnTag==4 && CS==2 && SG==1) {CS++;} // if SG spawned revolver, jump ahead on CS
+}
+
+script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:if(SG<=3){ret=SG;}else{ret=3;}break;
+		case 1:if(SSG<=3){ret=SSG;}else{ret=(SSG%2)+2;}break;
+		case 2:if(CG<=3){ret=CG;}else{ret=(CG%2)+2;}break;
+		case 3:if(RL<=2){ret=RL;}else{ret=(RL%2)+1;}break;
+		case 4:if(CG<2&&SG>3){ret=4;}else
+			{if(CS<=3){ret=CS;}else{ret=(CS%2)+2;}}break;
+	}
+	
+	SetResultValue(ret);
+}

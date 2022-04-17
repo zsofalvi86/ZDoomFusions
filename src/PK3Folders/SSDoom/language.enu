@@ -1,0 +1,97 @@
+[enu default]
+
+// Items
+GOTARMOR = "Picked up the armor.";
+GOTMEGA = "Picked up the MegaArmor!";
+GOTHTHBONUS = "Picked up a health bonus.";
+GOTARMBONUS = "Picked up an armor bonus.";
+GOTADRENALINE = "Picked up Adrenaline! +5 Max Health.";
+GOTSTIM = "You recover 15 health.";
+GOTMEDINEED = "You recover 25 health with urgency.";
+GOTMEDIKIT = "You recover 25 health.";
+GOTSUPER = "Supercharge!";
+GOTBLUECARD = "Picked up a blue keycard.";
+GOTYELWCARD = "Picked up a yellow keycard.";
+GOTREDCARD = "Picked up a red keycard.";
+GOTBLUESKUL = "Picked up a blue skull key.";
+GOTYELWSKUL = "Picked up a yellow skull key.";
+GOTREDSKUL = "Picked up a red skull key.";
+GOTINVUL = "Invulnerability!";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Partial Invisibility";
+GOTSUIT = "Radiation Shielding Suit";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTTRAPSPHERE = "Picked up a trapped soul!";
+
+// Ammo
+GOTBULLETS = "Picked up a small box of bullets.";
+GOTBULLETBOX = "Picked up a large box of bullets.";
+GOTSNIPERS = "Picked up a small box of sniper bullets.";
+GOTSNIPERBOX = "Picked up a large box of sniper bullets.";
+GOTSHELLS = "Picked up a small box of shells.";
+GOTSHELLBOX = "Picked up a large box of shells.";
+GOTNAPALM = "Picked up a small can of napalm.";
+GOTNAPALMBOX = "Picked up a large can of napalm.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTGRENADE = "Picked up a grenade.";
+GOTGRENBOX = "Picked up a box of grenades.";
+GOTCELL = "Picked up an energy cell.";
+GOTCELLBOX = "Picked up an energy cell pack.";
+GOTCANNON = "Picked up an cannon ball.";
+GOTCANNONBOX = "Picked up a bundle of cannon balls.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_DSS_KN = "You got the Knife!";
+GOT_DSS_CS = "You got the Chainsaw!";
+GOT_DSS_C1 = "You got the Colt!";
+GOT_DSS_C2 = "You got the Colt!";
+GOT_DSS_SG = "You got the Shotgun!";
+GOT_DSS_SSG = "You got the Double-Barreled Coach Gun!";
+GOT_DSS_TG = "You got the Tommy Gun!";
+GOT_DSS_MG = "You got the Minigun!";
+GOT_DSS_GL = "You got the Grenade Launcher!";
+GOT_DSS_RL = "You got the Rocket Launcher!";
+GOT_DSS_LG = "You got the Laser Gun!";
+GOT_DSS_FT = "You got the Flamethrower!";
+GOT_DSS_SR = "You got the Sniper Rifle!";
+GOT_DSS_CN = "You got the Cannon!";
+GOT_DSS_SB = "You got Serious Bomb!";
+
+// Gun Tags
+TAG_DSS_KN = "Knife";
+TAG_DSS_CS = "Chainsaw";
+TAG_DSS_C1 = "Colt";
+TAG_DSS_C2 = "Colts Akimbo";
+TAG_DSS_SG = "Shotgun";
+TAG_DSS_SSG = "Double-Barreled Coach Gun";
+TAG_DSS_TG = "Tommy Gun";
+TAG_DSS_MG = "Minigun";
+TAG_DSS_GL = "Grenade Launcher";
+TAG_DSS_RL = "Rocket Launcher";
+TAG_DSS_LG = "Laser Gun";
+TAG_DSS_FT = "Flamethrower";
+TAG_DSS_SR = "Sniper Rifle";
+TAG_DSS_CN = "Cannon";
+TAG_DSS_SB = "Serious Bomb";
+
+// Obituary strings
+OB_MPAX = "%o was ax-murdered by %k.";
+OB_MPSG = "%o chewed on %k's boomstick";
+OB_MPDSG = "%o ate 2 loads of %k's buckshot.";
+OB_MPNG = "%o was nailed by %k.";
+OB_MPSNG = "%o was punctured by %k.";
+OB_MPGL = "%o eats %k's pineapple.";
+OB_MPRL = "%o rides %k's rocket.";
+OB_MPPL = "%o got too friendly with %k's bomb.";
+OB_MPTB = "%o was melted by %k's plasma gun.";
+OB_MPLC = "%o was toasted by %k's laser.";
+OB_MPMJ = "%o was slammed by %k's hammer.";
+OB_MPTELEFRAG = "%o was telefragged by %k.";
+
+//Other
+
+SECRETMESSAGE = "You've found a secret area!";
