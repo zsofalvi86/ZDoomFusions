@@ -17,6 +17,7 @@ ACTOR DSS_SeriousPlayer : DoomPlayer
 	Player.WeaponSlot 6, DSS_LaserGun, DSS_Flamethrower
 	Player.WeaponSlot 7, DSS_SniperRifle, DSS_Cannon
 	//Player.WeaponSlot 8, QD_PlasmaThunderbolt, QD_Thunderbolt
+	Player.WeaponSlot 9, DSS_SeriousBomb
 
 	DamageFactor "SeriousKnife", 1.0
 	DamageFactor "SeriousSaw", 0.85	

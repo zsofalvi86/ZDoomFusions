@@ -16,7 +16,7 @@ Actor DSS_SniperBullets : Ammo
 {
   Inventory.Amount 1
   Inventory.MaxAmount 50
-  Ammo.BackpackAmount 1
+  Ammo.BackpackAmount 0
   Ammo.BackpackMaxAmount 100
   Inventory.Icon "IBULB0"
   States
@@ -46,7 +46,7 @@ Actor DSS_Napalm : Ammo
   Inventory.MaxAmount 500
   Ammo.BackpackAmount 8
   Ammo.BackpackMaxAmount 999
-  Inventory.Icon "ISHLA0"
+  Inventory.Icon "IFULA0"
   States
   {
   Spawn:
@@ -58,7 +58,7 @@ Actor DSS_Rockets : Ammo
 {
   Inventory.Amount 1
   Inventory.MaxAmount 50
-  Ammo.BackpackAmount 2
+  Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 100
   Inventory.Icon "IRKTA0"
   States
@@ -96,13 +96,41 @@ Actor DSS_Cells : Ammo
   }
 }
 
+Actor DSS_DevastatorShells : Ammo
+{
+  Inventory.Amount 4
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "ISHLB0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
 Actor DSS_CannonBalls : Ammo
 {
   Inventory.Amount 1
   Inventory.MaxAmount 30
   Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 60
-  Inventory.Icon "CBALA0"
+  Inventory.Icon "ICBLA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor DSS_SeriousBombs : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 3
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 3
+  Inventory.Icon "ISBMA0"
   States
   {
   Spawn:

@@ -9,26 +9,21 @@ global int 3:SG;
 global int 4:SSG;
 global int 5:CG;
 global int 6:RL;
-global int 7:CS;
+global int 7:PG;
+global int 8:BFG;
+global int 9:CS;
+global int 10:HP;
+global int 11:XSHP;
 int players;
 
 script "map exit" UNLOADING
 {
 	level += 1;
-	levelbuffer = level;
 	For(int i=0;i<players;i++)
 	{
 		If (GetActorProperty(6000+i, APROP_HEALTH) <= 0) // any player dead, reset the levels
 		{
-			chapterbuffer = chapter;
-			chapter++;
-			level = chapter - 1;
-	
-			SG=chapter;
-			SSG=chapter;
-			CG=chapter;
-			RL=chapter;
-			CS=chapter;
+			SG=0; SSG=0; CG=0; RL=0; PG=0; BFG=0; CS=0;
 			break;
 		}
 	}
@@ -38,11 +33,6 @@ script "startup" ENTER
 {
 	Thing_ChangeTID(0, 6000 + PlayerNumber());
 	players++;
-	// Like in Quake, set health to at least 50
-	If(GetActorProperty(0, APROP_HEALTH) < 50)
-	{
-		SetActorProperty(0, APROP_HEALTH, 50);
-	}
 }
 
 script "powerupticker" ENTER
@@ -72,13 +62,38 @@ script "SetSpawn" (int spawnTag)
 		case 1:SSG++;break;
 		case 2:CG++;break;
 		case 3:RL++;break;
-		case 4:CS++;break;
+		case 4:PG++;break;
+		case 5:BFG++;break;
+		case 6:CS++;break;
+		case 7:HP++;break;
 	}
 	
-	if(spawnTag==0 && SG==1 && CS==2) {SG++;} // if CS spawned revolver, jump ahead on SG
-	if(spawnTag==1 && SSG==1 && level>=1) {SSG++;} // level 1+ should spawn a stronger SSG
-	if(spawnTag==2 && CG==1 && level>=2) {CG++;} // level 2+ should spawn a stronger CG
-	if(spawnTag==4 && CS==2 && SG==1) {CS++;} // if SG spawned revolver, jump ahead on CS
+	if(SG>4){SG=2;}
+	if(SSG>3){SSG=1;}
+	if(CG>2){CG=2;}
+	if(RL>2){RL=1;}
+	if(PG>2){PG=1;}
+	if(BFG>2){BFG=1;}
+	if(CS>5){CS=1;}
+	if(HP>6){HP=1;}
+	
+	if(SG>2 && CG<1 && RL<1) {SG=2;} // limit sg spawns
+	if(SG>3 && SSG>0 && CG<1) {SG=3;} // limit sg spawns
+	if(CG>1 && (SSG<=2 || SG<=2)) {CG=1;} // limit cg spawns
+	if(CG==1 && SSG>0 && RL>0) {CG=2;} // skip tommy if late
+	if(CS==1 && CG<=1 && SSG>0 && RL>=1) {CS=5;} // skip to minigun if late
+	
+	if(SG==1 && CS==2) {SG=2;CS=3;} // avoid collission
+	if(SG==3 && SSG==1) {SG=2;SSG=2;} // avoid collission
+	if(SG==4 && SSG==3) {SG=2;SSG=1;} // avoid collission
+	if(SSG==2 && CS==3) {SSG=3;CS=5;} // avoid collission
+	if(SSG==3 && CS==4) {SSG=1;CS=5;} // avoid collission
+	if(CG==2 && CS==5) {CG=1;CS=1;} // avoid collission
+}
+
+script "RegisterHP" (int amount)
+{
+	XSHP += amount;
 }
 
 script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
@@ -86,13 +101,22 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 	int ret = 0;
 	switch(spawnTag)
 	{
-		case 0:if(SG<=3){ret=SG;}else{ret=3;}break;
-		case 1:if(SSG<=3){ret=SSG;}else{ret=(SSG%2)+2;}break;
-		case 2:if(CG<=3){ret=CG;}else{ret=(CG%2)+2;}break;
-		case 3:if(RL<=2){ret=RL;}else{ret=(RL%2)+1;}break;
-		case 4:if(CG<2&&SG>3){ret=4;}else
-			{if(CS<=3){ret=CS;}else{ret=(CS%2)+2;}}break;
+		case 0:ret=SG;break;
+		case 1:ret=SSG;break;
+		case 2:ret=CG;break;
+		case 3:ret=RL;break;
+		case 4:ret=PG;break;
+		case 5:ret=BFG;break;
+		case 6:ret=CS;break;
+		case 7:ret=HP;break;
 	}
 	
+	SetResultValue(ret);
+}
+
+script "SpendHP" (int amount)
+{
+	int ret = 0;
+	if(XSHP > amount) {XSHP-=amount; ret=1;}
 	SetResultValue(ret);
 }

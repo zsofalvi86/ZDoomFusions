@@ -65,6 +65,10 @@ weapons/cannonfire		canf
 weapons/cannonchrg		canc
 weapons/cannonbnc		canb
 
+weapons/zippo			sbmbzi
+weapons/fuse			sbmbfs
+weapons/seriousbomb		sbomb
+
 //Items
 
 items/health1	health1

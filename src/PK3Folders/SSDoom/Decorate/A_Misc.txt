@@ -1,6 +1,8 @@
 ACTOR DSS_Pill : HealthBonus replaces HealthBonus
 {
+	Inventory.PickupMessage "$GOTPILL"
 	Inventory.PickupSound "items/health1"
+	Inventory.Icon "IARMA0"
 	States
 	{
 	Spawn:
@@ -9,10 +11,11 @@ ACTOR DSS_Pill : HealthBonus replaces HealthBonus
 	}
 }
 
-ACTOR PPE_XSArmor : ArmorBonus replaces ArmorBonus
+ACTOR PPE_XSArmor : ArmorBonus //replaces ArmorBonus
 {
+  Inventory.PickupMessage "$GOTXSARMOR"
   Inventory.PickupSound "items/armor1"
-  Inventory.Icon "ARM1A0"
+  Inventory.Icon "IARMA0"
   Armor.SavePercent 66.666
   Armor.SaveAmount 1
   Armor.MaxSaveAmount 200
@@ -26,8 +29,9 @@ ACTOR PPE_XSArmor : ArmorBonus replaces ArmorBonus
 
 ACTOR PPE_SArmor : ArmorBonus
 {
+  Inventory.PickupMessage "$GOTSARMOR"
   Inventory.PickupSound "items/armor1"
-  Inventory.Icon "ARM1A0"
+  Inventory.Icon "IARMA0"
   Armor.SavePercent 66.666
   Armor.SaveAmount 5
   Armor.MaxSaveAmount 200
@@ -39,13 +43,13 @@ ACTOR PPE_SArmor : ArmorBonus
   }
 }
 
-Actor PPE_ArmorShardSpawner : CustomInventory //replaces ArmorBonus
+Actor PPE_ArmorShardSpawner : CustomInventory replaces ArmorBonus
 {
 	States
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 7,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",4) == 1,"Spawn2")
 		TNT1 A 0 A_SpawnItem("PPE_XSArmor")
 		stop
 	Spawn2:
@@ -56,6 +60,7 @@ Actor PPE_ArmorShardSpawner : CustomInventory //replaces ArmorBonus
 
 ACTOR DSS_SmallPotion : Stimpack replaces Stimpack
 {
+	Inventory.PickupMessage "$GOTMED10"
 	Inventory.PickupSound "items/health2"
 	Inventory.Amount 10
 	States
@@ -66,8 +71,9 @@ ACTOR DSS_SmallPotion : Stimpack replaces Stimpack
 	}
 }
 
-ACTOR DSS_LargePotion : MediKit replaces MediKit
+ACTOR DSS_LargePotion : MediKit
 {
+	Inventory.PickupMessage "$GOTMED25"
 	Inventory.PickupSound "items/health3"
 	Inventory.Amount 25
 	States
@@ -78,8 +84,47 @@ ACTOR DSS_LargePotion : MediKit replaces MediKit
 	}
 }
 
+ACTOR DSS_HealthBox : MediKit
+{
+	Inventory.PickupMessage "$GOTMED50"
+	Inventory.PickupSound "items/health4"
+	Inventory.Amount 50
+	States
+	{
+	Spawn:
+		SHP3 A -1 bright
+		stop
+	}
+}
+
+Actor DSS_25HealthSpawner : CustomInventory replaces MediKit
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",7) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",25) == 1,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 4,"Spawn2")
+		TNT1 A 0 A_SpawnItem("DSS_LargePotion")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_MArmor")
+		stop
+	Spawn3:
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 3,"Spawn4")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 6,"Spawn4")
+		TNT1 A 0 A_SpawnItem("DSS_HealthBox")
+		stop
+	Spawn4:
+		TNT1 A 0 A_SpawnItem("PPE_LArmor")
+		stop
+	}
+}
+
 ACTOR DSS_Heart : Soulsphere replaces Soulsphere
 {
+	Inventory.PickupMessage "$GOTHEART"
 	Inventory.PickupSound "items/health5"
 	States
 	{
@@ -137,11 +182,12 @@ ACTOR PPE_MArmor : ArmorBonus
 {
 	-COUNTITEM
 	-ALWAYSPICKUP
+	Inventory.PickupMessage "$GOTMARMOR"
 	Inventory.PickupSound "items/armor2"
 	Armor.SavePercent 66.666
 	Armor.SaveAmount 25
 	Armor.MaxSaveAmount 100
-	Inventory.Icon "ARM2A0"
+	Inventory.Icon "IARMA0"
 	States
 	{
 	Spawn:
@@ -154,11 +200,12 @@ ACTOR PPE_LArmor : ArmorBonus
 {
 	-COUNTITEM
 	-ALWAYSPICKUP
+	Inventory.PickupMessage "$GOTLARMOR"
 	Inventory.PickupSound "items/armor3"
 	Armor.SavePercent 66.666
 	Armor.SaveAmount 50
 	Armor.MaxSaveAmount 100
-	Inventory.Icon "ARM2A0"
+	Inventory.Icon "IARMA0"
 	States
 	{
 	Spawn:
@@ -171,11 +218,12 @@ ACTOR PPE_XLArmor : ArmorBonus replaces GreenArmor
 {
 	-COUNTITEM
 	-ALWAYSPICKUP
+	Inventory.PickupMessage "$GOTXLARMOR"
 	Inventory.PickupSound "items/armor4"
 	Armor.SavePercent 66.666
 	Armor.SaveAmount 100
 	Armor.MaxSaveAmount 100
-	Inventory.Icon "ARM2A0"
+	Inventory.Icon "IARMA0"
 	States
 	{
 	Spawn:
@@ -188,15 +236,44 @@ ACTOR PPE_SSArmor : ArmorBonus replaces BlueArmor
 {
 	-COUNTITEM
 	-ALWAYSPICKUP
+	Inventory.PickupMessage "$GOTSSARMOR"
 	Inventory.PickupSound "items/armor5"
 	Armor.SavePercent 66.666
 	Armor.SaveAmount 200
 	Armor.MaxSaveAmount 200
-	Inventory.Icon "ARM2A0"
+	Inventory.Icon "IARMA0"
 	States
 	{
 	Spawn:
 		SAR5 A -1 bright
+		Stop
+	}
+}
+
+Actor PPE_SSBackpack : Backpack replaces Backpack
+{
+	Inventory.PickupMessage "$GOTAPACK"
+	Inventory.PickupSound "items/ssammo"
+	States
+	{
+	Spawn:
+		APAK A -1
+		Stop
+	}
+}
+
+ACTOR PPE_MegaspherePack : Megasphere replaces Megasphere
+{
+	Inventory.PickupMessage "$GOTSPACK"
+	Inventory.PickupSound "items/ssammo"
+	States
+	{
+	Spawn:
+		SPAK A -1 bright
+		Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("PPE_SSArmor", 1)
+		TNT1 A 0 A_GiveInventory("MegasphereHealth", 1)
 		Stop
 	}
 }
