@@ -2,7 +2,6 @@ ACTOR DSS_Pill : HealthBonus replaces HealthBonus
 {
 	Inventory.PickupMessage "$GOTPILL"
 	Inventory.PickupSound "items/health1"
-	Inventory.Icon "IARMA0"
 	States
 	{
 	Spawn:
