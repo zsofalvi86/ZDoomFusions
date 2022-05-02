@@ -47,20 +47,45 @@ Actor DSS_CoachGun : SuperShotgun
 		TNT1 A 0 A_FireBullets(4.6,1.9,-1,(15),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(-4.6,1.9,-1,(15),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/sscoach")
-		SSS2 BCD 3 bright
-		SSS2 E 4
-		SSS2 F 6
+		SSS2 BCD 2 bright
+		SSS2 A 2 Offset(0,34)
+		SSS2 G 2 Offset(10,32)
+		SSS2 E 2 Offset(22,36)
+		SSS2 E 2 Offset(26,32)
+		SSS2 F 2 Offset(5,38)
+		SSS2 F 2 Offset(7,34)
+		SSS2 F 1 Offset(8,32)
 		TNT1 A 0 A_PlaySound("weapons/sscload",6)
-		SSS2 GHIJ 2
-		SSS2 KL 4
-		SSS2 MGE 3
-		SSS2 A 12
+		SSS2 F 1 Offset(8,33)
+		SSS2 G 2 Offset(5,32)
+		SSS2 G 2 Offset(-8,39)
+		SSS2 H 2 Offset(1,35)
+		SSS2 H 2 Offset(-11,42)
+		TNT1 A 0 Offset(0,32)
+		SSS2 IIJJKKKLLL 1
+		SSS2 M 2 Offset(0,36)
+		SSS2 M 2 Offset(-4,32)
+		SSS2 G 2 Offset(6,36)
+		SSS2 G 2 Offset(0,32)
+		SSS2 E 2 Offset(-3,50)
+		SSS2 E 2 Offset(3,42)
+		SSS2 A 2 Offset(3,35)
+		SSS2 A 2 Offset(2,34)
+		SSS2 A 2 Offset(1,33)
+		SSS2 A 2 Offset(0,32)
+		//SSS2 GHIJ 2
+		//SSS2 KL 4
+		//SSS2 MGE 3
+		//SSS2 A 12
 		Goto Ready
   	Flash:
     	TNT1 A 1 A_Light1
-		TNT1 AAAAAA 1 A_SetPitch(pitch-0.7)
+		TNT1 AAAAAA 1 //A_SetPitch(pitch-0.7)
 		TNT1 A 0 A_Light2
-		TNT1 AAA 1 A_SetPitch(pitch+1.4)
+		TNT1 AAA 1 //A_SetPitch(pitch+1.4)
+		Goto LightDone
+	ReloadOverlay:
+		
 		Goto LightDone
   	Spawn:
     	SSS2 W -1

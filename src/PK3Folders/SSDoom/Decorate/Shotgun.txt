@@ -38,15 +38,28 @@ Actor DSS_Shotgun : Shotgun
 		TNT1 A 0 A_FireBullets(-3,0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/ssshotgun")
     	SSSF ABC 2 bright
-		SSSG DEFGHIJIHGFED 2
-		SSSG A 3
+		SSSG B 2 Offset(25,52)
+		SSSG B 2 Offset(0,32)
+		SSSG C 2 Offset(0,32)
+		SSSG C 2 Offset(-4,37)
+		SSSG C 2 Offset(-8,42)
+		SSSG D 2 Offset(0,32)
+		SSSG D 2 Offset(-4,39)
+		SSSG D 2 Offset(0,32)
+		SSSG C 2 Offset(-8,42)
+		SSSG C 2 Offset(-4,37)
+		SSSG C 2 Offset(0,32)
+		SSSG B 2 Offset(0,32)
+		SSSG B 2 Offset(25,52)
+		SSSG A 2 Offset(-3,34)
+		SSSG A 2 Offset(-1,32)
 		TNT1 A 0 A_ReFire
 		Goto Ready
   	Flash:
     	TNT1 A 1 A_Light1
-		TNT1 AAAA 1 A_SetPitch(pitch-0.45)
+		TNT1 AAAA 1 //A_SetPitch(pitch-0.45)
 		TNT1 A 0 A_Light2
-		TNT1 AA 1 A_SetPitch(pitch+0.9)
+		TNT1 AA 1 //A_SetPitch(pitch+0.9)
 		Goto LightDone
   	Spawn:
     	SSSW A -1

@@ -43,6 +43,7 @@ $limit weapons/ssmini	10
 weapons/grenadef		ssglf
 weapons/grenbnc			ssglb
 weapons/rocketf			ssrlf
+weapons/rocketft		ssrockf
 weapons/ssexp			ssexpl
 $limit weapons/ssmini	12
 

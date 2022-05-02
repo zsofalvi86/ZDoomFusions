@@ -56,7 +56,7 @@ actor DSS_GrenadeLauncher : RocketLauncher
 {
 	Weapon.SelectionOrder 2500
 	Weapon.AmmoUse 1
-	Weapon.AmmoGive 5
+	Weapon.AmmoGive 2
 	Weapon.AmmoType "DSS_Grenades"
 	Weapon.SlotNumber 5
 	Inventory.PickupSound "items/ssweapon"

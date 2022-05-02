@@ -9,7 +9,7 @@ Actor DSS_SniperRifle : Chaingun
 	Weapon.SlotNumber 7
 	Weapon.AmmoType "DSS_SniperBullets"
 	Weapon.AmmoUse 1
-	Weapon.AmmoGive 5
+	Weapon.AmmoGive 2
 	Weapon.Kickback 10
 	Decal "BulletChip"
 	DamageType "SeriousSniper"
