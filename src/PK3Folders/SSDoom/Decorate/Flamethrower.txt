@@ -33,17 +33,17 @@ Actor DSS_Flamethrower : PlasmaRifle
 		SSFT E 1 bright A_FireCustomMissile("DSS_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
     	SSFT F 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
         SSFT G 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
-        SSFT F 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+        SSFT E 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
 		TNT1 A 0 A_CheckReload
 		TNT1 A 0 A_PlaySound("weapons/flame/fire",6,1,1)
-		SSFT E 1 bright A_FireCustomMissile("DSS_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
-    	SSFT F 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
-    	SSFT G 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
+		SSFT F 1 bright A_FireCustomMissile("DSS_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
+    	SSFT G 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+    	SSFT E 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
     	SSFT F 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
     	TNT1 A 0 A_ReFire
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_PlayWeaponSound("weapons/flame/stop")
-    	SSFT EFGH 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+    	SSFT GHIJ 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
 		Goto Ready
   	Flash:
     	TNT1 A 0 A_Light1

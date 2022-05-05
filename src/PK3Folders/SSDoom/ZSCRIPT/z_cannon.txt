@@ -3,12 +3,15 @@ Class DSS_CannonBall : Actor
 	bool exploding;
 	private int damageSpent;
 	int countDown;
+	int lastspeed;
+	int velocity;
 	
 	override int DoSpecialDamage(Actor target, int damage, name damagetype)
 	{	
 		if (!exploding)
 		{
-			let damageLeft = (speed * 20) - damageSpent;
+			if (countDown <= 0) velocity = speed;
+			let damageLeft = (velocity * 20) - damageSpent;
 			if (target.health > damageLeft)
 			{
 				Die(self,self);
@@ -23,37 +26,41 @@ Class DSS_CannonBall : Actor
 	
 	override int SpecialMissileHit(Actor victim)
 	{
-		return 1; // pass everything
+		if (countDown > 0) return 1; else return -1;
 	}
 	
 	Action state A_CannonFly()
 	{
+		invoker.velocity = sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z);
 		A_Explode(999,64,0);
+		A_SpawnItemEx("DSS_CannonTrail",Random(-16,16),Random(-16,16),1,0,0,3,0,0,256-(speed*5));
 		invoker.countDown--;
 		if (invoker.countDown <= 0) Die(self,self);
-		if (speed < 10) BounceSound = "";
-		if (speed > 45) return ResolveState("Speed3");
-		if (speed > 35) return ResolveState("Speed2");
-		return ResolveState("Speed1");
+		if (invoker.velocity < 8) BounceSound = "";
+		if (invoker.velocity > 45) {if(invoker.lastspeed==3) return ResolveState(null); else {invoker.lastspeed=3; return ResolveState("Speed3");}}
+		if (invoker.velocity > 35) {if(invoker.lastspeed==2) return ResolveState(null); else {invoker.lastspeed=2; return ResolveState("Speed2");}}
+		if(invoker.lastspeed==1) return ResolveState(null); else {invoker.lastspeed=1; return ResolveState("Speed1");}
 	}
 	
 	States
 	{
 	Spawn:
-		TNT1 A 0 {countDown = 350;}
+		TNT1 A 0;
+		TNT1 A 0 {countDown = 225;}
 	Speed1:
 		CBLP AABBCCBB 1 A_CannonFly();
 		Loop;
 	Speed2:
-		CBLP DDEEDDEEFFEEFFEE 1 A_CannonFly();
+		CBLP DDEEDDEEFFEEFFEE 1 bright A_CannonFly();
 		Loop;
 	Speed3:
-		CBLP GGHHGGHHIIHHIIHH 1 A_CannonFly();
+		CBLP GGHHGGHHIIHHIIHH 1 bright A_CannonFly();
 		Loop;
 	Crash:
 	Death:
 	XDeath:
 		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE);
+		TNT1 A 0 A_NoGravity();
 		TNT1 A 0 {exploding = true;}
 		TNT1 A 0 A_Explode(32,256);
 		TNT1 A 0 A_Quake(4,4,0,375,"");
@@ -66,11 +73,13 @@ Class DSS_CannonBall : Actor
 	
 	Default
 	{
+		Projectile;
 		//+USEBOUNCESTATE;
 		+BOUNCEONWALLS;
 		+BOUNCEONFLOORS;
 		+BOUNCEONCEILINGS;
 		+DONTBOUNCEONSKY;
+		+FORCERADIUSDMG;
 		-NOGRAVITY;
 		-BOUNCEAUTOOFF;
 		-BOUNCEAUTOOFFFLOORONLY;
@@ -78,9 +87,10 @@ Class DSS_CannonBall : Actor
 		BounceFactor 0.65;
 		WallBounceFactor 0.65;
 		BounceCount 99;
-		Gravity 0.2;
+		Gravity 0.25;
+		Damage (999);
 		SeeSound "";
-		DeathSound "";
+		DeathSound "weapons/ssexp";
 		BounceSound "weapons/cannonbnc";
 	}
 }
