@@ -42,7 +42,7 @@ Actor DSS_Revolver : Pistol
 		Goto Ready
 		TNT1 A 0 A_SetInventory("DSS_RevolverMagazine",0)
 		TNT1 A 0 A_PlaySound("weapons/coltload",6)
-		SSRS C 25
+		SSRS C 30
 		Goto Ready
   	Flash:
     	TNT1 A 2 bright A_Light1
@@ -112,9 +112,9 @@ Actor DSS_Revolvers : Pistol
 		Goto Ready
 		TNT1 A 0 A_SetInventory("DSS_RevolverMagazine",0)
 		TNT1 A 0 A_PlaySound("weapons/coltload",6)
-		SSRR C 20
+		SSRR C 22
 		TNT1 A 0 A_PlaySound("weapons/coltload",6)
-		SSRR G 25
+		SSRR G 30
 		TNT1 A 0 A_ReFire("Fire")
 		Goto Ready
   	Flash:

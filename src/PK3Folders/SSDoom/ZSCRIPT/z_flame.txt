@@ -1,0 +1,17 @@
+Class DSS_OnFire : Inventory
+{
+	private double tic;
+
+	override void DoEffect()
+	{
+			if (tic <= 0) {tic += 3.5;}
+			else {tic -= 1;}
+			if (tic <= 0)
+			{
+				if (owner)
+				{
+					
+				}
+			}
+	}
+}

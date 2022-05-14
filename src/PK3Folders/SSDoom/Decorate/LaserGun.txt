@@ -5,20 +5,23 @@ Actor DSS_LaserGunBullet
 	Speed 20
 	Damage 20
 	Projectile
-	Damage (23) // 20
+	Damage (24) // 20
 	Speed 35
 	SeeSound ""
 	DeathSound "weapons/laserx"
 	DamageType "SeriousCell"
+	+BLOODSPLATTER
 	States
 	{
 	Spawn:
 		GLAP A 1 bright
 		Loop
 	Crash:
-	XDeath:
 	Death:
 		GPSX ABCDE 3 bright
+		stop
+	XDeath:
+		TNT1 A 2
 		stop
 	}
 }

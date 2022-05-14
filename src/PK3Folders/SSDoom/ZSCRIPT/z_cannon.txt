@@ -11,7 +11,8 @@ Class DSS_CannonBall : Actor
 		if (!exploding)
 		{
 			if (countDown <= 0) velocity = speed;
-			let damageLeft = (velocity * 20) - damageSpent;
+			let damageLeft = (velocity * damage) - damageSpent;
+			//A_Print("vel: "..velocity.." dmg:"..damage.." dspnt:"..damageSpent);
 			if (target.health > damageLeft)
 			{
 				Die(self,self);
@@ -21,18 +22,19 @@ Class DSS_CannonBall : Actor
 			damageSpent += target.health;
 			return damageLeft;
 		}
+		//A_Print("exploding damage:"..damage);
 		return Super.DoSpecialDamage(target,damage,damagetype);
 	}
 	
-	override int SpecialMissileHit(Actor victim)
-	{
-		if (countDown > 0) return 1; else return -1;
-	}
+	//override int SpecialMissileHit(Actor victim)
+	//{
+	//	if (countDown > 0) return 1; else return -1;
+	//}
 	
 	Action state A_CannonFly()
 	{
 		invoker.velocity = sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z);
-		A_Explode(999,64,0);
+		A_Explode(20,42,0,0,42);
 		A_SpawnItemEx("DSS_CannonTrail",Random(-16,16),Random(-16,16),1,0,0,3,0,0,256-(speed*5));
 		invoker.countDown--;
 		if (invoker.countDown <= 0) Die(self,self);
@@ -79,6 +81,7 @@ Class DSS_CannonBall : Actor
 		+BOUNCEONFLOORS;
 		+BOUNCEONCEILINGS;
 		+DONTBOUNCEONSKY;
+		+RIPPER;
 		+FORCERADIUSDMG;
 		-NOGRAVITY;
 		-BOUNCEAUTOOFF;
@@ -88,7 +91,7 @@ Class DSS_CannonBall : Actor
 		WallBounceFactor 0.65;
 		BounceCount 99;
 		Gravity 0.25;
-		Damage (999);
+		DamageFunction (20);
 		SeeSound "";
 		DeathSound "weapons/ssexp";
 		BounceSound "weapons/cannonbnc";
