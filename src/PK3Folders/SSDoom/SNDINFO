@@ -44,6 +44,7 @@ weapons/grenadef		ssglf
 weapons/grenbnc			ssglb
 weapons/rocketf			ssrlf
 weapons/rocketft		ssrockf
+weapons/devf			ssdevf
 weapons/ssexp			ssexpl
 $limit weapons/ssmini	12
 
@@ -153,8 +154,8 @@ quip7 quip7 //lucky day
 $random q/chainsaw/1 { qcs1 qcs2 }
 $random q/colt/1 { qeye qdbl }
 $random q/shotgun/1 { qsg1 qsg2 qwe2 }
-$random q/shotgun/2 { qsg2 qeye qsize2 quip1 }
-$random q/coachgun/1 { qdbl qwb4 qwb5 qwb6 }
+$random q/shotgun/2 { qsg2 qeye qsize1 quip1 }
+$random q/coachgun/1 { qdbl qwb4 qwb5 qwb6 qsg1}
 $random q/coachgun/2 { qwb4 qwb5 qwb6 qwe1 qwe3 }
 $random q/tommygun/1 { qtg1 qtg2 }
 $random q/minigun/1 { qmini qwb3 qwb4 }
@@ -165,6 +166,8 @@ $random q/grenade/1 { qgren quip3 quip4 }
 $random q/grenade/2 { qwb1 qwb2 qwb4 quip1 quip3 quip4 quip5 }
 $random q/laser/1 { qlas qwb1 }
 $random q/laser/2 { qwb1 qwb2 qwb4 qwb5 qwb6 qwe1 quip1 quip3 }
+$random q/dev/1 { qwb3 qwb4 quip5 }
+$random q/dev/2 { qwb4 qsg2 quip1 quip3 }
 $random q/flame/1 { qflame qwb2 qwb4 }
 $random q/flame/2 { qwb1 qwb2 qwb4 qwb5 qwb6 quip2 quip3 quip4 quip7 }
 $random q/sniper/1 { qwb1 qwb3 qwe3 quip2 quip7 }

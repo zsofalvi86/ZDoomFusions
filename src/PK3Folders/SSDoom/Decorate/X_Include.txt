@@ -14,7 +14,7 @@
 #Include Decorate/LaserGun.txt
 #Include Decorate/Flamethrower.txt
 #Include Decorate/SniperRifle.txt
-//#Include Decorate/Devastator.txt
+#Include Decorate/Devastator.txt
 #Include Decorate/Cannon.txt
 #Include Decorate/SeriousBomb.txt
 #Include Decorate/A_Player.txt

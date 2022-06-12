@@ -349,16 +349,16 @@ Actor DSS_DevastatorSpawn : DSS_PGSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("DSS_LaserGun")
+		TNT1 A 0 A_SpawnItem("DSS_Devastator")
         TNT1 A -1
 		stop
 	Pickup:
 		TNT1 A 0 A_JumpIfInventory("DSS_HasDevastator",1,"Pickup2")
 		TNT1 A 0 A_GiveInventory("DSS_HasDevastator")
-		TNT1 A 100 A_PlaySound("q/laser/1",5)
+		TNT1 A 100 A_PlaySound("q/dev/1",5)
 		stop
 	Pickup2:
-		TNT1 A 100 A_PlaySound("q/laser/2",5)
+		TNT1 A 100 A_PlaySound("q/dev/2",5)
 		stop
 	}
 }

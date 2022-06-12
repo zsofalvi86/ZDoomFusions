@@ -10,8 +10,39 @@ Class DSS_OnFire : Inventory
 			{
 				if (owner)
 				{
-					
+					A_SpawnItemEx("DSS_FT_FireChunk",Random(-owner.Radius*0.8,owner.Radius*0.8),Random(-owner.Radius*0.8,owner.Radius*0.8),Random(6+owner.Height*0.1,6+owner.Height*0.4),0,0,3,0,0,64);
+					//invoker.SetBurn();
+					SetBurn();
+					owner.TakeInventory("DSS_OnFire",1);
 				}
 			}
 	}
+	
+	private void SetBurn()
+	{
+		//let ratio = owner.CountInv("DSS_OnFireBurned") / owner.spawnhealth();
+		
+		//if (ratio > 0.9)
+		//{ owner.translation = "0:255=@90[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.8)
+		//{ owner.translation = "0:255=@80[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.7)
+		//{ owner.translation = "0:255=@70[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.6)
+		//{ owner.translation = "0:255=@60[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.5)
+		//{ owner.translation = "0:255=@50[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.4)
+		//{ owner.translation = "0:255=@40[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.3)
+		//{ owner.translation = "0:255=@30[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.2)
+		//{ owner.translation = "0:255=@20[0,0,0]:[0,0,0]"; break; }
+		//if (ratio > 0.1)
+		//{ owner.translation = "0:255=@10[0,0,0]:[0,0,0]"; break; }
+	}
+}
+
+Class DSS_OnFireBurned : Inventory
+{
 }

@@ -74,6 +74,7 @@ GOT_DSS_RL = "You got the Rocket Launcher!";
 GOT_DSS_LG = "You got the Laser Gun!";
 GOT_DSS_FT = "You got the Flamethrower!";
 GOT_DSS_SR = "You got the Sniper Rifle!";
+GOT_DSS_DEV = "You got the Devastator!";
 GOT_DSS_CN = "You got the Cannon!";
 GOT_DSS_SB = "You got Serious Bomb!";
 
@@ -91,6 +92,7 @@ TAG_DSS_RL = "Rocket Launcher";
 TAG_DSS_LG = "Laser Gun";
 TAG_DSS_FT = "Flamethrower";
 TAG_DSS_SR = "Sniper Rifle";
+TAG_DSS_DEV = "Devastator";
 TAG_DSS_CN = "Cannon";
 TAG_DSS_SB = "Serious Bomb";
 

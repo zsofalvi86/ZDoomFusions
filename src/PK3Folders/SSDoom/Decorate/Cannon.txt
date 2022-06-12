@@ -16,7 +16,7 @@ Actor DSS_Cannon : BFG9000
 	Tag "$TAG_DSS_CN"
 	Inventory.PickupSound "items/ssweapon"
 	Weapon.SelectionOrder 500
-	Weapon.SlotNumber 7
+	Weapon.SlotNumber 8
 	Weapon.AmmoType "DSS_CannonBalls"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 2
@@ -82,14 +82,14 @@ Actor DSS_Cannon : BFG9000
 		CNNF ABCDEFG 2 bright
 		CNNG C 2 offset(0,40)
 		CNNG C 2 offset(0,36)
-		CNNG B 3 offset(0,34)
-		CNNG A 4 offset(0,32)
+		CNNG B 2 offset(0,34)
+		CNNG A 2 offset(0,32)
 		Goto Ready
 	Flash:
 		TNT1 A 0 A_Light1
-		TNT1 AA 1 A_SetPitch(pitch-0.6)
+		TNT1 AA 1 //A_SetPitch(pitch-0.6)
 		TNT1 A 0 A_Light2
-		TNT1 A 1 A_SetPitch(pitch+0.8)
+		TNT1 A 1 //A_SetPitch(pitch+0.8)
 		Goto LightDone
 	}
 }

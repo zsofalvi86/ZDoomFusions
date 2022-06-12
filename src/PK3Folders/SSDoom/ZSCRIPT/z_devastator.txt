@@ -1,0 +1,58 @@
+Class DSS_DevastatorShot : FastProjectile
+{
+	bool exploding;
+	private int damageSpent;
+	
+	override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{	
+		if (!exploding)
+		{
+			let damageLeft = damage - damageSpent;
+			//A_Print("vel: "..velocity.." dmg:"..damage.." dspnt:"..damageSpent);
+			if (target.health > damageLeft)
+			{
+				Die(self,self);
+				if (damageLeft < 0) return 0;
+				return damageLeft;
+			}
+			damageSpent += target.health;
+			return damageLeft;
+		}
+		//A_Print("exploding damage:"..damage);
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	States
+	{
+	Spawn:
+		DSLG A 1 bright;
+		Loop;
+	Crash:
+	Death:
+	XDeath:
+		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE);
+		TNT1 A 0 A_NoGravity();
+		TNT1 A 0 {exploding = true;}
+		TNT1 A 0 A_Explode(15,192,0);
+		TNT1 A 0 A_Quake(4,5,0,224,"");
+		TNT1 A 0 A_Quake(2,6,0,512,"");
+		TNT1 A 0 A_Quake(1,6,0,3072,"");
+		BMXP A 4 bright;
+		BMXP BCDEF 3 bright;
+		Stop;
+	}
+	
+	Default
+	{
+		Projectile;
+		+RIPPER;
+		Radius 9;
+		Height 8;
+		DamageFunction (200);
+		Speed 120;
+		SeeSound "";
+		DeathSound "weapons/ssexp";
+		MissileType "DSS_DevTrail";
+		MissileHeight 4;
+	}
+}

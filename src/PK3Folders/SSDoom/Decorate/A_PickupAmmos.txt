@@ -184,7 +184,7 @@ Actor DSS_SmartSmallCell : DSS_SmartSpawnerBase replaces Cell
 		TNT1 A 0 A_SpawnItem("DSS_SmallCell")
 		stop
 	SpawnDevastator:
-		TNT1 A 0 A_SpawnItem("DSS_SmallCell")
+		TNT1 A 0 A_SpawnItem("DSS_SmallDevastator")
 		stop
     SpawnCannonBall:
 		TNT1 A 0 A_SpawnItem("DSS_SmallCannonBall")
@@ -200,7 +200,7 @@ Actor DSS_SmartLargeCell : DSS_SmartSmallCell replaces CellPack
 		TNT1 A 0 A_SpawnItem("DSS_LargeCell")
 		stop
 	SpawnDevastator:
-		TNT1 A 0 A_SpawnItem("DSS_LargeCell")
+		TNT1 A 0 A_SpawnItem("DSS_LargeDevastator")
 		stop
 	SpawnCannonBall:
 		TNT1 A 0 A_SpawnItem("DSS_LargeCannonBall")
@@ -336,14 +336,14 @@ ACTOR DSS_SmallSniper : DSS_SniperBullets
 
 ACTOR DSS_SmallDevastator : DSS_DevastatorShells
 {
-  Inventory.Amount 4
+  Inventory.Amount 2
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTDEV"
   Inventory.PickupSound "items/ssammo"
   States
   {
   Spawn:
-    RBUL A -1
+    ADEV A -1
     Stop
   }
 }
@@ -406,14 +406,14 @@ ACTOR DSS_LargeSniper : DSS_SniperBullets
 
 ACTOR DSS_LargeDevastator : DSS_DevastatorShells
 {
-  Inventory.Amount 20
+  Inventory.Amount 10
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTDEVBOX"
   Inventory.PickupSound "items/ssammo"
   States
   {
   Spawn:
-    RBUL B -1
+    ADEV B -1
     Stop
   }
 }
