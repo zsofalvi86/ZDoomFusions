@@ -11,16 +11,19 @@ Class DSS_CannonBall : Actor
 		if (!exploding)
 		{
 			if (countDown <= 0) velocity = speed;
+			if (velocity < 5) velocity = 5;
 			let damageLeft = (velocity * damage) - damageSpent;
+			let damageInf = velocity * damage;
 			//A_Print("vel: "..velocity.." dmg:"..damage.." dspnt:"..damageSpent);
-			if (target.health > damageLeft)
+			if (target.health > damageInf || target.bDontRip)
 			{
 				Die(self,self);
-				if (damageLeft < 0) return 0;
-				return damageLeft;
+				//if (damageLeft < 0) return 0;
+				return damageInf;
 			}
+			A_ScaleVelocity(1-target.health*0.00025);
 			damageSpent += target.health;
-			return damageLeft;
+			return damageInf;
 		}
 		//A_Print("exploding damage:"..damage);
 		return Super.DoSpecialDamage(target,damage,damagetype);
@@ -34,13 +37,14 @@ Class DSS_CannonBall : Actor
 	Action state A_CannonFly()
 	{
 		invoker.velocity = sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z);
-		A_Explode(20,42,0,0,42);
+		A_Explode(20,36,0,0,36);
 		A_SpawnItemEx("DSS_CannonTrail",Random(-16,16),Random(-16,16),1,0,0,3,0,0,256-(speed*5));
+		A_ScaleVelocity(0.9875);
 		invoker.countDown--;
-		if (invoker.countDown <= 0) Die(self,self);
-		if (invoker.velocity < 8) BounceSound = "";
-		if (invoker.velocity > 45) {if(invoker.lastspeed==3) return ResolveState(null); else {invoker.lastspeed=3; return ResolveState("Speed3");}}
-		if (invoker.velocity > 35) {if(invoker.lastspeed==2) return ResolveState(null); else {invoker.lastspeed=2; return ResolveState("Speed2");}}
+		if (invoker.countDown <= 0 || invoker.velocity < 2) {Die(self,self); return ResolveState("Death");}
+		if (invoker.velocity < 5) BounceSound = "";
+		if (invoker.velocity > 40) {if(invoker.lastspeed==3) return ResolveState(null); else {invoker.lastspeed=3; return ResolveState("Speed3");}}
+		if (invoker.velocity > 30) {if(invoker.lastspeed==2) return ResolveState(null); else {invoker.lastspeed=2; return ResolveState("Speed2");}}
 		if(invoker.lastspeed==1) return ResolveState(null); else {invoker.lastspeed=1; return ResolveState("Speed1");}
 	}
 	
@@ -87,8 +91,8 @@ Class DSS_CannonBall : Actor
 		-BOUNCEAUTOOFF;
 		-BOUNCEAUTOOFFFLOORONLY;
 		BounceType "Doom";
-		BounceFactor 0.65;
-		WallBounceFactor 0.65;
+		BounceFactor 0.72;
+		WallBounceFactor 0.72;
 		BounceCount 99;
 		Gravity 0.25;
 		Radius 13;

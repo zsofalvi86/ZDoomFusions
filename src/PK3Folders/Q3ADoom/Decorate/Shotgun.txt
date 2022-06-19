@@ -11,6 +11,7 @@ Actor PPE_Q3Shotgun : Shotgun
 	Weapon.AmmoUse 1
 	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoGive 6
+	Weapon.BobSpeed 2
 	Decal "BulletChip"
 	States
 	{

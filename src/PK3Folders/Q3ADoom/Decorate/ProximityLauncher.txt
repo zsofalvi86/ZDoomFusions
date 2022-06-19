@@ -7,6 +7,7 @@ Actor PPE_TAProximityLauncher : RocketLauncher
 	Weapon.AmmoType1 "PPE_Proxs"
 	Weapon.SlotNumber 4
 	Weapon.UpSound "items/q3switch"
+	Weapon.BobSpeed 2
 	Inventory.PickupSound "items/q3weapon"
 	Inventory.Pickupmessage "$GOT_PPE_PL"
 	Tag "$TAG_PPE_PL"

@@ -1,6 +1,7 @@
 Class PPE_Q3Player : DoomPlayer
 {
 	int tic;
+	double bobtilt;
 	double tilt; double desiredTilt;
 	const maxtilt = 1.5;
 
@@ -49,6 +50,14 @@ Class PPE_Q3Player : DoomPlayer
 		Super.OnRespawn();
 	}
 	
+	Override Vector2 BobWeapon(double ticfrac)
+	{
+		let vec = Super.BobWeapon(ticfrac);
+		if (vec.x == 0) bobtilt = 0;
+		else bobtilt = vec.x / 16;
+		return vec;
+	}
+	
 	void SetTilt(bool left, bool right)
 	{
 		if (left && !right) {desiredTilt = -maxtilt;}
@@ -56,7 +65,8 @@ Class PPE_Q3Player : DoomPlayer
 		else {desiredTilt = 0;}
 		if(tilt < desiredTilt) {tilt += 0.25;}
 		if(tilt > desiredTilt) {tilt -= 0.25;}
-		A_SetRoll(tilt);//,SPF_INTERPOLATE);
+		//tilt += 
+		A_SetRoll(tilt - bobtilt);//,SPF_INTERPOLATE);
 		//A_Print("t: "..tilt);
 	}
 

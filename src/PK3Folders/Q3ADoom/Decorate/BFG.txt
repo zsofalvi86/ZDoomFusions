@@ -9,6 +9,7 @@ Actor PPE_Q3Bfg : BFG9000
 	Weapon.UpSound "items/q3switch"
 	Weapon.SelectionOrder 500
 	Weapon.SlotNumber 9
+	Weapon.BobSpeed 2
 	Weapon.AmmoType "PPE_Nukes"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 4

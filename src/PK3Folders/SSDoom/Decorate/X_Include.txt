@@ -17,7 +17,7 @@
 #Include Decorate/Devastator.txt
 #Include Decorate/Cannon.txt
 #Include Decorate/SeriousBomb.txt
-#Include Decorate/A_Player.txt
+//#Include Decorate/A_Player.txt
 #Include Decorate/A_Replacers.txt
 #Include Decorate/A_Misc.txt
 #Include Decorate/A_Powerup.txt

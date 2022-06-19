@@ -22,6 +22,7 @@ Actor PPE_TANailshotgun : SuperShotgun
 	Weapon.AmmoUse2 1
 	Weapon.AmmoGive 4
 	Weapon.SlotNumber 3
+	Weapon.BobSpeed 2
 	Inventory.PickupSound "items/q3weapon"
 	Weapon.UpSound "items/q3switch"
 	States

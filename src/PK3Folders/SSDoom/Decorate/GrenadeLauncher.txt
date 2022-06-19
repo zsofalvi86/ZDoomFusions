@@ -13,7 +13,7 @@ Actor DSS_SSGrenadeBase : Rocket
 	Gravity 0.4
 	BounceCount 4
 	Speed 15
-	Damage (98)
+	Damage (70) //98
 	DamageType "SeriousGrenade"
 	States
 	{
@@ -42,13 +42,13 @@ Actor DSS_SSGrenade1 : DSS_SSGrenadeBase
 
 Actor DSS_SSGrenade2 : DSS_SSGrenadeBase
 {
-	Damage (123)
+	Damage (88) //123
 	Speed 30
 }
 
 Actor DSS_SSGrenade3 : DSS_SSGrenadeBase
 {
-	Damage (149)
+	Damage (105) //149
 	Speed 45
 }
 

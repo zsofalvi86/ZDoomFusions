@@ -7,6 +7,7 @@ Actor PPE_Q3RocketLauncher : RocketLauncher
 	Weapon.AmmoType1 "PPE_Rockets"
 	Weapon.SlotNumber 5
 	Weapon.UpSound "items/q3switch"
+	Weapon.BobSpeed 2
 	Inventory.PickupSound "items/q3weapon"
 	Inventory.Pickupmessage "$GOT_PPE_RL"
 	Tag "$TAG_PPE_RL"

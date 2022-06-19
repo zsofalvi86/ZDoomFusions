@@ -3,7 +3,8 @@ Actor PPE_Gauntlet : Fist
 	Inventory.Pickupmessage "$GOT_PPE_GNT"
 	Tag "$TAG_PPE_GNT"
 	Weapon.SlotNumber 1
-	Weapon.Kickback 150
+	Weapon.Kickback 175
+	Weapon.BobSpeed 2
 	Weapon.UpSound "items/q3switch"
 	Inventory.PickupSound "items/q3weapon"
 	Decal "BulletChip"

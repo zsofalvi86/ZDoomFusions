@@ -7,6 +7,7 @@ Actor PPE_Q3GrenadeLauncher : RocketLauncher
 	Weapon.AmmoType1 "PPE_Grenades"
 	Weapon.SlotNumber 4
 	Weapon.UpSound "items/q3switch"
+	Weapon.BobSpeed 2
 	Inventory.PickupSound "items/q3weapon"
 	Inventory.Pickupmessage "$GOT_PPE_GL"
 	Tag "$TAG_PPE_GL"

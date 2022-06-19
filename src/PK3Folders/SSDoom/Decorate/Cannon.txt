@@ -160,12 +160,12 @@ Actor DSS_CannonBall3 : DSS_CannonBallBase
 
 Actor DSS_CannonBallL1 : DSS_CannonBall
 {
-  Speed 30
+  Speed 27
 }
 
 Actor DSS_CannonBallL2 : DSS_CannonBall
 {
-  Speed 40
+  Speed 39
 }
 
 Actor DSS_CannonBallL3 : DSS_CannonBall

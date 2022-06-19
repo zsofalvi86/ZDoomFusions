@@ -6,6 +6,7 @@ actor PPE_Q3PlasmaGun : PlasmaRifle
 	Weapon.AmmoUse 1
 	Weapon.SlotNumber 8
 	Weapon.UpSound "items/q3switch"
+	Weapon.BobSpeed 2
 	Inventory.PickupSound "items/q3weapon"
 	Inventory.Pickupmessage "$GOT_PPE_PG"
 	Tag "$TAG_PPE_PG"

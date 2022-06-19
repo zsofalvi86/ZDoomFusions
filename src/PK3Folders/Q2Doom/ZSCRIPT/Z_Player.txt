@@ -4,20 +4,10 @@ Class PPE_Q2Player : DoomPlayer
 	int breath;
 	int ddgTimer; int airTime;
 	int fwdT; int bwdT; int ltT; int rtT;
-	double tilt;
+	double tilt; double desiredTilt;
 	bool landed, jJmp, jAcro, canDJmp;
 	bool canDLt, canDRt, canDFw, canDBw;
-	const maxtilt = 1.5;
-	
-	/*bool wasOnDry, wasOnWater, wasOnBlood, wasOnShit, wasOnSlime, wasOnLava;
-	int wet; int wetType;
-	const notwet = 0; const watery=1; const bloody=2; const shitty=3; const slimy=4; const lavay=5;
-	
-	const dblTap = 10; const noDdg = 4; const dDelay = 20;
-	const jmpPwr = 6.5; const dJmpPwr = 7.5; const dUPwr = 1.75; 
-	const speed = 10; const dodgePwr = 12;
-	
-	const wetTics = 120;*/
+	const maxtilt = 1.8;
 	
 	Override void Tick ()
 	{
@@ -74,12 +64,11 @@ Class PPE_Q2Player : DoomPlayer
 	
 	void SetTilt(bool left, bool right)
 	{
-		if (left && !right) {tilt-=0.45;}
-		else if (right && !left) {tilt+=0.45;}
-		else if (tilt > 0.82 && !canDLt) {tilt-=0.82;}
-		else if (tilt < -0.82 && !canDRt) {tilt+=0.82;}
-		else if (!canDLt && !canDRt) {tilt = 0;}
-		if(tilt < -maxtilt){tilt = -maxtilt;} if(tilt > maxtilt){tilt = maxtilt;}
+		if (left && !right) {desiredTilt = -maxtilt;}
+		else if (right && !left) {desiredTilt = maxtilt;}
+		else {desiredTilt = 0;}
+		if(tilt < desiredTilt) {tilt += 0.3;}
+		if(tilt > desiredTilt) {tilt -= 0.3;}
 		A_SetRoll(tilt);//,SPF_INTERPOLATE);
 		//A_Print("t: "..tilt);
 	}
@@ -92,6 +81,7 @@ Class PPE_Q2Player : DoomPlayer
 		Species "Player";
 		Player.JumpZ 7.5;
 		Player.StartItem "PPE_Q2Blaster";
+		Player.StartItem "PPE_Q2DamageMod";
 		Player.DisplayName "Grunt";
 		Player.SoundClass "PPE_Quake2Player";
 	

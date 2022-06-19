@@ -1,4 +1,4 @@
-Actor PPE_BulletPuffQ2 : PPE_Q2BackstabPuff
+Actor PPE_BulletPuffQ2 : BulletPuff//PPE_Q2BackstabPuff
 {
 	States
 	{

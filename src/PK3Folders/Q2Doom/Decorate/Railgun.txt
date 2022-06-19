@@ -99,7 +99,7 @@ Actor PPE_Q2RailGun : Chaingun
 	}
 }
 
-Actor PPE_Q2RailPuff : PPE_Q2BackstabPuff
+Actor PPE_Q2RailPuff : BulletPuff//PPE_Q2BackstabPuff
 {
 	-ALLOWPARTICLES
 	+ALWAYSPUFF

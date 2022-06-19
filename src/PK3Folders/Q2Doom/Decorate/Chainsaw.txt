@@ -40,19 +40,19 @@ Actor PPE_Q2Chainsaw : Chainsaw
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
 		CSWS A 1 Offset(128, 72)
 		CSWS A 1 Offset(112, 64) // 10 - should one shot a pinky if all hits connect
-		CSWS A 1 Offset(96, 55) A_FireBullets(-24,6,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", -6, 0, 24, 4)
+		CSWS A 1 Offset(96, 55) A_FireBullets(-24,6,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", -6, 0, 24, 4)
 		CSWS A 1 Offset(80, 48)
-		CSWS A 1 Offset(64, 42) A_FireBullets(-16,4,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", -4, 0, 16, 6)
+		CSWS A 1 Offset(64, 42) A_FireBullets(-16,4,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", -4, 0, 16, 6)
 		CSWS A 1 Offset(48, 38)
-		CSWS A 1 Offset(32, 33) A_FireBullets(-8,2,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", -2, 0, 8, 8)
+		CSWS A 1 Offset(32, 33) A_FireBullets(-8,2,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", -2, 0, 8, 8)
 		CSWS A 1 Offset(16, 28)
-		CSWS A 1 Offset(0, 22) A_FireBullets(0,0,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 0, 0, 0, 9)
+		CSWS A 1 Offset(0, 22) A_FireBullets(0,0,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 0, 0, 0, 9)
 		CSWS A 1 Offset(-16, 28)
-		CSWS A 1 Offset(-32, 33) A_FireBullets(8,-2,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 2, 0, -8, 8)
+		CSWS A 1 Offset(-32, 33) A_FireBullets(8,-2,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 2, 0, -8, 8)
 		CSWS A 1 Offset(-48, 38)
-		CSWS A 1 Offset(-64, 42) A_FireBullets(16,-4,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 4, 0, -16, 6)
+		CSWS A 1 Offset(-64, 42) A_FireBullets(16,-4,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 4, 0, -16, 6)
 		CSWS A 1 Offset(-80, 48)
-		CSWS A 1 Offset(-96, 55) A_FireBullets(24,-6,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 6, 0, -24, 4)
+		CSWS A 1 Offset(-96, 55) A_FireBullets(24,-6,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileLeft", 6, 0, -24, 4)
 		CSWS A 1 Offset(-112, 64)
 		CSWS A 1 Offset(-128, 72)
 		TNT1 A 6
@@ -78,19 +78,19 @@ Actor PPE_Q2Chainsaw : Chainsaw
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
 		CSWS A 1 Offset(-128, 72)
 		CSWS A 1 Offset(-112, 64)
-		CSWS A 1 Offset(-96, 55) A_FireBullets(24,-6,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 6, 0, -24, 4)
+		CSWS A 1 Offset(-96, 55) A_FireBullets(24,-6,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 6, 0, -24, 4)
 		CSWS A 1 Offset(-80, 48)
-		CSWS A 1 Offset(-64, 42) A_FireBullets(16,-4,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 4, 0, -16, 6)
+		CSWS A 1 Offset(-64, 42) A_FireBullets(16,-4,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 4, 0, -16, 6)
 		CSWS A 1 Offset(-48, 38)
-		CSWS A 1 Offset(-32, 33) A_FireBullets(8,-2,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 2, 0, -8, 8)
+		CSWS A 1 Offset(-32, 33) A_FireBullets(8,-2,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 2, 0, -8, 8)
 		CSWS A 1 Offset(-16, 28)
-		CSWS A 1 Offset(0, 22) A_FireBullets(0,0,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 0, 0, 0, 9)
+		CSWS A 1 Offset(0, 22) A_FireBullets(0,0,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", 0, 0, 0, 9)
 		CSWS A 1 Offset(16, 28)
-		CSWS A 1 Offset(32, 33) A_FireBullets(-8,2,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", -2, 0, 8, 8)
+		CSWS A 1 Offset(32, 33) A_FireBullets(-8,2,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", -2, 0, 8, 8)
 		CSWS A 1 Offset(48, 38)
-		CSWS A 1 Offset(64, 42) A_FireBullets(-16,4,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", -4, 0, 16, 6)
+		CSWS A 1 Offset(64, 42) A_FireBullets(-16,4,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", -4, 0, 16, 6)
 		CSWS A 1 Offset(80, 48)
-		CSWS A 1 Offset(96, 55) A_FireBullets(-24,6,-1,(22),"DSS_KnifePuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", -6, 0, 24, 4)
+		CSWS A 1 Offset(96, 55) A_FireBullets(-24,6,-1,(22),"PPE_ChainsawPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,72) //A_FireCustomMissile("PPE_ChainsawOffSwingMissileRight", -6, 0, 24, 4)
 		CSWS A 1 Offset(112, 64)
 		CSWS A 1 Offset(128, 72)
 		TNT1 A 6
@@ -108,7 +108,7 @@ Actor PPE_Q2Chainsaw : Chainsaw
   }
 }
 
-Actor DSS_KnifePuff : PPE_Q2BackstabPuff
+Actor PPE_ChainsawPuff : BulletPuff//PPE_Q2BackstabPuff
 {
 	+NOEXTREMEDEATH
 	SeeSound "weapons/axeflesh"

@@ -10,6 +10,7 @@ Actor PPE_Q3LightningGun : PlasmaRifle
 	Weapon.AmmoUse 1
 	Weapon.AmmoType "PPE_Lightnings"
 	Weapon.AmmoGive 24
+	Weapon.BobSpeed 2
 	Decal PlasmaScorch
 	DamageType "Quake3Lightning"
 	States

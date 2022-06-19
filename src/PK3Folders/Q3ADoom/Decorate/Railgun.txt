@@ -10,6 +10,7 @@ Actor PPE_Q3RailGun : Chaingun
 	Weapon.AmmoType "PPE_Slugs"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 4
+	Weapon.BobSpeed 2
 	Decal "BulletChip"
 	DamageType "Quake3Rail"
 	States

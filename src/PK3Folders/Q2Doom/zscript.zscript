@@ -3,3 +3,4 @@
 #include "zscript/z_armor.txt"
 #include "zscript/z_plasmabeam.txt"
 #include "zscript/z_bfg.txt"
+#include "zscript/z_q2damage.txt"
