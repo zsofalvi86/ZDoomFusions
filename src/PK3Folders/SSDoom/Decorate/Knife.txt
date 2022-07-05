@@ -23,8 +23,8 @@ Actor DSS_Knife : Fist
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/knifeswing")
-    	SSKN BC 2 // 120
-		TNT1 A 0 A_FireBullets(0,0,1,(120),"DSS_KnifePuff",FBF_NORANDOM,72)
+    	SSKN BC 2 // 100
+		TNT1 A 0 A_FireBullets(0,0,1,(100),"DSS_KnifePuff",FBF_NORANDOM,72)
 		SSKN DE 2
 		SSKN F 21
 		SSKN E 2

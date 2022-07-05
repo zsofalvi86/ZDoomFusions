@@ -2,3 +2,4 @@
 #include "zscript/z_cannon.txt"
 #include "zscript/z_devastator.txt"
 #include "zscript/z_flame.txt"
+#include "zscript/z_samdamage.txt"

@@ -2,6 +2,7 @@ Class DSS_SeriousPlayer : DoomPlayer
 {
 	double tilt; double desiredTilt;
 	const maxtilt = 1.4;
+	int tic;
 
 	Override void Tick ()
 	{
@@ -14,6 +15,9 @@ Class DSS_SeriousPlayer : DoomPlayer
 		bool right = insm > 1000;
 		
 		SetTilt(left, right);
+		Timer();
+		PerHalfSec();
+		SeriousSpeedZoom();
 	}
 	
 	void SetTilt(bool left, bool right)
@@ -26,6 +30,45 @@ Class DSS_SeriousPlayer : DoomPlayer
 		A_SetRoll(tilt);//,SPF_INTERPOLATE);
 		//A_Print("t: "..tilt);
 	}
+	
+	void Timer()
+	{
+		if (tic <= 0) {tic = 35;}
+		else {tic--;}
+	}
+	
+	void PerHalfSec()
+	{
+		if (tic == 0 || tic == 18)
+		{
+			let sspeed = Powerup(FindInventory("PowerSpeedSS"));
+			let sdamage = Powerup(FindInventory("PowerSeriousDamage"));
+			let sinvul = Powerup(FindInventory("PowerInvulnerableSam"));
+			if ((sspeed != null && sspeed.EffectTics < 300) ||
+				(sdamage != null && sdamage.EffectTics < 300) ||
+				(sinvul != null && sinvul.EffectTics < 300))
+			{ A_PlaySound("items/powerup/fadewarn",3); }
+		}
+	}
+	
+	void SeriousSpeedZoom()
+	{
+		let sspeed = Powerup(FindInventory("PowerSpeedSS"));
+		let sniperzoom = FindInventory("DSS_SniperZoom");
+		if (sspeed != null && sniperzoom == null)
+		{
+			player.FOV = player.DesiredFOV * 1.3;
+		}
+	}
+	
+	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
+	{
+		if(CheckInventory("PowerSpeedSS",1) && inflictor && inflictor.GetClassName() == "BulletPuff") 
+		{
+			return Super.TakeSpecialDamage(inflictor, source, damage * 0.5, damagetype);
+		}
+		return Super.TakeSpecialDamage(inflictor, source, damage, damagetype);;
+	}
 
 	Default
 	{
@@ -35,6 +78,7 @@ Class DSS_SeriousPlayer : DoomPlayer
 		Species "Player";
 		Player.StartItem "DSS_Revolver";
 		Player.StartItem "DSS_Knife";
+		Player.StartItem "DSS_SamDamageMod";
 		Player.DisplayName "Serious Sam";
 		Player.SoundClass "DSS_SeriousPlayer";
 		

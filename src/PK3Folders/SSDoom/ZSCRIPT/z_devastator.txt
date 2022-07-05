@@ -7,16 +7,16 @@ Class DSS_DevastatorShot : FastProjectile
 	{	
 		if (!exploding)
 		{
-			let damageLeft = damage - damageSpent;
+			//let damageLeft = damage - damageSpent;
 			//A_Print("vel: "..velocity.." dmg:"..damage.." dspnt:"..damageSpent);
-			if (target.health > damageLeft)
+			if (target.health > damage)
 			{
 				Die(self,self);
-				if (damageLeft < 0) return 0;
-				return damageLeft;
+				//if (damageLeft < 0) return 0;
+				return damage;
 			}
-			damageSpent += target.health;
-			return damageLeft;
+			//damageSpent += target.health;
+			return damage;
 		}
 		//A_Print("exploding damage:"..damage);
 		return Super.DoSpecialDamage(target,damage,damagetype);

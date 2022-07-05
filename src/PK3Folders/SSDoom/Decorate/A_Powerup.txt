@@ -49,3 +49,27 @@ Actor PowerSeriousDamage : PowerDamage
   Inventory.Icon "PSDMA0"
   SeeSound "items/sspower"
 }
+
+Actor PPE_SeriousInvulnerability : PowerupGiver replaces InvulnerabilitySphere
+{
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+COUNTITEM
+	Inventory.PickupSound "items/sspower"
+	Inventory.PickupMessage "$GOTSSPEED"
+	powerup.duration -30
+	powerup.type "InvulnerableSam"
+    powerup.color GoldMap
+	States
+	{
+	Spawn:
+		PINV A -1 bright
+		Stop
+	}
+}
+
+ACTOR PowerInvulnerableSam : PowerInvulnerable
+{
+  Powerup.Duration -30
+  Inventory.Icon "PINVA0"
+}

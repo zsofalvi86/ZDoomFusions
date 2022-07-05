@@ -28,14 +28,14 @@ Actor DSS_Shotgun : Shotgun
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		// Top row, 3 pellets
-		TNT1 A 0 A_FireBullets(0,-0.35,-1,(11),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(2,-0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-2,-0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,-0.35,-1,(11),"DSS_ShotgunPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(2,-0.35,-1,(11),"DSS_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-2,-0.35,-1,(11),"DSS_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		// Bottom row, 4 pellets
-		TNT1 A 0 A_FireBullets(0.6,0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-0.6,0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(3,0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-3,0.35,-1,(11),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0.6,0.35,-1,(11),"DSS_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-0.6,0.35,-1,(11),"DSS_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(3,0.35,-1,(11),"DSS_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-3,0.35,-1,(11),"DSS_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/ssshotgun")
     	SSSF ABC 2 bright
 		SSSG B 2 Offset(25,52)
@@ -66,3 +66,5 @@ Actor DSS_Shotgun : Shotgun
     	Stop
 	}
 }
+
+Actor DSS_ShotgunPuff : DSS_BulletPuff {} // searched for in zscript to make close gibbing

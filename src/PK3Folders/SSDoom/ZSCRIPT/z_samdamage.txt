@@ -1,0 +1,42 @@
+Class DSS_SamDamageMod : Inventory
+{
+	Override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		newdamage = damage;
+		if (!passive && inflictor && source)
+		{
+			//owner.A_Print("absangle:"..absangle(owner.angle, owner.AngleTo(source)));
+			if (inflictor.GetClassName() == "DSS_ShotgunPuff")
+			{
+				if ((source.SpawnHealth()/2) + (owner.Distance3D(source)/3) < (damage * 5) -
+				absangle(owner.angle, owner.AngleTo(source)) * 6)
+				{
+					inflictor.bExtremeDeath = true;
+				}
+			}
+			if (inflictor.GetClassName() == "DSS_CoachgunPuff")
+			{
+				if ((source.SpawnHealth()/2) + (owner.Distance3D(source)/2) < (damage * 10) -
+				absangle(owner.angle, owner.AngleTo(source)) * 12)
+				{
+					inflictor.bExtremeDeath = true;
+				}
+			}
+			if (inflictor.GetClassName() == "DSS_MinigunPuff")
+			{
+				if ((source.SpawnHealth()/2) + (owner.Distance3D(source)/3) < (damage * 5))
+				{
+					inflictor.bExtremeDeath = true;
+				}
+			}
+			if (inflictor.GetClassName() == "DSS_SniperPuff")
+			{
+				if ((source.SpawnHealth()/2) + (owner.Distance3D(source)/2) < 100+(damage / 10))
+				{
+					inflictor.bNoExtremeDeath = false;
+					inflictor.bExtremeDeath = true;
+				}
+			}
+		}
+	}
+}

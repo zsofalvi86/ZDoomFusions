@@ -35,19 +35,6 @@ script "startup" ENTER
 	players++;
 }
 
-script "powerupticker" ENTER
-{	
-	while (true)
-	{
-		If((CheckInventory("PowerSpeedSS") && GetActorPowerupTics(0, "PowerSpeedSS") < 300)
-		|| (CheckInventory("PowerSeriousDamage") && GetActorPowerupTics(0, "PowerSeriousDamage") < 300))
-		{
-			PlaySound(0,"items/powerup/fadewarn",3,1.0,0,0,1);
-		}
-		Delay(16);
-	}
-}
-
 script "GetLevelNum" (void)
 {
 	SetResultValue(level);
