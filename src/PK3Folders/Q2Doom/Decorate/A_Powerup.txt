@@ -26,19 +26,13 @@ Actor PPE_Silencer : PowerupGiver
 	Inventory.InterHubAmount 1
 	Tag "$TAG_PPE_SILENCER"
 	powerup.duration -60
-	powerup.type PowerSilencer
+	powerup.type PowerSilencer //zscript
 	States
 	{
 	Spawn:
 		SLNC A -1
 		Stop
 	}
-}
-
-Actor PowerSilencer : PowerStrength
-{
-	powerup.duration -60
-	Inventory.Icon "SLNCA0"
 }
 
 Actor PPE_IRGoggles : PowerupGiver replaces Infrared

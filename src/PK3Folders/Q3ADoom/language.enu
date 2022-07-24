@@ -29,7 +29,7 @@ GOTVISOR = "Light Amplification Visor";
 GOTMSPHERE = "MegaSphere!";
 GOTPORTMED = "Personal Medkit";
 GOTTELE = "Personal Teleporter!";
-GOTKAMI = "Kamikaze!";
+GOTKAMIKAZE = "Kamikaze!";
 GOTQ3INVUL = "Invulnerability!";
 GOTQ3INVIS = "Invisibility!";
 GOTQ3SUIT = "Battle Suit!";
@@ -45,7 +45,7 @@ GOTQ3AMMOREGEN = "Ammo-Regen!";
 // Holdable
 TAG_PPE_Q3PORTMED = "Personal Medikit";
 TAG_PPE_Q3TELE = "Personal Teleporter";
-TAG_PPE_Q3KAMI = "Kamikaze";
+TAG_PPE_Q3KAMIKAZE = "Kamikaze";
 TAG_PPE_Q3INVUL = "Invulnerability";
 
 // Ammo

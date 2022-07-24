@@ -16,46 +16,30 @@ Class PPE_Q3Player : DoomPlayer
 		bool right = insm > 1000;
 		
 		SetTilt(left, right);
+		Timer();
 		
 		CVar q3ah = CVar.FindCVar('q3ahealth');
 		let uarmor = BasicArmor(FindInventory("BasicArmor"));
-		if (self.Health > 0 &&
-		(q3ah.GetBool() && (self.Health > 100 || (uarmor != null && uarmor.Amount > 100)) ||
-		CheckInventory("PowerRegen",1) || 
-		CheckInventory("PPE_GuardPowerToken",1)))
+		if (tic == 0 && self.Health > 0 && q3ah.GetBool() && 
+		(self.Health > 100 || (uarmor != null && uarmor.Amount > 100)) &&
+		!CheckInventory("PPE_GuardPowerToken",1))
 		{
-			if (tic <= 0) {tic = 35;}
-			else {tic--;}
-			if (tic == 0)
-			{
-				if (CheckInventory("PowerRegen",1) || CheckInventory("PPE_GuardPowerToken",1)) 
-				{
-					if (self.Health < 100) {A_SetHealth(self.Health+15); A_PlaySound("items/regen/active",4);}
-					else if (self.Health < 200) {A_SetHealth(self.Health+5); A_PlaySound("items/regen/active",4);}
-					if (self.Health > 200) {A_SetHealth(200);}
-				}
-				else if (!CheckInventory("PPE_GuardPowerToken",1))
-				{
-					if (self.Health > 100) {A_SetHealth(self.Health-1);}
-					if (uarmor != null && uarmor.Amount > 100) {uarmor.Amount--;}
-				}
-			}
+			if (self.Health > 100 && !CheckInventory("PowerRegen",1)) {A_SetHealth(self.Health-1);}
+			if (uarmor != null && uarmor.Amount > 100) {uarmor.Amount--;}
 		}
-		else {tic = 0;}
+		
+		if (tic == 0 && CheckInventory("PowerRegen",1))
+		{
+			if (self.Health < 100) {A_SetHealth(self.Health+15); A_PlaySound("items/regen/active",4);}
+			else if (self.Health < 200) {A_SetHealth(self.Health+5); A_PlaySound("items/regen/active",4);}
+			if (self.Health > 200) {A_SetHealth(200);}
+		}
 	}
 	
 	Override void OnRespawn()
 	{
 		A_SetHealth(125);
 		Super.OnRespawn();
-	}
-	
-	Override Vector2 BobWeapon(double ticfrac)
-	{
-		let vec = Super.BobWeapon(ticfrac);
-		if (vec.x == 0) bobtilt = 0;
-		else bobtilt = vec.x / 16;
-		return vec;
 	}
 	
 	void SetTilt(bool left, bool right)
@@ -65,9 +49,20 @@ Class PPE_Q3Player : DoomPlayer
 		else {desiredTilt = 0;}
 		if(tilt < desiredTilt) {tilt += 0.25;}
 		if(tilt > desiredTilt) {tilt -= 0.25;}
-		//tilt += 
-		A_SetRoll(tilt - bobtilt);//,SPF_INTERPOLATE);
-		//A_Print("t: "..tilt);
+		
+		let angle = Level.maptime / (20 * TICRATE / 35.) * 360.;
+		let cbob = player.bob * sin(angle) * 0.5f;
+		bobtilt = cbob * 0.125f;
+		
+		FCheckPosition fcp; CheckPosition((pos.x,pos.y),false,fcp);
+		if (fcp.floorz == self.pos.z) {A_SetRoll(tilt - bobtilt);}
+		else {A_SetRoll(tilt);}
+	}
+	
+	void Timer()
+	{
+		if (tic <= 0) {tic = 35;}
+		else {tic--;}
 	}
 
 	Default
@@ -91,12 +86,6 @@ Class PPE_Q3Player : DoomPlayer
 		Player.WeaponSlot 7, "PPE_Q3RailGun";
 		Player.WeaponSlot 8, "PPE_Q3PlasmaGun";
 		Player.WeaponSlot 9, "PPE_Q3Bfg";
-		
-		DamageFactor "Quake3", 0.5;
-		DamageFactor "Quake3Plasma", 0.5;
-		DamageFactor "Quake3Rail", 0.5;
-		DamageFactor "Quake3SplashImpact", 0.0;
-		DamageFactor "Quake3Splash", 0.78;
 	}
 	
 	States

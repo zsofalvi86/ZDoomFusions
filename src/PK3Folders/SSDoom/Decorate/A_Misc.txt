@@ -42,17 +42,17 @@ ACTOR PPE_SArmor : ArmorBonus
   }
 }
 
-Actor PPE_ArmorShardSpawner : CustomInventory replaces ArmorBonus
+Actor PPE_ArmorShardSpawner : PPE_Spawner replaces ArmorBonus
 {
 	States
 	{
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",4) == 1,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_XSArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_XSArmor")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_SArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_SArmor")
 		stop
 	}
 }
@@ -96,7 +96,7 @@ ACTOR DSS_HealthBox : MediKit
 	}
 }
 
-Actor DSS_25HealthSpawner : CustomInventory replaces MediKit
+Actor DSS_25HealthSpawner : PPE_Spawner replaces MediKit
 {
 	States
 	{
@@ -105,18 +105,18 @@ Actor DSS_25HealthSpawner : CustomInventory replaces MediKit
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",7) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",25) == 1,"Spawn3")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 4,"Spawn2")
-		TNT1 A 0 A_SpawnItem("DSS_LargePotion")
+		TNT1 A 0 A_SpawnPermanent("DSS_LargePotion")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_MArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_MArmor")
 		stop
 	Spawn3:
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 3,"Spawn4")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 6,"Spawn4")
-		TNT1 A 0 A_SpawnItem("DSS_HealthBox")
+		TNT1 A 0 A_SpawnPermanent("DSS_HealthBox")
 		stop
 	Spawn4:
-		TNT1 A 0 A_SpawnItem("PPE_LArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_LArmor")
 		stop
 	}
 }
@@ -130,50 +130,6 @@ ACTOR DSS_Heart : Soulsphere replaces Soulsphere
 	Spawn:
 		SHP4 AAABCDCBABCDCB 2 bright
 		loop
-	}
-}
-
-Actor PPE_GreenArmorSpawner : CustomInventory //replaces GreenArmor
-{
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 7,"Spawn3")
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 5,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_MArmor")
-		stop
-	Spawn2:
-		TNT1 A 0 A_Jump(256,1,2)
-		TNT1 A 0 A_SpawnItem("PPE_MArmor")
-		stop
-		TNT1 A 0 A_SpawnItem("PPE_LArmor")
-		stop
-	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_LArmor")
-		stop
-	}
-}
-
-Actor PPE_BlueArmorSpawner : CustomInventory //replaces BlueArmor
-{
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 7,"Spawn3")
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 5,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_XLArmor")
-		stop
-	Spawn2:
-		TNT1 A 0 A_Jump(256,1,2)
-		TNT1 A 0 A_SpawnItem("PPE_XLArmor")
-		stop
-		TNT1 A 0 A_SpawnItem("PPE_SSArmor")
-		stop
-	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_SSArmor")
-		stop
 	}
 }
 

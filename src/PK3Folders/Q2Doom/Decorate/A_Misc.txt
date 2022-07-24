@@ -65,6 +65,7 @@ ACTOR PPE_Q2MegaHealth : CustomInventory replaces Soulsphere
     Stop
   Pickup:
 	TNT1 A 0 A_GiveInventory("PPE_TempHealth",min(100,250-health))
+	TNT1 A 0 A_GiveInventory("PPE_TempHealthBuffer",5)
     TNT1 A 0 A_GiveInventory("PPE_Q2HealthBonus",50) // will give 100 as one gives 2
     Stop
   }
@@ -169,6 +170,9 @@ Actor PPE_Q2PowerArmor : Megasphere replaces Megasphere
 		TNT1 A 0 A_JumpIfInventory("PPE_PowerArmorOn",0,"TurnOff")
 		goto TurnOn
 	TurnOn:
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",1,"TurnOnActually")
+		Fail
+	TurnOnActually:
 		TNT1 A 0 A_SetInventory("PPE_PowerArmorOn",1)
 		TNT1 A 0 A_PlaySound("items/powershield/on")
 		Fail
@@ -191,4 +195,9 @@ ACTOR PPE_PowerArmorOn : Inventory
 Actor PPE_TempHealth : Inventory
 {
 	Inventory.MaxAmount 200
+}
+
+Actor PPE_TempHealthBuffer : Inventory
+{
+	Inventory.MaxAmount 5
 }

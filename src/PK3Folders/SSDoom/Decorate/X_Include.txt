@@ -21,3 +21,4 @@
 #Include Decorate/A_Replacers.txt
 #Include Decorate/A_Misc.txt
 #Include Decorate/A_Powerup.txt
+#Include Decorate/A_Crosshair.txt

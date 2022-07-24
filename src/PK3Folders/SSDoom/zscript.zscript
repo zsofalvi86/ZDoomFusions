@@ -3,3 +3,5 @@
 #include "zscript/z_devastator.txt"
 #include "zscript/z_flame.txt"
 #include "zscript/z_samdamage.txt"
+#include "zscript/z_spawner.txt"
+#include "zscript/z_scoped.txt"

@@ -1,0 +1,49 @@
+Class DSS_Scoped : SuperShotgun
+{
+	int scopeframe;
+	int scopeframemem;
+	bool roll;
+	bool deroll;
+	
+	Action void A_RollScope(bool on)
+	{
+		invoker.deroll = false;
+		invoker.roll = on;
+	}
+	
+	Action void A_DeRollScope()
+	{
+		invoker.roll = false;
+		invoker.deroll = true;
+	}
+
+	Action State A_SetScopeSprite()
+	{
+		let pspr = player.FindPSprite(11);
+		let ret = ResolveState(null);
+		if (pspr)
+		{
+			if (invoker.roll) {invoker.scopeframe++;} else {invoker.scopeframe = 0;}
+			if (invoker.deroll) {invoker.scopeframemem -= 2;}
+			if (invoker.scopeframemem < 0) {invoker.scopeframemem = 15;}
+			if (invoker.scopeframe > 15) {invoker.scopeframe = 0;}
+			
+			FTranslatedLineTarget hit;
+			LineAttack(angle, 99999, pitch, 0, 'Normal', "DSS_InvisCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,hit,5);
+			if(hit.linetarget)
+			{
+				double ratio = double(hit.linetarget.health) / hit.linetarget.GetSpawnHealth();
+				if (ratio < 0.33) { ret = ResolveState("ScopeRed"); }
+				else if (ratio < 0.66) { ret = ResolveState("ScopeYellow"); }
+				else { ret = ResolveState("ScopeGreen"); }
+			}
+			else { ret = ResolveState("ScopeWall"); }
+			
+			//A_Print("s: "..GetSpriteIndex("SXHT").." f:"..invoker.scopeframemem);
+			//pspr.tics = 2;
+			pspr.frame = invoker.scopeframemem;
+			if (invoker.roll) {invoker.scopeframemem = invoker.scopeframe;}
+		}
+		return ret;
+	}
+}

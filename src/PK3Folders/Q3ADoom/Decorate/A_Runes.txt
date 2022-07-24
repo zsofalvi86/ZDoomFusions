@@ -1,4 +1,4 @@
-Actor PPE_AmmoRegen : Backpack replaces Backpack
+Actor PPE_AmmoRegen : Backpack
 {
 	+FLOATBOB
 	Inventory.PickupSound "items/ammoregen/pickup"
@@ -51,7 +51,7 @@ Actor PPE_Guard : CustomInventory
 		loop
 	Pickup:
 	Use:
-		TNT1 A 0 A_TakeInventory("PowerDoubleDamage")
+		//TNT1 A 0 A_TakeInventory("PowerDoubleDamage")
 		//TNT1 A 0 A_TakeInventory("PowerAmmoRegen")
 		//TNT1 A 0 A_TakeInventory("PowerScout")
 		TNT1 A 0 A_GiveInventory("PPE_RedArmor")
@@ -81,7 +81,7 @@ Actor PPE_Doubler : CustomInventory
 		loop
 	Pickup:
 	Use:
-		TNT1 A 0 A_TakeInventory("PPE_GuardPowerToken")
+		//TNT1 A 0 A_TakeInventory("PPE_GuardPowerToken")
 		//TNT1 A 0 A_TakeInventory("PowerAmmoRegen")
 		//TNT1 A 0 A_TakeInventory("PowerScout")
 		TNT1 A 0 A_GiveInventory("PPE_DoubleG")

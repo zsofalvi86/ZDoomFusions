@@ -1,6 +1,7 @@
 
 version "3.5"
 
-//#include "zscript/z_headshot.txt"
+#include "zscript/z_plasma.txt"
 #include "zscript/z_player.txt"
 #include "zscript/z_replace.txt"
+#include "zscript/z_spawner.txt"

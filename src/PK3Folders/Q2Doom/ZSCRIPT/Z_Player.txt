@@ -2,30 +2,34 @@ Class PPE_Q2Player : DoomPlayer
 {
 	double xPos, yPos, zPos;
 	int breath;
-	int ddgTimer; int airTime;
-	int fwdT; int bwdT; int ltT; int rtT;
+	int silencedshots;
+
 	double tilt; double desiredTilt;
-	bool landed, jJmp, jAcro, canDJmp;
-	bool canDLt, canDRt, canDFw, canDBw;
 	const maxtilt = 1.8;
+	int tic;
 	
 	Override void Tick ()
 	{
 		Super.Tick();
 		if (!player || !player.mo || player.mo != self){return;}
 		
-		int inp = GetPlayerInput(MODINPUT_BUTTONS);
 		int insm = GetPlayerInput(MODINPUT_SIDEMOVE);
-		int pinp = GetPlayerInput(MODINPUT_OLDBUTTONS);
-		Vector2 ppos; ppos.x = self.pos.x; ppos.y = self.pos.y;
-		FCheckPosition fcp; CheckPosition(ppos,false,fcp);
-		bool fwd = inp & BT_FORWARD; bool bwd = inp & BT_BACK;
-		//bool left = (inp & BT_MOVELEFT) || (insm < -1000);
-		//bool right = (inp & BT_MOVERIGHT) || (insm > 1000);
 		bool left = insm < -1000;
 		bool right = insm > 1000;
 		
 		SetTilt(left, right);
+		Timer();
+		
+		if (tic == 0 && self.Health > 0)
+		{
+			if (CountInv("PPE_TempHealthBuffer")) { TakeInventory("PPE_TempHealthBuffer", 1); }
+			else if (CountInv("PPE_TempHealth"))
+			{
+				TakeInventory("PPE_TempHealth", 1);
+				if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
+				else { SetInventory("PPE_TempHealth", 0); }
+			}
+		}
 		
 		if (CheckInventory("PowerQ2Enviro_Fake",1))
 		{
@@ -36,6 +40,18 @@ Class PPE_Q2Player : DoomPlayer
 			if (breath == 1) {A_PlaySound("items/suit/breath2",5);}
 		}
 		else {breath = 0;}
+	}
+	
+	Override void Travelled()
+	{
+		if (self.Health < 50) { A_SetHealth(50); }
+		SetInventory("PPE_TempHealthBuffer", 0);
+		while (CountInv("PPE_TempHealth"))
+		{
+			TakeInventory("PPE_TempHealth", 1);
+			if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
+			else { SetInventory("PPE_TempHealth", 0); }
+		}
 	}
 	
 	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
@@ -62,6 +78,13 @@ Class PPE_Q2Player : DoomPlayer
 		return Super.GetBloodType(type);
 	}
 	
+	Override void FireWeapon(State stat)
+	{
+		if (silencedshots > 0) { silencedshots--; }
+		if (silencedshots <= 0 && CountInv("PowerSilencer")) { TakeInventory("PowerSilencer",1); }
+		Super.FireWeapon(stat);
+	}
+	
 	void SetTilt(bool left, bool right)
 	{
 		if (left && !right) {desiredTilt = -maxtilt;}
@@ -71,6 +94,12 @@ Class PPE_Q2Player : DoomPlayer
 		if(tilt > desiredTilt) {tilt -= 0.3;}
 		A_SetRoll(tilt);//,SPF_INTERPOLATE);
 		//A_Print("t: "..tilt);
+	}
+	
+	void Timer()
+	{
+		if (tic <= 0) {tic = 35;}
+		else {tic--;}
 	}
 
 	Default

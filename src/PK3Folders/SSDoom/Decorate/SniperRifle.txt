@@ -1,4 +1,4 @@
-Actor DSS_SniperRifle : Chaingun
+Actor DSS_SniperRifle : DSS_Scoped
 {
 	+WEAPON.NOALERT
 	+WEAPON.NOAUTOAIM
@@ -24,6 +24,7 @@ Actor DSS_SniperRifle : Chaingun
 		SSSS A 1 A_WeaponReady
 		Loop
 	ReadyScope:
+		TNT1 A 0 A_RollScope(false)
 		TNT1 A 0 A_StopSound(6)
 	ReadyScopeLoop:
 		SSSS Z 1 bright A_WeaponReady(WRF_NOBOB)
@@ -31,6 +32,7 @@ Actor DSS_SniperRifle : Chaingun
 	Deselect:
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_ZoomFactor(1)
+		TNT1 A 0 A_ClearOverlays(11,11)
 		TNT1 A 0 A_SetInventory("DSS_SniperZoom",0)
 	DeseLoop:
 		SSSS A 1 A_Lower
@@ -69,31 +71,54 @@ Actor DSS_SniperRifle : Chaingun
 		TNT1 A 0 A_SetInventory("DSS_SniperZoom",1)
 		TNT1 A 0 A_ZoomFactor(1.3)
 		TNT1 A 0 A_PlaySound("Weapons/sssniperz",6,1.0,1)
-		SSSS Z 3 bright
+		TNT1 A 0 A_RollScope(true)
+		TNT1 A 0 A_Overlay(11,"ScopeStart",false)
+		TNT1 A 0 A_OverlayFlags(11,PSPF_ALPHA|PSPF_RENDERSTYLE|PSPF_ADDWEAPON,true)
+		TNT1 A 0 A_OverlayRenderstyle(11,STYLE_Translucent)
+		TNT1 A 0 A_OverlayAlpha(11, 0.75)
+		SSSS Z 4 bright
 		TNT1 A 0 A_ReFire("Zoom1")
 		Goto ReadyScope
 	Zoom1:
 		TNT1 A 0 A_ZoomFactor(2)
-		SSSS Z 3 bright
+		SSSS Z 4 bright
 		TNT1 A 0 A_ReFire("Zoom2")
 		Goto ReadyScope
 	Zoom2:
 		TNT1 A 0 A_ZoomFactor(3)
-		SSSS Z 3 bright
+		SSSS Z 4 bright
 		TNT1 A 0 A_ReFire("Zoom3")
 		Goto ReadyScope
 	Zoom3:
 		TNT1 A 0 A_ZoomFactor(4)
-		SSSS Z 3 bright
+		SSSS Z 4 bright
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_RollScope(false)
 		TNT1 A 0 A_ReFire("Zoom3")
 		Goto ReadyScope
 	DeZoom:
 		TNT1 A 0 A_PlaySound("Weapons/sssniperz",6)
 		TNT1 A 0 A_ZoomFactor(1)
-		TNT1 A 0 A_SetInventory("DSS_SniperZoom",0)
+		TNT1 A 0 A_DeRollScope
 		SSSS Z 5 bright
+		TNT1 A 0 A_ClearOverlays(11,11)
+		TNT1 A 0 A_SetInventory("DSS_SniperZoom",0)
 		SSSS A 10
 		Goto Ready
+	ScopeStart:
+		TNT1 A 0 A_SetScopeSprite
+	ScopeWall:
+		SXHS "#" 1 bright Offset(0,-32)
+		Goto ScopeStart
+	ScopeGreen:
+		SXHT "#" 1 bright Offset(0,-32)
+		Goto ScopeStart
+	ScopeYellow:
+		SXHU "#" 1 bright Offset(0,-32)
+		Goto ScopeStart
+	ScopeRed:
+		SXHV "#" 1 bright Offset(0,-32)
+		Goto ScopeStart
 	Flash:
 		TNT1 A 1 A_Light1
 		//TNT1 AA 1 A_SetPitch(pitch-0.4)

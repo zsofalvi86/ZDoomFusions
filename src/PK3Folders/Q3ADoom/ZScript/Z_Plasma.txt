@@ -1,0 +1,27 @@
+Class PPE_Q3PlasmaBase : FastProjectile
+{
+	bool skipDone;
+	const skipDist = 300;
+	
+	override void BeginPlay()
+	{
+		skipDone = false;
+		super.BeginPlay();
+	}
+	
+	override void Tick ()
+	{
+		if (!skipDone)
+		{
+			skipDone = true;
+			let its = skipDist/speed;
+			//A_ScaleVelocity(skipDist/speed);
+			for (int i=0;i<its;i++){super.Tick();}
+			//A_ScaleVelocity(1/(skipDist/speed));
+		}
+		else 
+		{
+			super.Tick();
+		}
+	}
+}

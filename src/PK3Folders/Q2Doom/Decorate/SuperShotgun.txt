@@ -34,7 +34,7 @@ Actor PPE_Q2SuperShotgun : SuperShotgun
 		Q2SS A 4
 		Q2SS EEEFFFGG 1
 		Q2SS HHIIJJKKKJJII 1
-		Q2SS HHGGFFEEA 1
+		Q2SS HHGGFFEEAAA 1
 		Goto Ready
   	Flash:
     	TNT1 A 1 A_Light1

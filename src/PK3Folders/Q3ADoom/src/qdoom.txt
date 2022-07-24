@@ -3,18 +3,19 @@
 
 global int 1:level;
 global int 2:CG;
-global int 3:RL;
-global int 4:SSG;
-global int 5:CS;
-global int 6:BER;
-global int 7:POW;
-global int 8:SOUL;
-global int 9:MEGA;
+global int 3:SG;
+global int 4:RL;
+global int 5:SSG;
+global int 6:CS;
+global int 7:BER;
+global int 8:POW;
+global int 9:SOUL;
+global int 10:BPK;
 
 script "map exit" UNLOADING
 {
 	level += 1;
-	RL = 0;
+	RL=3;
 }
 
 script "GetLevelNum" (void)
@@ -34,20 +35,28 @@ script "SetSpawn" (int spawnTag)
 		case 4:BER++;break;
 		case 5:POW++;break;
 		case 6:SOUL++;break;
-		case 7:MEGA++;break;
+		case 7:BPK++;break;
+		case 8:SG++;break;
 	}
 	
 	if(CG>2){CG=1;}
+	if(SG>2){SG=1;}
 	if(RL>3){RL=1;}
 	if(SSG>2){SSG=1;}
 	if(CS>2){CS=1;}
-	if(BER>2){BER=1;}
+	if(BER>3){BER=1;}
 	if(POW>3){POW=1;}
 	if(SOUL>2){SOUL=1;}
-	if(MEGA>2){MEGA=1;}
+	if(BPK>2){BPK=1;}
+	
+	if(BPK<1 && (RL>0 || SSG>1)) {BER=4;} // doubler on berserk
+	if(SG<1 && SSG>2) {SSG=3;} // spawn SG on SSG
+	if(SG<1 && SSG==3) {SSG=2;} // spawn alternate nailgun on SSG
 	
 	if(RL==2 && CS==1) {RL=3;CS=2;} // avoid collission
 	if(RL==3 && CS==2) {RL=1;CS=1;} // avoid collission
+	if(SG==1 && SSG==3) {SG=2;SSG=1;} // avoid collission
+	if(SG==2 && SSG==1) {SG=1;SSG=2;} // avoid collission
 }
 
 script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
@@ -62,7 +71,8 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 		case 4:ret=BER;break;
 		case 5:ret=POW;break;
 		case 6:ret=SOUL;break;
-		case 7:ret=MEGA;break;
+		case 7:ret=BPK;break;
+		case 8:ret=SG;break;
 	}
 	
 	SetResultValue(ret);

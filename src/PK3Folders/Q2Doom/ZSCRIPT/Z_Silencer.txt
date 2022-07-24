@@ -1,0 +1,15 @@
+Class PowerSilencer : PowerStrength
+{
+	Override void InitEffect()
+	{
+		let q2powner = PPE_Q2Player(owner);
+		if (q2powner) {q2powner.silencedshots = 30;}
+		Super.InitEffect();
+	}
+
+	Default
+	{
+		powerup.duration -60;
+		Inventory.Icon "SLNCA0";
+	}
+}

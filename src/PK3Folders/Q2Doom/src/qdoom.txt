@@ -8,31 +8,31 @@ script "startup" ENTER
 	Thing_ChangeTID(0, 6000 + PlayerNumber());
 	players++;
 	// Like in Quake, set health to at least 50
-	If(GetActorProperty(0, APROP_HEALTH) < 50)
-	{
-		SetActorProperty(0, APROP_HEALTH, 50);
-	}
+	//If(GetActorProperty(0, APROP_HEALTH) < 50)
+	//{
+	//	SetActorProperty(0, APROP_HEALTH, 50);
+	//}
 }
 
-script "vitaltickers" ENTER
-{	
-	while (true)
-	{
-		If(CheckInventory("PPE_TempHealth"))
-		{
-			TakeInventory("PPE_TempHealth", 1);
-			If(GetActorProperty(0, APROP_HEALTH) > 100 + GetActorProperty(0, APROP_STAMINA))
-			{
-				SetActorProperty(0, APROP_HEALTH, GetActorProperty(0, APROP_HEALTH) - 1);
-			}
-			else
-			{
-				TakeInventory("PPE_TempHealth", 255);
-			}
-		}
-		Delay(35);
-	}
-}
+//script "vitaltickers" ENTER
+//{	
+//	while (true)
+//	{
+//		If(CheckInventory("PPE_TempHealth"))
+//		{
+//			TakeInventory("PPE_TempHealth", 1);
+//			If(GetActorProperty(0, APROP_HEALTH) > 100 + GetActorProperty(0, APROP_STAMINA))
+//			{
+//				SetActorProperty(0, APROP_HEALTH, GetActorProperty(0, APROP_HEALTH) - 1);
+//			}
+//			else
+//			{
+//				TakeInventory("PPE_TempHealth", 255);
+//			}
+//		}
+//		Delay(35);
+//	}
+//}
 
 global int 1:level;
 global int 2:SG;

@@ -1,0 +1,72 @@
+Actor DSS_CrosshairBase : BulletPuff
+{
+	+ALWAYSPUFF
+	+PUFFONACTORS
+	+PAINLESS
+	+THRUGHOST
+	+BLOODLESSIMPACT
+	-ALLOWPARTICLES
+	-RANDOMIZE
+	+FORCEXYBILLBOARD
+	-ACTIVATEIMPACT
+	RenderStyle "Normal"
+	Alpha 1.0
+	Vspeed 0
+	Scale 0.5
+}
+
+Actor DSS_InvisCrosshair : DSS_CrosshairBase
+{
+	-THRUGHOST
+	RenderStyle "None"
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			stop
+	}
+}
+
+Actor DSS_NeutralCrosshair : DSS_CrosshairBase
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			SXHP A 1 Bright
+			stop
+	}
+}
+
+Actor DSS_GreenCrosshair : DSS_CrosshairBase
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			SXHP B 1 Bright
+			stop
+	}
+}
+
+Actor DSS_YellowCrosshair : DSS_CrosshairBase
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			SXHP C 1 Bright
+			stop
+	}
+}
+
+Actor DSS_RedCrosshair : DSS_CrosshairBase
+{
+	States
+	{
+		Spawn:
+			TNT1 A 0
+			SXHP D 1 Bright
+			stop
+	}
+}

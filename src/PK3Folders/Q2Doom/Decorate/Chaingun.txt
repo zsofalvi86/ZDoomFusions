@@ -29,6 +29,7 @@ Actor PPE_Q2ChainGun : Chaingun
 		Loop
 	Fire:
 		TNT1 A 0 A_SetInventory("PPE_ChaingunOvershoot",0)
+		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_PlaySound("weapons/chaingun/windup",5,1-(CountInv("PowerSilencer")*0.7))
 	FireLoop:
 		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",2,1)
@@ -105,21 +106,30 @@ Actor PPE_Q2ChainGun : Chaingun
 		TNT1 A 0 A_GiveInventory("PPE_ChaingunOvershoot",1)
 		Goto FireLoop
 	WindDown:
-		TNT1 A 0 A_SetInventory("PPE_ChaingunSpin",0)
 		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",2,1)
 		Goto WindDownSpeed1
 		Q2CX ABCD 1 bright
 		Q2CG ABCD 1
 		Q2CG ABCD 2
-		Q2CG AA 1
-		Q2CG BBB 1
-		Q2CG CCCC 1
-		Goto Ready
+		Goto SpindownReady
 	WindDownSpeed1:
 		Q2CX ABCD 2 bright
-		Q2CG AA 1
-		Q2CG BBB 1
-		Q2CG CCCC 1
+		Q2CG ABCD 2
+		Goto SpindownReady
+	SpindownReady:
+		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",2,2)
+		Q2CG D 1 A_SetInventory("PPE_ChaingunSpin",0)
+		Goto Ready
+		TNT1 A 0 A_SetInventory("PPE_ChaingunSpin",0)
+		TNT1 A 0 A_WeaponReady(WRF_NOBOB)
+		Q2CG ABCD 2
+		TNT1 A 0 A_WeaponReady(WRF_NOBOB)
+		Q2CG ABCD 2
+		TNT1 A 0 A_WeaponReady(WRF_NOBOB)
+		Q2CG ABCD 2
+		TNT1 A 0 A_WeaponReady(WRF_NOBOB)
+		Q2CG ABCD 2
+		Q2CG D 1
 		Goto Ready
 	Flash:
 		TNT1 A 0

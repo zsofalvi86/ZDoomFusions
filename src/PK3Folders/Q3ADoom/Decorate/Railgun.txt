@@ -43,7 +43,7 @@ Actor PPE_Q3RailGun : Chaingun
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_PlayWeaponSound("weapons/railgun/fire")
-		TNT1 A 0 A_RailAttack((200),0,1,"none","none",RGF_SILENT,0,"PPE_Q3RailPuff",0,0,3500,0,96,0,"PPE_Q3RailRing",0)
+		TNT1 A 0 A_RailAttack((100),0,1,"none","none",RGF_SILENT,0,"PPE_Q3RailPuff",0,0,3500,0,96,0,"PPE_Q3RailRing",0)
 		TNT1 A 0 A_RailAttack((0),0,0,"none","none",RGF_SILENT,0,"PPE_InvisiPuff",0,0,3500,0,8,0,"PPE_Q3RailTrail",0)
 		TNT1 A 0 A_JumpIfinventory("PPE_RailZoom",1,"FireZoom")
 	FireNormal:

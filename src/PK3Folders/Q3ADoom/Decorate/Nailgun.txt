@@ -1,6 +1,6 @@
 Actor PPE_ShotNailBase2 : PPE_ShotNailBase
 {
-	Damage (20)
+	Damage (12)
 }
 
 Actor PPE_ShotNailBounceBase : PPE_ShotNailBase
@@ -9,7 +9,7 @@ Actor PPE_ShotNailBounceBase : PPE_ShotNailBase
 	BounceCount 3
 	BounceFactor 1.0
 	WallBounceFactor 1.0
-	Damage (20)
+	Damage (12)
 }
 
 Actor PPE_TANailshotgun : SuperShotgun

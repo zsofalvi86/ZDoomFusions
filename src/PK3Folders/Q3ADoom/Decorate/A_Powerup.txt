@@ -148,10 +148,15 @@ ACTOR PowerHaste_Fake : PowerHaste
 
 Actor PPE_Invulnerability : CustomInventory replaces InvulnerabilitySphere
 {
-	Inventory.PickupSound "items/invul/pickup"
+	Inventory.PickupSound "items/holdable"
+	Inventory.UseSound "items/invul/pickup"
 	Inventory.PickupMessage "$GOTQ3INVUL"
-	+INVENTORY.AUTOACTIVATE
+	Inventory.Icon "QUIVA0"
+	Inventory.MaxAmount 1
+	Inventory.InterHubAmount 0
+	-INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.INVBAR
 	+COUNTITEM
 	+FLOATBOB
 	States
@@ -171,6 +176,7 @@ Actor PPE_Invul : PowerupGiver
 	powerup.duration -30
 	Powerup.Color 255, 0, 255, 0.125
 	powerup.type PowerQ3Invul
+	Powerup.Mode Reflective
 	+INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
 }
