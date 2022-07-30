@@ -1,0 +1,160 @@
+//Ricochets and impacts
+wric1		ric1
+wric2		ric2
+wric3		ric3
+
+$random weapons/ric { wric1 wric2 wric3 }
+
+weapons/nailx		tink1
+$limit weapons/nailx 0
+
+//Pickups
+items/qammo				apkup
+items/qweapon			wpkup
+items/qarmor			qarmor
+items/qhealth1			health1
+items/qhealth2			health2
+items/qhealth3			health3
+items/qshard			shldu
+items/qvial				vialu
+
+//Keys
+items/keys/base			basekey
+items/keys/med			medkey
+items/keys/rune			runekey
+
+//Powerup
+items/biosuit/pickup	suit
+items/biosuit/fade		suit2
+items/quad/pickup		damage
+items/quad/fade			damage2
+items/quad/use			damage3
+items/invul/pickup		protect
+items/invul/fade		protect2
+items/invul/absorb		protect3
+items/ring/pickup		inv1
+items/ring/fade			inv2
+items/ring/loop			inv3
+
+//Can I Axe you a question?
+weapons/axeswing		axsw
+weapons/axehit			axhit
+weapons/axeflesh		axflh
+
+//Shotguns
+weapons/qshotgun		shotgn1
+weapons/dbsgfire		shotgn2
+
+//Nailguns
+weapons/sngfire			spike2
+$limit weapons/sngfire 0
+weapons/ngfire			spike1
+$limit weapons/ngfire 0
+weapons/ngcool			nailcd
+
+//Grenade/Rocket Launcher
+weapons/rocketf			qrocket
+weapons/grenadef		qnade
+weapons/grenbnc			qbnc
+weapons/qexp			qexp
+weapons/proxf			proxf
+weapons/proxb			proxb
+
+//Laser Cannon
+weapons/laserf			laserg
+weapons/laserric		laserric
+weapons/laserx			lstop
+
+//Thunderbolt
+weapons/lgstart			lstart
+weapons/lgloop			lhit
+weapons/lgpfire			lpfire
+weapons/lgphit			lpexp
+weapons/lgpfly			lpfly
+
+//Its Hammertime
+weapons/mjolhit			mjoltink
+weapons/mjollight		mjolhit
+
+//Player
+ppain1		pain1
+ppain2		pain2
+ppain3		pain3
+ppain4		pain4
+ppain5		pain5
+ppain6		pain6
+
+$random player/pain { ppain1 ppain2 ppain3 ppain4 ppain5 ppain6 }
+
+pdth1		death1
+pdth2		death2
+pdth3		death3
+pdth4		death4
+pdth5		death5
+pdth6		death6
+
+$random player/death { pdth1 pdth2 pdth3 pdth4 pdth5 pdth6 }
+
+pbrn1		lburn1
+pbrn2		lburn2
+
+$random player/burn { pbrn1 pbrn2 }
+
+pdrn1		drown1
+pdrn2		drown2
+
+$random player/drown { pdrn1 pdrn2 }
+
+$playeralias	QD_QuakePlayer	male	*death		player/death
+$playersound	QD_QuakePlayer	male	*xdeath		udeath
+$playersound	QD_QuakePlayer	male	*gibbed		udeath
+$playersound	QD_QuakePlayer	male	*gibbed-telefrag	teledth1
+$playeralias	QD_QuakePlayer	male	*pain100	player/pain
+$playersounddup	QD_QuakePlayer	male	*pain75		*pain100
+$playersounddup	QD_QuakePlayer	male	*pain50		*pain100
+$playersounddup	QD_QuakePlayer	male	*pain25		*pain100
+$playeralias	QD_QuakePlayer	male	*pain100-fire	player/burn
+$playersounddup	QD_QuakePlayer	male	*pain75-fire	*pain100-fire
+$playersounddup	QD_QuakePlayer	male	*pain50-fire	*pain100-fire
+$playersounddup	QD_QuakePlayer	male	*pain25-fire	*pain100-fire
+$playersounddup	QD_QuakePlayer	male	*pain100-slime	*pain100-fire
+$playersounddup	QD_QuakePlayer	male	*pain75-slime	*pain100-fire
+$playersounddup	QD_QuakePlayer	male	*pain50-slime	*pain100-fire
+$playersounddup	QD_QuakePlayer	male	*pain25-slime	*pain100-fire
+$playeralias	QD_QuakePlayer	male	*pain100-drowning	player/burn
+$playersounddup	QD_QuakePlayer	male	*pain75-drowning	*pain100-drowning
+$playersounddup	QD_QuakePlayer	male	*pain50-drowning	*pain100-drowning
+$playersounddup	QD_QuakePlayer	male	*pain25-drowning	*pain100-drowning
+$playersound	QD_QuakePlayer	male	*pain100-falling	land2
+$playersounddup	QD_QuakePlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	QD_QuakePlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	QD_QuakePlayer	male	*pain25-falling		*pain100-falling
+$playersound	QD_QuakePlayer	male	*grunt		land
+$playersounddup	QD_QuakePlayer	male	*land		*grunt
+$playersound	QD_QuakePlayer	male	*jump		plyrjmp8
+$playersounddup	QD_QuakePlayer	male	*usefail	*grunt
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+misc/secret			secret
+misc/chat			talk		// Doom 2 chat sound
+misc/chat2			talk		// Chat sound for everything else
+
+misc/k_pkup			runekey
+
+//Teleport
+wtp1		r_tele1
+wtp2		r_tele2
+wtp3		r_tele3
+wtp4		r_tele4
+
+$random misc/teleport { wtp1 wtp2 wtp3 wtp4 }

@@ -1,0 +1,152 @@
+Actor QD_BulletPuff : BulletPuff
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(190,"SkipRicochet")
+		TNT1 A 0 A_PlaySound("weapons/ric",3)
+	SkipRicochet:
+		PUFF AB 2 Bright
+	Melee:
+		PUFF CD 2
+		Stop
+  }
+}
+
+Actor QD_Nail1Base : FastProjectile
+{
+	+BLOODSPLATTER
+	+FORCEXYBILLBOARD
+	Decal "BulletChip"
+	DeathSound ""
+	Speed 55
+	Radius 4
+	Height 3
+	Damage (Random(10,20))
+	MissileType "QD_Nail1Trail"
+	MissileHeight 8
+	States
+	{
+	Spawn:
+	    NALN A 4
+		Loop
+	Crash:
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/nailx",4)
+		TNT1 A 0 A_Jump(160,"SkipRicochet")
+		TNT1 A 0 A_PlaySound("weapons/ric",3)
+	SkipRicochet:
+		PUFF AB 2 bright
+		PUFF CD 2
+		stop
+	XDeath:
+		TNT1 A 0
+		Stop
+	}
+}
+
+Actor QD_Nail2Base : QD_Nail1Base
+{
+	Decal "BulletChip"
+	DeathSound ""
+	Speed 30
+	Radius 4
+	Height 3
+	Damage (Random(20,40))
+	MissileType "QD_Nail2Trail"
+	MissileHeight 8
+	States
+	{
+	Spawn:
+	    NALS A 4
+		Loop
+	}
+}
+
+Actor QD_FireNail1Base : QD_Nail1Base
+{
+	Decal "BulletChip"
+	DeathSound ""
+	Speed 55
+	Radius 4
+	Height 3
+	Damage (Random(10,20))
+	MissileType "QD_FireNailTrail"
+	MissileHeight 8
+	States
+	{
+	Spawn:
+	    NALF A 4 bright
+		Loop
+	}
+}
+
+Actor QD_FireNail2Base : QD_Nail1Base
+{
+	Decal "BulletChip"
+	DeathSound ""
+	Speed 55
+	Radius 4
+	Height 3
+	Damage (Random(10,20))
+	MissileType "QD_FireNailTrail"
+	MissileHeight 8
+	States
+	{
+	Spawn:
+	    NSLF A 4 bright
+		Loop
+	}
+}
+
+Actor QD_TrailBase
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+NOTELEPORT
+	+CANNOTPUSH
+	+NODAMAGETHRUST
+	+NOINTERACTION
+	+CLIENTSIDEONLY
+	+FORCEXYBILLBOARD
+	Radius 1
+	Height 1
+}
+
+Actor QD_Nail1Trail : QD_TrailBase
+{
+	RenderStyle Translucent
+	Alpha 0.5
+	States
+	{
+  	Spawn:
+    	NTR1 ABCD 2
+    	Stop
+	}
+}
+
+Actor QD_Nail2Trail : QD_TrailBase
+{
+	RenderStyle Translucent
+	Alpha 0.5
+	States
+	{
+  	Spawn:
+    	NTR2 ABCD 2
+    	Stop
+	}
+}
+
+Actor QD_FireNailTrail : QD_TrailBase
+{
+	RenderStyle Translucent
+	Alpha 0.5
+	States
+	{
+  	Spawn:
+    	NTRF ABCD 2 bright
+    	Stop
+	}
+}

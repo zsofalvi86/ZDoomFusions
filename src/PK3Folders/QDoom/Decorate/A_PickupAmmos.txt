@@ -1,0 +1,641 @@
+const int QD_C_SA_REPEATS = 10;
+const int QD_C_SA_LARGE_CIRCLE = 7200;
+const int QD_C_SA_MEDIUM_CIRCLE = 420;
+const int QD_C_SA_SMALL_CIRCLE = 166;
+
+Actor QD_SmartSpawnerBase : QD_Spawner
+{
+	+DONTGIB +NOTONAUTOMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SetRepeat(QD_C_SA_REPEATS)
+		TNT1 A 0 A_Jump(256,"CheckLoop") //Virtual jump
+		stop
+	}
+}
+
+Actor QD_SmartSmallClip : QD_SmartSpawnerBase replaces Clip
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","QD_BulSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubShelSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_BulSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubShelSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_BulSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubShelSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnNailNoLava")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("QD_NailgunSpawn", AAPTR_TARGET), "SpawnNail")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SuperNailgunSpawn", AAPTR_TARGET), "SpawnNail")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_BDBShotgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SNailgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SSuperNailgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SLavaNailgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SLavaSuperNailgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_Jump(256,"SpawnNailNoLava")
+	SpawnNail:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendAmmo",12) == 1,"SpawnLavaNail")
+	SpawnNailNoLava:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallNail")
+		stop
+	SpawnLavaNail:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallLavaNail")
+		stop
+	SpawnShell:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallShellBul")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("QD_NailBackpack")
+		stop
+	}
+}
+
+Actor QD_SmartLargeClip : QD_SmartSmallClip replaces ClipBox
+{
+	States
+	{
+	SpawnNail:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendAmmo",60) == 1,"SpawnLavaNail")
+	SpawnNailNoLava:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeNail")
+		stop
+	SpawnLavaNail:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeLavaNail")
+		stop
+	SpawnShell:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeShellBul")
+		stop
+	}
+}
+
+Actor QD_SmartSmallShell : QD_SmartSpawnerBase replaces Shell
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","QD_ShelSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubShelSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_ShelSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubShelSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_ShelSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubShelSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnShell")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("QD_DBShotgunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SDBShotgunSpawn", AAPTR_TARGET), "SpawnSuperShell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SNailgunSpawn", AAPTR_TARGET), "SpawnNail")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SSuperNailgunSpawn", AAPTR_TARGET), "SpawnNail")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SGrenadeLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SProxLauncherSpawn", AAPTR_TARGET), "SpawnRocketNoMulti")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SLavaNailgunSpawn", AAPTR_TARGET), "SpawnLavaNail")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_SLavaSuperNailgunSpawn", AAPTR_TARGET), "SpawnLavaNail")
+		TNT1 A 0 A_Jump(256,"SpawnShell")
+	SpawnSuperShell:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",16)
+	SpawnShell:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallShell")
+		stop
+	SpawnRocket:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendAmmo",80) == 1,"SpawnMultiRocket")
+	SpawnRocketNoMulti:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallRocketShel")
+		stop
+	SpawnMultiRocket:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallMultiRocketShel")
+		stop
+	SpawnNail:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",16)
+		TNT1 A 0 A_SpawnPermanent("QD_SmallNailShel")
+		stop
+	SpawnLavaNail:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallLavaNailShel")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("QD_ShellBackpack")
+		stop
+	}
+}
+
+Actor QD_SmartLargeShell : QD_SmartSmallShell replaces ShellBox
+{
+	States
+	{
+	SpawnSuperShell:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",80)
+	SpawnShell:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeShell")
+		stop
+	SpawnRocket:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendAmmo",400) == 1,"SpawnMultiRocket")
+	SpawnRocketNoMulti:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeRocketShel")
+		stop
+	SpawnMultiRocket:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeMultiRocketShel")
+		stop
+	SpawnNail:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",80)
+		TNT1 A 0 A_SpawnPermanent("QD_LargeNailShel")
+		stop
+	SpawnLavaNail:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeLavaNailCS")
+		stop
+	}
+}
+
+Actor QD_SmartSmallRocket : QD_SmartSpawnerBase replaces RocketAmmo
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","QD_RcktSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_RcktSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_RcktSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnRocket")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("QD_GrenadeLauncherSpawn", AAPTR_TARGET), "SpawnRocketNoMulti")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_MultiGrenadeLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_RocketLauncherSpawn", AAPTR_TARGET), "SpawnRocketNoMulti")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_MultiRocketLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_ProxLauncherSpawn", AAPTR_TARGET), "SpawnRocketNoMulti")
+		TNT1 A 0 A_Jump(256,"SpawnRocket")
+	SpawnRocket:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendAmmo",40) == 1,"SpawnMultiRocket")
+	SpawnRocketNoMulti:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallRocket")
+		stop
+    SpawnMultiRocket:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallMultiRocket")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("QD_RocketBackpack")
+		stop
+	}
+}
+
+Actor QD_SmartLargeRocket : QD_SmartSmallRocket replaces RocketBox
+{
+	States
+	{
+	SpawnRocket:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendAmmo",200) == 1,"SpawnMultiRocket")
+	SpawnRocketNoMulti:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeRocket")
+		stop
+	SpawnMultiRocket:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeMultiRocket")
+		stop
+	}
+}
+
+Actor QD_SmartSmallCell : QD_SmartSpawnerBase replaces Cell
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","QD_CelSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubCelSpawn",QD_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_CelSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubCelSpawn",QD_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_CelSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","QD_SubCelSpawn",QD_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnCell")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("QD_LaserCannonSpawn", AAPTR_TARGET), "SpawnCell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_ThunderboltSpawn", AAPTR_TARGET), "SpawnCell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_PlasmaThunderboltSpawn", AAPTR_TARGET), "SpawnPlasma")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_BFGThunderboltSpawn", AAPTR_TARGET), "SpawnCellBFG")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_BFGPlasmaThunderboltSpawn", AAPTR_TARGET), "SpawnPlasmaBFG")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_MjolnirSpawn", AAPTR_TARGET), "SpawnCell")
+		TNT1 A 0 A_JumpIf(CheckClass("QD_PSuperNailgunSpawn", AAPTR_TARGET), "SpawnLavaNail")
+		TNT1 A 0 A_Jump(256,"SpawnCell")
+	SpawnCellBFG:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",24)
+	SpawnCell:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallCell")
+		stop
+	SpawnPlasmaBFG:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",24)
+    SpawnPlasma:
+		TNT1 A 0 A_SpawnPermanent("QD_SmallPlasmaCell")
+		stop
+	SpawnLavaNail:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",16)
+		TNT1 A 0 A_SpawnPermanent("QD_SmallLavaNailCel")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("QD_CellBackpack")
+		stop
+	}
+}
+
+Actor QD_SmartLargeCell : QD_SmartSmallCell replaces CellPack
+{
+	States
+	{
+	SpawnCellBFG:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",120)
+	SpawnCell:
+		TNT1 A 0 A_SpawnPermanent("QD_LargeCell")
+		stop
+	SpawnPlasmaBFG:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",120)
+	SpawnPlasma:
+		TNT1 A 0 A_SpawnPermanent("QD_LargePlasmaCell")
+		stop
+	SpawnLavaNail:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",80)
+		TNT1 A 0 A_SpawnPermanent("QD_LargeLavaNailCS")
+		stop
+	}
+}
+
+ACTOR QD_SmallNail : QD_Nails
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTNAILCLIP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    NCLP A -1
+    Stop
+  }
+}
+
+ACTOR QD_SmallNailShel : QD_Nails
+{
+  Inventory.Amount 20
+  Inventory.PickupMessage "$GOTNAILS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    NBXS A -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeNail : QD_Nails
+{
+  Inventory.Amount 50
+  Inventory.PickupMessage "$GOTNAILBOXS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    NBXM A -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeNailShel : QD_Nails
+{
+  Inventory.Amount 100
+  Inventory.PickupMessage "$GOTNAILBOXL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    NBXB AAABCDCB 2
+    Loop
+  }
+}
+
+
+ACTOR QD_SmallLavaNail : QD_LavaNails
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTLNAILCLIP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    NCLS AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_SmallLavaNailShel : QD_LavaNails
+{
+  Inventory.Amount 20
+  Inventory.PickupMessage "$GOTLNAILS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SNBT AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_SmallLavaNailCel : QD_LavaNails
+{
+  Inventory.Amount 20
+  Inventory.PickupMessage "$GOTLNAILS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SNBS AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_LargeLavaNail : QD_LavaNails
+{
+  Inventory.Amount 50
+  Inventory.PickupMessage "$GOTLNAILBOXS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SNBM AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_LargeLavaNailCS : QD_LavaNails
+{
+  Inventory.Amount 100
+  Inventory.PickupMessage "$GOTLNAILBOXL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SNBB AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_SmallShellBul : QD_Shells
+{
+  Inventory.Amount 4
+  Inventory.PickupMessage "$GOTSHELLCLIP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SHLC A -1
+    Stop
+  }
+}
+
+ACTOR QD_SmallShell : QD_Shells
+{
+  Inventory.Amount 8
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SHLS A -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeShellBul : QD_Shells
+{
+  Inventory.Amount 20
+  Inventory.PickupMessage "$GOTSHELLBOXS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SHLM A -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeShell : QD_Shells
+{
+  Inventory.Amount 40
+  Inventory.PickupMessage "$GOTSHELLBOXL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    SHLB AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_SmallRocket : QD_Rockets
+{
+  Inventory.Amount 1
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTAM A -1
+    Stop
+  }
+}
+
+ACTOR QD_SmallRocketShel : QD_Rockets
+{
+  Inventory.Amount 2
+  Inventory.PickupMessage "$GOTROCKETS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTAM C -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeRocket : QD_Rockets
+{
+  Inventory.Amount 5
+  Inventory.PickupMessage "$GOTROCKBOXS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTBX A -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeRocketShel : QD_Rockets
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTROCKBOXL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTBX C -1
+    Stop
+  }
+}
+
+ACTOR QD_SmallMultiRocket : QD_MultiRockets
+{
+  Inventory.Amount 1
+  Inventory.PickupMessage "$GOTMROCKET"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTAM B -1
+    Stop
+  }
+}
+
+ACTOR QD_SmallMultiRocketShel : QD_MultiRockets
+{
+  Inventory.Amount 2
+  Inventory.PickupMessage "$GOTMROCKETS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTAM D -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeMultiRocket : QD_MultiRockets
+{
+  Inventory.Amount 5
+  Inventory.PickupMessage "$GOTMROCKBOXS"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTBX B -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeMultiRocketShel : QD_MultiRockets
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTMROCKBOXL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    RTBX D -1
+    Stop
+  }
+}
+
+ACTOR QD_SmallCell : QD_Cells
+{
+  Inventory.Amount 20
+  Inventory.PickupMessage "$GOTCELL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    CSBX A -1
+    Stop
+  }
+}
+
+ACTOR QD_LargeCell : QD_Cells
+{
+  Inventory.Amount 100
+  Inventory.PickupMessage "$GOTCELLBOX"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    CBBX ABCD 3
+    Loop
+  }
+}
+
+ACTOR QD_SmallPlasmaCell : QD_PlasmaCells
+{
+  Inventory.Amount 2
+  Inventory.PickupMessage "$GOTPCELL"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    PCBS AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_LargePlasmaCell : QD_PlasmaCells
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTPCELLBOX"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    PCBB AAABCDCB 2
+    Loop
+  }
+}
+
+ACTOR QD_NailBackpack : QD_Nails
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTNAILBP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    QPAK A -1
+    Stop
+  }
+}
+
+ACTOR QD_ShellBackpack : QD_Shells
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTSHELLBP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    QPAK A -1
+    Stop
+  }
+}
+
+ACTOR QD_RocketBackpack : QD_Rockets
+{
+  Inventory.Amount 4
+  Inventory.PickupMessage "$GOTROCKBP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    QPAK A -1
+    Stop
+  }
+}
+
+ACTOR QD_CellBackpack : QD_Cells
+{
+  Inventory.Amount 10
+  Inventory.PickupMessage "$GOTCELLBP"
+  Inventory.PickupSound "items/qammo"
+  States
+  {
+  Spawn:
+    QPAK A -1
+    Stop
+  }
+}

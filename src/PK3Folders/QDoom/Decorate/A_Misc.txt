@@ -1,0 +1,211 @@
+ACTOR QD_TeleportSpark : QD_TrailBase replaces TeleportFog
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/teleport")
+		TNT1 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnParticle(darkgrey,SPF_FULLBRIGHT|SPF_RELATIVE,22,7,FRandom(0,360),0,0,40,Random(1,20),0,Random(-20,20))
+		TNT1 A 10
+    	Stop
+	}
+}
+
+Actor QD_Backpack : Backpack replaces Backpack
+{
+	Inventory.PickupMessage "$GOTBPACK"
+	Inventory.PickupSound "items/qammo"
+	States
+	{
+	Spawn:
+		QPAK A -1
+		Stop
+	}
+}
+
+ACTOR QD_Stimpack : Stimpack replaces stimpack
+{
+	Inventory.PickupSound "items/qhealth1"
+	Inventory.Amount 15
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("DebtHP",5)
+		QMED C -1
+		Stop
+	}
+}
+
+ACTOR QD_MediKit : MediKit replaces MediKit
+{
+	Inventory.PickupSound "items/qhealth2"
+	Inventory.Amount 25
+	States
+	{
+	Spawn:
+		QMED AB 5 bright
+		Loop
+	}
+}
+
+ACTOR QD_Q1ArmorBonus : ArmorBonus replaces ArmorBonus
+{
+  Inventory.PickupSound "items/qshard"
+  Inventory.Icon "QARMA0"
+  Armor.SavePercent 30
+  Armor.SaveAmount 1
+  Armor.MaxSaveAmount 200
+  States
+  {
+  Spawn:
+		BON2 ABCDCB 6
+		Loop
+  }
+}
+
+ACTOR QD_Q1HealthBonus : HealthBonus replaces HealthBonus
+{
+  Inventory.PickupSound "items/qvial"
+  Inventory.Amount 1
+  Inventory.MaxAmount 250
+  States
+  {
+  Spawn:
+		BON1 ABCDCB 6
+		Loop
+  }
+}
+
+ACTOR QD_Q1MegaHealth : CustomInventory replaces Soulsphere
+{
+  +COUNTITEM
+  +INVENTORY.ALWAYSPICKUP
+  Inventory.PickupMessage "$GOTSUPER"
+  Inventory.PickupSound "items/qhealth3"
+  States
+  {
+  Spawn:
+  	TNT1 A 0
+	TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",25)
+  AnimLoop:
+    Q1MH ABCD 2 bright
+    Loop
+  Pickup:
+	TNT1 A 0 A_GiveInventory("QD_TempHealth",min(100,250-health))
+	TNT1 A 0 A_GiveInventory("QD_TempHealthBuffer",5)
+    TNT1 A 0 A_GiveInventory("QD_Q1HealthBonus",100)
+    Stop
+  }
+}
+
+Actor QD_GreenArmorSpawner : QD_Spawner replaces GreenArmor
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",7) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 1,"Spawn1")
+		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",50) == 1,"Spawn2")
+	Spawn1:
+		TNT1 A 0 A_SpawnPermanent("QD_GreenArmor")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("QD_YellowArmor")
+		stop
+	}
+}
+
+Actor QD_BlueArmorSpawner : QD_Spawner replaces BlueArmor
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",8) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 1,"Spawn1")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 3,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("CheckHP",10) == 1,"Spawn2")
+	Spawn1:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",50)
+		TNT1 A 0 A_SpawnPermanent("QD_YellowArmor")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("QD_RedArmor")
+		stop
+	}
+}
+
+Actor QD_MegasphereSpawner : QD_Spawner replaces MegaSphere
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",9) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",9) == 2,"Spawn2")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",135)
+		TNT1 A 0 A_SpawnPermanent("QD_Q1MegaHealth")
+		stop
+	Spawn2:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",75)
+		TNT1 A 0 A_SpawnPermanent("QD_RedArmor")
+		stop
+	}
+}
+
+ACTOR QD_GreenArmor : GreenArmor
+{
+	Inventory.PickupSound "items/qarmor"
+	Inventory.Icon "QARMD0"
+	Inventory.PickupMessage "$GOTARMOR1"
+	Armor.SavePercent 30
+	Armor.SaveAmount 100
+	States
+	{
+	Spawn:
+		QARM A -1
+		stop
+	}
+}
+
+ACTOR QD_YellowArmor : BlueArmor
+{
+	Inventory.PickupSound "items/qarmor"
+	Inventory.Icon "QARME0"
+	Inventory.PickupMessage "$GOTARMOR2"
+	Armor.SavePercent 60
+	Armor.SaveAmount 150
+	States
+	{
+	Spawn:
+		QARM B -1
+		stop
+	}
+}
+
+ACTOR QD_RedArmor : BlueArmor
+{
+	Inventory.PickupSound "items/qarmor"
+	Inventory.Icon "QARMF0"
+	Inventory.PickupMessage "$GOTARMOR3"
+	Armor.SavePercent 80
+	Armor.SaveAmount 200
+	States
+	{
+	Spawn:
+		QARM C -1
+		stop
+	}
+}
+
+Actor QD_TempHealth : Inventory
+{
+	Inventory.MaxAmount 150
+}
+
+Actor QD_TempHealthBuffer : Inventory
+{
+	Inventory.MaxAmount 5
+}

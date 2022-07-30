@@ -1,0 +1,228 @@
+Actor QD_SuperNail : QD_Nail1Base
+{
+	DamageType "Quake1Nail"
+	Speed 40
+	DamageType LesserCloseSplatter
+	Damage (22) // 18
+}
+
+Actor QD_SuperFireNail : QD_FireNail1Base
+{
+	+PIERCEARMOR
+	DamageType "Quake1Nail"
+	Speed 40
+	DamageType CloseSplatter
+	Damage (32) // 30
+}
+
+Actor QD_SuperNailgun : Plasmarifle
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_QD_SNG"
+	Tag "$TAG_QD_SNG"
+	Inventory.PickupSound "items/qweapon"
+	Weapon.SelectionOrder 400
+	Weapon.SlotNumber 5
+	Weapon.BobRangeX 0.1
+	Weapon.BobRangeY 0.75
+	Weapon.BobSpeed 2.0
+	Weapon.AmmoType "QD_Nails"
+	Weapon.AmmoUse 2
+	Weapon.AmmoGive1 20
+	Weapon.SisterWeapon "QD_LavaSuperNailGun"
+	States
+	{
+	Spawn:
+		SNGW A -1
+		Stop
+	Ready:
+		NG2G A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		TNT1 A 0 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_GiveInventory("QD_SngAlt",1)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/SngFire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireCustomMissile("QD_SuperNail",0,1,0,3,1,0)
+	FireAnimation:
+		TNT1 A 0 A_JumpIfInventory("QD_SngState",5,"FireCont5")
+		TNT1 A 0 A_JumpIfInventory("QD_SngState",4,"FireCont4")
+		TNT1 A 0 A_JumpIfInventory("QD_SngState",3,"FireCont3")
+		TNT1 A 0 A_JumpIfInventory("QD_SngState",2,"FireCont2")
+		TNT1 A 0 A_JumpIfInventory("QD_SngState",1,"FireCont1")
+		TNT1 A 0 A_Jump(256,"FireCont")
+	FireCont: // SngState: 0, frames: 4
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2F A 1 bright
+		NG2F B 1 bright
+		NG2F C 1 bright
+		NG2G D 1 bright
+		TNT1 A 0 A_ReFire
+		NG2G EF 1
+		Goto Spindown
+	FireCont1: // SngState: 1, frames: 3
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2F D 1 bright
+		NG2F E 1 bright
+		NG2F F 1 bright
+		TNT1 A 0 A_ReFire		
+		goto Spindown
+	FireCont2: // SngState: 2, frames: 4
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2F G 1 bright
+		NG2F H 1 bright
+		NG2F I 1 bright
+		NG2G D 1 bright
+		TNT1 A 0 A_ReFire
+		NG2G EF 1
+		Goto Spindown
+	FireCont3: // SngState: 3, frames: 3
+		TNT1 A 0 A_TakeInventory("QD_SngState",3)
+		NG2F J 1 bright
+		NG2F K 1 bright
+		NG2F L 1 bright
+		TNT1 A 0 A_ReFire
+		goto Spindown
+	FireCont4: // SngState: 4, frames: 4
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2F G 1 bright
+		NG2F H 1 bright
+		NG2F I 1 bright
+		NG2G D 1 bright
+		TNT1 A 0 A_ReFire
+		NG2G EF 1
+		Goto Spindown
+	FireCont5: // SngState: 5, frames: 3
+		TNT1 A 0 A_TakeInventory("QD_SngState",3)
+		NG2F J 1 bright
+		NG2F K 1 bright
+		NG2F L 1 bright
+		TNT1 A 0 A_ReFire
+		goto Spindown
+	Spindown:
+		TNT1 A 0 A_JumpIfInventory(QD_SngAlt,1,2)
+		TNT1 A 0 A_PlaySound ("Weapons/NgCool",6)
+		NG2G ABC 1
+		NG2G DE 2
+		NG2G F 3
+		TNT1 A 0 A_TakeInventory("QD_SngState",3)
+		Goto Ready
+	Flash:
+	AltFlash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.3)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.6)
+		Goto LightDone
+	}
+}
+
+Actor QD_LavaSuperNailgun : QD_SuperNailgun
+{
+	Tag "$TAG_QD_SNG_L"
+	Weapon.AmmoType "QD_LavaNails"
+	Weapon.AmmoUse 2
+	Weapon.AmmoGive 0
+	States
+	{
+	Ready:
+		NG2L AABBCCCBBAAA 1 A_WeaponReady
+		Loop
+	Fire:
+		TNT1 A 0 A_TakeInventory("QD_SngAlt",1)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/SngFire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireCustomMissile("QD_SuperFireNail",0,1,0,3,1,0)
+		TNT1 A 0 A_Jump(256,"FireAnimation")
+		Stop
+	FireCont: // SngState: 0, frames: 4
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2N A 1 bright
+		NG2N B 1 bright
+		NG2N C 1 bright
+		NG2M D 1 bright
+		TNT1 A 0 A_ReFire
+		NG2G EF 1
+		Goto Spindown
+	FireCont1: // SngState: 1, frames: 3
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2N D 1 bright
+		NG2N E 1 bright
+		NG2N F 1 bright
+		TNT1 A 0 A_ReFire		
+		goto Spindown
+	FireCont2: // SngState: 2, frames: 4
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2N G 1 bright
+		NG2N H 1 bright
+		NG2N I 1 bright
+		NG2M D 1 bright
+		TNT1 A 0 A_ReFire
+		NG2G EF 1
+		Goto Spindown
+	FireCont3: // SngState: 3, frames: 3
+		TNT1 A 0 A_TakeInventory("QD_SngState",3)
+		NG2N J 1 bright
+		NG2N K 1 bright
+		NG2N L 1 bright
+		TNT1 A 0 A_ReFire
+		goto Spindown
+	FireCont4: // SngState: 4, frames: 4
+		TNT1 A 0 A_GiveInventory("QD_SngState",1)
+		NG2N G 1 bright
+		NG2N H 1 bright
+		NG2N I 1 bright
+		NG2M D 1 bright
+		TNT1 A 0 A_ReFire
+		NG2G EF 1
+		Goto Spindown
+	FireCont5: // SngState: 5, frames: 3
+		TNT1 A 0 A_TakeInventory("QD_SngState",3)
+		NG2N J 1 bright
+		NG2N K 1 bright
+		NG2N L 1 bright
+		TNT1 A 0 A_ReFire
+		goto Spindown
+	Spindown:
+		TNT1 A 0 A_JumpIfInventory(QD_SngAlt,1,2)
+		TNT1 A 0 A_PlaySound ("Weapons/NgCool",6)
+		NG2L A 1
+		NG2M BC 1
+		NG2M DE 2
+		NG2M F 3
+		TNT1 A 0 A_TakeInventory("QD_SngState",3)
+		Goto Ready
+	}
+}
+
+actor QD_LavaSuperNailgun_P : WeaponGiver
+{
+  DropItem "QD_LavaSuperNailgun"
+  Inventory.Pickupmessage "$GOT_QD_SNG"
+  Weapon.AmmoGive 40
+  States
+  {
+  Spawn:
+		QGLW A -1
+		Stop
+  }
+}
+
+Actor QD_SngState : Inventory
+{
+	Inventory.MaxAmount 5
+}
+
+Actor QD_SngAlt : Inventory
+{
+	Inventory.MaxAmount 1
+}

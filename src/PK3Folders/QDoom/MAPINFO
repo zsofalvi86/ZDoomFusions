@@ -1,0 +1,9 @@
+GameInfo
+{
+   PlayerClasses = "QD_QuakePlayer"
+}
+
+DamageType "Quake1Mp"
+{
+    Factor = 0.0
+}

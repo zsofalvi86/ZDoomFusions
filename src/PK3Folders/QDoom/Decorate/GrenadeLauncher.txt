@@ -1,0 +1,316 @@
+actor QD_QGrenade : Rocket
+{
+	+USEBOUNCESTATE
+	-ROCKETTRAIL
+	+GRENADETRAIL
+	-NOGRAVITY
+	BounceType Doom
+	SeeSound ""
+	BounceSound "weapons/grenbnc"
+	DeathSound "weapons/qexp"
+	BounceFactor 0.6
+	WallBounceFactor 0.6
+	Gravity 0.4
+	BounceCount 4
+	Speed 25
+	Damage (96)
+	DamageType "Quake1Sp"
+	States
+	{
+	Spawn:
+		DGRD A 1
+		Loop
+	Bounce:
+		DGRR ABCDEFGHIJKL 2
+		Loop
+	Death:
+		TNT1 A 0 A_NoGravity // 40, 80
+		TNT1 A 0 A_Explode(40,128,1,0,128,0,0,"None","Normal")
+		TNT1 A 0 A_Explode(80,128,1,0,0,0,0,"None","Normal")
+		TNT1 A 0 A_Quake(4,5,0,256,"")
+		TNT1 A 0 A_Quake(2,6,0,720,"")
+		TNT1 A 0 A_Quake(1,6,0,4096,"")
+		TNT1 A 0 A_SpawnItem("QD_RedQuakeExplo")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+	}
+}
+
+actor QD_QGrenadeMulti : QD_QGrenade
+{
+  var int user_angle;
+  SeeSound ""
+  BounceSound "weapons/grenbnc"
+  DeathSound ""
+  BounceFactor 0.6
+  WallBounceFactor 0.6
+  Gravity 0.4
+  BounceCount 4
+  Speed 25
+  Damage (96)
+  DamageType "Quake1Sp"
+  States
+  {
+  Crash:
+  Death:
+		TNT1 A 0 A_NoGravity
+		TNT1 A 0 A_SetUserVar("user_angle",5)
+	SpawnLoop:
+		TNT1 A 0 A_CustomMissile("QD_QGrenadeMultiFrag",0,0,72*user_angle,CMF_TRACKOWNER|CMF_AIMDIRECTION,40)
+		TNT1 A 0 A_JumpIf(user_angle==0,"SpawnEnd")
+		TNT1 A 0 A_SetUserVar("user_angle",user_angle-1)
+		Goto SpawnLoop
+	SpawnEnd:
+		TNT1 A 0
+		Stop
+	XDeath:
+		TNT1 A 0 A_PlaySound("weapons/qexp",4)
+		Goto Super::Death
+  }
+}
+
+actor QD_QGrenadeMultiFrag : QD_QGrenade
+{
+  SeeSound ""
+  BounceSound "weapons/grenbnc"
+  DeathSound "weapons/qexp"
+  BounceFactor 0.6
+  WallBounceFactor 0.6
+  Gravity 0.4
+  BounceCount 4
+  Speed 8
+  Damage (0)
+  BounceType "None"
+  Gravity 0.85
+  DamageType "Quake1Sp"
+  States
+  {
+  Death:
+		TNT1 A 0 A_NoGravity
+		TNT1 A 0 A_Explode(20,128,1,0,128,0,0,"None","Normal")
+		TNT1 A 0 A_Explode(40,128,1,0,0,0,0,"None","Normal")
+		TNT1 A 0 A_Quake(3,3,0,208,"")
+		TNT1 A 0 A_Quake(2,4,0,480,"")
+		TNT1 A 0 A_Quake(1,4,0,2048,"")
+		TNT1 A 0 A_SpawnItem("QD_RedQuakeExploSmall")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+  }
+}
+
+actor QD_Q1Prox : QD_QGrenade
+{
+  var int user_countdown;
+  var int user_x;
+  var int user_y;
+  var int user_z;
+  SeeSound ""
+  BounceSound "weapons/grenbnc"
+  DeathSound ""
+  -USEBOUNCESTATE
+  +HITTRACER
+  BounceType None
+  BounceFactor 0.0
+  WallBounceFactor 0.0
+  BounceCount 0
+  Damage (5)
+  States
+  {
+  Death:
+    TNT1 A 0 A_PlaySound("weapons/grenbnc",1)
+	TNT1 A 0 A_NoGravity
+	DGRD A 70
+	TNT1 A 0 A_SpawnItem("QD_Q1ProxStuck")
+	stop
+  Crash:
+  XDeath:
+	TNT1 A 0 A_PlaySound("weapons/axeflesh",1)
+    TNT1 A 0 A_SetUserVar("user_countdown",70)
+	//TNT1 A 0 A_SetUserVar("user_x",Random(6,32))
+	TNT1 A 0 A_SetUserVar("user_x",Random(-50,50))
+	TNT1 A 0 A_SetUserVar("user_y",Random(-15,15))
+	TNT1 A 0 A_SetUserVar("user_z",Random(25,90))
+	Goto StickLoop
+  StickLoop:
+	TNT1 A 0 A_JumpIf(user_countdown==0,"StickEnd")
+	DGRD A 1 A_Warp(AAPTR_TRACER,0,user_y,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,0,user_z*0.01,user_x*0.01)
+	TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+	Goto StickLoop
+  StickEnd:
+	TNT1 A 0 A_PlaySound("weapons/proxb",2)
+	TNT1 A 0 A_SetUserVar("user_countdown",18)
+  DetLoop:
+	TNT1 A 0 A_JumpIf(user_countdown==0,"DetEnd")
+	DGRD A 1 A_Warp(AAPTR_TRACER,user_x,user_y,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,0,user_z*0.01,user_x*0.01)
+	TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+	Goto DetLoop
+  DetEnd:
+	TNT1 A 0 A_NoGravity
+	TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE)
+	TNT1 A 0 A_PlaySound("weapons/qexp",1) // 28, 67
+	TNT1 A 0 A_Explode(54,128,1,0,128,0,0,"None","Normal")
+	TNT1 A 0 A_Explode(131,128)
+	TNT1 A 0 A_SpawnItem("QD_RedQuakeExplo")
+	TNT1 A 0 A_Quake(4,5,0,320,"")
+	TNT1 A 0 A_Quake(2,6,0,720,"")
+	TNT1 A 0 A_Quake(1,6,0,3256,"")
+	BMXP A 4 bright
+	BMXP BCDEF 3 bright
+	Stop
+  }
+}
+
+Actor QD_Q1ProxStuck : QD_Q1Prox
+{
+	+NOGRAVITY
+	+DONTTHRUST
+	-GRENADETRAIL
+	-HITTRACER
+	DeathSound "weapons/qexp"
+	DamageType "Quake1Rocket"
+	Speed 0
+	States
+	{
+	Spawn:
+		DGRD A 25 A_SpawnItem("QD_ProxBeep",0,6)
+		loop
+	Crash:
+	XDeath:
+	Death:
+		TNT1 A 0 A_Jump(256,"StickEnd")
+		stop
+	}
+}
+
+actor QD_GrenadeLauncher : RocketLauncher
+{
+	Weapon.SelectionOrder 2500
+	Weapon.BobRangeX 0.1
+	Weapon.BobRangeY 0.75
+	Weapon.BobSpeed 2.0
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 2
+	Weapon.AmmoType "QD_Rockets"
+	Weapon.SlotNumber 6
+	Inventory.PickupSound "items/qweapon"
+	Inventory.Pickupmessage "$GOT_QD_GL"
+	Weapon.SisterWeapon "QD_MultiGrenadeLauncher"
+	Tag "$TAG_QD_GL"
+	+NOAUTOFIRE
+	+NOALERT
+	+NOAUTOAIM
+	States
+	{
+	Ready:
+		QGLG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		TNT1 A 0 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("QD_QGrenade",0,1,0,0,1,8)
+		TNT1 A 0 A_PlaySound("weapons/grenadef",1)    	
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		QGLF ABCD 2 bright
+		QGLG A 13
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.5)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+1.0)
+		Goto LightDone
+	Spawn:
+		QGLW A -1
+		Stop
+   }
+}
+
+actor QD_MultiGrenadeLauncher : QD_GrenadeLauncher
+{
+	Tag "$TAG_QD_GL_M"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 0
+	Weapon.AmmoType "QD_MultiRockets"
+	States
+	{
+	Ready:
+		QMGG A 1 A_WeaponReady
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("QD_QGrenadeMulti",0,1,0,0,1,8)
+		TNT1 A 0 A_PlaySound("weapons/grenadef",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		QMGF ABCD 2 bright
+		QMGG A 13
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	}
+}
+
+actor QD_MultiGrenadeLauncher_P : WeaponGiver
+{
+  DropItem "QD_MultiGrenadeLauncher"
+  Inventory.Pickupmessage "$GOT_QD_GL"
+  Weapon.AmmoGive 5
+  States
+  {
+  Spawn:
+		QGLW A -1
+		Stop
+  }
+}
+
+actor QD_ProximityLauncher : QD_GrenadeLauncher
+{
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 2
+	Weapon.AmmoType "QD_Rockets"
+	Weapon.SisterWeapon ""
+	Inventory.Pickupmessage "$GOT_QD_PL"
+	Tag "$TAG_QD_PL"
+	States
+	{
+	Ready:
+		QPLG A 1 A_WeaponReady
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("QD_Q1Prox",0,1,0,0,1,8)
+		TNT1 A 0 A_PlaySound("weapons/proxf",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		QPLF ABCD 2 bright
+		QPLG A 13
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Spawn:
+		QPLW A -1
+		Stop
+	}
+}
+
+Actor QD_ProxBeep : QD_TrailBase
+{
++FORCEXYBILLBOARD
+RenderStyle Normal
+Alpha 1.0
+Vspeed 0
+States
+  {
+  Spawn:
+	TNT1 A 0
+    LAZP CBABC 1 Bright
+	stop
+  }
+}

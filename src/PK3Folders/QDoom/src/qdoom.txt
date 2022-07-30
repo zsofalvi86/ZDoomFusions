@@ -1,0 +1,213 @@
+#library "QDoom"
+#include "zcommon.acs"
+
+global int 1:level;
+global int 2:SG;
+global int 3:SSG;
+global int 4:CG;
+global int 5:RL;
+global int 6:PG;
+global int 7:BFG;
+global int 8:CS;
+global int 9:ARM1;
+global int 10:ARM2;
+global int 11:MEGA;
+global int 12:XSHP;
+global int 13:XSAMM;
+
+script "per map startup" OPEN
+{
+	level += 1;
+	if (XSHP<0) {XSHP=0;ARM1=0;ARM2=0;}
+}
+
+script "GetLevelNum" (void)
+{
+	SetResultValue(level);
+	Print(i:level); // For debug purposes, it doesn't work on inventory anyway
+}
+
+script "SetSpawn" (int spawnTag)
+{
+	switch(spawnTag)
+	{
+		case 0:SG++;break;
+		case 1:SSG++;break;
+		case 2:CG++;break;
+		case 3:RL++;break;
+		case 4:PG++;break;
+		case 5:BFG++;break;
+		case 6:CS++;break;
+		case 7:ARM1++;break;
+		case 8:ARM2++;break;
+		case 9:MEGA++;break;
+	}
+	
+	if(SG>4){SG=1;}
+	if(SSG>5){SSG=1;}
+	if(CG>3){CG=1;}
+	if(RL>4){RL=3;}
+	if(PG>4){PG=1;}
+	if(BFG>3){BFG=2;}
+	if(CS>3){CS=1;}
+	if(ARM1>3){ARM1=2;}
+	if(ARM2>3){ARM2=2;}
+	if(MEGA>2){MEGA=1;}
+	
+	//collisions
+	if(spawnTag==0)//sg
+	{
+		//gl
+		if(SG==3 && SSG==3){SG=1;} // run first to check other collisions with ng
+		//ng
+		if(SG==1 && SSG==2){SG=4;} // collide with sng to avoid too many nails
+		if(SG==1 && SSG==5){SG=4;} // collide with sng to avoid too many nails
+		if(SG==1 && CG==2){SG=4;}
+		//dblsg
+		if(SG==2 && SSG==1){SG=3;}
+		if(SG==2 && CG==1){SG=3;}
+		//lava ng
+		if(SG==3 && SSG==2){SG=4;} // collide with sng to avoid too many nails
+		if(SG==3 && SSG==5){SG=4;} // collide with sng to avoid too many nails
+		if(SG==3 && CG==2){SG=4;}
+		if(SG==3 && PG==1){SG=4;} // collide with lava nails
+		if(SG==3 && SSG<2 && PG<1){SG=1;} // limit lng on sg
+		//gl
+		if(SG==4 && RL==1){SG=2;}
+		if(SG==4 && RL==3){SG=2;}
+		if(SG==4 && SSG==4){SG=2;} // collide with prox to avoid too many rockets
+		if(SG==4 && SSG<3 && RL<3){SG=2;} // limit gl on sg
+	}
+	if(spawnTag==1)//ssg
+	{
+		//prox
+		if(SSG==4 && RL==3){SSG=2;} // run first to check other collisions with sng
+		if(SSG==4 && SG==4){SSG=1;} // collide with gl to avoid too many rockets
+		//dblsg
+		if(SSG==1 && SG==2){SSG=2;}
+		if(SSG==1 && CG==1){SSG=2;}
+		//sng
+		if(SSG==2 && SG==1){SSG=3;} // collide with ng to avoid too many nails
+		if(SSG==2 && SG==3){SSG=3;} // collide with ng to avoid too many nails
+		if(SSG==2 && CG==3){SSG=3;}
+		if(SSG==2 && PG==1){SSG=3;}
+		//gl
+		if(SSG==3 && RL==1){SSG=6;} // out of ideas, give a quad
+		if(SSG==3 && RL==3){SSG=6;} // out of ideas, give a quad
+		if(SSG==3 && SG==4){SSG=1;}
+		//lava sng
+		if(SSG==5 && SG==1){SSG=6;} // collide with ng to avoid too many nails
+		if(SSG==5 && SG==3){SSG=6;} // collide with ng to avoid too many nails
+		if(SSG==5 && CG==3){SSG=6;}
+		if(SSG==5 && PG==1){SSG=6;} // out of ideas, give a quad
+	}
+	if(spawnTag==2)//cg
+	{
+		//dblsg
+		if(CG==1 && SSG==1){CG=2;}
+		if(CG==1 && CG==1){CG=2;}
+		if(CG==1 && SG==2){CG=3;} // skip ahead on cg if spawned after 2 sg-s
+		if(CG==1 && SG==3){CG=3;} // skip ahead on cg if spawned after 3 sg-s
+		//ng
+		if(CG==2 && SG==2){CG=3;} // skip ahead on cg if spawned after 2 sg-s
+		if(CG==2 && SG==3){CG=3;} // skip ahead on cg if spawned after 3 sg-s
+		if(CG==2 && SG==1){CG=3;}
+		//sng
+		if(CG==3 && SSG!=1 && SG!=2 && SSG!=5 && SG!=3){CG=1;} // go back to dblsg if shotguns don't spawn shells
+		if(CG==3 && SSG==2){CG=2;}
+		if(CG==3 && SSG==5){CG=2;}
+		if(CG==3 && PG==1){CG=2;}
+	}
+	if(spawnTag==3)//rl
+	{
+		//gl
+		if(RL==1 && SG==4){RL=2;}
+		if(RL==1 && SSG==3){RL=2;}
+		//multi gl
+		if(RL==3 && SG==4){RL=4;}
+		if(RL==3 && SSG==3){RL=4;}
+		if(RL==3 && SSG==4){RL=4;}
+	}
+	if(spawnTag==4)//pg
+	{
+		//sng
+		if(PG==1 && CG==3){PG=2;}
+		if(PG==1 && SSG==2){PG=2;}
+		if(PG==1 && SSG==5){PG=2;}
+		//tb
+		if(PG==3 && BFG==1){PG=1;} // ammo variety
+		if(PG==3 && BFG==2){PG=1;} // ammo variety
+		//plasma tb
+		if(PG==4 && BFG==1){PG=2;}
+		if(PG==4 && BFG==2){PG=2;}
+		//lg
+		if(PG==2 && SSG==0){PG=3;} // skip lasergun if we never spawned an ssg
+	}
+	if(spawnTag==5)//bfg
+	{
+		//tb
+		if(BFG==1 && PG==3){BFG=3;}
+		if(BFG==1 && PG==4){BFG=3;}
+		//plasma tb
+		if(BFG==2 && PG==3){BFG=3;}
+		if(BFG==2 && PG==4){BFG=3;}
+	}
+	
+	if(SSG==0 && CS==3){CS=2;} // don't spawn ssg on cs if we never spawned ssg
+}
+
+script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:ret=SG;break;
+		case 1:ret=SSG;break;
+		case 2:ret=CG;break;
+		case 3:ret=RL;break;
+		case 4:ret=PG;break;
+		case 5:ret=BFG;break;
+		case 6:ret=CS;break;
+		case 7:ret=ARM1;break;
+		case 8:ret=ARM2;break;
+		case 9:ret=MEGA;break;
+	}
+	
+	SetResultValue(ret);
+}
+
+script "RegisterHP" (int amount)
+{
+	XSHP += amount;
+}
+
+script "DebtHP" (int amount)
+{
+	XSHP -= amount;
+}
+
+script "SpendHP" (int amount)
+{
+	int ret = 0;
+	if(XSHP > amount) {XSHP-=amount; ret=1;}
+	SetResultValue(ret);
+}
+
+script "CheckHP" (int amount)
+{
+	int ret = 0;
+	if(XSHP > amount) {ret=1;}
+	SetResultValue(ret);
+}
+
+script "RegisterAmmo" (int amount)
+{
+	XSHP += amount;
+}
+
+script "SpendAmmo" (int amount)
+{
+	int ret = 0;
+	if(XSHP > amount) {XSHP-=amount; ret=1;}
+	SetResultValue(ret);
+}

@@ -1,0 +1,40 @@
+Class QD_Spawner : CustomInventory
+{
+	Actor lastspawn;
+	int it;
+	
+	Action void A_SpawnPermanent(class<Actor> type)
+	{
+		invoker.lastspawn = Spawn(type, invoker.pos);
+		InitSpawnedItem(invoker.lastspawn,SXF_TRANSFERSPECIAL|SXF_CLEARCALLERSPECIAL);
+		invoker.lastspawn.bDropped = false;
+	}
+	
+	Action state A_JumpIfPickedUp(StateLabel st)
+	{
+		if(!invoker.lastspawn || invoker.lastspawn.bInvisible) {return ResolveState(st);} 
+		return ResolveState(null);
+	}
+	
+	Action void A_SetRepeat(int i)
+	{
+		invoker.it = i;
+	}
+	
+	Action state A_Repeat(StateLabel st)
+	{
+		invoker.it--;
+		if (invoker.it <= 0) {return ResolveState(null);}
+		return ResolveState(st);
+	}
+
+	Default
+	{
+		+DONTGIB; 
+		+NOTONAUTOMAP;
+		+INVENTORY.QUIET;
+		+INVENTORY.AUTOACTIVATE;
+		+INVENTORY.ALWAYSPICKUP;
+		Inventory.PickupMessage "";
+	}
+}

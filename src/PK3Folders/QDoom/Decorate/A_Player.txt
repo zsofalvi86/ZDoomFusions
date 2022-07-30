@@ -1,0 +1,83 @@
+ACTOR QD_QuakePlayer : DoomPlayer
+{
+	Speed 1.0
+	Mass 100
+	PainChance 255
+	Species Player
+	Player.StartItem "QD_Shells", 25
+	Player.StartItem "QD_Shotgun"
+	Player.StartItem "QD_Axe"
+	Player.DisplayName "Quake Ranger"
+	Player.SoundClass QD_QuakePlayer
+	
+	Player.WeaponSlot 1, QD_Axe, QD_Mjolnir
+	Player.WeaponSlot 2, QD_Shotgun
+	Player.WeaponSlot 3, QD_DoubleBarrelShotgun
+	Player.WeaponSlot 4, QD_LavaNailgun, QD_Nailgun
+	Player.WeaponSlot 5, QD_LavaSuperNailgun, QD_SuperNailgun
+	Player.WeaponSlot 6, QD_ProximityLauncher, QD_MultiGrenadeLauncher, QD_GrenadeLauncher
+	Player.WeaponSlot 7, QD_MultiRocketLauncher, QD_RocketLauncher
+	Player.WeaponSlot 8, QD_PlasmaThunderbolt, QD_Thunderbolt
+	Player.WeaponSlot 9, QD_LaserCannon
+	
+	DamageFactor "Quake1Axe", 0.66
+	DamageFactor "Quake1Shell", 0.66
+	DamageFactor "Quake1Nail", 0.75
+	DamageFactor "Quake1Rocket", 0.513
+	DamageFactor "Quake1Cell", 0.75
+	DamageFactor "Quake1Sp", 0.0
+	DamageFactor "Quake1Mp", 1.0
+	
+	States
+	{
+	Spawn:
+		PLAY A -1
+		Loop
+	See:
+		PLAY ABCD 4 
+		Loop
+	Missile:
+		PLAY E 12 
+		Goto Spawn
+	Melee:
+		PLAY F 6 BRIGHT
+		Goto Missile
+	Pain:
+		PLAY G 4 
+		PLAY G 4 A_Pain
+		Goto Spawn
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath")
+	Death1:
+		PLAY H 10
+		PLAY I 10 A_PlayerScream
+		PLAY J 10 A_NoBlocking
+		PLAY KLM 10
+		PLAY N -1
+		Stop
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath")
+	XDeath1:
+		PLAY O 5
+		PLAY P 5 A_XScream
+		PLAY Q 5 A_NoBlocking
+		PLAY RSTUV 5
+		PLAY W -1
+		Stop
+	AltSkinDeath:
+		PLAY H 6
+		PLAY I 6 A_PlayerScream
+		PLAY JK 6
+		PLAY L 6 A_NoBlocking
+		PLAY MNO 6
+		PLAY P -1
+		Stop
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream
+		PLAY R 0 A_NoBlocking
+		PLAY R 5 A_SkullPop
+		PLAY STUVWX 5
+		PLAY Y -1
+		Stop
+	}
+}

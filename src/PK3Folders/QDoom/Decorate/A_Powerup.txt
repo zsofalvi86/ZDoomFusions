@@ -1,0 +1,183 @@
+Actor QD_RingOfShadow : CustomInventory replaces BlurSphere
+{
+	Inventory.PickupSound "items/ring/pickup"
+	Inventory.PickupMessage "$GOTRING"
+	+INVENTORY.AUTOACTIVATE
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		Q1IR A -1 Bright
+		Stop
+	Use:
+		TNT1 A 0 A_GiveInventory("QD_ShadowFake")
+		TNT1 A 0 A_GiveInventory("QD_Shadow")
+		stop
+	}
+}
+
+Actor QD_Shadow : PowerupGiver
+{
+	powerup.duration -60
+	powerup.type Invisibility
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+}
+
+Actor QD_ShadowFake : QD_Shadow
+{
+	powerup.duration -57
+	Powerup.Color None
+	powerup.type PowerShadow_Fake
+}
+
+Actor PowerSilencer : PowerProtection
+{
+  Inventory.Icon "PINSA0"
+}
+
+Actor PowerShadow_Fake : PowerProtection
+{
+  DeathSound "items/ring/fade"
+}
+
+Actor QD_QuadDamage : CustomInventory replaces Berserk
+{
+	Inventory.PickupSound "items/quad/pickup"
+	Inventory.PickupMessage "$GOTQUAD"
+	+INVENTORY.AUTOACTIVATE
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",100)
+	AnimLoop:
+		QDMG ABCDDCB 2 Bright
+		Loop
+	Use:
+		TNT1 A 0 A_GiveInventory("QD_Quad")
+		TNT1 A 0 A_GiveInventory("QD_QuadFake")
+		stop
+	}
+}
+
+Actor QD_Quad : PowerupGiver
+{
+	powerup.duration -50
+	Powerup.Color 0, 0, 255, 0.125
+	powerup.type PowerQuadDamage
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+}
+
+Actor QD_QuadFake : QD_Quad
+{
+	powerup.duration -47
+	Powerup.Color None
+	powerup.type PowerQuadDamage_Fake
+}
+
+Actor PowerQuadDamage : PowerDamage
+{
+  DamageFactor "Normal", 4
+  Inventory.Icon "QDMGD0"
+  //ActiveSound "items/quadshot"
+}
+
+Actor PowerQuadDamage_Fake : PowerDamage
+{
+  DamageFactor "Normal", 1
+  DeathSound "items/quad/fade"
+}
+
+Actor QD_Pentagram : CustomInventory replaces InvulnerabilitySphere
+{
+	Inventory.PickupSound "items/invul/pickup"
+	Inventory.PickupMessage "$GOTPENT"
+	+INVENTORY.AUTOACTIVATE
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		QPOP ABC 3 Bright
+		Loop
+	Use:
+		TNT1 A 0 A_GiveInventory("QD_Pop")
+		TNT1 A 0 A_GiveInventory("QD_PopFake")
+		stop
+	}
+}
+
+Actor QD_Pop : PowerupGiver
+{
+	powerup.duration -30
+	Powerup.Color 255, 0, 0, 0.125
+	powerup.type PowerPentagram
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+}
+
+Actor QD_PopFake : QD_Pop
+{
+	powerup.duration -27
+	Powerup.Color None
+	powerup.type PowerPentagram_Fake
+}
+
+Actor PowerPentagram : PowerProtection
+{
+  DamageFactor "Normal", 0
+  Inventory.Icon "QPOPA0"
+  ActiveSound "items/invul/absorb"
+}
+
+Actor PowerPentagram_Fake : PowerProtection
+{
+  DamageFactor "Normal", 1
+  DeathSound "items/invul/fade"
+}
+
+Actor QD_Biosuit : CustomInventory replaces RadSuit
+{
+	Inventory.PickupSound "items/biosuit/pickup"
+	Inventory.PickupMessage "$GOTSUIT"
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+		BIOS A -1
+		Stop
+	Use:
+		TNT1 A 0 A_GiveInventory("QD_Bio")
+		TNT1 A 0 A_GiveInventory("QD_BioFake")
+		stop
+	}
+}
+
+Actor QD_Bio : PowerupGiver
+{
+	powerup.duration -60
+	Powerup.Color 0, 255, 0, 0.125
+	powerup.type PowerBio
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+}
+
+Actor QD_BioFake : QD_Bio
+{
+	powerup.duration -57
+	Powerup.Color None
+	powerup.type PowerBio_Fake
+}
+
+Actor PowerBio : PowerIronFeet
+{
+  Inventory.Icon "BIOSA0"
+}
+
+Actor PowerBio_Fake : PowerProtection
+{
+  DamageFactor "Normal", 1
+  DeathSound "items/biosuit/fade"
+}
