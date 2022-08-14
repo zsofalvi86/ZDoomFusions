@@ -1,4 +1,4 @@
-Actor PPE_ChainsawSpawner : CustomInventory replaces Chainsaw
+Actor PPE_ChainsawSpawner : PPE_Spawner replaces Chainsaw
 {
 	States
 	{
@@ -6,15 +6,19 @@ Actor PPE_ChainsawSpawner : CustomInventory replaces Chainsaw
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",8) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 2,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_ChainsawSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_ChainsawSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_ProximityLauncherSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_ProximityLauncherSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_Q2Chainsaw")
 		stop
 	}
 }
 
-Actor PPE_ShotgunSpawner : CustomInventory replaces Shotgun
+Actor PPE_ShotgunSpawner : PPE_Spawner replaces Shotgun
 {
 	States
 	{
@@ -23,13 +27,13 @@ Actor PPE_ShotgunSpawner : CustomInventory replaces Shotgun
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",2) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 2,"Spawn2")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 3,"Spawn3")
-		TNT1 A 0 A_SpawnItem("PPE_ShotgunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_ShotgunSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_SuperShotgunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_SuperShotgunSpawn")
 		stop
 	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_RailgunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_RailgunSpawn")
 		stop
 	Drop:
 		TNT1 A 0
@@ -38,7 +42,7 @@ Actor PPE_ShotgunSpawner : CustomInventory replaces Shotgun
 	}
 }
 
-Actor PPE_SuperShotgunSpawner : CustomInventory replaces SuperShotgun
+Actor PPE_SuperShotgunSpawner : PPE_Spawner replaces SuperShotgun
 {
 	States
 	{
@@ -47,18 +51,22 @@ Actor PPE_SuperShotgunSpawner : CustomInventory replaces SuperShotgun
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",3) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 2,"Spawn2")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 3,"Spawn3")
-		TNT1 A 0 A_SpawnItem("PPE_SuperShotgunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_SuperShotgunSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_RailgunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_RailgunSpawn")
 		stop
 	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_PhalanxSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_PhalanxSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_Q2SuperShotgun")
 		stop
 	}
 }
 
-Actor PPE_ChaingunSpawner : CustomInventory replaces Chaingun
+Actor PPE_ChaingunSpawner : PPE_Spawner replaces Chaingun
 {
 	States
 	{
@@ -67,13 +75,13 @@ Actor PPE_ChaingunSpawner : CustomInventory replaces Chaingun
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",4) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) == 2,"Spawn2")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) == 3,"Spawn3")
-		TNT1 A 0 A_SpawnItem("PPE_MachinegunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_MachinegunSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_ETFSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_ETFSpawn")
 		stop
 	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_ChaingunSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_ChaingunSpawn")
 		stop
 	Drop:
 		TNT1 A 0
@@ -82,7 +90,7 @@ Actor PPE_ChaingunSpawner : CustomInventory replaces Chaingun
 	}
 }
 
-Actor PPE_RocketLauncherSpawner : CustomInventory replaces RocketLauncher
+Actor PPE_RocketLauncherSpawner : PPE_Spawner replaces RocketLauncher
 {
 	States
 	{
@@ -91,18 +99,18 @@ Actor PPE_RocketLauncherSpawner : CustomInventory replaces RocketLauncher
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",5) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 2,"Spawn2")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 3,"Spawn3")
-		TNT1 A 0 A_SpawnItem("PPE_GrenadeLauncherSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_GrenadeLauncherSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_RocketLauncherSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_RocketLauncherSpawn")
 		stop
 	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_ProximityLauncherSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_ProximityLauncherSpawn")
 		stop
 	}
 }
 
-Actor PPE_PlasmaGunSpawner : CustomInventory replaces PlasmaRifle
+Actor PPE_PlasmaGunSpawner : PPE_Spawner replaces PlasmaRifle
 {
 	States
 	{
@@ -111,18 +119,18 @@ Actor PPE_PlasmaGunSpawner : CustomInventory replaces PlasmaRifle
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",6) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 2,"Spawn2")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 3,"Spawn3")
-		TNT1 A 0 A_SpawnItem("PPE_IonRipperSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_IonRipperSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_HyperblasterSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_HyperblasterSpawn")
 		stop
 	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_PlasmaBeamSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_PlasmaBeamSpawn")
 		stop
 	}
 }
 
-Actor PPE_BFGSpawner : CustomInventory replaces BFG9000
+Actor PPE_BFGSpawner : PPE_Spawner replaces BFG9000
 {
 	States
 	{
@@ -130,15 +138,15 @@ Actor PPE_BFGSpawner : CustomInventory replaces BFG9000
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",7) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",7) == 2,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_BfgSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_BfgSpawn")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_PlasmaBeamSpawn")
+		TNT1 A 0 A_SpawnPermanent("PPE_PlasmaBeamSpawn")
 		stop
 	}
 }
 
-Actor PPE_WeaponSpawnBase
+Actor PPE_WeaponSpawnBase : PPE_Spawner
 {
 	+DONTGIB +NOTONAUTOMAP
 }
@@ -154,7 +162,7 @@ Actor PPE_ChainsawSpawn : PPE_WeaponSpawnBase
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Chainsaw")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Chainsaw")
         TNT1 A 100
 		stop
 	}
@@ -166,7 +174,7 @@ Actor PPE_MachineGunSpawn : PPE_BulSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Machinegun")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Machinegun")
         TNT1 A 100
 		stop
 	}
@@ -178,7 +186,7 @@ Actor PPE_ETFSpawn : PPE_BulSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2ETF")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2ETF")
         TNT1 A 100
 		stop
 	}
@@ -190,7 +198,7 @@ Actor PPE_ShotgunSpawn : PPE_ShelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Shotgun")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Shotgun")
         TNT1 A 100
 		stop
 	}
@@ -202,7 +210,7 @@ Actor PPE_SuperShotgunSpawn : PPE_ShelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2SuperShotgun")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2SuperShotgun")
         TNT1 A 100
 		stop
 	}
@@ -214,7 +222,7 @@ Actor PPE_ChaingunSpawn : PPE_BulSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Chaingun")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Chaingun")
         TNT1 A 100
 		stop
 	}
@@ -226,7 +234,7 @@ Actor PPE_GrenadeLauncherSpawn : PPE_RcktSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2GrenadeLauncher")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2GrenadeLauncher")
         TNT1 A 100
 		stop
 	}
@@ -238,7 +246,7 @@ Actor PPE_ProximityLauncherSpawn : PPE_RcktSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2ProximityLauncher")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2ProximityLauncher")
         TNT1 A 100
 		stop
 	}
@@ -250,7 +258,7 @@ Actor PPE_RocketLauncherSpawn : PPE_RcktSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2RocketLauncher")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2RocketLauncher")
         TNT1 A 100
 		stop
 	}
@@ -262,7 +270,7 @@ Actor PPE_IonRipperSpawn : PPE_CelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2IonRipper")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2IonRipper")
         TNT1 A 100
 		stop
 	}
@@ -274,7 +282,7 @@ Actor PPE_HyperblasterSpawn : PPE_CelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Hyperblaster")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Hyperblaster")
         TNT1 A 100
 		stop
 	}
@@ -286,7 +294,7 @@ Actor PPE_PlasmaBeamSpawn : PPE_CelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2PlasmaBeam")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2PlasmaBeam")
         TNT1 A 100
 		stop
 	}
@@ -298,7 +306,7 @@ Actor PPE_RailgunSpawn : PPE_ShelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Railgun")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Railgun")
         TNT1 A 100
 		stop
 	}
@@ -310,7 +318,7 @@ Actor PPE_PhalanxSpawn : PPE_ShelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Phalanx")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Phalanx")
         TNT1 A 100
 		stop
 	}
@@ -322,7 +330,7 @@ Actor PPE_BfgSpawn : PPE_CelSpawn
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_SpawnItem("PPE_Q2Bfg")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Bfg")
         TNT1 A 100
 		stop
 	}

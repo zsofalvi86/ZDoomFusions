@@ -1,16 +1,6 @@
 
 //Pickups
-items/q3ammo			ampkup
-items/q3weapon			wpkup
-items/q3switch			change
-items/health1			shealth
-items/health2			nhealth
-items/health3			lhealth
-items/health4			mhealth
-items/armor1			ar1pkup
-items/armor2			ar2pkup
-items/holdable			holdable
-items/meduse			pmedu
+items/dn	GETITM19
 
 //Knuckle
 weapons/knuckle knuckle
@@ -40,6 +30,10 @@ weapons/pipebomb/bounce pbombbnc
 weapons/shrinker/fire shrinker
 weapons/shrinker/impact thud
 weapons/shrinker/hit shrink
+
+//Expander
+weapons/expander/fire EXSHOT3B
+weapons/expander/expand enlarge
 
 //Tripbomb
 weapons/tripbomb/impact lsrbmbpt

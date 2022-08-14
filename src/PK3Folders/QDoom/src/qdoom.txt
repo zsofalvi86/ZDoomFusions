@@ -58,11 +58,11 @@ script "SetSpawn" (int spawnTag)
 	if(spawnTag==0)//sg
 	{
 		//gl
-		if(SG==3 && SSG==3){SG=1;} // run first to check other collisions with ng
+		if(SG==4 && SSG==3){SG=1;} // run first to check other collisions with ng
 		//ng
-		if(SG==1 && SSG==2){SG=4;} // collide with sng to avoid too many nails
-		if(SG==1 && SSG==5){SG=4;} // collide with sng to avoid too many nails
-		if(SG==1 && CG==2){SG=4;}
+		if(SG==1 && SSG==2){SG=2;} // collide with sng to avoid too many nails
+		if(SG==1 && SSG==5){SG=2;} // collide with sng to avoid too many nails
+		if(SG==1 && CG==2){SG=2;}
 		//dblsg
 		if(SG==2 && SSG==1){SG=3;}
 		if(SG==2 && CG==1){SG=3;}
@@ -92,12 +92,12 @@ script "SetSpawn" (int spawnTag)
 		if(SSG==2 && CG==3){SSG=3;}
 		if(SSG==2 && PG==1){SSG=3;}
 		//gl
-		if(SSG==3 && RL==1){SSG=6;} // out of ideas, give a quad
-		if(SSG==3 && RL==3){SSG=6;} // out of ideas, give a quad
-		if(SSG==3 && SG==4){SSG=1;}
+		if(SSG==3 && RL==1){SSG=5;}
+		if(SSG==3 && RL==3){SSG=5;}
+		if(SSG==3 && SG==4){SSG=5;}
 		//lava sng
 		if(SSG==5 && SG==1){SSG=6;} // collide with ng to avoid too many nails
-		if(SSG==5 && SG==3){SSG=6;} // collide with ng to avoid too many nails
+		if(SSG==5 && SG==3){SSG=6;} // collide with lng to avoid too many nails
 		if(SSG==5 && CG==3){SSG=6;}
 		if(SSG==5 && PG==1){SSG=6;} // out of ideas, give a quad
 	}
@@ -105,15 +105,13 @@ script "SetSpawn" (int spawnTag)
 	{
 		//dblsg
 		if(CG==1 && SSG==1){CG=2;}
-		if(CG==1 && CG==1){CG=2;}
-		if(CG==1 && SG==2){CG=3;} // skip ahead on cg if spawned after 2 sg-s
-		if(CG==1 && SG==3){CG=3;} // skip ahead on cg if spawned after 3 sg-s
+		if(CG==1 && SG==2){CG=3;}
 		//ng
-		if(CG==2 && SG==2){CG=3;} // skip ahead on cg if spawned after 2 sg-s
-		if(CG==2 && SG==3){CG=3;} // skip ahead on cg if spawned after 3 sg-s
+		if(CG==2 && SG==1){CG=3;}
+		if(CG==2 && SG==3){CG=3;}
 		if(CG==2 && SG==1){CG=3;}
 		//sng
-		if(CG==3 && SSG!=1 && SG!=2 && SSG!=5 && SG!=3){CG=1;} // go back to dblsg if shotguns don't spawn shells
+		if(CG==3 && SSG!=1 && SG!=2 && SSG!=6){CG=1;} // go back to dblsg if shotguns don't spawn shells
 		if(CG==3 && SSG==2){CG=2;}
 		if(CG==3 && SSG==5){CG=2;}
 		if(CG==3 && PG==1){CG=2;}

@@ -44,7 +44,7 @@ Class PPE_Q2Player : DoomPlayer
 	
 	Override void Travelled()
 	{
-		if (self.Health < 50) { A_SetHealth(50); }
+		//if (self.Health < 50) { A_SetHealth(50); }
 		SetInventory("PPE_TempHealthBuffer", 0);
 		while (CountInv("PPE_TempHealth"))
 		{

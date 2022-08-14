@@ -199,44 +199,142 @@ Actor PPE_SmartLargeCell : PPE_SmartSmallCell replaces CellPack
 	}
 }
 
-ACTOR PPE_SmallBullet : PPE_Bullets
+ACTOR PPE_SmallPistolBullet : PPE_PistolBullets
 {
-  Inventory.Amount 15
+  Inventory.Amount 12
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTBULLETS"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    BBXS A -1
+    BPIS A -1
     Stop
   }
 }
 
-ACTOR PPE_SmallChaingunBullet : PPE_ChaingunBullets
+ACTOR PPE_LargePistolBullet : PPE_PistolBullets
 {
-  Inventory.Amount 15
+  Inventory.Amount 60
   +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTCBULLETS"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupMessage "$GOTBULLETS"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    BCGS A -1
+    BPIB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallPistolDumdumBullet : PPE_PistolBullets_Dumdum
+{
+  Inventory.Amount 12
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTBULLETS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    BPDS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargePistolDumdumBullet : PPE_PistolBullets_Dumdum
+{
+  Inventory.Amount 60
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTBULLETS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    BPDB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallRipperBullet : PPE_RipperBullets
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCBULLETS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    BRIS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRipperBullet : PPE_RipperBullets
+{
+  Inventory.Amount 50
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCBULLETS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    BRIB A -1
     Stop
   }
 }
 
 ACTOR PPE_SmallShell : PPE_Shells
 {
-  Inventory.Amount 3
+  Inventory.Amount 4
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLS"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    SHLS A -1
+    SSHS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeShell : PPE_Shells
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    SSHB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallExplosiveShell : PPE_Shells_Explosive
+{
+  Inventory.Amount 2
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    SSHS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeExplosiveShell : PPE_Shells_Explosive
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    SSHB A -1
     Stop
   }
 }
@@ -246,11 +344,137 @@ ACTOR PPE_SmallRocket : PPE_Rockets
   Inventory.Amount 1
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTROCKET"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    RCKT A -1
+    RRPS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRocket : PPE_Rockets
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RRPB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallSeekerRocket : PPE_Rockets_Seeker
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeSeekerRocket : PPE_Rockets_Seeker
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallPipebomb : PPE_Pipebombs
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargePipebomb : PPE_Pipebombs
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallShrinker : PPE_Shirnkers
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeShrinker : PPE_Shirnkers
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallExpander : PPE_Expanders
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeExpander : PPE_Expanders
+{
+  Inventory.Amount 50
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
+  States
+  {
+  Spawn:
+    RHSB A -1
     Stop
   }
 }
@@ -260,249 +484,39 @@ ACTOR PPE_SmallCell : PPE_Cells
   Inventory.Amount 20
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTCELL"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    CPBX A -1
-    Stop
+    CFRS ABC 2 bright
+    Loop
   }
 }
 
-ACTOR PPE_SmallLightning : PPE_Lightnings
-{
-  Inventory.Amount 12
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTLIGHT"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    CLBX A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeBullet : PPE_Bullets
-{
-  Inventory.Amount 75
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTBULLETBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    BBXB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeChaingunBullet : PPE_ChaingunBullets
-{
-  Inventory.Amount 75
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTCBULLETBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    BCGB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeShell : PPE_Shells
-{
-  Inventory.Amount 15
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTSHELLBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    SHLB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeRocket : PPE_Rockets
+ACTOR PPE_SmallMinirocket : PPE_Minirockets
 {
   Inventory.Amount 5
   +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTROCKBOX"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    RTBX A -1
+    CDES A -1
     Stop
   }
 }
 
-ACTOR PPE_LargeCell : PPE_Cells
+ACTOR PPE_LargeMinirocket : PPE_Minirockets
 {
-  Inventory.Amount 100
+  Inventory.Amount 20
   +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTCELLBOX"
-  Inventory.PickupSound "items/q3ammo"
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/dn"
   States
   {
   Spawn:
-    CPBX B -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeLightning : PPE_Lightnings
-{
-  Inventory.Amount 60
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTLIGHTBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    CLBX B -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallSlug : PPE_Slugs
-{
-  Inventory.Amount 2
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTSLUGS"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    SLGA A -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallNail : PPE_Nails
-{
-  Inventory.Amount 2
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNAILS"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    NBXS A -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallGrenade : PPE_Grenades
-{
-  Inventory.Amount 1
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTGRENADE"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    GRNA A -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallProx : PPE_Proxs
-{
-  Inventory.Amount 1
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTPROX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    PRXA A -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallNuke : PPE_Nukes
-{
-  Inventory.Amount 2
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNUKE"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    CSBX A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeSlug : PPE_Slugs
-{
-  Inventory.Amount 10
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTSLUGBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-	SLGB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeNail : PPE_Nails
-{
-  Inventory.Amount 10
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNAILBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    NBXB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeGrenade : PPE_Grenades
-{
-  Inventory.Amount 5
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTGRENBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    GRNB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeProx : PPE_Proxs
-{
-  Inventory.Amount 5
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTPROXBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    PRXB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeNuke : PPE_Nukes
-{
-  Inventory.Amount 10
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNUKEBOX"
-  Inventory.PickupSound "items/q3ammo"
-  States
-  {
-  Spawn:
-    CBBX A -1
+    CDEB A -1
     Stop
   }
 }

@@ -100,6 +100,9 @@ Actor QD_Pentagram : CustomInventory replaces InvulnerabilitySphere
 	States
 	{
 	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",50) // add some hp clearance due to self armor dmg
+	AnimLoop:
 		QPOP ABC 3 Bright
 		Loop
 	Use:
@@ -127,7 +130,7 @@ Actor QD_PopFake : QD_Pop
 
 Actor PowerPentagram : PowerProtection
 {
-  DamageFactor "Normal", 0
+  DamageFactor "Normal", 1
   Inventory.Icon "QPOPA0"
   ActiveSound "items/invul/absorb"
 }

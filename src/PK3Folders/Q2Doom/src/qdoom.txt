@@ -45,11 +45,13 @@ global int 8:CS;
 global int 9:BER;
 global int 10:POW;
 global int 11:BPK;
-global int 12:HP;
+global int 12:MEGA;
+global int 13:HP;
 
 script "map exit" UNLOADING
 {
 	level += 1;
+	MEGA = 0;
 	For(int i=0;i<players;i++)
 	{
 		If (GetActorProperty(6000+i, APROP_HEALTH) <= 0) // any player dead, reset the levels
@@ -82,7 +84,8 @@ script "SetSpawn" (int spawnTag)
 		case 9:BER++;break;
 		case 10:POW++;break;
 		case 11:BPK++;break;
-		case 12:HP++;break;
+		case 12:MEGA++;break;
+		case 13:HP++;break;
 	}
 	
 	if(SG>3){SG=1;}
@@ -95,6 +98,7 @@ script "SetSpawn" (int spawnTag)
 	if(BER>2){BER=1;}
 	if(POW>3){POW=1;}
 	if(BPK>2){BPK=1;}
+	if(MEGA>3){MEGA=2;}
 	if(HP>6){HP=1;}
 	
 	if(SG>1 && !(CG>2 || RL>2 || PG>1)) {SG=1;} // limit sg spawns
@@ -125,7 +129,8 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 		case 9:ret=BER;break;
 		case 10:ret=POW;break;
 		case 11:ret=BPK;break;
-		case 12:ret=HP;break;
+		case 12:ret=MEGA;break;
+		case 13:ret=HP;break;
 	}
 	
 	SetResultValue(ret);

@@ -71,23 +71,23 @@ ACTOR PPE_Q2MegaHealth : CustomInventory replaces Soulsphere
   }
 }
 
-Actor PPE_25HealthSpawner : CustomInventory replaces MediKit
+Actor PPE_25HealthSpawner : PPE_Spawner replaces MediKit
 {
 	States
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",12) //use WithResult otherwise it'll run in parellel
-		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",12) == 4,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_Q2MediKit")
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",13) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",13) == 4,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2MediKit")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_Q2GreenArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2GreenArmor")
 		stop
 	}
 }
 
-Actor PPE_BackpackSpawner : CustomInventory replaces Backpack
+Actor PPE_BackpackSpawner : PPE_Spawner replaces Backpack
 {
 	States
 	{
@@ -95,59 +95,35 @@ Actor PPE_BackpackSpawner : CustomInventory replaces Backpack
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",11) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",11) == 2,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_Q2Bandolier")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Bandolier")
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnItem("PPE_Q2Backpack")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2Backpack")
 		stop
 	}
 }
 
-Actor PPE_GreenArmorSpawner : CustomInventory
+Actor PPE_MegaSphereSpawner : PPE_Spawner replaces Megasphere
 {
 	States
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 7,"Spawn3")
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 4,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_Q2GreenArmor")
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",12) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",12) == 3,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",12) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2PowerArmor")
 		stop
 	Spawn2:
-		TNT1 A 0 A_Jump(256,1,2)
-		TNT1 A 0 A_SpawnItem("PPE_Q2GreenArmor")
-		stop
-		TNT1 A 0 A_SpawnItem("PPE_Q2YellowArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2MegaHealth")
 		stop
 	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_Q2YellowArmor")
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2RedArmor")
 		stop
 	}
 }
 
-Actor PPE_BlueArmorSpawner : CustomInventory
-{
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 6,"Spawn3")
-		TNT1 A 0 A_JumpIf(CallAcs("GetLevelNum") >= 3,"Spawn2")
-		TNT1 A 0 A_SpawnItem("PPE_Q2YellowArmor")
-		stop
-	Spawn2:
-		TNT1 A 0 A_Jump(256,1,2)
-		TNT1 A 0 A_SpawnItem("PPE_Q2YellowArmor")
-		stop
-		TNT1 A 0 A_SpawnItem("PPE_Q2RedArmor")
-		stop
-	Spawn3:
-		TNT1 A 0 A_SpawnItem("PPE_Q2RedArmor")
-		stop
-	}
-}
-
-Actor PPE_Q2PowerArmor : Megasphere replaces Megasphere
+Actor PPE_Q2PowerArmor : Megasphere
 {
 	-INVENTORY.AUTOACTIVATE
 	+INVENTORY.KEEPDEPLETED
@@ -162,9 +138,7 @@ Actor PPE_Q2PowerArmor : Megasphere replaces Megasphere
 		2ARM D -1
 		Stop
 	Pickup:
-		TNT1 A 0 A_GiveInventory("PPE_Cells",200)
-		TNT1 A 0 A_GiveInventory("PPE_Q2MediKit",10)
-		TNT1 A 0 A_GiveInventory("PPE_Q2MegaHealth",1)
+		TNT1 A 0 A_GiveInventory("PPE_Cells",100)
 		Stop
 	Use:
 		TNT1 A 0 A_JumpIfInventory("PPE_PowerArmorOn",0,"TurnOff")

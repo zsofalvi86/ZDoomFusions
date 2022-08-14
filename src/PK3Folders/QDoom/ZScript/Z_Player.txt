@@ -3,7 +3,7 @@ Class QD_QuakePlayer : DoomPlayer
 	double xPos, yPos, zPos;
 	int silencedshots;
 
-	double tilt; double desiredTilt;
+	double tilt; double desiredTilt; double dmgTilt;
 	const maxtilt = 1.8;
 	int tic;
 	
@@ -24,9 +24,15 @@ Class QD_QuakePlayer : DoomPlayer
 			if (CountInv("QD_TempHealthBuffer")) { TakeInventory("QD_TempHealthBuffer", 1); }
 			else if (CountInv("QD_TempHealth"))
 			{
-				TakeInventory("QD_TempHealth", 1);
-				if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
+				let healthtick = CountInv("QD_TempHealthTickers");
+				TakeInventory("QD_TempHealth", healthtick);
+				if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-healthtick); }
 				else { SetInventory("QD_TempHealth", 0); }
+				if (self.Health < 100) { A_SetHealth(100); }
+			}
+			else
+			{
+				SetInventory("QD_TempHealthTickers", 0);
 			}
 		}
 	}
@@ -41,17 +47,46 @@ Class QD_QuakePlayer : DoomPlayer
 			if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
 			else { SetInventory("QD_TempHealth", 0); }
 		}
+		SetInventory("QD_TempHealthTickers", 0);
 	}
-
+	
+	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
+	{
+		let newdamage = damage;
+		
+		if (source && source == self)
+		{
+			damage = damage / 2;
+		}
+		
+		dmgTilt += damage / 8.0;
+		if (dmgTilt > (maxtilt*4)) {dmgTilt = maxtilt*4;}
+		
+		if(CheckInventory("PowerPentagram",1)) 
+		{
+			A_PlaySound("items/invul/absorb",5);
+			let uarmor = BasicArmor(FindInventory("BasicArmor"));
+			if (uarmor)
+			{
+				int ignore;
+				uarmor.AbsorbDamage(damage,damagetype,ignore);
+				damage = 0;
+			}
+		}
+		
+		return Super.TakeSpecialDamage(inflictor, source, damage, damagetype);
+	}
 	
 	void SetTilt(bool left, bool right)
 	{
 		if (left && !right) {desiredTilt = -maxtilt;}
 		else if (right && !left) {desiredTilt = maxtilt;}
 		else {desiredTilt = 0;}
-		if(tilt < desiredTilt) {tilt += 0.3;}
-		if(tilt > desiredTilt) {tilt -= 0.3;}
-		A_SetRoll(tilt);//,SPF_INTERPOLATE);
+		if(tilt < desiredTilt) {tilt += 0.45;}
+		if(tilt > desiredTilt) {tilt -= 0.45;}
+		A_SetRoll(tilt - dmgTilt);//,SPF_INTERPOLATE);
+		dmgTilt -= 0.45;
+		if(dmgTilt<0) { dmgTilt = 0; }
 		//A_Print("t: "..tilt);
 	}
 	

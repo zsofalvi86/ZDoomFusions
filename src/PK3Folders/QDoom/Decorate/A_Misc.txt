@@ -95,6 +95,7 @@ ACTOR QD_Q1MegaHealth : CustomInventory replaces Soulsphere
 	TNT1 A 0 A_GiveInventory("QD_TempHealth",min(100,250-health))
 	TNT1 A 0 A_GiveInventory("QD_TempHealthBuffer",5)
     TNT1 A 0 A_GiveInventory("QD_Q1HealthBonus",100)
+	TNT1 A 0 A_GiveInventory("QD_TempHealthTickers",1)
     Stop
   }
 }
@@ -208,4 +209,9 @@ Actor QD_TempHealth : Inventory
 Actor QD_TempHealthBuffer : Inventory
 {
 	Inventory.MaxAmount 5
+}
+
+Actor QD_TempHealthTickers : Inventory
+{
+	Inventory.MaxAmount 10
 }
