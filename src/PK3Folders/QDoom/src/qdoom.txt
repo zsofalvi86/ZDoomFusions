@@ -200,12 +200,12 @@ script "CheckHP" (int amount)
 
 script "RegisterAmmo" (int amount)
 {
-	XSHP += amount;
+	XSAMM += amount;
 }
 
 script "SpendAmmo" (int amount)
 {
 	int ret = 0;
-	if(XSHP > amount) {XSHP-=amount; ret=1;}
+	if(XSAMM > amount) {XSAMM-=amount; ret=1;}
 	SetResultValue(ret);
 }

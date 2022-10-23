@@ -48,6 +48,9 @@ Actor QD_LaserCannon : PlasmaRifle
 	Inventory.PickupSound "items/qweapon"
 	Weapon.SelectionOrder 110
 	Weapon.SlotNumber 9
+	Weapon.BobRangeX 0.05
+	Weapon.BobRangeY 0.75
+	Weapon.BobSpeed 2.0
 	Weapon.AmmoUse 1
 	Weapon.AmmoType "QD_Cells"
 	Weapon.AmmoGive 40

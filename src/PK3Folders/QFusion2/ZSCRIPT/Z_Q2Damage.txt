@@ -1,0 +1,26 @@
+Class PPE_Q2DamageMod : Inventory
+{
+	Array<Actor> memactors;
+	int memtic;
+
+	Override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		if (!passive) //passive = taking dmg
+		{
+			let curtime = level.Time;
+			if (memtic != curtime) {memactors.Clear();}
+			let membered = memactors.Find(source) != memactors.Size();
+			if((source.Target != owner || (memtic == curtime && membered)) && !source.Player)
+			{
+				if (!membered) {memactors.Push(source);}
+				memtic = curtime;
+				//console.printf("%s", "ambush");
+				newdamage = damage * 2;
+			}
+			else
+			{
+				newdamage = damage;
+			}
+		}
+	}
+}

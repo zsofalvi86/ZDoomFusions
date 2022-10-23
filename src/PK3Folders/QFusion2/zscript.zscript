@@ -1,0 +1,5 @@
+#include "zscript/z_player.txt"
+#include "zscript/z_q2damage.txt"
+#include "zscript/z_beams.txt"
+#include "zscript/z_bfg.txt"
+#include "zscript/z_spawner.txt"

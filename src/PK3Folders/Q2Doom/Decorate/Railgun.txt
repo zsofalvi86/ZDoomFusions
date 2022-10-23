@@ -13,7 +13,6 @@ Actor PPE_Q2RailGun : Chaingun
 	DamageType "Quake2Slug"
 	States
 	{
-	Drop:
 	Spawn:
 		2RGW AAAABBCCDDDCCBB 1
 		Loop

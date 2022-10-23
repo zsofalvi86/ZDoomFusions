@@ -75,7 +75,7 @@ Actor QD_Thunderbolt : Plasmarifle
 {
 	Inventory.Pickupmessage "$GOT_QD_TB"
 	Tag "$TAG_QD_TB"
-	Weapon.BobRangeX 0.1
+	Weapon.BobRangeX 0.05
 	Weapon.BobRangeY 0.75
 	Weapon.BobSpeed 2.0
 	Decal PlasmaScorch

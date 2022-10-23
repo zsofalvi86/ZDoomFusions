@@ -159,3 +159,39 @@ Actor PPE_YellowQuakeExploTiny : PPE_IteratorEffect
     	Stop
 	}
 }
+
+Actor PPE_PowerShieldBlood : PPE_IteratorEffect
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 18; A_SetUserVar(user_i, user_i + 1))
+			{
+				A_SpawnParticle(blue,SPF_FULLBRIGHT|SPF_RELATIVE,6,7,FRandom(0,360),0,0,0,Random(1,16),0,Random(-16,16),0,0,-3);
+			}
+		}
+    	Stop
+	}
+}
+
+ACTOR PPE_TeleportSpark : PPE_IteratorEffect replaces TeleportFog
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/teleport")
+		TNT1 A 0
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 300; A_SetUserVar(user_i, user_i + 1))
+			{
+				A_SpawnParticle(green,SPF_FULLBRIGHT|SPF_RELATIVE,22,7,FRandom(0,360),0,0,40,Random(1,20),0,Random(-20,20));
+			}
+		}
+		TFOG ABABCDEFGHIJ 3 Bright
+		Stop
+	}
+}

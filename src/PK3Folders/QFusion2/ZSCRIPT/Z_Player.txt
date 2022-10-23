@@ -1,0 +1,199 @@
+Class PPE_QuakeFusionPlayer : DoomPlayer
+{
+	double xPos, yPos, zPos;
+
+	double tilt; double desiredTilt; double dmgTilt; double bobtilt;
+	const maxtilt = 1.8;
+	int tic;
+	
+	Override void Tick ()
+	{
+		Super.Tick();
+		if (!player || !player.mo || player.mo != self){return;}
+		
+		int insm = GetPlayerInput(MODINPUT_SIDEMOVE);
+		bool left = insm < -1000;
+		bool right = insm > 1000;
+		
+		SetTilt(left, right);
+		Timer();
+		
+		if (tic == 0 && CheckInventory("PowerRegen",1))
+		{
+			if (self.Health < 100) {A_SetHealth(self.Health+15); A_PlaySound("items/regen/active",4);}
+			else if (self.Health < 250) {A_SetHealth(self.Health+5); GiveInventory("PPE_TempHealth", 5); A_PlaySound("items/regen/active",4);}
+			if (self.Health > 250) {A_SetHealth(250);}
+			SetInventory("PPE_TempHealthBuffer", 5);
+		}
+		
+		if (tic == 0 && self.Health > 0)
+		{
+			if (CountInv("PPE_TempHealthBuffer")) { TakeInventory("PPE_TempHealthBuffer", 1); }
+			else if (CountInv("PPE_TempHealth"))
+			{
+				if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
+				else { SetInventory("PPE_TempHealth", 0); }
+			}
+		}
+	}
+	
+	Override void Travelled()
+	{
+		if (self.Health < 50) { A_SetHealth(50); }
+		SetInventory("PPE_TempHealthBuffer", 0);
+		while (CountInv("PPE_TempHealth"))
+		{
+			TakeInventory("PPE_TempHealth", 1);
+			if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
+			else { SetInventory("PPE_TempHealth", 0); }
+		}
+	}
+	
+	Override class<Actor> GetBloodType(int type)
+	{
+		if(CountInv("PPE_PowerArmor")) { return "PPE_PowerShieldBlood";}
+		return Super.GetBloodType(type);
+	}
+	
+	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
+	{
+		let newdamage = damage;
+		
+		if (source && source == self)
+		{
+			damage = damage / 2;
+		}
+		
+		if(CheckInventory("PPE_PowerArmor",1)) 
+		{
+			int absorbed = damage * 0.6666;
+			int power = CountInv("PPE_PowerArmor");
+			if (power < absorbed){ absorbed = power; SetInventory("PPE_PowerArmor",0); A_PlaySound("items/powershield/off");}
+			else { TakeInventory("PPE_PowerArmor",absorbed); }
+			A_PlaySound("items/powershield/hit",5);
+			//A_Print("abs: "..ratio);
+			damage -= absorbed;
+		}
+		
+		dmgTilt += damage / 8.0;
+		if (dmgTilt > (maxtilt*4)) {dmgTilt = maxtilt*4;}
+		
+		if(CheckInventory("PowerPentagram",1)) 
+		{
+			A_PlaySound("items/invul/absorb",5);
+			let uarmor = BasicArmor(FindInventory("BasicArmor"));
+			if (uarmor)
+			{
+				int ignore;
+				uarmor.AbsorbDamage(damage,damagetype,ignore);
+				damage = 0;
+			}
+		}
+		
+		return Super.TakeSpecialDamage(inflictor, source, damage, damagetype);
+	}
+	
+	void SetTilt(bool left, bool right)
+	{
+		if (left && !right) {desiredTilt = -maxtilt;}
+		else if (right && !left) {desiredTilt = maxtilt;}
+		else {desiredTilt = 0;}
+		if(tilt < desiredTilt) {tilt += 0.45;}
+		if(tilt > desiredTilt) {tilt -= 0.45;}
+		
+		let angle = Level.maptime / (20 * TICRATE / 35.) * 360.;
+		let cbob = player.bob * sin(angle) * 0.5f;
+		bobtilt = cbob * 0.125f;
+		
+		FCheckPosition fcp; CheckPosition((pos.x,pos.y),false,fcp);
+		if (fcp.floorz == self.pos.z) {A_SetRoll(tilt - bobtilt - dmgTilt);}
+		else {A_SetRoll(tilt - dmgTilt);}
+		
+		dmgTilt -= 0.45;
+		if(dmgTilt<0) { dmgTilt = 0; }
+		//A_Print("t: "..tilt);
+	}
+	
+	void Timer()
+	{
+		if (tic <= 0) {tic = 35;}
+		else {tic--;}
+	}
+
+	Default
+	{
+		Mass 100;
+		PainChance 255;
+		Gravity 1.0;
+		Species "Player";
+		Player.StartItem "PPE_Blaster";
+		Player.StartItem "PPE_Gauntlet";
+		Player.StartItem "PPE_Q2DamageMod";
+		Player.DisplayName "Quake Ranger";
+		Player.SoundClass "PPE_QuakePlayer";
+	
+		Player.WeaponSlot 1, "PPE_Blaster", "PPE_Gauntlet";
+		Player.WeaponSlot 2, "PPE_Shotgun", "PPE_SuperShotgun";
+		Player.WeaponSlot 3, "PPE_Nailgun", "PPE_SuperNailgun";
+		Player.WeaponSlot 4, "PPE_Machinegun", "PPE_Chaingun";
+		Player.WeaponSlot 5, "PPE_GrenadeLauncher", "PPE_RocketLauncher";
+		Player.WeaponSlot 7, "PPE_PlasmaGun";
+		Player.WeaponSlot 8, "PPE_Thunderbolt";
+		//Player.WeaponSlot 7, "PPE_MultiRocketLauncher", "PPE_RocketLauncher";
+		Player.WeaponSlot 9, "PPE_Railgun";
+		Player.WeaponSlot 0, "PPE_Q3BFG", "PPE_Q2BFG";
+	}
+	
+	States
+	{
+	Spawn:
+		PLAY A -1;
+		Loop;
+	See:
+		PLAY ABCD 4;
+		Loop;
+	Missile:
+		PLAY E 12;
+		Goto Spawn;
+	Melee:
+		PLAY F 6 BRIGHT;
+		Goto Missile;
+	Pain:
+		PLAY G 4;
+		PLAY G 4 A_Pain();
+		Goto Spawn;
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath");
+	Death1:
+		PLAY H 10;
+		PLAY I 10 A_PlayerScream();
+		PLAY J 10 A_NoBlocking();
+		PLAY KLM 10;
+		PLAY N -1;
+		Stop;
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath");
+	XDeath1:
+		PLAY O 5;
+		PLAY P 5 A_XScream();
+		PLAY Q 5 A_NoBlocking();
+		PLAY RSTUV 5;
+		PLAY W -1;
+		Stop;
+	AltSkinDeath:
+		PLAY H 6;
+		PLAY I 6 A_PlayerScream();
+		PLAY JK 6;
+		PLAY L 6 A_NoBlocking();
+		PLAY MNO 6;
+		PLAY P -1;
+		Stop;
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream();
+		PLAY R 0 A_NoBlocking();
+		PLAY R 5 A_SkullPop();
+		PLAY STUVWX 5;
+		PLAY Y -1;
+		Stop;
+	}
+}

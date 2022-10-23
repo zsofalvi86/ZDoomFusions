@@ -1,6 +1,9 @@
 
 //Pickups
 items/dn	GETITM19
+items/armor	KICKHIT
+items/atom	teleport
+$pitchset items/atom 3.0 //lol
 
 //Knuckle
 weapons/knuckle knuckle
@@ -53,26 +56,15 @@ quwe1 cool01 quwe2 getsom1a quwe3 groovy02 quwe4 hail01 quwe5 wansom4a
 $random weapons/pickup/quote { quwe1 quwe2 quwe3 quwe4 quwe5 }
 
 //Powerups
-items/quad/pickup		v_quad
-items/quad/active		quada
-items/quad/wearoff		quadx
-items/regen/pickup		v_regen
-items/regen/active		regen
-items/regen/wearoff		wearoff
-items/invis/pickup		v_invis
-items/invis/wearoff		wearoff
-items/haste/pickup		v_haste
-items/haste/wearoff		wearoff
-items/suit/pickup		holdable
-items/suit/wearoff		wearoff
-items/invul/pickup		invul_ac
-invi1 invul_i1 invi2 invul_i2 invi3 invul_i3
-$random items/invul/active { invi1 invi2 invi3 }
-items/invul/juice		invul_ju
-
-//Kamikaze
-weapons/kamikaze/explode kamif
-weapons/kamikaze/fire	kamis
+items/meduse1 pmed1
+items/meduse2 pmed2
+items/holo teleport
+items/steroids gulp01
+items/heartbeat hartbeat
+items/goggles goggle12
+items/jetpack/on jetpakon
+items/jetpack/off jetpakof
+items/jetpack/run jetpaki
 
 //Player
 pushum pain87 pushwhere whrsit05

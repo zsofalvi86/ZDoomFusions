@@ -1,10 +1,6 @@
-ACTOR PPE_Blaster_Q2 : Fist
+ACTOR PPE_Blaster : Fist
 {
   Weapon.SelectionOrder 2000
-  Weapon.AmmoUse1 0
-  Weapon.AmmoUse2 2
-  Weapon.AmmoType2 "PPE_Cells"
-  Weapon.AmmoGive 0
   Weapon.SlotNumber 1
   Obituary "$OB_MPBLASTER"
   +WEAPON.NOALERT
@@ -15,6 +11,9 @@ ACTOR PPE_Blaster_Q2 : Fist
   Tag "$TAG_PPE_BLS"
   Inventory.PickupSound "items/weapon2"
   Weapon.UpSound "weapons/switch"
+  Weapon.BobRangeX 0.05
+  Weapon.BobRangeY 0.75
+  Weapon.BobSpeed 2.0
   States
   {
   Spawn:
@@ -24,14 +23,10 @@ ACTOR PPE_Blaster_Q2 : Fist
     BSTG A 1 A_WeaponReady
     Loop
   Deselect:
-	TNT1 A 0 A_Lower
-	TNT1 A 0 A_Lower
-    BSTG A 1 A_Lower
+    BSTG A 1 A_Lower(18)
     Loop
   Select:
-	TNT1 A 0 A_Raise
-	TNT1 A 0 A_Raise
-    BSTG A 1 A_Raise
+    BSTG A 1 A_Raise(18)
     Loop
   Fire:
 	TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
@@ -39,15 +34,6 @@ ACTOR PPE_Blaster_Q2 : Fist
 	TNT1 A 0 A_FireCustomMissile("PPE_BlasterBolt",0,0,0,5,1,0)
 	TNT1 A 0 A_PlaySound("weapons/blaster/fire1",1)
 	TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-	Goto FireAnim
-  AltFire:
-	TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
-	TNT1 A 0 A_AlertMonsters
-	TNT1 A 0 A_FireCustomMissile("PPE_BlasterBolt",0,1,0,5,1,0)
-	TNT1 A 0 A_PlaySound("weapons/blaster/fire3",1)
-	TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-	Goto FireAnim
-  FireAnim:
 	TNT1 A 0 A_GunFlash
     BSTF ABC 2 bright
     BSTG CBBAA 2
@@ -66,7 +52,7 @@ Actor PPE_BlasterBolt : PPE_SlowMissileBase
 	SeeSound ""
 	DeathSound "weapons/blaster/hit"
 	Speed 35
-	Damage (15)//10 - should 2 shot both zombieman and shotgunners
+	Damage (14)//10 - should 2 shot both zombieman and shotgunners
 	DamageType "Quake2Blaster"
 	States
 	{

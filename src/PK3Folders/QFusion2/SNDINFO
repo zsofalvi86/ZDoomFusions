@@ -21,8 +21,8 @@ items/armor3			arpkup3
 items/armor4			arpkup4
 
 //Powerup
-items/biosuit/pickup	suit
-items/biosuit/fade		suit2
+items/suit/pickup		suit
+items/suit/fade			suit2
 items/quad/pickup		damage
 items/quad/fade			damage2
 items/quad/use			damage3
@@ -32,15 +32,23 @@ items/invul/absorb		protect3
 items/ring/pickup		inv1
 items/ring/fade			inv2
 items/ring/loop			inv3
+items/regen/pickup		regen1
+items/regen/wearoff		regen2
+items/regen/active		regen3
+items/powershield/on	power1
+items/powershield/off	power2
+items/powershield/hit	lashit
+items/visor/use			ir_start
+
+items/q2pickup			ipkup
 
 //Generic
 weapons/switch			change
 
-//Melee
-weapons/melee/idle	sawidle
-weapons/melee/saw	sawhit
-weapons/melee/hit	fstatck
-weapons/melee/run	fstrun
+//Gauntlet
+weapons/gauntlet/hum	fsthum
+weapons/gauntlet/run	fstrun
+weapons/gauntlet/hit	fstatck
 
 //Grappling Hook
 weapons/hook/fire	grfire
@@ -59,16 +67,8 @@ $volume weapons/blaster/fly 0.5
 $limit weapons/blaster/hit 5
 
 //Shotguns
-weapons/shotgun/fire		shotgf
-weapons/shotgun/reload		shotgr
-weapons/shotgun/spin		infatck3
-weapons/shotgun/altfire		sgrot
+weapons/shotgun/fire		sshotf
 weapons/lightshotgun/fire	shotgn1
-weapons/dbshotgun/fire		shotgn2
-weapons/dbshotgun/cycler1	cycler1
-weapons/dbshotgun/cycler2	cycler2
-weapons/supershotgun/fire1	sshotf1
-weapons/supershotgun/fire2	sshotf2
 
 weapons/phalanx/init		gunatck1
 weapons/phalanx/tick		ticktock
@@ -90,12 +90,8 @@ cgf12	mgf2
 cgf13	mgf3
 cgf14	mgf4
 cgf15	mgf5
-$random weapons/chaingun/fire1 { cgf11 cgf12 cgf13 cgf14 cgf15 }
-cgf21 cgf1
-cgf22 cgf2
-cgf23 cgf3
-cgf24 cgf4
-$random weapons/chaingun/fire2 { cgf21 cgf22 cgf23 cgf24 }
+$random weapons/chaingun/fire { cgf11 cgf12 cgf13 cgf14 cgf15 }
+
 weapons/chaingun/xfire	xfire
 weapons/chaingun/xloop	mcnloop
 weapons/chaingun/windup	chgwu
@@ -177,7 +173,7 @@ weapons/plasmabeam/run			laserr
 weapons/plasmabeam/winddown		lasoff
 
 //Railgun
-weapons/railgun/fire1	railgf
+weapons/railgun/fire	railgf
 weapons/railgun/reload	railgs
 weapons/railgun/fire2	railgf1a
 weapons/railgun/hit		plasmx1a
@@ -299,6 +295,9 @@ menu/clear			menu2		// Close top menu
 misc/secret			secret
 misc/chat			talk		// Doom 2 chat sound
 misc/chat2			talk		// Chat sound for everything else
+
+misc/key1			basekey
+misc/key2			runekey
 
 //Teleport
 wtp1		r_tele1

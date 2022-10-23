@@ -231,7 +231,7 @@ Actor QD_SmartSmallCell : QD_SmartSpawnerBase replaces Cell
 		TNT1 A 0 A_SpawnPermanent("QD_SmallPlasmaCell")
 		stop
 	SpawnLavaNail:
-		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",16)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",32)
 		TNT1 A 0 A_SpawnPermanent("QD_SmallLavaNailCel")
 		stop
 	Drop:
@@ -256,7 +256,7 @@ Actor QD_SmartLargeCell : QD_SmartSmallCell replaces CellPack
 		TNT1 A 0 A_SpawnPermanent("QD_LargePlasmaCell")
 		stop
 	SpawnLavaNail:
-		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",80)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",160)
 		TNT1 A 0 A_SpawnPermanent("QD_LargeLavaNailCS")
 		stop
 	}

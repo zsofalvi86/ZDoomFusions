@@ -1,4 +1,4 @@
-Actor PPE_ShadowPower : CustomInventory replaces BlurSphere
+Actor PPE_ShadowPower : CustomInventory //replaces BlurSphere
 {
 	Inventory.PickupSound "items/ring/pickup"
 	Inventory.PickupMessage "$GOTINVIS"
@@ -54,16 +54,18 @@ Actor PowerShadow_Fake : PowerProtection
   DeathSound "items/ring/fade"
 }
 
-Actor PPE_QuadDamage : CustomInventory replaces Berserk
+Actor PPE_QuadDamage : CustomInventory replaces BlurSphere
 {
 	Inventory.PickupSound "items/quad/pickup"
 	Inventory.PickupMessage "$GOTQUAD"
 	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
 	+COUNTITEM
+	+FLOATBOB
 	States
 	{
 	Spawn:
-		QDMG ABCDDCB 2 Bright
+		QQDM ABCDEFGHIJKL 2 Bright
 		Loop
 	Use:
 		TNT1 A 0 A_GiveInventory("PPE_Quad")
@@ -90,10 +92,9 @@ Actor PPE_QuadFake : PPE_Quad
 
 Actor PowerQuadDamage : PowerDamage
 {
-  DamageFactor "Normal", 4
-  Inventory.Icon "QDMGD0"
-  SeeSound "items/quad/pickup"
-  //ActiveSound "items/quadshot"
+  DamageFactor "Normal", 3
+  //Inventory.Icon "PINSD0"
+  SeeSound ""
 }
 
 Actor PowerQuadDamage_Fake : PowerDamage
@@ -111,7 +112,7 @@ Actor PPE_Pentagram : CustomInventory replaces InvulnerabilitySphere
 	States
 	{
 	Spawn:
-		QPOP ABC 3 Bright
+		QINV ABCDEFGHIJKL 2 Bright
 		Loop
 	Use:
 		TNT1 A 0 A_GiveInventory("PPE_Pop")
@@ -139,7 +140,7 @@ Actor PPE_PopFake : PPE_Pop
 Actor PowerPentagram : PowerProtection
 {
   DamageFactor "Normal", 0
-  Inventory.Icon "QPOPA0"
+  Inventory.Icon "QINVL0"
   ActiveSound "items/invul/absorb"
   SeeSound "items/invul/pickup"
 }
@@ -150,16 +151,16 @@ Actor PowerPentagram_Fake : PowerProtection
   DeathSound "items/invul/fade"
 }
 
-Actor PPE_Biosuit : CustomInventory replaces RadSuit
+Actor PPE_Battlesuit : CustomInventory replaces RadSuit
 {
-	Inventory.PickupSound "items/biosuit/pickup"
+	Inventory.PickupSound "items/suit/pickup"
 	Inventory.PickupMessage "$GOTSUIT"
 	+INVENTORY.AUTOACTIVATE
 	States
 	{
 	Spawn:
-		BIOS A -1
-		Stop
+		QBST ABCDEFGHIJKL 2 bright
+		Loop
 	Use:
 		TNT1 A 0 A_GiveInventory("PPE_Bio")
 		TNT1 A 0 A_GiveInventory("PPE_BioFake")
@@ -185,11 +186,98 @@ Actor PPE_BioFake : PPE_Bio
 
 Actor PowerBio : PowerIronFeet
 {
-  Inventory.Icon "BIOSA0"
+  Inventory.Icon "QBSTL0"
 }
 
 Actor PowerBio_Fake : PowerProtection
 {
-  SeeSound "items/biosuit/pickup"
-  DeathSound "items/biosuit/fade"
+  SeeSound "items/suit/pickup"
+  DeathSound "items/suit/fade"
+}
+
+Actor PPE_Q3Regeneration : CustomInventory
+{
+	Inventory.PickupSound "items/regen/pickup"
+	Inventory.PickupMessage "$GOTQ3REGEN"
+	+INVENTORY.AUTOACTIVATE
+	+COUNTITEM
+	+FLOATBOB
+	States
+	{
+	Spawn:
+		QREG A -1 Bright
+		stop
+	Use:
+		TNT1 A 0 A_GiveInventory("PPE_Regen")
+		TNT1 A 0 A_GiveInventory("PPE_RegenFake")
+		stop
+	}
+}
+
+Actor PPE_Regen : PowerupGiver
+{
+	powerup.duration -30
+	Powerup.Color 255, 0, 0, 0.125
+	powerup.type PowerRegen
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+}
+
+Actor PPE_RegenFake : PPE_Regen
+{
+	powerup.duration -27
+	Powerup.Color None
+	powerup.type PowerRegen_Fake
+}
+
+Actor PowerRegen : PowerProtection
+{
+	 DamageFactor "Normal", 1.0
+	 //Inventory.Icon "SUITA0"
+}
+
+Actor PowerRegen_Fake : PowerProtection
+{
+	DamageFactor "Normal", 1.0
+	SeeSound "items/regen/pickup"
+	DeathSound "items/regen/wearoff"
+}
+
+Actor PPE_IRGoggles : PowerupGiver replaces Infrared
+{
+	+INVENTORY.INVBAR
+	+COUNTITEM
+	Inventory.PickupSound "items/q2pickup"
+	Inventory.UseSound "items/visor/use"
+	Inventory.Icon "2LITA0"
+	Inventory.PickupMessage "$GOTIRGOGGLES"
+	Inventory.MaxAmount 10
+	Inventory.InterHubAmount 1
+	Tag "$TAG_PPE_IRGOGGLES"
+	powerup.duration -120
+	powerup.type PowerIRGoggles
+	States
+	{
+	Spawn:
+		2LIT A -1 Bright
+		Stop
+	}
+}
+
+ACTOR PowerIRGoggles : PowerProtection
+{
+	Powerup.Color RedMap
+	DamageFactor "Normal", 1.0
+	Inventory.Icon "2LITA0"
+}
+
+Actor PPE_Q2Allmap : Allmap replaces Allmap
+{
+	Inventory.PickupSound "items/q2pickup"
+	States
+	{
+	Spawn:
+		Q2AM ABCDCB 6 Bright
+		Loop
+	}
 }

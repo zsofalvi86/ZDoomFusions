@@ -7,7 +7,7 @@ Actor QD_Mjolnir : Fist
 	Tag "$TAG_QD_MJ"
 	Inventory.PickupSound "items/qweapon"
 	Weapon.SlotNumber 1
-	Weapon.BobRangeX 0.1
+	Weapon.BobRangeX 0.05
 	Weapon.BobRangeY 0.75
 	Weapon.BobSpeed 2.0
 	Weapon.AmmoUse 15

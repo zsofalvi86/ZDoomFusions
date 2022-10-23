@@ -5,23 +5,21 @@ ACTOR PPE_DukePlayer : DoomPlayer
 	PainChance 255
 	Species Player
 	Player.StartItem "PPE_DNPistol"
-	Player.StartItem "PPE_Bullets" 72
-	Player.StartItem "Clip" 50
+	Player.StartItem "PPE_PistolBullets" 72
 	Player.StartItem "PPE_DNMightyFoot"
 	Player.DisplayName "Duke Nukem"
 	Player.SoundClass PPE_DukePlayer
 	
 	Player.WeaponSlot 1, PPE_DNMightyFoot
-	Player.WeaponSlot 2, PPE_DNPistol
-	Player.WeaponSlot 3, PPE_DNShotgun
+	Player.WeaponSlot 2, PPE_DNPistol_Dumdum, PPE_DNPistol
+	Player.WeaponSlot 3, PPE_DNShotgun_Explosive, PPE_DNShotgun
 	Player.WeaponSlot 4, PPE_DNRipper
-	Player.WeaponSlot 5, PPE_DNRPG
-	Player.WeaponSlot 6, PPE_DNPipebomb
+	Player.WeaponSlot 5, PPE_DNRPG_Seeker, PPE_DNRPG
+	Player.WeaponSlot 6, PPE_DNDetonator, PPE_DNPipebomb
 	Player.WeaponSlot 7, PPE_DNExpander, PPE_DNShrinker
 	Player.WeaponSlot 8, PPE_DNDevastator
 	Player.WeaponSlot 9, PPE_DNTripbomb
-	Player.WeaponSlot 0, PPE_DNIncinerator, PPE_DNFreezer
-	
+	Player.WeaponSlot 0, PPE_DNFreezer
   
 	States
 	{
@@ -75,22 +73,4 @@ ACTOR PPE_DukePlayer : DoomPlayer
 		PLAY Y -1
 		Stop
 	}
-}
-
-ACTOR PPE_ActionFigurePlayer : PPE_DukePlayer
-{
-  Radius 16
-  Height 24
-  Speed 1
-  +NOSKIN
-  +CANSUPERMORPH
-  Player.JumpZ 1
-  Player.Viewheight 21
-  Player.ForwardMove 1.22, 1.22
-  Player.SideMove 1.22, 1.22
-  Player.SpawnClass "Action Figure"
-  Player.DisplayName "Action Figure"
-  Player.MorphWeapon "Beak"
-  Scale 0.2
-  -PICKUP
 }

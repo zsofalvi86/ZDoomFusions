@@ -31,22 +31,6 @@ Actor PPE_DNBulletSpark
   }
 }
 
-Actor PPE_BulletPuffTA : BulletPuff
-{
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 0 A_Jump(190,"SkipRicochet")
-		TNT1 A 0 A_PlaySound("weapons/ricta",3)
-	SkipRicochet:
-		PUFF AB 2 Bright
-	Melee:
-		PUFF CD 2
-		Stop
-  }
-}
-
 Actor PPE_TrailBase
 {
 	+NOBLOCKMAP

@@ -2,17 +2,22 @@
 #include "zcommon.acs"
 
 global int 1:level;
-global int 2:CG;
-global int 3:RL;
+global int 2:SG;
+global int 3:CG;
 global int 4:SSG;
-global int 5:CS;
-global int 6:BER;
-global int 7:POW;
+global int 5:RL;
+global int 6:PG;
+global int 7:BFG;
+global int 8:CS;
+global int 9:BER;
+global int 10:POW;
+global int 11:XSHP;
+global int 12:XSAMM[];
 
 script "map exit" UNLOADING
 {
 	level += 1;
-	RL = 0;
+	RL=0;
 }
 
 script "GetLevelNum" (void)
@@ -25,23 +30,29 @@ script "SetSpawn" (int spawnTag)
 {
 	switch(spawnTag)
 	{
-		case 0:CG++;break;
-		case 1:RL++;break;
+		case 0:SG++;break;
+		case 1:CG++;break;
 		case 2:SSG++;break;
-		case 3:CS++;break;
-		case 4:BER++;break;
-		case 5:POW++;break;
+		case 3:RL++;break;
+		case 4:PG++;break;
+		case 5:BFG++;break;
+		case 6:CS++;break;
+		case 7:BER++;break;
 	}
 	
+	if(SG>2){SG=1;}
 	if(CG>2){CG=1;}
-	if(RL>3){RL=1;}
 	if(SSG>2){SSG=1;}
+	if(RL>3){RL=1;}
+	if(PG>2){PG=1;}
+	if(BFG>2){BFG=1;}
 	if(CS>2){CS=1;}
-	if(BER>2){BER=1;}
-	if(POW>3){POW=1;}
+	if(BER>3){BER=1;}
 	
-	if(RL==2 && CS==1) {RL=3;CS=2;} // avoid collission
-	if(RL==3 && CS==2) {RL=1;CS=1;} // avoid collission
+	if(SG==2 && SSG==2) {SG=1;SSG=1;} // avoid collission
+	
+	if(SG==2 && SSG==0) {SG=1;}
+	if(CG>1 && SSG==0) {CG=1;}
 }
 
 script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
@@ -49,13 +60,51 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 	int ret = 0;
 	switch(spawnTag)
 	{
-		case 0:ret=CG;break;
-		case 1:ret=RL;break;
+		case 0:ret=SG;break;
+		case 1:ret=CG;break;
 		case 2:ret=SSG;break;
-		case 3:ret=CS;break;
-		case 4:ret=BER;break;
-		case 5:ret=POW;break;
+		case 3:ret=RL;break;
+		case 4:ret=PG;break;
+		case 5:ret=BFG;break;
+		case 6:ret=CS;break;
+		case 7:ret=BER;break;
 	}
 	
+	SetResultValue(ret);
+}
+
+script "RegisterHP" (int amount)
+{
+	XSHP += amount;
+}
+
+script "DebtHP" (int amount)
+{
+	XSHP -= amount;
+}
+
+script "SpendHP" (int amount)
+{
+	int ret = 0;
+	if(XSHP > amount) {XSHP-=amount; ret=1;}
+	SetResultValue(ret);
+}
+
+script "CheckHP" (int amount)
+{
+	int ret = 0;
+	if(XSHP > amount) {ret=1;}
+	SetResultValue(ret);
+}
+
+script "RegisterAmmo" (int slot, int amount)
+{
+	XSAMM[slot] += amount;
+}
+
+script "SpendAmmo" (int slot, int amount)
+{
+	int ret = 0;
+	if(XSAMM[slot] > amount) {XSAMM[slot]-=amount; ret=1;}
 	SetResultValue(ret);
 }

@@ -1,13 +1,14 @@
 [enu default]
 
 // Items
-GOTARMOR = "Picked up the armor.";
-GOTMEGA = "Picked up the MegaArmor!";
+GOTARMOR0 = "Picked up used armor.";
+GOTARMOR1 = "Picked up an armor.";
+GOTARMOR2 = "Picked up an atomic armor.";
 GOTHTHBONUS = "Picked up a health bonus.";
 GOTARMBONUS = "Picked up an armor bonus.";
-GOTSTIM = "You recover 10 health.";
-GOTMEDINEED = "You recover 25 health with urgency.";
-GOTMEDIKIT = "You recover 25 health.";
+GOTHTH1 = "Picked up a small medikit.";
+GOTHTH2 = "Picked up a large medikit.";
+GOTHTH2L = "Picked up a large medikit that you really needed.";
 GOTSUPER = "Atomic Health!";
 GOTBLUECARD = "Picked up a blue keycard.";
 GOTYELWCARD = "Picked up a yellow keycard.";
@@ -21,26 +22,47 @@ GOTINVIS = "Partial Invisibility";
 GOTSUIT = "Radiation Shielding Suit";
 GOTMAP = "Computer Area Map";
 GOTVISOR = "Light Amplification Visor";
-GOTMSPHERE = "MegaSphere!";
-GOTPORTMED = "Portable Medkit";
-
+GOTAPACK = "Plutonium Pak!";
+GOTPORTMED = "Portable Medkit!";
+GOTSTEROIDS = "Got Steroids!";
+GOTJETPACK = "Picked up a Jet Backpack!";
+GOTHOLO = "Holo Decoy!";
+GOTBOOTS = "Protective Gear!";
+GOTGOGGLES = "Night Vision Goggles!";
 
 // Holdable
 TAG_PPE_DNPORTMED = "Portable Medkit";
+TAG_PPE_STEROIDS = "Steroids";
+TAG_PPE_JETPACK = "Jet Backpack";
+TAG_PPE_HOLO = "Holo Decoy";
+TAG_PPE_BOOTS = "Protective Gear";
+TAG_PPE_GOGGLES = "Night Vision Goggles";
 
 // Ammo
-GOTBULLETS = "Picked up a magazine.";
-GOTBULLETBOX = "Picked up a box of bullets.";
+GOTPBULLETS = "Picked up a magazine of pistol bullets.";
+GOTPBULLETBOX = "Picked up a box of pistol bullets.";
+GOTPDDBULLETS = "Picked up a magazine of dum-dum bullets.";
+GOTPDDBULLETBOX = "Picked up a box of dum-dum bullets.";
+GOTRBULLETS = "Picked up a small box of chaingun bullets.";
+GOTRBULLETBOX = "Picked up a large box of chaingun bullets.";
 GOTSHELLS = "Picked up a few shells.";
 GOTSHELLBOX = "Picked up a box of shells.";
-GOTROCKET = "Picked up some explosives.";
-GOTROCKBOX = "Picked up a box of explosives.";
-GOTCELL = "Picked up a plasma cell.";
-GOTCELLBOX = "Picked up a large plasma cell.";
-GOTLIGHT = "Picked up a lightning cell.";
-GOTLIGHTBOX = "Picked up a large lightning cell.";
-GOTNUKE = "Picked up a nuclear cell.";
-GOTNUKEBOX = "Picked up a large nuclear cell.";
+GOTXSHELLS = "Picked up a few explosive shells.";
+GOTXSHELLBOX = "Picked up a box of explosive shells.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTSROCKET = "Picked up a heat-seeker rocket.";
+GOTSROCKBOX = "Picked up a box of heat-seeker rockets.";
+GOTPBOMB = "Picked up a pipebomb.";
+GOTPBOMBBOX = "Picked up a box of pipebombs.";
+GOTSHR = "Picked up a small shrinker crystal.";
+GOTSHRBOX = "Picked up a large shrinker crystal.";
+GOTEXP = "Picked up an expander cell.";
+GOTEXPBOX = "Picked up an expander cell pack.";
+GOTFREEZE = "Picked up a freezethrower cell.";
+GOTFREEZEBOX = "Picked up a freezethrower cell pack.";
+GOTMINIR = "Picked up a small box of devastator rockets.";
+GOTMINIRBOX = "Picked up a large box of devastator rockets.";
 GOTBACKPACK = "Picked up a backpack full of ammo!";
 
 // Guns
@@ -52,20 +74,23 @@ GOT_PPE_DNRPG = "You got the RPG!";
 GOT_PPE_DNPB = "You got the Pipebomb!";
 GOT_PPE_DNSHR = "You got the Shrinker/Expander!";
 GOT_PPE_DNDEV = "You got the Devastator Weapon!";
-GOT_PPE_DNTR = "You got the Tripmine!";
+GOT_PPE_DNTB = "You got the Laser Tripbomb!";
 GOT_PPE_DNFRZ = "You got the Freezethrower/Incinerator!";
 
 // Gun Tags
 TAG_PPE_DNFOOT = "Mighty Foot";
 TAG_PPE_DNPS = "Pistol";
+TAG_PPE_DNPS_D = "Pistol (Dum-Dums)";
 TAG_PPE_DNSG = "Shotgun";
+TAG_PPE_DNSG_X = "Shotgun (Explosive Shells)";
 TAG_PPE_DNRIP = "Ripper Chaingun Cannon";
 TAG_PPE_DNRPG = "RPG";
+TAG_PPE_DNRPG_S = "RPG (Heat-Seeker Rockets)";
 TAG_PPE_DNPB = "Pipebomb";
 TAG_PPE_DNSHR = "Shrinker";
 TAG_PPE_DNEXP = "Expander";
 TAG_PPE_DNDEV = "Devastator Weapon";
-TAG_PPE_DNTR = "Tripmine";
+TAG_PPE_DNTB = "Laser Tripbomb";
 TAG_PPE_DNFRZ = "Freezethrower";
 TAG_PPE_DNINC = "Incinerator";
 

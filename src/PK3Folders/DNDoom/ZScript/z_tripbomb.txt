@@ -1,0 +1,126 @@
+Class PPE_TripbombBomb : Actor
+{
+	Override void ApplyKickback(Actor inflictor, Actor source, int damage, double angle, Name mod, int flags){}//don't
+	
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		if (target && target == self.Target)
+		{
+			return super.DoSpecialDamage(target, damage/2, damagetype);
+		}
+		return super.DoSpecialDamage(target, damage, damagetype);
+	}
+	
+	Default
+	{
+		+VULNERABLE; +NOGRAVITY;
+		Health 5; Mass 999999;
+	}
+	
+	States
+	{
+	Spawn:
+		TNT1 A 0;
+		TNT1 A 0 A_PlaySound("weapons/tripbomb/impact");
+		TNT1 A 0 {bWallSprite=true;bMissile=true;}
+		RTRB A 15;
+	SpawnLoop:
+		RTRB A 1 A_Laser();
+		Loop;
+	Death.Trigger:
+		TNT1 A 0 A_PlaySound("weapons/tripbomb/activate");
+		RTRB A 8;
+	Death:
+		TNT1 A 0 A_NoGravity;
+		TNT1 A 0 A_Explode(192,384);
+		TNT1 A 0 A_Quake(4,5,0,512,"");
+		TNT1 A 0 A_Quake(2,6,0,1024,"");
+		TNT1 A 0 A_Quake(1,6,0,4096,"");
+		TNT1 A 0 A_PlaySound("weapons/explosion",5);
+		TNT1 A 0 {bWallSprite=false;}
+		BMXP A 4 bright;
+		BMXP BCDEF 3 bright;
+		TNT1 A 20;
+		Stop;
+	}
+	
+	Action void A_Laser()
+	{
+		int hgt=6;
+		FLineTraceData trc;
+		if (!LineTrace(Normalize180(angle),9000,0,0,hgt,1,0,trc)) {A_Die(); return;}
+		if (trc.HitActor && trc.HitType==TRACE_HitActor && trc.HitActor.bShootable) {A_Die("Trigger"); return;}
+		
+		for (int i=0; i<trc.distance; i+=24)
+		{
+			let poswithheight = Vec3Offset(0,0,hgt);
+			let ppos = poswithheight + i * trc.HitDir;
+			
+			let beamp = Spawn("PPE_TripBombLaser",ppos);
+			beamp.bWallSprite = true;
+			beamp.angle = angle+90;
+			beamp.bRollSprite = true;
+			beamp.roll = -90;
+		}
+		
+		if (!LineTrace(Normalize180(angle+180),2,0,0,hgt,0,0,trc)) {A_Die(); return;}
+		if (trc.HitLine && trc.HitType==TRACE_HitWall) 
+		{
+			return;
+		}
+		A_Die();
+	}
+}
+
+Class PPE_TripBombBase : PPE_DNWeaponBase
+{
+	Action state A_CheckWall()
+	{
+		FLineTraceData trc;
+		if (!LineTrace(angle,64,pitch,0,player.viewheight,0,0,trc)) {return ResolveState("Ready.Ready");}
+		if (trc.HitLine && trc.HitType==TRACE_HitWall) {return ResolveState(null);}
+		return ResolveState("Ready.Ready");
+	}
+	
+	Action state A_LayTripbomb()
+	{
+		FLineTraceData trc;
+		if (!LineTrace(angle,64,pitch,0,player.viewheight,0,0,trc)) {return ResolveState("Cancel");}
+		if (trc.HitLine && trc.HitType==TRACE_HitWall && player.ReadyWeapon.DepleteAmmo(false)) 
+		{
+			let trb = Spawn("PPE_TripbombBomb", trc.HitLocation);
+			trb.angle = Normalize180(VectorAngle(trc.HitLine.delta.x,trc.HitLine.delta.y)-90);
+			trb.target = invoker.owner;
+			return ResolveState(null);
+		}
+		return ResolveState("Cancel");
+	}
+}
+
+Class PPE_Tripbombs : Ammo
+{
+	Default
+	{
+		Inventory.Amount 1;
+		Inventory.MaxAmount 10;
+		Ammo.BackpackAmount 1;
+		Ammo.BackpackMaxAmount 10;
+		Inventory.Icon "RTRBA0";
+	}
+	
+	Override void AttachToOwner(Actor other)
+	{
+		super.AttachToOwner(other);
+		if (!other.CountInv("PPE_DNTripbomb"))
+		{
+			other.GiveInventory("PPE_DNTripbomb",1);
+			other.FindInventory("PPE_DNTripbomb").AttachToOwner(other);
+		}
+	}
+	
+	States
+	{
+	Spawn:
+		Stop;
+	}
+}

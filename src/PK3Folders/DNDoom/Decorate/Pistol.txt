@@ -1,4 +1,4 @@
-Actor PPE_DNPistol : PPE_DNWeaponBase replaces Pistol
+Actor PPE_DNPistol : PPE_DNWeaponBase
 {
 +WEAPON.NOALERT
 Inventory.Pickupmessage "$GOT_PPE_DNPS"
@@ -7,10 +7,11 @@ Inventory.PickupSound "weapons/pickup/quote"
 Weapon.UpSound "weapons/dnpistol/clipin"
 Weapon.SlotNumber 2
 Weapon.AmmoUse 1
-//Weapon.AmmoType "PPE_Bullets"
-Weapon.AmmoType "Clip"
+Weapon.AmmoType "PPE_PistolBullets"
 Weapon.AmmoGive 24
 Decal "BulletChip"
+Weapon.SisterWeapon "PPE_DNPistol_Dumdum"
+Weapon.SelectionOrder 700
 States
 	{
 	Ready.Ready:
@@ -48,12 +49,11 @@ States
 		DNAG BAA 1
 		//TNT1 A 0 A_JumpIf((CountInv("PPE_Bullets") % 12 = 0),"Reload")
 		TNT1 A 0 A_CheckForReload(12,"Refire2")
-		Goto Reload.Ready
+		Goto Reload
 	Refire2:
 		TNT1 A 0 A_ReFire("Fire")
-		Goto Ready
+		Goto Ready.Ready
 	Reload:
-		TNT1 A 0 A_JumpIfInventory("RD_LaserDukePistol",0,"ReloadLasered")
 		TNT1 A 0 A_PlaySound("weapons/dnpistol/clipout",6)
 		DNAR A 2 Offset(0,36)
 		DNAR A 2 Offset(0,40)
@@ -65,7 +65,7 @@ States
 		DNAR B 2 Offset(0,44)
 		DNAR A 2 Offset(0,40)
 		DNAR A 2 Offset(0,36)
-		Goto Ready
+		Goto Ready.Ready
   	Flash:
 		TNT1 A 0 A_Light1
 		TNT1 AA 1 //A_SetPitch(pitch-0.72)
@@ -73,21 +73,23 @@ States
 		TNT1 AA 1 //A_SetPitch(pitch+0.86)
 		Goto LightDone
 	Spawn:
-    	//RIPP A -1
+    	DNAP A -1
 		Stop
 	}
 }
 
-Actor PPE_DNPistol_Dumdum : PPE_DNWeaponBase replaces Pistol
+Actor PPE_DNPistol_Dumdum : PPE_DNPistol
 {
-	Tag "$TAG_PPE_DNPS"
+	Weapon.AmmoType "PPE_PistolBullets_Dumdum"
+	Tag "$TAG_PPE_DNPS_D"
+	Weapon.AmmoGive 0
 	States
 	{
 	Fire:
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/dnpistol/fire")
-		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(48),"PPE_DNBulletPuff_NoGib",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(2.8,2.1,1,(48),"PPE_DNBulletPuff_NoGib",FBF_USEAMMO|FBF_NORANDOM)
 		TNT1 A 0 A_FireCustomMissile("PPE_DPBulletCasingShooter",0,0,0,2)
 		DNAF ABC 1 bright
 		DNAG BA 1
@@ -101,16 +103,16 @@ Actor PPE_DNPistol_Dumdum : PPE_DNWeaponBase replaces Pistol
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/dnpistol/fire")
-		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(48),"PPE_DNBulletPuff_NoGib",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(2.8,2.1,1,(48),"PPE_DNBulletPuff_NoGib",FBF_USEAMMO|FBF_NORANDOM)
 		TNT1 A 0 A_FireCustomMissile("PPE_DPBulletCasingShooter",0,0,0,2)
 		DNAF DEF 1 bright
 		DNAG BAA 1
 		//TNT1 A 0 A_JumpIf((CountInv("PPE_Bullets") % 12 = 0),"Reload")
 		TNT1 A 0 A_CheckForReload(12,"Refire2")
-		Goto Reload.Ready
+		Goto Reload
 	Refire2:
 		TNT1 A 0 A_ReFire("Fire")
-		Goto Ready
+		Goto Ready.Ready
 	}
 }
 

@@ -62,7 +62,7 @@ actor QD_QMiniRocketTarget : QD_QMiniRocket
 actor QD_RocketLauncher : RocketLauncher
 {
 	Weapon.SelectionOrder 2500
-	Weapon.BobRangeX 0.1
+	Weapon.BobRangeX 0.05
 	Weapon.BobRangeY 0.75
 	Weapon.BobSpeed 2.0
 	Weapon.AmmoUse 1

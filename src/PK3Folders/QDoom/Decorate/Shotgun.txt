@@ -6,7 +6,7 @@ Actor QD_Shotgun : Shotgun
 	Inventory.PickupSound "items/qweapon"
 	Weapon.SelectionOrder 1300
 	Weapon.SlotNumber 2
-	Weapon.BobRangeX 0.1
+	Weapon.BobRangeX 0.05
 	Weapon.BobRangeY 0.75
 	Weapon.BobSpeed 2.0
 	Weapon.AmmoUse 1

@@ -1,4 +1,4 @@
-Actor PPE_DNRipper : PPE_DNWeaponBase replaces Chaingun
+Actor PPE_DNRipper : PPE_DNWeaponBase
 {
 +WEAPON.NOAUTOAIM
 +WEAPON.NOALERT
@@ -9,8 +9,7 @@ Weapon.UpSound "weapons/select"
 Weapon.SelectionOrder 700
 Weapon.SlotNumber 4
 Weapon.AmmoUse 1
-//Weapon.AmmoType "PPE_Bullets"
-Weapon.AmmoType "Clip"
+Weapon.AmmoType "PPE_RipperBullets"
 Weapon.AmmoGive 20
 Decal "BulletChip"
 States
@@ -92,7 +91,7 @@ States
     	TNT1 A 0 A_ReFire
 		TNT1 A 0 A_SetInventory("PPE_RipperState",0)
 		TNT1 A 0 A_SetInventory("PPE_RipperDouble",0)
-    	Goto Ready
+    	Goto Ready.Ready
   	Flash:
 		TNT1 A 0 A_Light1
 		TNT1 AA 1 //A_SetPitch(pitch-0.72)

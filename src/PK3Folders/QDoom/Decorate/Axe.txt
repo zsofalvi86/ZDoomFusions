@@ -4,7 +4,7 @@ Actor QD_Axe : Fist
 	Inventory.Pickupmessage "$GOT_QD_AX"
 	Tag "$TAG_QD_AX"
 	Weapon.SlotNumber 1
-	Weapon.BobRangeX 0.1
+	Weapon.BobRangeX 0.05
 	Weapon.BobRangeY 0.75
 	Weapon.BobSpeed 2.0
 	Decal "BulletChip"

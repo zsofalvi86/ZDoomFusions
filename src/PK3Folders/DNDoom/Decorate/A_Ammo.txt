@@ -4,7 +4,7 @@ Actor PPE_PistolBullets : Ammo
   Inventory.MaxAmount 120
   Ammo.BackpackAmount 5
   Ammo.BackpackMaxAmount 240
-  Inventory.Icon "IBULA0"
+  Inventory.Icon "BPISA0"
   States
   {
   Spawn:
@@ -18,7 +18,7 @@ Actor PPE_PistolBullets_Dumdum : Ammo
   Inventory.MaxAmount 60
   Ammo.BackpackAmount 0
   Ammo.BackpackMaxAmount 120
-  Inventory.Icon "IBULA0"
+  Inventory.Icon "BPDSA0"
   States
   {
   Spawn:
@@ -32,7 +32,7 @@ Actor PPE_RipperBullets : Ammo
   Inventory.MaxAmount 200
   Ammo.BackpackAmount 5
   Ammo.BackpackMaxAmount 400
-  Inventory.Icon "IBULA0"
+  Inventory.Icon "BRIBA0"
   States
   {
   Spawn:
@@ -46,7 +46,7 @@ Actor PPE_Shells : Ammo
   Inventory.MaxAmount 50
   Ammo.BackpackAmount 4
   Ammo.BackpackMaxAmount 100
-  Inventory.Icon "ISHLA0"
+  Inventory.Icon "SSHBA0"
   States
   {
   Spawn:
@@ -60,7 +60,7 @@ Actor PPE_Shells_Explosive : Ammo
   Inventory.MaxAmount 20
   Ammo.BackpackAmount 0
   Ammo.BackpackMaxAmount 40
-  Inventory.Icon "ISHLA0"
+  Inventory.Icon "SSXSA0"
   States
   {
   Spawn:
@@ -74,7 +74,7 @@ Actor PPE_Rockets : Ammo
   Inventory.MaxAmount 50
   Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 100
-  Inventory.Icon "IGRNA0"
+  Inventory.Icon "RRPSA0"
   States
   {
   Spawn:
@@ -88,7 +88,7 @@ Actor PPE_Rockets_Seeker : Ammo
   Inventory.MaxAmount 25
   Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 50
-  Inventory.Icon "IGRNA0"
+  Inventory.Icon "RHSSA0"
   States
   {
   Spawn:
@@ -96,41 +96,41 @@ Actor PPE_Rockets_Seeker : Ammo
   }
 }
 
-Actor PPE_Pipebombs : Ammo
+/*Actor PPE_Pipebombs : Ammo //defined in zscript
 {
   Inventory.Amount 1
   Inventory.MaxAmount 50
   Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 50
-  Inventory.Icon "IGRNA0"
+  Inventory.Icon "RPISA0"
   States
   {
   Spawn:
     Stop
   }
-}
+}*/
 
-Actor PPE_Tripbombs : Ammo
+/*Actor PPE_Tripbombs : Ammo //defined in zscript
 {
   Inventory.Amount 1
   Inventory.MaxAmount 10
   Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 10
-  Inventory.Icon "IGRNA0"
+  Inventory.Icon "RTRBA0"
   States
   {
   Spawn:
     Stop
   }
-}
+}*/
 
 Actor PPE_Shrinkers : Ammo
 {
   Inventory.Amount 1
   Inventory.MaxAmount 50
-  Ammo.BackpackAmount 0
+  Ammo.BackpackAmount 1
   Ammo.BackpackMaxAmount 50
-  Inventory.Icon "ICELA0"
+  Inventory.Icon "CSHBA0"
   States
   {
   Spawn:
@@ -144,7 +144,7 @@ Actor PPE_Expanders : Ammo
   Inventory.MaxAmount 100
   Ammo.BackpackAmount 0
   Ammo.BackpackMaxAmount 200
-  Inventory.Icon "ICELA0"
+  Inventory.Icon "BEXSA0"
   States
   {
   Spawn:
@@ -152,13 +152,13 @@ Actor PPE_Expanders : Ammo
   }
 }
 
-Actor PPE_Cells : Ammo
+Actor PPE_Freezers : Ammo
 {
   Inventory.Amount 40
-  Inventory.MaxAmount 150
-  Ammo.BackpackAmount 10
-  Ammo.BackpackMaxAmount 300
-  Inventory.Icon "ICELA0"
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 5
+  Ammo.BackpackMaxAmount 400
+  Inventory.Icon "CFRSA0"
   States
   {
   Spawn:
@@ -172,7 +172,7 @@ Actor PPE_Cells_Incinerator : Ammo
   Inventory.MaxAmount 100
   Ammo.BackpackAmount 2
   Ammo.BackpackMaxAmount 100
-  Inventory.Icon "ICELA0"
+  Inventory.Icon "CFRSA0"
   States
   {
   Spawn:
@@ -186,7 +186,7 @@ Actor PPE_Minirockets : Ammo
   Inventory.MaxAmount 100
   Ammo.BackpackAmount 5
   Ammo.BackpackMaxAmount 200
-  Inventory.Icon "ICELA0"
+  Inventory.Icon "CDESA0"
   States
   {
   Spawn:

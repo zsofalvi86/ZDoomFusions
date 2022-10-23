@@ -1,0 +1,188 @@
+Class PPE_SteroidPers : Inventory
+{
+	int tic; bool inuse; double useTics;
+	const ticPerInv = (15 * 35) / 100;
+	
+	override bool Use(bool pickup)
+	{
+		if (!inuse)
+		{
+			inuse = true;
+			return true;
+		}
+		return false;
+	}
+	
+	override void DoEffect()
+	{
+		if (inuse)
+		{
+			//owner.A_Print("t: "..floor(EffectTics/5.25));
+			if (tic <= 0) {tic = 15;}
+			else {tic--;}
+			if (tic == 0)
+			{
+				owner.A_PlaySound("items/heartbeat",5);	
+			}
+			if (useTics <= 0) {useTics += ticPerInv;}
+			else {useTics--;}
+			if (useTics <= 0)
+			{
+				owner.TakeInventory(GetClassName(), 1);
+			}
+		}
+		super.DoEffect();
+	}
+	
+	override double GetSpeedFactor()
+	{
+		if (inuse) {return 1.5;}
+		return 1.0;
+	}
+	
+	override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		//owner.A_Print("s: "..inuse..inflictor.GetClassName());
+		if (inuse && !passive && inflictor && inflictor.GetClassName() == "PPE_KickPuff")
+		{
+			newdamage = damage * 4;
+			return;	
+		}
+		super.ModifyDamage(damage,damageType,newdamage,passive,inflictor,source,flags);
+	}
+}
+
+Class PPE_DukeEnviroPers : Inventory
+{	
+	int airtic; int absorbtic; FCheckPosition fcp; bool inuse; bool wasinuse;
+	
+	override void AbsorbDamage (int damage, Name damageType, out int newdamage, Actor inflictor, Actor source, int flags)
+	{
+		//env hazards have no inflictor and source actor
+		if (owner.CheckInventory("PPE_EnviroPack",1) && !inflictor && !source)
+		{
+			Owner.CheckPosition((owner.pos.x,owner.pos.y),false,fcp);
+			if (damageType = fcp.cursector.damagetype) {newdamage = 0;}
+		}
+	}
+
+	override void DoEffect()
+	{
+		if (Owner.player != NULL)
+		{
+			wasinuse = inuse;
+			inuse = false;
+			Owner.player.mo.ResetAirSupply ();
+			Owner.CheckPosition((owner.pos.x,owner.pos.y),false,fcp);
+			if(owner.waterlevel == 3) {airtic++; inuse=true;}
+			if (airtic >= 42)
+			{
+				airtic = 0;
+				owner.TakeInventory(GetClassName(), 1);
+			}
+			if(fcp.cursector.damageamount > 0 && 
+			fcp.cursector.floorplane.ZatPoint((owner.pos.x,owner.pos.y)) == owner.pos.z && 
+			!fcp.stepthing) {absorbtic++; inuse=true;}
+			if(absorbtic >= 21)
+			{
+				absorbtic = 0;
+				owner.TakeInventory(GetClassName(), 1);
+			}
+			if(!wasinuse && inuse) {Owner.A_Print("Protective Gear On");}
+		}
+	}
+}
+
+Class PPE_DukeGogglesPers : Inventory
+{
+	bool inuse; double useTics;
+	const ticPerInv = (60 * 35) / 100;
+	
+	override bool Use(bool pickup)
+	{
+		inuse = !inuse;
+		if (inuse) {owner.GiveInventory("PowerGoggles",1);}
+		else {StopUse();}
+		return true;
+	}
+	
+	override void DoEffect()
+	{
+		if (inuse)
+		{
+			if (useTics <= 0) {useTics += ticPerInv;}
+			else {useTics--;}
+			if (useTics <= 0)
+			{
+				owner.TakeInventory(GetClassName(), 1);
+			}
+		}
+		super.DoEffect();
+	}
+	
+	override void DetachFromOwner()
+	{
+		StopUse();
+		super.DetachFromOwner();
+	}
+	
+	void StopUse()
+	{
+		inuse = false;
+		owner.SetInventory("PowerGoggles",0);
+	}
+}
+
+Class PowerGoggles : PowerLightAmp
+{	
+	default
+	{
+		Powerup.Duration -999;
+	}
+}
+
+Class PPE_DukeJetpackPers : Inventory
+{
+	bool inuse; double useTics;
+	const ticPerInv = (30 * 35) / 100;
+	
+	override bool Use(bool pickup)
+	{
+		inuse = !inuse;
+		if (inuse)
+		{
+			owner.GiveInventory("PowerFlight",1);
+			owner.A_StartSound("items/jetpack/on",6);
+		}
+		else{StopUse();}
+		return true;
+	}
+	
+	override void DoEffect()
+	{
+		if (inuse)
+		{
+			owner.A_StartSound("items/jetpack/run",6,CHANF_LOOPING);
+			if (useTics <= 0) {useTics += ticPerInv;}
+			else {useTics--;}
+			if (useTics <= 0)
+			{
+				owner.TakeInventory(GetClassName(), 1);
+			}
+		}
+		super.DoEffect();
+	}
+	
+	override void DetachFromOwner()
+	{
+		StopUse();
+		super.DetachFromOwner();
+	}
+	
+	void StopUse()
+	{
+		inuse = false;
+		owner.A_StartSound("items/jetpack/off",6);
+		owner.SetInventory("PowerFlight",0);
+	}
+}

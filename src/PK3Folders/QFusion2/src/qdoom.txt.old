@@ -1,0 +1,167 @@
+#library "QDoom"
+#include "zcommon.acs"
+
+int levelbuffer = 0;
+global int 1:level;
+global int 2:SG;
+global int 3:SSG;
+global int 4:CG;
+global int 5:RL;
+global int 6:PG;
+global int 7:BFG;
+global int 8:CS;
+global int 9:idk;
+global int 10:BUL;
+global int 11:SHEL;
+global int 12:RCKT;
+global int 13:CEL;
+global int 14:NAIL;
+global int 15:CGCEL;
+global int 16:PGCEL;
+global int 17:BFGCEL;
+global int 18:PGPLAS;
+global int 19:BFGPLAS;
+
+script "map exit" UNLOADING
+{
+	level += 1;
+	
+	if(CG>0 || CS>2){BUL++;}
+	if(SG>1 || SSG>0){SHEL++;}
+	if(RL>0){RCKT++;}
+	if(PG>2 || BFG>1){CEL++;}
+	
+	if(BUL>3){BUL=1;}
+	if(SHEL>4){SHEL=2;}
+	if(RCKT>3){RCKT=1;}
+	if(CEL>4){CEL=1;}
+}
+
+script "GetLevelNum" (void)
+{
+	SetResultValue(level);
+	Print(i:level); // For debug purposes, it doesn't work on inventory anyway
+}
+
+script "SetSpawn" (int spawnTag)
+{
+	switch(spawnTag)
+	{
+		case 0:SG++;break;
+		case 1:SSG++;break;
+		case 2:CG++;break;
+		case 3:RL++;break;
+		case 4:PG++;break;
+		case 5:BFG++;break;
+		case 6:CS++;break;
+	}
+	
+	if(SG>3){SG=2;}
+	if(SSG>3){SSG=1;}
+	if(CG>4){CG=3;}
+	if(RL>5){RL=3;}
+	if(PG>5){PG=3;}
+	if(BFG>3){BFG=2;}
+	if(CS>5){CS=3;}
+	
+	if(spawnTag==2 && CG==3) {NAIL++;}
+	if(spawnTag==2 && CG==4) {CGCEL++;}
+	if(spawnTag==3 && RL==5) {PGPLAS++;}
+	if(spawnTag==4 && (PG==1 || PG==2)) {CGCEL++;}
+	if(spawnTag==4 && PG==4) {PGCEL++;}
+	if(spawnTag==5 && BFG==1 && PGCEL<2) {PGCEL=2;}
+	if(spawnTag==5 && BFG==2) {BFGCEL++;}
+	if(spawnTag==5 && BFG==3) {BFGPLAS++;}
+	
+	if(spawnTag==2 && CG<=1 && level>=2) {CG++;} // level 2+ should spawn a stronger CG
+	if(spawnTag==6 && CG<=1 && level>=3) {CS++;} // level 3+ should spawn a stronger CG on CS
+	
+	//CS CG Collision
+	if(CG==1 && CS==3) {if(spawnTag==2){CG=2;} if(spawnTag==6){CS=4;}}
+	if(CG==1 && CS<3) {if(spawnTag==2){CG=2;}}
+	if(CG==2 && CS==2) {if(spawnTag==2){CG=3;} if(spawnTag==6){CS=3;}}
+	if(CG==3 && CS==4) {if(spawnTag==2){CG=4;} if(spawnTag==6){CS=5;}}
+	if(CG==4 && CS==3) {if(spawnTag==2){CG=3;} if(spawnTag==6){CS=4;}}
+	if(CG==3 && CS==3 && NAIL==2 && PGCEL==1) {if(spawnTag==2){PGCEL=2;} if(spawnTag==6){NAIL=3;}}
+	if(CG==3 && CS==3 && NAIL==3 && PGCEL==2) {if(spawnTag==2){PGCEL=3;} if(spawnTag==6){NAIL=1;}}
+	if(CG==4 && CS==4 && NAIL==2 && PGCEL==1) {if(spawnTag==2){NAIL=3;} if(spawnTag==6){PGCEL=2;}}
+	if(CG==4 && CS==4 && NAIL==3 && PGCEL==2) {if(spawnTag==2){NAIL=1;} if(spawnTag==6){PGCEL=3;}}
+	//CS PG Collision
+	if(CS==4 && PG==4) {if(spawnTag==6){CS=5;} if(spawnTag==4){PG=5;}}
+	if(CS==4 && PG==1) {if(spawnTag==6){CS=5;} if(spawnTag==4){PG=2;}}
+	if(CS==4 && PG==2) {if(spawnTag==6){CS=5;} if(spawnTag==4){PG=3;}}
+	if(CS==2 && PG==3) {if(spawnTag==6){CS=3;} if(spawnTag==4){PG=4;}}
+	//CG PG Collision
+	if(CG==3 && PG==4) {if(spawnTag==2){CG=4;} if(spawnTag==4){PG=5;}}
+	if(CG==3 && PG==1) {if(spawnTag==2){CG=4;} if(spawnTag==4){PG=2;}}
+	if(CG==3 && PG==2) {if(spawnTag==2){CG=4;} if(spawnTag==4){PG=3;}}
+	if(CG==2 && PG==3) {if(spawnTag==2){CG=3;} if(spawnTag==4){PG=4;}}
+	//SG SSG Collision
+	if(SG==2 && SSG==1) {if(spawnTag==0){SG=3;} if(spawnTag==1){SSG=2;}}
+	if(SG==3 && SSG==2) {if(spawnTag==0){SG=2;} if(spawnTag==1){SSG=3;}}
+	//SG RL Collision
+	if(SG==3 && RL==1) {if(spawnTag==0){SG=2;} if(spawnTag==3){RL=2;}}
+	//SSG RL Collision
+	if(SSG==2 && RL==2) {if(spawnTag==1){SSG=3;} if(spawnTag==3){RL=3;}}
+	if(SSG==2 && RL==4) {if(spawnTag==1){SSG=3;} if(spawnTag==3){RL=5;}}
+	//RL PG Collision
+	if(RL==5 && PG==4 && PGCEL==PGPLAS) {if(spawnTag==3){PGPLAS++;} if(spawnTag==4){PGCEL++;}}
+	//RL BFG Collision
+	if(RL==5 && BFG==1) {if(spawnTag==3){RL=3;} if(spawnTag==5){BFG=2;}}
+	if(RL==5 && BFG==3) {if(spawnTag==3){RL=3;} if(spawnTag==5){BFG=2;}}
+	//PG BFG Collision
+	if(PG==4 && BFG==1 && PGCEL==1) {if(spawnTag==4){PGCEL++;} if(spawnTag==5){BFG=3;}}
+	
+	if(NAIL>3){NAIL=1;}
+	if(CGCEL>3){CGCEL=1;}
+	if(PGCEL>3){PGCEL=1;}
+	if(PGPLAS>3){PGPLAS=1;}
+	if(BFGPLAS>3){BFGPLAS=1;}
+}
+
+script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:ret=SG;break;
+		case 1:ret=SSG;break;
+		case 2:ret=CG;break;
+		case 3:ret=RL;break;
+		case 4:ret=PG;break;
+		case 5:ret=BFG;break;
+		case 6:ret=CS;break;
+	}
+	
+	SetResultValue(ret);
+}
+
+script "GetVariant" (int spawnTag)
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:ret=NAIL;break;
+		case 1:ret=CGCEL;break;
+		case 2:ret=PGCEL;break;
+		case 3:ret=BFGCEL;break;
+		case 4:ret=PGPLAS;break;
+		case 5:ret=BFGPLAS;break;
+	}
+	
+	SetResultValue(ret);
+}
+
+script "GetAmmo" (int spawnTag)
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:ret=BUL;break;
+		case 1:ret=SHEL;break;
+		case 2:ret=RCKT;break;
+		case 3:ret=CEL;break;
+	}
+	
+	SetResultValue(ret);
+}

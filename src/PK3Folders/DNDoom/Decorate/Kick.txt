@@ -1,5 +1,6 @@
-Actor PPE_DNMightyFoot : Fist
+Actor PPE_DNMightyFoot : PPE_DNWeaponBase
 {
+	Weapon.SelectionOrder 2000
 	Inventory.Pickupmessage "$GOT_PPE_DNFOOT"
 	Tag "$TAG_PPE_DNFOOT"
 	Weapon.SlotNumber 1
@@ -8,7 +9,7 @@ Actor PPE_DNMightyFoot : Fist
 	Inventory.PickupSound "items/q3weapon"
 	States
 	{
-	Ready:
+	Ready.Ready:
     	TNT1 A 1 A_WeaponReady
     	Loop
 	Deselect:
@@ -31,31 +32,15 @@ Actor PPE_DNMightyFoot : Fist
 		DKIK C 1 offset(-102,44)
 		TNT1 A 4
 		TNT1 A 0 A_ReFire("Fire")
-		Goto Ready
-	AltFire:
-		DKIK A 1 offset(32,44)
-		DKIK A 1 offset(24,38)
-		DKIK A 1 offset(16,32)
-		DKIK B 1 offset(8,36)
-		DKIK B 1 offset(0,32)
-		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_KickPuff",FBF_NORANDOM,100)
-		DKIK B 2
-		DKIK B 1 offset(8,36)
-		DKIK A 1 offset(16,32)
-		DKIK A 1 offset(24,38)
-		DKIK A 1 offset(32,44)
-		TNT1 A 8
-		TNT1 A 0 A_ReFire("AltFire")
-		Goto Ready
-  	Spawn:
-    	Q3GN W -1
-    	Stop
+		Goto Ready.Ready
 	}
 }
 
 Actor PPE_KickPuff : BulletPuff
 {
 	+PUFFONACTORS
+	+FORCEDECAL
+	Decal "Foot"
 	SeeSound ""
 	AttackSound ""
 	DamageType "DukeKick"
@@ -70,42 +55,4 @@ Actor PPE_KickPuff : BulletPuff
 		WTRL CDEF 2
 		Stop
   }
-}
-
-Actor PPE_DNWeaponBase : Weapon
-{
-	States
-	{
-	Select:
-	Deselect:
-	Ready:
-		TNT1 A 0 A_Overlay(-2,"KickOverlay",false)
-		TNT1 A 0 A_Jump(256,"Ready.Ready")
-	KickOverlay:
-    	TNT1 A 1
-		{
-			If(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK) 
-			{
-				return state("QuickKick");
-			}
-			return state(0);
-		}
-    	Loop
-	Fire:
-	QuickKick:
-		DKIK A 1 offset(32,44)
-		DKIK A 1 offset(24,38)
-		DKIK A 1 offset(16,32)
-		DKIK B 1 offset(8,36)
-		DKIK B 1 offset(0,32)
-		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_KickPuff",FBF_NORANDOM,100)
-		DKIK B 2
-		DKIK B 1 offset(8,36)
-		DKIK A 1 offset(16,32)
-		DKIK A 1 offset(24,38)
-		DKIK A 1 offset(32,44)
-		TNT1 A 8
-		//TNT1 A 0 A_ReFire("QuickKick") // Do not refire, it picks up PRIMARY and derails the weapon
-		Goto KickOverlay
-	}
 }
