@@ -580,7 +580,7 @@ ACTOR PPE_SmallMinirocket : PPE_Minirockets
 
 ACTOR PPE_LargeMinirocket : PPE_Minirockets
 {
-  Inventory.Amount 20
+  Inventory.Amount 25
   +FLOORCLIP
   Inventory.PickupMessage "$GOTMINIRBOX"
   Inventory.PickupSound "items/dn"

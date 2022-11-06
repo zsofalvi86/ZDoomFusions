@@ -26,6 +26,7 @@ Class PPE_FreezerMissileBase : PlasmaBall
 					mo.sprite = target.sprite;
 					mo.frame = target.frame;
 					mo.height = target.height;
+					mo.species = target.species;
 					//mo.radius = target.radius;
 					return 0;
 				}
@@ -37,13 +38,12 @@ Class PPE_FreezerMissileBase : PlasmaBall
 
 Class PPE_FreezeFog : Actor
 {
-	double scale;
 	Default {RenderStyle "None";}
 	States
 	{
 	Spawn:
 		TNT1 A 0;
-		TNT1 A 0 {target.health = 1;} // make sure... unmorph resets it by default
+		TNT1 A 0 {if (target) target.health = 1;} // make sure... unmorph resets it by default
 		TNT1 A 5;
 		Stop;
 	}

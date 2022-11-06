@@ -73,7 +73,7 @@ ACTOR PPE_Adrenaline_Upgrade : UpgradeStamina replaces Berserk
 
 Actor PPE_Bandolier : Backpack replaces Backpack
 {
-	Inventory.PickupMessage "$GOTBPACK"
+	Inventory.PickupMessage "$GOTBANDOLIER"
 	Inventory.PickupSound "items/q2pickup"
 	States
 	{

@@ -8,7 +8,7 @@ Class PPE_HoloDecoyGuy : Actor
 		else {tic--;}
 		if (tic == 0)
 		{
-			A_Explode(1,1024,XF_NOTMISSILE,0,1024);
+			A_Explode(1,10024,XF_NOTMISSILE,0,10024);
 		}
 		Super.Tick();
 	}
@@ -45,6 +45,7 @@ Class PPE_HoloDecoyGuy : Actor
 		RenderStyle "Translucent";
 		Alpha 0.9;
 		+SHOOTABLE; +NOBLOOD; +NOBLOCKMAP;
+		+FORCERADIUSDMG;
 	}
 }
 
@@ -57,7 +58,12 @@ Class PPE_HolodecoyBase : Inventory
 	{
 		if (!inuse)
 		{// + Vec3Angle(64,owner.angle)
-			if (!decoyGuy) {decoyGuy = Spawn("PPE_HoloDecoyGuy",owner.Vec3Angle(64,owner.angle));}
+			if (!decoyGuy)
+			{
+				FLineTraceData trc;
+				if (!LineTrace(angle,80,owner.pitch,0,owner.player.viewheight,0,0,trc)) {return false;}
+				decoyGuy = Spawn("PPE_HoloDecoyGuy",trc.HitLocation);
+			}
 			if (decoyGuy) 
 			{
 				inuse = true; 

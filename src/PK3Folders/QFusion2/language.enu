@@ -41,7 +41,7 @@ GOTCELL = "Picked up a small energy cell.";
 GOTCELLBOX = "Picked up a large energy cell.";
 GOTNUKE = "Picked up a small nuclear cell.";
 GOTNUKEBOX = "Picked up a large nuclear cell.";
-GOTBACKPACK = "Picked up a backpack full of ammo!";
+GOTBANDOLIER = "Picked up a bandolier full of ammo!";
 
 // Guns
 GOT_PPE_BLS = "You got the Blaster!";
