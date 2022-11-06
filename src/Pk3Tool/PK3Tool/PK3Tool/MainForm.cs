@@ -87,26 +87,37 @@ namespace PK3Tool
             }
         }
 
-        private void ZipFolder(string folder)
+        private async Task ZipFolder(string folder)
         {
-            var file = Path.Combine(destPath, $"{Path.GetRelativePath(srcPath, folder)}.pk3");
-            if (File.Exists(file))
+            await Task.Run(() =>
             {
-                File.Delete(file);
-            }
-            ZipFile.CreateFromDirectory(folder, file, CompressionLevel.Optimal, false);
+                var file = Path.Combine(destPath, $"{Path.GetRelativePath(srcPath, folder)}.pk3");
+                if (File.Exists(file))
+                {
+                    File.Delete(file);
+                }
+                ZipFile.CreateFromDirectory(folder, file, CompressionLevel.Optimal, false);
+            });
         }
 
-        private void btnDoAll_Click(object sender, EventArgs e)
+        private async void btnDoAll_Click(object sender, EventArgs e)
         {
+            btnBrowseSrc.Enabled = false; 
+            btnBrowseDest.Enabled = false;
+            btnDoAll.Enabled = false;
+            Cursor.Current = Cursors.WaitCursor;
             foreach (var folder in LBFolders.SelectedItems)
             {
                 var folderLoc = (folder as Nullable<KeyValuePair<string, string>>)?.Key;
                 if (folderLoc != null)
                 {
-                    ZipFolder(folderLoc);
+                    await ZipFolder(folderLoc);
                 }
             }
+            btnBrowseSrc.Enabled = true;
+            btnBrowseDest.Enabled = true;
+            btnDoAll.Enabled = true;
+            Cursor.Current = Cursors.Default;
         }
 
         private void SelectAll()
