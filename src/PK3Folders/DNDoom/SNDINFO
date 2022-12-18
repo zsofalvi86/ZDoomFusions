@@ -52,6 +52,10 @@ weapons/select wpnsel21
 weapons/explosion bombexpl
 $limit weapons/explosion 55 
 $attenuation weapons/explosion 0.1
+weapons/smexplosion bombexpl
+$volume weapons/smexplosion 0.14
+$limit weapons/smexplosion 256 
+$attenuation weapons/smexplosion 0.15
 quwe1 cool01 quwe2 getsom1a quwe3 groovy02 quwe4 hail01 quwe5 wansom4a
 $random weapons/pickup/quote { quwe1 quwe2 quwe3 quwe4 quwe5 }
 
@@ -76,6 +80,15 @@ pquo6 gothrt01 pquo7 holycw01 pquo8 holysh02 pquo9 imgood12 pquo10 inhell01
 pquo11 letgod01 pquo12 piece02 quo13 mdevl01
 pqrdy1 ripem08 pqrdy2 rockin02 pqrdy3 ready2a pqrdy4 letsrk03
 pqsp1 yippie01
+
+//Quotes
+q/boss DIESOB03
+
+qgib1 AMESS06 qgib2 BITCHN04 qgib3 BLOWIT01 qgib4 EATSHT01 qgib5 FACE01 qgib6 GOTHRT01
+qgib7 HOLYCW01 qgib8 HOLYSH02 qgib9 IMGOOD12 qgib10 INHELL01 qgib11 LETGOD01 qgib12 MDEVL01
+qgib13 PIECE02 qgib14 SUKIT01
+$random q/gib { qgib1 qgib2 qgib3 qgib4 qgib5 qgib6 qgib7 qgib8 qgib9 qgib10 qgib11 qgib12 qgib13 qgib14 }
+$random q/death { qgib2 qgib3 qgib4 qgib5 qgib9 qgib10 qgib11 qgib12 qgib13 qgib14 }
 
 $playersound	PPE_DukePlayer	male	*death		dmdeath
 $playersound	PPE_DukePlayer	male	*xdeath		udeath
@@ -125,4 +138,5 @@ misc/chat			talk		// Doom 2 chat sound
 misc/chat2			talk		// Chat sound for everything else
 
 //Teleport
-misc/teleport teleport
+misc/teleport 	teleport
+misc/k_pkup		GETITM19

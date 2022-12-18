@@ -6,7 +6,7 @@ Actor PPE_Shotgun : Shotgun
 	Inventory.PickupSound "items/weapon1"
 	Weapon.UpSound "weapons/switch"
 	Weapon.SelectionOrder 1300
-	Weapon.SlotNumber 2
+	Weapon.SlotNumber 3
 	Weapon.AmmoUse 1
 	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoGive 16
@@ -32,11 +32,11 @@ Actor PPE_Shotgun : Shotgun
 		TNT1 A 0 A_GunFlash // 4
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
 		// Top row, 3 pellets
-		TNT1 A 0 A_FireBullets(0,-1.8,-1,(6),"PPE_RicBulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,-1.1,-1,(6),"PPE_RicBulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(1.8,-0.8,-1,(6),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(-1.8,-0.8,-1,(6),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		// Bottom row, 3 pellets
-		TNT1 A 0 A_FireBullets(0,1.8,-1,(6),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,1.1,-1,(6),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(1.8,0.8,-1,(6),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(-1.8,0.8,-1,(6),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/lightshotgun/fire")

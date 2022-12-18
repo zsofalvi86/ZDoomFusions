@@ -1,0 +1,89 @@
+ACTOR PPE_LoWangPlayer : DoomPlayer
+{
+	Speed 1.0
+	Mass 100
+	PainChance 255
+	Species Player
+	Player.StartItem "PPE_Katana"
+	Player.StartItem "PPE_FistsOfFury"
+	Player.StartItem "PPE_Shuriken"
+	Player.StartItem "PPE_ShurikenAmmo", 51
+	Player.DisplayName "Lo Wang"
+	Player.SoundClass PPE_LoWangPlayer
+	
+	Player.WeaponSlot 1, PPE_FistsOfFury, PPE_Katana
+	Player.WeaponSlot 2, PPE_Shuriken
+	Player.WeaponSlot 3, PPE_RiotGun
+	Player.WeaponSlot 4, PPE_Uzi, PPE_Uzis
+	Player.WeaponSlot 5, PPE_RocketLauncher
+	Player.WeaponSlot 6, PPE_GrenadeLauncher
+	Player.WeaponSlot 7, PPE_StickyBomb
+	Player.WeaponSlot 8, PPE_Railgun
+	Player.WeaponSlot 9, PPE_GuardianHead
+	Player.WeaponSlot 0, PPE_RipperHeart
+
+	DamageFactor "SeriousKnife", 1.0
+	DamageFactor "SeriousSaw", 0.85	
+	DamageFactor "SeriousColt", 0.666
+	DamageFactor "SeriousShell", 0.77
+	DamageFactor "SeriousBullet", 0.833
+	DamageFactor "SeriousRocket", 0.71
+	DamageFactor "SeriousGrenade", 0.77
+	DamageFactor "SeriousCell", 0.87
+	DamageFactor "SeriousSniper", 1.0
+	DamageFactor "SeriousFlame", 1.0
+	DamageFactor "SeriousCannon", 1.0
+  
+	States
+	{
+	Spawn:
+		PLAY A -1
+		Loop
+	See:
+		PLAY ABCD 4 
+		Loop
+	Missile:
+		PLAY E 12 
+		Goto Spawn
+	Melee:
+		PLAY F 6 BRIGHT
+		Goto Missile
+	Pain:
+		PLAY G 4 
+		PLAY G 4 A_Pain
+		Goto Spawn
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath")
+	Death1:
+		PLAY H 10
+		PLAY I 10 A_PlayerScream
+		PLAY J 10 A_NoBlocking
+		PLAY KLM 10
+		PLAY N -1
+		Stop
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath")
+	XDeath1:
+		PLAY O 5
+		PLAY P 5 A_XScream
+		PLAY Q 5 A_NoBlocking
+		PLAY RSTUV 5
+		PLAY W -1
+		Stop
+	AltSkinDeath:
+		PLAY H 6
+		PLAY I 6 A_PlayerScream
+		PLAY JK 6
+		PLAY L 6 A_NoBlocking
+		PLAY MNO 6
+		PLAY P -1
+		Stop
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream
+		PLAY R 0 A_NoBlocking
+		PLAY R 5 A_SkullPop
+		PLAY STUVWX 5
+		PLAY Y -1
+		Stop
+	}
+}

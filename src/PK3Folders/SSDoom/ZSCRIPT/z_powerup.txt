@@ -1,0 +1,16 @@
+Class DSS_SamPowerupGiver : PowerupGiver
+{
+	String quoteString;
+	
+	property Quote: quoteString;
+
+	Override bool TryPickup(in out Actor toucher)
+	{
+		if (super.TryPickup(toucher))
+		{
+			toucher.A_PlaySound(quoteString,5);
+			return true;
+		}
+		return false;
+	}
+}

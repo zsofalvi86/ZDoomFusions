@@ -1,0 +1,8 @@
+version "3.5"
+
+#include "zscript/z_event.txt"
+
+#include "zscript/z_spawner.txt"
+#include "zscript/z_powerup.txt"
+#include "zscript/z_flash.txt"
+#include "zscript/z_guardian.txt"

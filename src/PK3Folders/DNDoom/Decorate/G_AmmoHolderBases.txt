@@ -1,0 +1,48 @@
+
+Actor PPE_DNAmmoHolderBase1 : Weapon
+{
+	Weapon.AmmoType1 "PPE_PistolBullets"
+	Weapon.AmmoType2 "PPE_PistolBullets_Dumdum"
+}
+
+Actor PPE_DNAmmoHolderBase2 : Weapon
+{
+	Weapon.AmmoType1 "PPE_Shells"
+	Weapon.AmmoType2 "PPE_Shells_Explosive"
+}
+
+Actor PPE_DNAmmoHolderBase3 : Weapon
+{
+	Weapon.AmmoType1 "PPE_RipperBullets"
+	//Weapon.AmmoType2 "PPE_PistolBullets_Dumdum"
+}
+
+Actor PPE_DNAmmoHolderBase4 : Weapon
+{
+	Weapon.AmmoType1 "PPE_Rockets"
+	Weapon.AmmoType2 "PPE_Rockets_Seeker"
+}
+
+Actor PPE_DNAmmoHolderBase5 : Weapon
+{
+	Weapon.AmmoType1 "PPE_Pipebombs"
+	//Weapon.AmmoType2 "PPE_PistolBullets_Dumdum"
+}
+
+Actor PPE_DNAmmoHolderBase6 : Weapon
+{
+	Weapon.AmmoType1 "PPE_Shrinkers"
+	Weapon.AmmoType2 "PPE_Expanders"
+}
+
+Actor PPE_DNAmmoHolderBase7 : Weapon
+{
+	Weapon.AmmoType1 "PPE_Freezers"
+	//Weapon.AmmoType2 "PPE_PistolBullets_Dumdum"
+}
+
+Actor PPE_DNAmmoHolderBase8 : Weapon
+{
+	Weapon.AmmoType1 "PPE_Minirockets"
+	//Weapon.AmmoType2 "PPE_PistolBullets_Dumdum"
+}

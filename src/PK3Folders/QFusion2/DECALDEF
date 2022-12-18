@@ -1,0 +1,160 @@
+decal Q2CellScorch
+{
+	pic PBMBB0
+	add 1.0
+	fullbright
+	animator GoAway
+	lowerdecal PlasmaScorchLower
+}
+
+decal LightningScorch1
+{
+	pic LSHFA0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal LightningScorch2
+{
+	pic LSHFB0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal LightningScorch3
+{
+	pic LSHFC0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal LightningScorch4
+{
+	pic LSHFD0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal LightningScorch5
+{
+	pic LSHFE0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal LightningScorch6
+{
+	pic LSHFF0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decalgroup LightningScorch
+{
+	LightningScorch1        1
+	LightningScorch2        1
+	LightningScorch3        1
+	LightningScorch4        1
+    LightningScorch5        1
+    LightningScorch6        1
+}
+
+decal QPlasmaSchorch1
+{
+	pic PLSBA0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal QPlasmaSchorch2
+{
+	pic PLSBB0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal QPlasmaSchorch3
+{
+	pic PLSBC0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal QPlasmaSchorch4
+{
+	pic PLSBD0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal QPlasmaSchorch5
+{
+	pic PLSBE0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decal QPlasmaSchorch6
+{
+	pic PLSBF0
+	add 1.0
+	fullbright
+	animator GoAway
+	randomflipx
+	randomflipy
+	lowerdecal PlasmaScorchLower
+}
+
+decalgroup QPlasmaScorch
+{
+	QPlasmaSchorch1        1
+	QPlasmaSchorch2        1
+	QPlasmaSchorch3        1
+	QPlasmaSchorch4        1
+    QPlasmaSchorch5        1
+    QPlasmaSchorch6        1
+}

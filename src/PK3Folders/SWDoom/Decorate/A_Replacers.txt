@@ -1,0 +1,268 @@
+Actor PPE_ChainsawSpawner : PPE_Spawner replaces Chainsaw
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",5,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",0)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",0) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_StickySpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_PowerupSpawner")
+		stop
+	}
+}
+
+Actor PPE_ShotgunSpawner : PPE_Spawner replaces Shotgun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",1)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",1) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_RiotGunSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_RailgunSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",10)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",10) == 3,"Drop3")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",10) == 2,"Drop2")
+		TNT1 A 0 A_DropItem("PPE_SmallShuriken")
+		stop
+	Drop2:
+		TNT1 A 0 A_DropItem("PPE_SmallRocket")
+		stop
+	Drop3:
+		TNT1 A 0 A_DropItem("PPE_SmallGrenadeShell")
+		stop
+	}
+}
+
+Actor PPE_SuperShotgunSpawner : PPE_Spawner replaces SuperShotgun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",5,75)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",2)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_RailgunSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_RiotGunSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_RiotGun")
+		stop
+	}
+}
+
+Actor PPE_ChaingunSpawner : PPE_Spawner replaces Chaingun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",3)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 3,"Spawn1")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 2,"Spawn2")
+	Spawn1:
+		TNT1 A 0 A_SpawnPermanent("PPE_UziSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_AkimboUziSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_Uzi")
+		stop
+	}
+}
+
+Actor PPE_RocketLauncherSpawner : PPE_Spawner replaces RocketLauncher
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",1,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",4)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) == 3,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_RocketLauncherSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_GrenadeLauncherSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnPermanent("PPE_StickySpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_RocketLauncher")
+		stop
+	}
+}
+
+Actor PPE_PlasmaGunSpawner : PPE_Spawner replaces PlasmaRifle
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",5)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_GuardianHeadSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_RipperHeartSpawn")
+		stop
+	}
+}
+
+Actor PPE_BFGSpawner : PPE_Spawner replaces BFG9000
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",1,100)
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",6)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnPermanent("PPE_RipperHeartSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_GuardianHeadSpawn")
+		stop
+	}
+}
+
+Actor PPE_WeaponSpawnBase : PPE_Spawner { +DONTGIB +NOTONAUTOMAP }
+
+Actor PPE_BulSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_ShelSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_RcktSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_SawSpawn : PPE_WeaponSpawnBase { }
+
+Actor PPE_RiotGunSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_RiotGun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_UziSpawn : PPE_BulSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_Uzi")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_AkimboUziSpawn : PPE_BulSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_Uzis")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_GrenadeLauncherSpawn : PPE_RcktSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_GrenadeLauncher")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_StickySpawn : PPE_RcktSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_StickyWeapon")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_RocketLauncherSpawn : PPE_RcktSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_RocketLauncher")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_GuardianHeadSpawn : PPE_WeaponSpawnBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_GuardianHead")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_RailgunSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_Railgun")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_RipperHeartSpawn : PPE_WeaponSpawnBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_RipperHeart")
+        TNT1 A 100
+		stop
+	}
+}

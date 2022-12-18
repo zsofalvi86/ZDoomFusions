@@ -1,0 +1,89 @@
+ACTOR PPE_BlueCard : BlueCard replaces BlueCard
+{
+	Species "BlueCard"
+	Inventory.PickupMessage "$GOTBLUECARD"
+	Inventory.Icon "STKEYS0"
+	Inventory.PickupSound "items/keys/base"
+	States
+	{
+	Spawn:
+		BKEY A 10
+		BKEY B 10 Bright
+		Loop
+	}
+}
+
+ACTOR PPE_YellowCard : YellowCard replaces YellowCard
+{
+	Species "YellowCard"
+	Inventory.PickupMessage "$GOTYELWCARD"
+	Inventory.Icon "STKEYS1"
+	Inventory.PickupSound "items/keys/base"
+	States
+	{
+	Spawn:
+		YKEY A 10
+		YKEY B 10 Bright
+		Loop
+	}
+}
+
+ACTOR PPE_RedCard : RedCard replaces RedCard
+{
+	Species "RedCard"
+	Inventory.PickupMessage "$GOTREDCARD"
+	Inventory.Icon "STKEYS2"
+	Inventory.PickupSound "items/keys/base"
+	States
+	{
+	Spawn:
+		RKEY A 10
+		RKEY B 10 Bright
+		Loop
+	}
+}
+
+ACTOR PPE_BlueSkull : BlueSkull replaces BlueSkull
+{
+	Species "BlueSkull"
+	Inventory.PickupMessage "$GOTBLUESKUL"
+	Inventory.Icon "STKEYS3"
+	Inventory.PickupSound "items/keys/rune"
+	States
+	{
+	Spawn:
+		BSKU A 10
+		BSKU B 10 Bright
+		Loop
+	}
+}
+
+ACTOR PPE_YellowSkull : YellowSkull replaces YellowSkull
+{
+	Species "YellowSkull"
+	Inventory.PickupMessage "$GOTYELWSKUL"
+	Inventory.Icon "STKEYS4"
+	Inventory.PickupSound "items/keys/rune"
+	States
+	{
+	Spawn:
+		YSKU A 10
+		YSKU B 10 Bright
+		Loop
+	}
+}
+
+ACTOR PPE_RedSkull : RedSkull replaces RedSkull
+{
+	Species "RedSkull"
+	Inventory.PickupMessage "$GOTREDSKUL"
+	Inventory.Icon "STKEYS5"
+	Inventory.PickupSound "items/keys/rune"
+	States
+	{
+	Spawn:
+		RSKU A 10
+		RSKU B 10 Bright
+		Loop
+	}
+}

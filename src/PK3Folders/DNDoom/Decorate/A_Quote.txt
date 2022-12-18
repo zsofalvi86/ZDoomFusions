@@ -1,0 +1,46 @@
+Actor PPE_Quote : CustomInventory
+{
+	+DONTGIB +NOTONAUTOMAP 
+	+INVENTORY.QUIET
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	States
+	{
+	Spawn:
+        TNT1 A -1
+		stop
+	PickUp:
+		TNT1 A 1
+		stop
+	}
+}
+
+Actor PPE_BossQuote : PPE_Quote
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("q/boss",5)
+		stop
+	}
+}
+
+Actor PPE_GibQuote : PPE_Quote
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("q/gib",5)
+		stop
+	}
+}
+
+Actor PPE_DeathQuote : PPE_Quote
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("q/death",5)
+		stop
+	}
+}

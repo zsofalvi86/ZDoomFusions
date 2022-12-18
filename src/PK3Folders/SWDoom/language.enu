@@ -1,0 +1,95 @@
+[enu default]
+
+// Items
+GOTARMOR = "Picked up the armor.";
+GOTMEGA = "Picked up the MegaArmor!";
+GOTARMOR1 = "Picked up an armor vest.";
+GOTARMOR2 = "Picked up a kevlar armor vest.";
+GOTHTHBONUS = "Picked up a health bonus.";
+GOTARMBONUS = "Picked up an armor bonus.";
+GOTHTH20 = "Picked up a medikit +20.";
+GOTCOOKIE = "Fortune Cookie!";
+GOTCOOKIE2 = "Mega Fortune Cookie!";
+GOTCALTROPS = "Picked up a box of ninja-style caltrops.";
+GOTPORTMED = "Portable Medkit!";
+GOTFLASH = "Flash Bomb!";
+GOTSMOKE = "Smoke Bomb!";
+GOTGAS = "Gas Bomb!";
+GOTSEEKER = "Heat Seeker Card";
+GOTENVIRO = "Environment Suit";
+GOTGOGGLES = "Night Vision Goggles!";
+
+// Inventory Tags
+TAG_PPE_CALTROPS = "Caltrops";
+TAG_PPE_PORTMED = "Portable Medkit";
+TAG_PPE_FLASH = "Flash Bomb";
+TAG_PPE_SMOKE = "Smoke Bomb";
+TAG_PPE_GAS = "Gas Bomb";
+TAG_PPE_ENVIRO = "Environment Suit";
+TAG_PPE_GOGGLES = "Night Vision Goggles";
+
+// Ammo
+GOTSHURIKENS = "Picked up a few shurikens.";
+GOTSHURIKENBOX = "Picked up a box of shurikens.";
+GOTBULLETS = "Picked up a UZI magazine.";
+GOTBULLETBOX = "Picked up a box of UZI magazines.";
+GOTRODS = "Picked up some railgun rods.";
+GOTRODBOX = "Picked up a box of railgun rods.";
+GOTSHELLS = "Picked up a bundle of shells.";
+GOTSHELLBOX = "Picked up a magazine of shells.";
+GOTGRENADE = "Picked up a grenade.";
+GOTGRENADEBOX = "Picked up a box of grenades.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a rack of rockets.";
+GOTSTICKY = "Picked up a sticky bomb.";
+GOTSTICKYBOX = "Picked up a box of sticky bombs.";
+GOTMAGIC = "Picked up a potion of Chi.";
+GOTMAGICXL = "Picked up a jar of Chi.";
+GOTNUKE = "Picked up a nuclear warhead!";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_PPE_FOF = "You now have the Fists of Fury!";
+GOT_PPE_KAT = "You got the Katana!";
+GOT_PPE_SHUR = "You got the Shuriken!";
+GOT_PPE_RIOT = "You got the Riot Gun!";
+GOT_PPE_UZI = "You got the UZI!";
+GOT_PPE_UZI2 = "Picked up a second UZI!";
+GOT_PPE_RL = "You got the Missile Launcher!";
+GOT_PPE_GL = "You got the Grenade Launcher!";
+GOT_PPE_SB = "You got the Sticky Bomb!";
+GOT_PPE_RG = "You got the Railgun!";
+GOT_PPE_HEAD = "You got the Guardian Head!";
+GOT_PPE_HRT = "You got the Ripper Heart!";
+
+// Gun Tags
+TAG_PPE_FOF = "Fists of Fury";
+TAG_PPE_KAT = "Katana";
+TAG_PPE_SHUR = "Shuriken";
+TAG_PPE_RIOT = "Riot Gun";
+TAG_PPE_UZI = "UZI";
+TAG_PPE_UZI2 = "UZIs Akimbo";
+TAG_PPE_RL = "Missile Launcher";
+TAG_PPE_GL = "Grenade Launcher";
+TAG_PPE_SB = "Sticky Bomb";
+TAG_PPE_RG = "Railgun";
+TAG_PPE_HEAD = "Guardian Head";
+TAG_PPE_HRT = "Ripper Heart";
+
+// Obituary strings
+OB_MPAX = "%o was ax-murdered by %k.";
+OB_MPSG = "%o chewed on %k's boomstick";
+OB_MPDSG = "%o ate 2 loads of %k's buckshot.";
+OB_MPNG = "%o was nailed by %k.";
+OB_MPSNG = "%o was punctured by %k.";
+OB_MPGL = "%o eats %k's pineapple.";
+OB_MPRL = "%o rides %k's rocket.";
+OB_MPPL = "%o got too friendly with %k's bomb.";
+OB_MPTB = "%o was melted by %k's plasma gun.";
+OB_MPLC = "%o was toasted by %k's laser.";
+OB_MPMJ = "%o was slammed by %k's hammer.";
+OB_MPTELEFRAG = "%o was telefragged by %k.";
+
+//Other
+
+SECRETMESSAGE = "Ancient Chinese Secret!";

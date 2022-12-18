@@ -32,7 +32,7 @@ Actor DSS_TommyGun : Chaingun
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("Weapons/sstommy") //10
-	    TNT1 A 0 A_FireBullets(0,0,1,(11),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+	    TNT1 A 0 A_FireBullets(0,0,1,(10),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		SSTF ABC 1 bright
 		TNT1 A 0 A_Refire
 		Goto Ready
@@ -41,7 +41,7 @@ Actor DSS_TommyGun : Chaingun
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("Weapons/sstommy")
-	    TNT1 A 0 A_FireBullets(0,0,1,(11),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+	    TNT1 A 0 A_FireBullets(0,0,1,(10),"DSS_BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		SSTF DEF 1 bright
 		TNT1 A 0 A_ClearRefire
 		Goto Ready

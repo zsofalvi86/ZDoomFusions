@@ -1,0 +1,186 @@
+Actor PPE_RiotGun : Shotgun
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_RIOT"
+	Tag "$TAG_PPE_RIOT"
+	Inventory.PickupSound "q/smallweapon"
+	Weapon.UpSound "weapons/riotgun/up"
+	Weapon.SelectionOrder 1300
+	Weapon.SlotNumber 3
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "PPE_Shells"
+	Weapon.AmmoGive 8
+	Decal "BulletChip"
+	States
+	{
+	Ready:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode",1,"ReadyBB")
+	ReadyA:
+		RIOG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
+    	Loop
+	ReadyBB:
+		RIOT AB 1 A_WeaponReady(WRF_NOFIRE)
+	ReadyB:
+		RIOT C 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
+    	Loop
+  	Deselect:
+    	"####" "#" 1 A_Lower(12)
+    	Loop
+  	Select:
+    	RIOG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMag", 0, "Reload")
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode", 1, "FireBurst")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_Jump(216,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_PlayWeaponSound("weapons/riotgun/fire")
+		//TNT1 A 0 A_FireCustomMissile("PPE_RiotGunPellet",FRandom(-0.1,0.1),1,0,4,1,FRandom(-0.05,0.05))
+		//TNT1 AAAAAAAA 0 A_FireCustomMissile("PPE_RiotGunPellet",FRandom(-1.9,1.9),0,0,4,1,FRandom(-1.45,1.45))
+		TNT1 A 0 A_FireBullets(2.5,2.5,9,(9),"PPE_BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GiveInventory("PPE_RiotGunMag",1)
+		RIOF ABC 2 bright
+		TNT1 A 0 A_FireCustomMissile("PPE_RiotShellCasingShooter",0,0,0,2)
+		RIOG BCDAAAA 2
+		Goto FireEnd
+	FireBurstBegin:
+		RIOH D 1
+	FireBurst:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash("BurstFlash")
+		TNT1 A 0 A_Jump(208,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_PlayWeaponSound("weapons/riotgun/fire")
+		//TNT1 A 0 A_FireCustomMissile("PPE_RiotGunBurstPellet",FRandom(-4.3,4.3),1,0,4,1,FRandom(-1.9,1.9))
+		//TNT1 AAAAAAAA 0 A_FireCustomMissile("PPE_RiotGunBurstPellet",FRandom(-4.3,4.3),0,0,4,1,FRandom(-1.9,1.9))
+		TNT1 A 0 A_FireBullets(5.0,5.0,9,(9),"PPE_BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GiveInventory("PPE_RiotGunMag",1)
+		RIOI ABC 1 bright
+		TNT1 A 0 A_FireCustomMissile("PPE_RiotShellCasingShooter",0,0,0,2)
+		RIOH CD 1
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMag", 0, "ReloadBurstT")
+		Goto FireBurst
+	FireEnd:
+		TNT1 A 0 A_ReFire
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMag", 0, "ReloadNormal")
+		Goto Ready
+	Reload:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMag", 1, "ReloadReal")
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode", 1, "ReloadFakeBurst")
+		Goto ReloadFake
+	ReloadReal:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode", 1, "ReloadBurst")
+		Goto ReloadNormal
+	ReloadFakeBurst:
+		TNT1 A 0 A_PlaySound("weapons/riotgun/cock")
+		RIOT C 1 Offset(0,38)
+		RIOT C 1 Offset(0,44)
+		Goto ReloadBurstEnd
+	ReloadFake:
+		TNT1 A 0 A_PlaySound("weapons/riotgun/cock")
+		RIOG A 1 Offset(0,38)
+		RIOG A 1 Offset(0,44)
+		Goto ReloadEnd
+	ReloadBurstT:
+		RIOH AB 1
+	ReloadBurst:
+		TNT1 A 0 A_PlaySound("weapons/riotgun/reload")
+		RIOT C 1 Offset(0,38)
+		RIOT C 1 Offset(0,44)
+		RIOQ ABC 1
+		RIOT C 2
+		RIOQ ABC 1
+		RIOT C 2
+		TNT1 A 0 //A_PlaySound("weapons/riotgun/cock")
+		RIOQ ABC 1
+		RIOT C 2
+		RIOQ ABC 1
+	ReloadBurstEnd:
+		RIOT C 2
+		TNT1 A 0 A_SetInventory("PPE_RiotGunMag",0)
+		TNT1 A 0 A_PlaySound("weapons/riotgun/cock")
+		RIOQ DEF 2
+		RIOT C 1 Offset(0,38)
+		RIOT C 1 Offset(0,32)
+		Goto ReadyB
+	ReloadNormal:
+		TNT1 A 0 A_PlaySound("weapons/riotgun/reload")
+		RIOG A 1 Offset(0,38)
+		RIOG A 1 Offset(0,44)
+		RIOR ABC 1
+		RIOG A 2
+		RIOR ABC 1
+		RIOG A 2
+		TNT1 A 0 //A_PlaySound("weapons/sgclose")
+		RIOR ABC 1
+		RIOG A 2
+		RIOR ABC 1
+	ReloadEnd:
+		RIOG A 2
+		TNT1 A 0 A_SetInventory("PPE_RiotGunMag",0)
+		TNT1 A 0 A_PlaySound("weapons/riotgun/cock")
+		RIOR DEF 2
+		RIOG A 1 Offset(0,38)
+		RIOG A 1 Offset(0,32)
+		Goto Ready
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode", 1, "User1")
+		Goto User2
+	User1:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode", 1, 1)
+		Goto Ready
+		TNT1 A 0 A_SetInventory("PPE_RiotGunMode",0)
+		TNT1 A 0 A_PlaySound("weapons/riotgun/cock")
+		RIOT DE 2
+		RIOG AAAAAA 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
+		Goto Ready
+	User2:
+		TNT1 A 0 A_JumpIfInventory("PPE_RiotGunMode", 1, "ReadyB")
+		TNT1 A 0 A_SetInventory("PPE_RiotGunMode",1)
+		TNT1 A 0 A_PlaySound("weapons/riotgun/cock")
+		RIOT AB 2
+		RIOT CCCCCC 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
+		Goto ReadyB
+  	Flash:
+    	TNT1 A 0 A_Light1
+		TNT1 A 1
+		TNT1 AAAAA 1 A_SetPitch(pitch-0.55)
+		TNT1 A 0 A_Light2
+		TNT1 AAAAA 1 A_SetPitch(pitch+0.55)
+		Goto LightDone
+	BurstFlash:
+    	TNT1 A 0 A_Light1
+		TNT1 AAA 1 A_SetPitch(pitch-0.75)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 A_SetPitch(pitch+1.125)
+		Goto LightDone
+  	Spawn:
+    	RIOP A -1
+    	Stop
+	}
+}
+
+Actor PPE_RiotShellCasingShooter //: PPE_CasingShooterBase
+{
+	Speed 14
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_ShellCasing",0,0,FRandom(-50,-10),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-12,-19))
+		Stop
+	}
+}
+
+Actor PPE_RiotGunMag : Inventory
+{
+	Inventory.MaxAmount 4
+}
+
+Actor PPE_RiotGunMode : Inventory
+{
+	Inventory.MaxAmount 1
+}

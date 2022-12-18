@@ -205,7 +205,26 @@ ACTOR PPE_SSArmor : ArmorBonus replaces BlueArmor
 	}
 }
 
-Actor PPE_SSBackpack : Backpack replaces Backpack
+Actor DSS_BackpackSpawn : DSS_WeaponSpawnBase replaces Backpack
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("PPE_SSBackpack")
+        TNT1 A -1
+		stop
+	PickUp1:
+		TNT1 A 0 A_JumpIfInventory("PPE_SSBackpack",1,"PickUp2")
+		TNT1 A 100 A_PlaySound("q/backpack/1",5)
+		stop
+	PickUp2:
+		TNT1 A 100 A_PlaySound("q/backpack/2",5)
+		stop
+	}
+}
+
+Actor PPE_SSBackpack : Backpack
 {
 	Inventory.PickupMessage "$GOTAPACK"
 	Inventory.PickupSound "items/ssammo"
@@ -229,6 +248,7 @@ ACTOR PPE_MegaspherePack : Megasphere replaces Megasphere
 	Pickup:
 		TNT1 A 0 A_GiveInventory("PPE_SSArmor", 1)
 		TNT1 A 0 A_GiveInventory("MegasphereHealth", 1)
+		TNT1 A 100 A_PlaySound("q/seriouspack",5)
 		Stop
 	}
 }

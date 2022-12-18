@@ -1,0 +1,45 @@
+Class PPE_SWEventHandler : EventHandler
+{	
+	int dmgbuffer;
+	int lastquotetime;
+
+	override void WorldThingDied (WorldEvent e)
+	{
+		if (e.Thing && e.Thing.Target
+		&& e.Thing.bIsMonster && e.Thing.Target.GetClassName() == "PPE_LoWangPlayer"
+		&& level.time > lastquotetime + 200)
+		{
+			if (e.Thing.GetSpawnHealth() > 1000)
+			{
+				e.Thing.Target.GiveInventory("PPE_BossQuote",1);
+				lastquotetime = level.time;
+			}
+			else if (level.Killed_Monsters == level.Total_Monsters-1)
+			{
+				e.Thing.Target.GiveInventory("PPE_LastDeathQuote",1);
+				lastquotetime = level.time;
+			}
+			else if (e.Inflictor && e.Inflictor.GetClassName() == "PPE_KatanaPuff")
+			{
+				e.Thing.Target.GiveInventory("PPE_KatanaDeathQuote",1);
+				lastquotetime = level.time;
+			}
+			else if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150))
+			{
+				e.Thing.Target.GiveInventory("PPE_GibQuote",1);
+				lastquotetime = level.time;
+				//console.printf("%s", "gib");
+			}
+			else if (dmgbuffer >= 1750)
+			{
+				dmgbuffer = 0;
+				e.Thing.Target.GiveInventory("PPE_DeathQuote",1);
+				lastquotetime = level.time;
+			}
+			else
+			{
+				dmgbuffer += e.Thing.GetSpawnHealth() + 500;
+			}
+		}
+	}
+}

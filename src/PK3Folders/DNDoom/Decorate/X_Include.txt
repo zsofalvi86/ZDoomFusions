@@ -1,11 +1,12 @@
 #Include Decorate/G_MissileBases.txt
-//#Include Decorate/G_MissileParticles.txt
+#Include Decorate/G_AmmoHolderBases.txt
 #Include Decorate/A_Ammo.txt
 #Include Decorate/A_PickupAmmos.txt
 #Include Decorate/A_Player.txt
 #Include Decorate/Kick.txt
 #Include Decorate/Pistol.txt
 #Include Decorate/Shotgun.txt
+#Include Decorate/LeadCannon.txt
 #Include Decorate/Chaingun.txt
 #Include Decorate/RPG.txt
 #Include Decorate/Pipebomb.txt
@@ -16,3 +17,4 @@
 #Include Decorate/A_Replacers.txt
 #Include Decorate/A_Misc.txt
 #Include Decorate/A_Powerup.txt
+#Include Decorate/A_Quote.txt

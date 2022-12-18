@@ -10,7 +10,7 @@ Class PPE_Q2DamageMod : Inventory
 			let curtime = level.Time;
 			if (memtic != curtime) {memactors.Clear();}
 			let membered = memactors.Find(source) != memactors.Size();
-			if((source.Target != owner || (memtic == curtime && membered)) && !source.Player)
+			if((source.Target != owner || (memtic == curtime && membered)) && !source.Player && source.bMonster)
 			{
 				if (!membered) {memactors.Push(source);}
 				memtic = curtime;

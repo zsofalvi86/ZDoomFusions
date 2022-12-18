@@ -5,7 +5,7 @@ Actor PPE_MachineGun : Chaingun
 	Inventory.PickupSound "items/weapon2"
 	Weapon.UpSound "weapons/switch"
 	Weapon.SelectionOrder 800
-	Weapon.SlotNumber 4
+	Weapon.SlotNumber 2
 	Weapon.AmmoType "PPE_Bullets"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 20

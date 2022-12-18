@@ -1,0 +1,142 @@
+Class PPE_SmokeBombPers : Inventory
+{
+	bool inuse; double useTics;
+	const ticPerInv = (30 * 35) / 100;
+	
+	override bool Use(bool pickup)
+	{
+		if (!inuse)
+		{
+			inuse = true;
+			if (inuse)
+			{
+				owner.GiveInventory("PowerInvisibility",1);
+				owner.A_StartSound("q/shadow",5);
+			}
+			return true;
+		}
+		else{StopUse();}
+		return false;
+	}
+	
+	override void DoEffect()
+	{
+		if (inuse)
+		{
+			if (useTics <= 0) {useTics += ticPerInv;}
+			else {useTics--;}
+			if (useTics <= 0)
+			{
+				owner.TakeInventory(GetClassName(), 1);
+			}
+		}
+		super.DoEffect();
+	}
+	
+	override void DetachFromOwner()
+	{
+		StopUse();
+		super.DetachFromOwner();
+	}
+	
+	void StopUse()
+	{
+		inuse = false;
+		owner.SetInventory("PowerInvisibility",0);
+		owner.A_StartSound("itms/smoke/puff",6);
+	}
+}
+
+Class PPE_SWEnviroPers : Inventory
+{	
+	int airtic; int absorbtic; FCheckPosition fcp; bool inuse; bool wasinuse;
+	
+	override void AbsorbDamage (int damage, Name damageType, out int newdamage, Actor inflictor, Actor source, int flags)
+	{
+		//env hazards have no inflictor and source actor
+		if (owner.CheckInventory("PPE_EnviroSuit",1) && !inflictor && !source)
+		{
+			Owner.CheckPosition((owner.pos.x,owner.pos.y),false,fcp);
+			if (damageType = fcp.cursector.damagetype) {newdamage = 0;}
+		}
+	}
+
+	override void DoEffect()
+	{
+		if (Owner.player != NULL)
+		{
+			wasinuse = inuse;
+			inuse = false;
+			Owner.player.mo.ResetAirSupply ();
+			Owner.CheckPosition((owner.pos.x,owner.pos.y),false,fcp);
+			if(owner.waterlevel == 3) {airtic++; inuse=true;}
+			if (airtic >= 42)
+			{
+				airtic = 0;
+				owner.TakeInventory(GetClassName(), 1);
+			}
+			if(fcp.cursector.damageamount > 0 && 
+			fcp.cursector.floorplane.ZatPoint((owner.pos.x,owner.pos.y)) == owner.pos.z && 
+			!fcp.stepthing) {absorbtic++; inuse=true;}
+			if(absorbtic >= 21)
+			{
+				absorbtic = 0;
+				owner.TakeInventory(GetClassName(), 1);
+			}
+			if(!wasinuse && inuse) {Owner.A_Print("Environment Suit On");}
+		}
+	}
+}
+
+Class PPE_SWGogglesPers : Inventory
+{
+	bool inuse; double useTics;
+	const ticPerInv = (60 * 35) / 100;
+	
+	override bool Use(bool pickup)
+	{
+		inuse = !inuse;
+		if (inuse)
+		{
+			owner.GiveInventory("PowerGoggles",1);
+			owner.A_StartSound("items/visor/on",6);
+		}
+		else {StopUse();}
+		return true;
+	}
+	
+	override void DoEffect()
+	{
+		if (inuse)
+		{
+			if (useTics <= 0) {useTics += ticPerInv;}
+			else {useTics--;}
+			if (useTics <= 0)
+			{
+				owner.TakeInventory(GetClassName(), 1);
+			}
+		}
+		super.DoEffect();
+	}
+	
+	override void DetachFromOwner()
+	{
+		StopUse();
+		super.DetachFromOwner();
+	}
+	
+	void StopUse()
+	{
+		inuse = false;
+		owner.A_StartSound("items/visor/off",6);
+		owner.SetInventory("PowerGoggles",0);
+	}
+}
+
+Class PowerGoggles : PowerLightAmp
+{	
+	default
+	{
+		Powerup.Duration -999;
+	}
+}

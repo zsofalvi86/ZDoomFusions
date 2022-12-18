@@ -5,7 +5,7 @@ Class PPE_DNWeaponBase : Weapon
 	Select:
 	Deselect:
 	Ready:
-		TNT1 A 0 A_Overlay(-2,"KickOverlay",false);
+		TNT1 A 0 A_Overlay(-3,"KickOverlay",false);
 		TNT1 A 0 A_Jump(256,"Ready.Ready");
 	KickOverlay:
     	TNT1 A 1
@@ -47,7 +47,7 @@ Class PPE_DNWeaponBase : Weapon
 		DKIK A 1 offset(16,32-32);
 		DKIK A 1 offset(24,38-32);
 		DKIK A 1 offset(32,44-32);
-		TNT1 A 8;
+		TNT1 A 4;
 		//TNT1 A 0 A_ReFire("QuickKick") // Do not refire, it picks up PRIMARY and derails the weapon
 		Goto KickOverlay;
 	Stomp:
@@ -83,6 +83,9 @@ Class PPE_DNWeaponBase : Weapon
 		Goto KickOverlay;
 	}
 	
+	class<Ammo> AmmoTypeAlt;
+	Property AmmoTypeAlt: AmmoTypeAlt;
+	
 	bool instd;
 	Override State GetDownState()
 	{
@@ -97,9 +100,56 @@ Class PPE_DNWeaponBase : Weapon
 	
 	Action void A_CheckForAmmo(int amnt)
 	{
-		if (Weapon(invoker).Ammo1.Amount < amnt)
+		if (invoker.Ammo1.Amount < amnt)
 		{
 			PlayerPawn(invoker.owner).PickNewWeapon(null);
+		}
+	}
+	
+	Action void A_ForceReload()
+	{
+		invoker.ReloadCounter = 1;
+	}
+	
+	Action State A_CheckIfNoReload(statelabel noreload)
+	{
+		if (invoker.ReloadCounter == 0) { return ResolveState(noreload); }
+		return ResolveState(null);
+	}
+	
+	Action state A_JumpIfAltAmmo(statelabel alt)
+	{
+		if (invoker.AmmoType1 == invoker.AmmoTypeAlt) { return ResolveState(alt); }
+		return ResolveState(null);
+	}
+	
+	Action state A_JumpIfRegularAmmo(statelabel notalt)
+	{
+		if (invoker.AmmoType1 == invoker.Default.AmmoType1) { return ResolveState(notalt); }
+		return ResolveState(null);
+	}
+	
+	Action state A_JumpIfOnlyOtherAmmo(statelabel alt)
+	{
+		if(invoker.HasAmmo(invoker.AmmoType1,invoker.AmmoUse1)) { return ResolveState(null); }
+		let NewAmmo = invoker.GetOtherAmmoType();
+		if(invoker.HasAmmo(NewAmmo,invoker.AmmoUse1)) { return ResolveState(alt); }
+		return ResolveState(null);
+	}
+	
+	Action void A_SwapIfOnlyOtherAmmo()
+	{
+		if(invoker.HasAmmo(invoker.AmmoType1,invoker.AmmoUse1)) { return; }
+		A_SwapAmmo();
+	}
+	
+	Action void A_SwapAmmo()
+	{
+		let NewAmmo = invoker.GetOtherAmmoType();
+		if(invoker.HasAmmo(NewAmmo,invoker.AmmoUse1))
+		{
+			invoker.AmmoType1 = NewAmmo;
+			invoker.Ammo1 = invoker.AddAmmo(invoker.Owner,invoker.AmmoType1,0);
 		}
 	}
 	
@@ -114,7 +164,34 @@ Class PPE_DNWeaponBase : Weapon
 	
 	Action void A_ReleaseFocus(bool resetSpeed = false)	
 	{
-		if (resetSpeed && tracer) {tracer.A_SetSpeed(GetDefaultSpeed(tracer.GetClass()));}
-		pitch -= 10;
+		if (resetSpeed && tracer) 
+		{
+			tracer.A_SetSpeed(GetDefaultSpeed(tracer.GetClass()));
+			invoker.Owner.player.centering = true;
+		}
+		//pitch -= 10;
+	}
+	
+	Class<Ammo> GetOtherAmmoType()
+	{
+		if (AmmoType1 == AmmoTypeAlt) { return Default.AmmoType1; }
+		else { return AmmoTypeAlt; }
+	}
+	
+	bool HasAmmo(Class<Ammo> ammotype, int amnt)
+	{
+		let ammoitem = Ammo(owner.FindInventory(ammotype));
+		return ammoitem && ammoitem.Amount >= amnt;
+	}
+	
+	override bool HandlePickup (Inventory item)
+	{
+		let oldammo = AmmoType1;
+		AmmoType1 = Default.AmmoType1; // use DEFAULT and not current ammo type for pickup
+		Ammo1 = AddAmmo(Owner,AmmoType1,0);
+		let b = Super.HandlePickup(item);
+		AmmoType1 = oldammo;
+		Ammo1 = AddAmmo(Owner,AmmoType1,0);
+		return b;
 	}
 }

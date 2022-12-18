@@ -1,0 +1,206 @@
+
+ric1	ric1
+ric2	ric2
+$random weapons/ric { ric1 ric2 }
+gib1 GIBS04 gib2 GIBS05
+$random misc/blood	{gib1 gib2}
+
+//Pickups
+items/pickup			pitem
+items/gong				pgong
+weapons/boltup			bolt
+
+//Items
+items/bomb				bexp
+items/gas/bounce		gasgb
+items/gas/explode		gasgx
+items/gas/loop			gasgh
+items/caltrops/land		tack1
+items/visor/on			nvon3
+items/visor/off			nvoff2
+items/smoke/puff		gasgx
+items/meduse1 			med1q
+items/meduse2 			med2q
+
+//Fists of Fury
+weapons/fist/up			shuru
+weapons/fist/swing		shurf
+weapons/fist/impact		fofx
+weapons/fist/hit		fofh
+
+//Katana
+weapons/katana/up		sbomb2
+weapons/katana/swing	swordf
+weapons/katana/impact	swordx
+weapons/katana/hit		swordh
+
+//Shuriken
+weapons/shuriken/up		shuru
+weapons/shuriken/fire	shurf
+weapons/shuriken/impact	shurx
+
+//Riot Gun
+weapons/riotgun/up		riotr
+weapons/riotgun/fire	riotf
+weapons/riotgun/reload	bolt
+weapons/riotgun/cock	riotr
+
+//Uzi
+weapons/uzi/up			uzir2
+weapons/uzi/fire		uzif
+weapons/uzi/reload1		uzir1
+weapons/uzi/reload2		uzir2
+weapons/uzi/reload3		uzir3
+$limit weapons/uzi/fire	12
+
+//Rocket Launcher
+weapons/rocket/fire		rockf
+weapons/rocket/explode	rockx
+weapons/rocket/seek		sbombb
+weapons/nuke/standby	rnukesb
+weapons/nuke/countdown	rnukecd
+weapons/nuke/ready		rnukesr
+weapons/nuke/explode	rnukex
+weapons/nuke/warn		rnukew
+
+//Grenade Launcher
+weapons/grenade/fire	grenf
+weapons/grenade/bounce	grenb
+weapons/grenade/explode	grenx
+
+//Sticky Bomb
+weapons/sticky/up		shuru
+weapons/sticky/fire		shurf
+weapons/sticky/spikes	sbomb1
+weapons/sticky/explode	grenx
+weapons/sticky/beep		sbombb
+
+//Railgun
+weapons/railgun/idle	railgh
+weapons/railgun/fire	railgf
+
+//Guardian Head
+weapons/head/up			headu
+weapons/head/fire		headf
+weapons/head/switch		GIBS05
+weapons/head/impact		headx
+$limit weapons/head/impact 12
+weapons/head/napalm		headwx
+$limit weapons/head/napalm 16
+$attenuation weapons/head/napalm 0.2
+
+//Ripper Heart
+weapons/heart/up		shuru
+weapons/heart/idle		hearth
+weapons/heart/fire		heartf
+
+//Casings
+casing/bullet bcas
+casing/shell scas
+
+//Quotes
+qwe1 AHSO5 qwe2 BANZAI1 qwe3 BIGWPN01 qwe4 CBUNG01 qwe5 COMEGET2 qwe6 ERASER qwe7 HAHA19
+$random q/smallweapon	{qwe1 qwe2 qwe4 qwe5 qwe7}
+$random q/bigweapon		{qwe1 qwe2 qwe3 qwe4 qwe5 qwe7}
+$random q/railgun		{qwe1 qwe2 qwe3 qwe4 qwe5 qwe6 qwe7 qwe6 qwe6}
+qhrt1 JG9002 qhrt2 JG9009
+$random q/heart			{qhrt1 qhrt2}
+q/uzi2 UZIW
+q/katanaup LIKSRD01
+q/shurikenup LIKSHK02
+q/shadow IAM01
+q/caltrop JGB106
+
+nuk1 HIRO03 nuk2 NAGA06 nuk3 PEARL03
+$random  q/nukeexp { nuk1 nuk1 nuk2 nuk2 nuk3 }
+sts1 TSTICK01 sts2 TSTICK05 sts3 TSTICK07 sts4 TSTICK10 
+$random q/stickystick { sts1 sts2 sts3 sts4 }
+
+q/alldead ILIKE01
+
+qol1 BADMAN04 qol2 CHARAD09 qol3 DTIME qol4 EAT02 qol5 FCRACK01 qol6 FWORKS01 qol7 GOODDAY4 qol8 HCOW03 qol09 HCOW06
+qol10 HSHIT03 qol11 HSHIT04 qol12 IHOPE01 qol13 KILLU05 qol14 KUNGFU06 qol15 LMOVE01 qol16 LWANG05 qol17 NATURAL4
+qol18 NOHONOR6 qol19 RAW01 qol20 REFLEX08 qol21 SAYON09 qol22 TAKSAN1 qol23 TDICK02 qol24 TOURN01 qol25 WWANG11 qol26 YAK02
+qol27 STUPID01 qol28 SNATCH01
+$random q/boss { qol4 qol8 qol10 qol12 qol13 qol14 qol16 qol18 qol19 qol21 qol24 qol25 }
+$random q/gib { qol1 qol2 qol3 qol4 qol5 qol6 qol7 qol8 qol9 qol10 qol11 qol12 qol13 qol14 qol15 qol16 qol17 qol18 qol19 qol20 qol21 qol22 qol23 qol24 qol25 qol26 qol27 qol28 }
+$random q/death { qol1 qol2 qol3 qol4 qol7 qol12 qol13 qol14 qol15 qol16 qol17 qol18 qol20 qol21 qol22 qol23 qol24 qol25 qol26 qol27 qol28 }
+
+liknuk LIKNUK01 hahanuk HAHA11
+$random q/nukeup { liknuk hahanuk qol7 }
+
+kat1 JG1103 kat2 TSWORD01 kat3 TSWORD05 kat4 TSWORD08
+$random q/katanadeath { kat1 kat2 kat3 kat4 }
+
+//Player
+pdth1 death1 pdth2 death2 pdth3 death3
+ppn1 pain1 ppn2 pain2 ppn3 pain3 ppn4 pain4
+ppnh1 painh1 ppnh2 painh2 ppnh3 painh3 ppnh4 painh4 ppnh5 painh5
+pyel1 SOB15 pyel2 WEAK03 pyel3 SWYELL13 pyel4 SWYELL14 pyel5 SWYELL16 pyel6 SWYELL22 pyel7 SWYELL23
+qyel1 SWYELL03 qyel2 SWYELL05 qyel3 SWYELL06
+
+$random player/death { pdth1 pdth2 pdth3 }
+$random player/pain { ppn1 ppn2 ppn3 ppn4 }
+$random player/painhi { ppnh1 ppnh2 ppnh3 ppnh4 ppnh5 }
+$random player/painyell { pyel1 pyel2 pyel3 pyel4 pyel5 pyel6 pyel7 }
+$random q/fistup { qyel1 qyel2 qyel3 }
+$random q/yell { qyel1 qyel2 qyel3 }
+
+push1 push1 push2 push2
+$random player/push { push1 push1 push1 push1 push1 push1 push2 }
+
+$playeralias	PPE_LoWangPlayer	male	*death		player/death
+$playersounddup	PPE_LoWangPlayer	male	*xdeath		*death
+$playersound	PPE_LoWangPlayer	male	*gibbed		
+$playersound	PPE_LoWangPlayer	male	*gibbed-telefrag	teledth1
+$playeralias	PPE_LoWangPlayer	male	*pain100	player/pain
+$playersounddup	PPE_LoWangPlayer	male	*pain75		*pain100
+$playeralias	PPE_LoWangPlayer	male	*pain50		player/painhi
+$playeralias	PPE_LoWangPlayer	male	*pain25		player/painyell
+$playersounddup	PPE_LoWangPlayer	male	*pain100-fire	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain75-fire	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain50-fire	*pain50
+$playersounddup	PPE_LoWangPlayer	male	*pain25-fire	*pain25
+$playersounddup	PPE_LoWangPlayer	male	*pain100-slime	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain75-slime	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain50-slime	*pain50
+$playersounddup	PPE_LoWangPlayer	male	*pain25-slime	*pain25
+$playersound	PPE_LoWangPlayer	male	*pain100-drowning	swdrown
+$playersounddup	PPE_LoWangPlayer	male	*pain75-drowning	*pain100-drowning
+$playersounddup	PPE_LoWangPlayer	male	*pain50-drowning	*pain100-drowning
+$playersounddup	PPE_LoWangPlayer	male	*pain25-drowning	*pain100-drowning
+$playersound	PPE_LoWangPlayer	male	*pain100-falling	sspfall
+$playersounddup	PPE_LoWangPlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	PPE_LoWangPlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	PPE_LoWangPlayer	male	*pain25-falling		*pain100-falling
+$playersound	PPE_LoWangPlayer	male	*pain100-poisoncloud	swchoke
+$playersounddup	PPE_LoWangPlayer	male	*pain75-poisoncloud		*pain100-poisoncloud
+$playersounddup	PPE_LoWangPlayer	male	*pain50-poisoncloud		*pain100-poisoncloud
+$playersounddup	PPE_LoWangPlayer	male	*pain25-poisoncloud		*pain100-poisoncloud
+$playersound	PPE_LoWangPlayer	male	*pain100-caltrop		JGB106
+$playersounddup	PPE_LoWangPlayer	male	*pain75-caltrop			*pain100-caltrop
+$playersounddup	PPE_LoWangPlayer	male	*pain50-caltrop			*pain100-caltrop
+$playersounddup	PPE_LoWangPlayer	male	*pain25-caltrop			*pain100-caltrop
+$playersound	PPE_LoWangPlayer	male	*grunt		land
+$playersound	PPE_LoWangPlayer	male	*land		land
+$playersound	PPE_LoWangPlayer	male	*jump		sspjump
+$playeralias	PPE_LoWangPlayer	male	*usefail	player/push	
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+misc/secret			secretq
+misc/chat			sstalk		// Doom 2 chat sound
+misc/chat2			sstalk		// Chat sound for everything else
+
+//Teleport
+misc/teleport		telport
+misc/k_pkup			pkey

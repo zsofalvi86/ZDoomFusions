@@ -11,15 +11,16 @@ ACTOR PPE_DukePlayer : DoomPlayer
 	Player.SoundClass PPE_DukePlayer
 	
 	Player.WeaponSlot 1, PPE_DNMightyFoot
-	Player.WeaponSlot 2, PPE_DNPistol_Dumdum, PPE_DNPistol
-	Player.WeaponSlot 3, PPE_DNShotgun_Explosive, PPE_DNShotgun
+	Player.WeaponSlot 2, PPE_DNPistol
+	Player.WeaponSlot 3, PPE_DNShotgun, PPE_DNLeadCannon
 	Player.WeaponSlot 4, PPE_DNRipper
 	Player.WeaponSlot 5, PPE_DNRPG_Seeker, PPE_DNRPG
 	Player.WeaponSlot 6, PPE_DNDetonator, PPE_DNPipebomb
 	Player.WeaponSlot 7, PPE_DNExpander, PPE_DNShrinker
 	Player.WeaponSlot 8, PPE_DNDevastator
 	Player.WeaponSlot 9, PPE_DNTripbomb
-	Player.WeaponSlot 0, PPE_DNFreezer
+	Player.WeaponSlot 0, PPE_DNAmmoHolderBase1,PPE_DNAmmoHolderBase2,PPE_DNAmmoHolderBase3,PPE_DNAmmoHolderBase4,PPE_DNAmmoHolderBase5,PPE_DNAmmoHolderBase6,PPE_DNAmmoHolderBase7,PPE_DNAmmoHolderBase8,
+						 PPE_DNFreezer
   
 	States
 	{

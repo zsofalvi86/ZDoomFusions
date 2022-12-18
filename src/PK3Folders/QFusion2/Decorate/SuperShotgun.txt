@@ -7,7 +7,7 @@ Actor PPE_SuperShotgun : Shotgun
 	Inventory.PickupSound "items/weapon2"
 	Weapon.UpSound "weapons/switch"
 	Weapon.SelectionOrder 400
-	Weapon.SlotNumber 2
+	Weapon.SlotNumber 3
 	Weapon.AmmoUse 2
 	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoGive 16

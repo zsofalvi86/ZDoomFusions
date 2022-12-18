@@ -28,7 +28,7 @@ actor PPE_RocketLauncher : RocketLauncher
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 2
 	Weapon.AmmoType "PPE_Rockets"
-	Weapon.SlotNumber 5
+	Weapon.SlotNumber 7
 	Weapon.UpSound "weapons/switch"
 	Inventory.PickupSound "items/weapon1"
 	Inventory.Pickupmessage "$GOT_PPE_RL"

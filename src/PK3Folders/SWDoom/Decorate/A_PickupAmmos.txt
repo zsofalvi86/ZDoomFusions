@@ -1,0 +1,389 @@
+const int PPE_C_SA_REPEATS = 20;
+const int PPE_C_SA_LARGE_CIRCLE = 7200;
+const int PPE_C_SA_MEDIUM_CIRCLE = 420;
+const int PPE_C_SA_SMALL_CIRCLE = 166;
+
+Actor PPE_SmartSpawnerBase : PPE_Spawner
+{
+	+DONTGIB +NOTONAUTOMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1 A_SetRepeat(PPE_C_SA_REPEATS)
+		TNT1 A 0 A_Jump(256,"CheckLoop") //Virtual jump
+		stop
+	}
+}
+
+Actor PPE_SmartSmallClip : PPE_SmartSpawnerBase replaces Clip
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnBulletDefault")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_UziSpawn", AAPTR_TARGET), "SpawnBullet")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_AkimboUziSpawn", AAPTR_TARGET), "SpawnBullet")
+		TNT1 A 0 A_Jump(256,"SpawnBulletDefault")
+	SpawnBulletDefault:
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) > 0,"SpawnBullet")
+	SpawnShuriken:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallShuriken")
+		stop
+	SpawnBullet:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallBullet")
+		stop
+	Drop:
+		TNT1 A 0 A_DropItem("PPE_SmallShuriken")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeClip : PPE_SmartSmallClip replaces ClipBox
+{
+	States
+	{
+	SpawnBulletDefault:
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) > 0,"SpawnBullet")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) > 0,"SpawnBullet")
+	SpawnShuriken:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeShuriken")
+		stop
+	SpawnBullet:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeBullet")
+		stop
+	}
+}
+
+Actor PPE_SmartSmallShell : PPE_SmartSpawnerBase replaces Shell
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",1024,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		//TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnShell")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_RiotGunSpawn", AAPTR_TARGET), "SpawnShell")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_RailgunSpawn", AAPTR_TARGET), "SpawnRod")
+		TNT1 A 0 A_Jump(256,"SpawnShell")
+	SpawnShell:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallShell")
+		stop
+	SpawnRod:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallRailgunRod")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeShell : PPE_SmartSmallShell replaces ShellBox
+{
+	States
+	{
+	SpawnShell:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeShell")
+		stop
+	SpawnRod:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeRailgunRod")
+		stop
+	}
+}
+
+Actor PPE_SmartSmallRocket : PPE_SmartSpawnerBase replaces RocketAmmo
+{
+	States
+	{
+	CheckLoop:
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
+		TNT1 A 0 A_Repeat("CheckLoop")
+		TNT1 A 0 A_Jump(256,"SpawnRocketDefault")
+	CheckType:
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_RocketLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_GrenadeLauncherSpawn", AAPTR_TARGET), "SpawnGrenadeShell")
+		TNT1 A 0 A_JumpIf(CheckClass("PPE_StickySpawn", AAPTR_TARGET), "SpawnStickyBomb")
+		TNT1 A 0 A_Jump(256,"SpawnRocketDefault")
+	SpawnRocketDefault:
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",4) > 0,"SpawnRocket")
+	SpawnStickyBomb:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallStickyBomb")
+		stop
+	SpawnRocket:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallRocket")
+		stop
+	SpawnGrenadeShell:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallGrenadeShell")
+		stop
+	}
+}
+
+Actor PPE_SmartLargeRocket : PPE_SmartSmallRocket replaces RocketBox
+{
+	States
+	{
+	SpawnStickyBomb:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeStickyBomb")
+		stop
+	SpawnRocket:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeRocket")
+		stop
+	SpawnGrenadeShell:
+		TNT1 A 0 A_SpawnPermanent("PPE_LargeGrenadeShell")
+		stop
+	}
+}
+
+ACTOR PPE_SmallShuriken : WeaponGiver
+{
+  DropItem "PPE_Shuriken"
+  Weapon.AmmoGive 9
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTSHURIKENS"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SHRA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeShuriken : WeaponGiver
+{
+  DropItem "PPE_Shuriken"
+  Weapon.AmmoGive 45
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTSHURIKENBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SHRA B -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallBullet : PPE_Bullets
+{
+  Inventory.Amount 10
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTBULLETS"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    BULA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeBullet : PPE_Bullets
+{
+  Inventory.Amount 50
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTBULLETBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    BULA B -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallRailgunRod : PPE_RailgunRods
+{
+  Inventory.Amount 2
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTRODS"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    RRDA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRailgunRod : PPE_RailgunRods
+{
+  Inventory.Amount 10
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTRODBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    RRDA B -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallShell : PPE_Shells
+{
+  Inventory.Amount 4
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTSHELLS"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SHLS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeShell : PPE_Shells
+{
+  Inventory.Amount 20
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTSHELLBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SHLB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallGrenadeShell : PPE_GrenadeShells
+{
+  Inventory.Amount 1
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTGRENADE"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    GRNA A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeGrenadeShell : PPE_GrenadeShells
+{
+  Inventory.Amount 5
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTGRENADEBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    GRNA B -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallRocket : PPE_Rockets
+{
+  Inventory.Amount 1
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTROCKET"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    RTAM A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRocket : PPE_Rockets
+{
+  Inventory.Amount 5
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTROCKBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    RTAM B -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallStickyBomb : WeaponGiver
+{
+  DropItem "PPE_StickyBomb"
+  Weapon.AmmoGive 1
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTSTICKY"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SBAM A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeStickyBomb : WeaponGiver
+{
+  DropItem "PPE_StickyBomb"
+  Weapon.AmmoGive 5
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTSTICKYBOX"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SBAM B -1
+    Stop
+  }
+}
+
+ACTOR PPE_StickyWeapon : PPE_LargeStickyBomb
+{
+	Inventory.PickupSound "q/smallweapon"
+}
+
+ACTOR PPE_SmallMagic : PPE_MagicAmmo replaces Cell
+{
+  Inventory.Amount 20
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTMAGIC"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SMAA AABBCCDDDCCBBA 1 bright
+    Loop
+  }
+}
+
+ACTOR PPE_LargeMagic : PPE_MagicAmmo replaces CellPack
+{
+  Inventory.Amount 100
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTMAGICXL"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SMAB AABBCCDDDCCBBA 1 bright
+    Loop
+  }
+}
+
+Actor PPE_NukePickup : PPE_Nukes
+{
+  Inventory.Amount 1
+  +FLOORCLIP
+  Inventory.PickupMessage "$GOTNUKE"
+  Inventory.PickupSound "items/pickup"
+  States
+  {
+  Spawn:
+    SNUK A -1 bright
+    Stop
+  }
+}

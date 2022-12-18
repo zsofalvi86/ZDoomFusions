@@ -33,7 +33,7 @@ Class DSS_DevastatorShot : FastProjectile
 		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE);
 		TNT1 A 0 A_NoGravity();
 		TNT1 A 0 {exploding = true;}
-		TNT1 A 0 A_Explode(15,192,0);
+		TNT1 A 0 A_Explode(10,192);
 		TNT1 A 0 A_Quake(4,5,0,224,"");
 		TNT1 A 0 A_Quake(2,6,0,512,"");
 		TNT1 A 0 A_Quake(1,6,0,3072,"");
@@ -48,7 +48,7 @@ Class DSS_DevastatorShot : FastProjectile
 		+RIPPER;
 		Radius 9;
 		Height 8;
-		DamageFunction (200);
+		DamageFunction (150);
 		Speed 120;
 		SeeSound "";
 		DeathSound "weapons/ssexp";

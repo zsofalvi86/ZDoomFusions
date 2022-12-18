@@ -46,7 +46,7 @@ Class PPE_GunBase : Weapon
 		if(GetPlayerInput(INPUT_BUTTONS) & BT_USE) 
 		{
 			FLineTraceData trc;
-			if (!LineTrace(angle,64,pitch,0,hgt,0,0,trc)) { ResolveState("Punch"); }
+			if (!LineTrace(angle,64,pitch,0,player.viewheight,0,0,trc)) { ResolveState("Punch"); }
 			if (trc.HitType == TRACE_HitWall) { ResolveState("Press"); }
 			if (trc.HitType == TRACE_HitActor) { ResolveState("Punch"); }
 		}

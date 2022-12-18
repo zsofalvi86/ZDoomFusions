@@ -57,6 +57,7 @@ GOT_PPE_RL = "You got the Rocket Launcher!";
 GOT_PPE_TB = "You got the Thunderbolt!";
 GOT_PPE_PG = "You got the Plasma Gun!";
 GOT_PPE_RG = "You got the Railgun!";
+GOT_PPE_PHX = "You got the Phalanx!";
 GOT_PPE_Q3BFG = "You got the BFG10k!";
 GOT_PPE_Q2BFG = "You got the BFG10k!";
 
@@ -72,8 +73,11 @@ TAG_PPE_SNG = "Super Nailgun";
 TAG_PPE_GL = "Grenade Launcher";
 TAG_PPE_RL = "Rocket Launcher";
 TAG_PPE_TB = "Thunderbolt";
+TAG_PPE_CLG = "Chain Lightning Gun";
 TAG_PPE_PG = "Plasma Gun";
+TAG_PPE_BPG = "Bouncy Plasma Gun";
 TAG_PPE_RG = "Railgun";
+TAG_PPE_PHX = "Phalanx";
 TAG_PPE_Q3BFG = "BFG10k";
 TAG_PPE_Q2BFG = "BFG10k";
 

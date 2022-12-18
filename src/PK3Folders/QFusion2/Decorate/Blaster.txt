@@ -1,7 +1,7 @@
 ACTOR PPE_Blaster : Fist
 {
   Weapon.SelectionOrder 2000
-  Weapon.SlotNumber 1
+  Weapon.SlotNumber 2
   Obituary "$OB_MPBLASTER"
   +WEAPON.NOALERT
   +WEAPON.NOAUTOAIM

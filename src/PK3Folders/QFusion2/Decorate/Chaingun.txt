@@ -5,7 +5,7 @@ Actor PPE_ChainGun : Chaingun
 	Tag "$TAG_PPE_CG"
 	Inventory.PickupSound "items/weapon2"
 	Weapon.SelectionOrder 400
-	Weapon.SlotNumber 4
+	Weapon.SlotNumber 5
 	Weapon.AmmoType "PPE_Bullets"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 20

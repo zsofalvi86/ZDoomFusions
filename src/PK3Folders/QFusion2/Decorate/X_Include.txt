@@ -15,6 +15,7 @@
 #Include Decorate/RocketLauncher.txt
 #Include Decorate/PlasmaGun.txt
 #Include Decorate/Railgun.txt
+#Include Decorate/Phalanx.txt
 #Include Decorate/Thunderbolt.txt
 #Include Decorate/BFGQ2.txt
 #Include Decorate/BFGQ3.txt

@@ -1,0 +1,133 @@
+Actor PPE_SWGasGrenade : PPE_BouncyGrenadeBase
+{
+  var int user_timedlife;
+  SeeSound ""
+  BounceSound "items/gas/bounce"
+  DeathSound "items/gas/explode"
+  BounceFactor 0.2
+  WallBounceFactor 0.2
+  BounceCount 2
+  Gravity 0.2
+  Speed 19
+  Damage (0)
+  DamageType "PoisonCloud"
+  +FORCERADIUSDMG +BOUNCEONACTORS +NODAMAGETHRUST +OLDRADIUSDMG
+  States
+  {
+  	Spawn:
+		GGRD A 1 A_SpawnItem("PPE_SmokeTrail")
+		Loop
+	Death:
+		GGRD A 10
+		TNT1 A 0 A_SetUserVar("user_timedlife",300)
+		TNT1 A 0 A_PlaySound("items/gas/loop",6,1,1)
+		GGRD A 2
+	GasLoop:
+		"####" "#" 2 
+		{
+			if (user_timedlife % 4 == 0) {A_SpawnItemEx("PPE_GasCloud",FRandom(-10,10),FRandom(-10,10),1,0,0,FRandom(4.2,4.9),0,SXF_TRANSFERPOINTERS);}
+			A_Explode(5,192,1,0,192);
+			A_SetUserVar("user_timedlife",user_timedlife-1);
+		}
+		"####" "#" 0 A_JumpIf(user_timedlife==0,"TrueDeath")
+		Loop
+	TrueDeath:
+		TNT1 A 0 A_StopSound(6)
+		//DGRD A -1
+		Stop
+  }
+}
+
+Actor PPE_NukeGas : PPE_SWGasGrenade
+{
+	BounceType "None"
+	Speed 0
+	States
+	{
+	Spawn:
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_SetUserVar("user_timedlife",200)
+		Goto GasLoop
+	}
+}
+
+Actor PPE_GasCloud
+{
+	Radius 32
+	Height 12
+	RenderStyle "Translucent"
+	Alpha 0.75
+	+NOGRAVITY
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		GSCD ABCDEFGHIJ 2 bright
+		stop
+	}
+}
+
+actor PPE_CaltropMissile : PPE_SlowMissileBase
+{
+  SeeSound ""
+  BounceSound ""
+  DeathSound "items/caltrops/land"
+  -USEBOUNCESTATE
+  -NOGRAVITY
+  +BLOODLESSIMPACT
+  +NODAMAGETHRUST
+  Speed 10
+  Gravity 0.3
+  Damage (0)
+  Radius 25
+  States
+  {
+  Spawn:
+	SCAM AB 2
+  Spawnloop:
+	SCAM C 1
+	loop
+  Death:
+	TNT1 A 0 A_NoGravity
+	TNT1 A 0 A_SpawnItemEx("PPE_CaltropTrap",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
+	stop
+  }
+}
+
+Actor PPE_CaltropTrap : PPE_CaltropMissile
+{
+	-BLOODLESSIMPACT
+	+DONTTHRUST
+	-GRENADETRAIL
+	-NOBLOCKMAP
+	+VULNERABLE
+	+NOBLOOD
+	+FORCEPAIN
+	+HITTRACER
+	+HITOWNER
+	+NOEXTREMEDEATH
+	Speed 0
+	Health 10
+	Damage (25)
+	DamageType "Caltrop"
+	Radius 24
+	DeathSound ""
+	States
+	{
+	Spawn:
+		SCAM C 1
+		loop
+	Death: //wall/floor
+		TNT1 A 0 A_JumpIfHealthLower(9,"XDeath")
+		TNT1 A 0 A_CheckCeiling("Crush")
+		TNT1 A 0 A_SpawnItemEx("PPE_CaltropTrap",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS)
+		stop
+	XDeath://bleeding
+	Crash:
+	Crush:
+		TNT1 A 0
+		TNT1 A 0 A_GiveInventory("PPE_CaltropPainTrain",1,AAPTR_TRACER)
+		stop
+	}
+} 

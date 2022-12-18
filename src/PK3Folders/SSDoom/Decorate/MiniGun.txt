@@ -51,13 +51,13 @@ Actor DSS_MiniGun : Chaingun
 	Hold1:
 		TNT1 A 0 A_PlaySound("weapons/ssminiloop",6,1.0,1)
 		TNT1 A 0 A_AlertMonsters // 20
-		TNT1 A 0 A_FireBullets(0,0,1,(22),"DSS_MinigunPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"DSS_MinigunPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_ReFire("Hold2")
 		SSMF ABC 1 bright A_GunFlash
 		Goto WindDown
 	Hold2:
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_FireBullets(0,0,1,(22),"DSS_MinigunPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"DSS_MinigunPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		SSMF ABCD 1 bright A_GunFlash
 		TNT1 A 0 A_ReFire("Hold1")
 	WindDown:

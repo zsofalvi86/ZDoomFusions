@@ -45,6 +45,7 @@ weapons/grenbnc			ssglb
 weapons/rocketf			ssrlf
 weapons/rocketft		ssrockf
 weapons/devf			ssdevf
+weapons/devr			ssdevr
 weapons/ssexp			ssexpl
 $limit weapons/ssmini	12
 
@@ -88,7 +89,7 @@ items/armor5	armor5
 //Player
 $playeralias	DSS_SeriousPlayer	male	*death		sspdeath
 $playersounddup	DSS_SeriousPlayer	male	*xdeath		*death
-$playersound	DSS_SeriousPlayer	male	*gibbed		
+$playersound	DSS_SeriousPlayer	male	*gibbed		sspdeath
 $playersound	DSS_SeriousPlayer	male	*gibbed-telefrag	teledth1
 $playersound	DSS_SeriousPlayer	male	*pain100	ssphurt1
 $playersounddup	DSS_SeriousPlayer	male	*pain75		*pain100
@@ -150,35 +151,44 @@ quip4 quip4 //rdy 4 serious carnage
 quip5 quip5 //rock & roll
 quip6 quip6 //srsly srs
 quip7 quip7 //lucky day
+quip8 quip8 //much better
+qbos1 qbos1 //owned
+qbos2 qbos2 //srsly best you can do
+qbos3 qbos3 //whos next
+qbos4 qbos4 //maybe big, but im srs
+qbos5 qbos5 //am i the man
+qbos6 qbos6 //die when i kill u
 
 $random q/chainsaw/1 { qcs1 qcs2 }
 $random q/colt/1 { qeye qdbl }
 $random q/shotgun/1 { qsg1 qsg2 qwe2 }
 $random q/shotgun/2 { qsg1 qsg2 qeye qsize1 quip1 }
-$random q/coachgun/1 { qdbl qwb4 qwb5 qwb6 qsg1}
+$random q/coachgun/1 { qdbl qwb4 qwb5 qwb6 qsg1 quip8 }
 $random q/coachgun/2 { qwb4 qwb5 qwb6 qwe1 qwe3 }
 $random q/tommygun/1 { qtg1 qtg2 }
 $random q/minigun/1 { qmini qwb3 qwb4 }
-$random q/minigun/2 { qmini qwb3 qwb4 qwe1 qwe3 qlead1 qlead2 }
+$random q/minigun/2 { qmini qwb3 qwb4 qwe1 qwe3 qlead1 qlead2 quip8 }
 $random q/rocket/1 { qrok1 qrok2 quip5 }
 $random q/rocket/2 { qrok1 qrok2 qwb1 qwb2 qwb3 qwb4 qwe2 quip5 }
 $random q/grenade/1 { qgren quip3 quip4 }
 $random q/grenade/2 { qgren qwb1 qwb2 qwb4 quip1 quip3 quip4 quip5 }
 $random q/laser/1 { qlas qwb1 }
-$random q/laser/2 { qlas qwb1 qwb2 qwb4 qwb5 qwb6 qwe1 quip1 quip3 }
+$random q/laser/2 { qlas qwb1 qwb2 qwb4 qwb5 qwb6 qwe1 quip1 quip3 quip8 }
 $random q/dev/1 { qwb3 qwb4 quip5 }
 $random q/dev/2 { qwb4 qsg2 quip1 quip3 }
 $random q/flame/1 { qflame qwb2 qwb4 }
 $random q/flame/2 { qflame qwb1 qwb2 qwb4 qwb5 qwb6 quip2 quip3 quip4 quip7 }
-$random q/sniper/1 { qwb1 qwb3 qwe3 quip2 quip7 }
+$random q/sniper/1 { qwb1 qwb3 qwe3 quip2 quip7 quip8 }
 $random q/sniper/2 { qwb3 qwb4 qwb5 qwe1 qwe3 quip1 quip3 qeye }
 $random q/cannon/1 { qbowl qsize2 quip6 quip7 }
 $random q/cannon/2 { qbowl qwb2 qwb3 qwb4 qwb5 qwb6 qsize2 quip4 quip5 quip6 }
-$random q/backpack/1 { qlead1 qlead2 qwe2 quip2 quip7 }
+$random q/backpack/1 { qlead1 qlead2 qwe2 quip2 quip7 quip8 }
 $random q/backpack/2 { qlead1 qlead2 qwe2 quip3 quip4 }
+$random q/seriouspack { qpow1 qpow2 qwe2 quip3 quip4 quip6 quip7 quip8 }
 $random q/damage/1 { qpow1 qpow2 qpow3 qwb6 quip3 quip4 }
 $random q/invul/1 { qinvul qpow1 qpow2 qpow3 qwe2 quip1 quip3 quip5 quip7 }
 $random q/speed/1 { qspd qpow2 qpow3 quip5 qtg1 }
+$random q/boss { qsize1 qbos1 qbos2 qbos3 qbos4 qbos5 qbos6 }
 
 //Misc
 menu/activate		menu2		// Activate a new menu

@@ -69,7 +69,7 @@ Actor PPE_Q3PlasmaPuff : BulletPuff
 	RenderStyle Normal
 	Vspeed 0
 	DamageType "Quake3"
-	Decal PlasmaScorch
+	Decal QPlasmaScorch
 	States
 	{
 	Spawn:
@@ -91,7 +91,7 @@ Actor PPE_Q3PlasmaSpawnPuff : BulletPuff
 	RenderStyle Normal
 	Vspeed 0
 	DamageType "Quake3"
-	Decal PlasmaScorch
+	Decal QPlasmaScorch
 	States
 	{
 	Crash:
@@ -115,7 +115,7 @@ actor PPE_Q3Plasma : PPE_SlowMissileBase
 	ProjectileKickBack 120
 	Damage (5)
 	DamageType "Quake3"
-	Decal PlasmaScorch
+	Decal QPlasmaScorch
 	SeeSound ""
 	DeathSound "weapons/plasma/hit"
 	Obituary "$OB_MPROCKET"

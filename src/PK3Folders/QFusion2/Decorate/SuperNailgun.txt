@@ -33,7 +33,7 @@ Actor PPE_SuperNailgun : Plasmarifle
 	Inventory.PickupSound "items/weapon1"
 	Weapon.UpSound "weapons/switch"
 	Weapon.SelectionOrder 400
-	Weapon.SlotNumber 5
+	Weapon.SlotNumber 4
 	Weapon.AmmoType "PPE_Nails"
 	Weapon.AmmoUse 2
 	Weapon.AmmoGive 20

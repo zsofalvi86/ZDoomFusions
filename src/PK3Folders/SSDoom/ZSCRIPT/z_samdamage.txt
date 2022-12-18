@@ -8,7 +8,7 @@ Class DSS_SamDamageMod : Inventory
 			//owner.A_Print("absangle:"..absangle(owner.angle, owner.AngleTo(source)));
 			if (inflictor.GetClassName() == "DSS_ShotgunPuff")
 			{
-				if ((source.SpawnHealth()/2) + (owner.Distance3D(source)/3) < (damage * 5) -
+				if ((source.SpawnHealth()/2) + (owner.Distance3D(source)/3) < (damage * 6) -
 				absangle(owner.angle, owner.AngleTo(source)) * 6)
 				{
 					inflictor.bExtremeDeath = true;

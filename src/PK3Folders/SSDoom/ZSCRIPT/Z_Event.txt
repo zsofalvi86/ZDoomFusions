@@ -1,0 +1,14 @@
+Class PPE_SamEventHandler : EventHandler
+{	
+	override void WorldThingDied (WorldEvent e)
+	{
+		if (e.Thing && e.Thing.Target
+		&& e.Thing.bIsMonster && e.Thing.Target.GetClassName() == "DSS_SeriousPlayer")
+		{
+			if (e.Thing.GetSpawnHealth() > 1000)
+			{
+				e.Thing.Target.GiveInventory("DSS_BossQuote",1);
+			}
+		}
+	}
+}

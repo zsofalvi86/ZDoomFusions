@@ -139,7 +139,7 @@ Actor PPE_PopFake : PPE_Pop
 
 Actor PowerPentagram : PowerProtection
 {
-  DamageFactor "Normal", 0
+  DamageFactor "Normal", 1
   Inventory.Icon "QINVL0"
   ActiveSound "items/invul/absorb"
   SeeSound "items/invul/pickup"

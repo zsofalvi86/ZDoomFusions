@@ -92,6 +92,7 @@ Actor DSS_SuperShotgunSpawner : DSS_WeaponSpawnerBase replaces SuperShotgun
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",1)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",1) == 4,"Spawn4")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",1) == 3,"Spawn3")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",1) == 2,"Spawn2")
 		TNT1 A 0 A_SpawnPermanent("DSS_CoachGunSpawn")
@@ -103,6 +104,10 @@ Actor DSS_SuperShotgunSpawner : DSS_WeaponSpawnerBase replaces SuperShotgun
 		stop
 	Spawn3:
 		TNT1 A 0 A_SpawnPermanent("DSS_SniperRifleSpawn")
+		TNT1 A -1
+		stop
+	Spawn4:
+		TNT1 A 0 A_SpawnPermanent("DSS_DevastatorSpawn")
 		TNT1 A -1
 		stop
 	Drop:
@@ -193,23 +198,13 @@ Actor DSS_PlasmaGunSpawner : DSS_WeaponSpawnerBase replaces PlasmaRifle
 		TNT1 A -1
 		stop
 	Spawn2:
-		TNT1 A 0 A_SpawnPermanent("DSS_DevastatorSpawn")
+		TNT1 A 0 A_SpawnPermanent("DSS_GhostbusterSpawn")
 		TNT1 A -1
 		stop
 	}
 }
 
-Actor DSS_RailGunSpawner : DSS_WeaponSpawnerBase 5012//replaces Railgun
-{
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 0 A_SpawnPermanent("DSS_DevastatorSpawn")
-		TNT1 A -1
-		stop
-	}
-}
+Actor DSS_RailGunSpawner : DSS_PlasmaGunSpawner 5012{}//replaces Railgun
 
 Actor DSS_BFGSpawner : DSS_WeaponSpawnerBase replaces BFG9000
 {
@@ -436,8 +431,28 @@ Actor DSS_LaserGunSpawn : DSS_PGSpawn
 	}
 }
 
+Actor DSS_GhostbusterSpawn : DSS_PGSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnPermanent("DSS_LaserGun")
+        TNT1 A -1
+		stop
+	PickUp1:
+		TNT1 A 0 A_JumpIfInventory("DSS_HasLaserGun",1,"PickUp2")
+		TNT1 A 0 A_GiveInventory("DSS_HasLaserGun")
+		TNT1 A 100 A_PlaySound("q/laser/1",5)
+		stop
+	PickUp2:
+		TNT1 A 100 A_PlaySound("q/laser/2",5)
+		stop
+	}
+}
+
 Actor DSS_HasDevastator : DSS_HasWeapon {}
-Actor DSS_DevastatorSpawn : DSS_PGSpawn
+Actor DSS_DevastatorSpawn : DSS_ShelSpawn
 {
 	States
 	{

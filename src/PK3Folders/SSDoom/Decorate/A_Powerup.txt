@@ -1,8 +1,9 @@
-Actor PPE_SeriousSpeed : PowerupGiver replaces BlurSphere
+Actor PPE_SeriousSpeed : DSS_SamPowerupGiver replaces BlurSphere
 {
 	+INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
 	+COUNTITEM
+	DSS_SamPowerupGiver.Quote "q/speed/1"
 	Inventory.PickupSound "items/ssspeed"
 	Inventory.PickupMessage "$GOTSSPEED"
 	powerup.duration -20
@@ -23,13 +24,14 @@ ACTOR PowerSpeedSS : PowerSpeed
   +POWERSPEED.NOTRAIL
 }
 
-Actor PPE_SeriousDamage : PowerupGiver replaces Berserk
+Actor PPE_SeriousDamage : DSS_SamPowerupGiver replaces Berserk
 {
 	Inventory.PickupSound "items/sspower"
 	Inventory.PickupMessage "$GOTSSDAMAGE"
 	powerup.duration -40
 	Powerup.Color 255, 0, 0, 0.125
 	powerup.type PowerSeriousDamage
+	DSS_SamPowerupGiver.Quote "q/damage/1"
 	+INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
 	+COUNTITEM
@@ -50,11 +52,12 @@ Actor PowerSeriousDamage : PowerDamage
   SeeSound "items/sspower"
 }
 
-Actor PPE_SeriousInvulnerability : PowerupGiver replaces InvulnerabilitySphere
+Actor PPE_SeriousInvulnerability : DSS_SamPowerupGiver replaces InvulnerabilitySphere
 {
 	+INVENTORY.AUTOACTIVATE
 	+INVENTORY.ALWAYSPICKUP
 	+COUNTITEM
+	DSS_SamPowerupGiver.Quote "q/invul/1"
 	Inventory.PickupSound "items/sspower"
 	Inventory.PickupMessage "$GOTSSPEED"
 	powerup.duration -30

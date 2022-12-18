@@ -1,0 +1,192 @@
+Actor PPE_GuardianHead : PlasmaRifle
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_HEAD"
+	Tag "$TAG_PPE_HEAD"
+	Weapon.SelectionOrder 1600
+	Weapon.SlotNumber 9
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 40
+	Weapon.AmmoType "PPE_MagicAmmo"
+	Weapon.UpSound "weapons/head/up"
+	Inventory.PickupSound "q/bigweapon"
+	Weapon.KickBack 100
+	States
+	{
+	Ready:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 2, "ReadyC")
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 1, "ReadyB")
+	ReadyA:
+		SGHG A 1 A_WeaponReady
+		Loop
+	ReadyB:
+		SGHG B 1 A_WeaponReady
+		Loop
+	ReadyC:
+		SGHG C 1 A_WeaponReady
+		Loop
+  	Deselect:
+    	SGHG A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	SGHG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 2, "FireWave")
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 1, "FireCircle")
+	FireBalls:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/head/fire")
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadBall",0,1,0,2)
+		SGHG AAA 1
+		TNT1 A 0 A_ReFire
+		Goto Ready
+	FireCircle:
+		TNT1 A 0 A_JumpIfinventory("PPE_MagicAmmo",40,1)
+		Goto FireBalls
+		TNT1 A 0 A_TakeInventory("PPE_MagicAmmo",39,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/head/fire")
+		TNT1 A 0 A_GunFlash
+		SGHG BBB 1
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",0,1,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",45,0,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",90,0,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",135,0,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",180,0,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",225,0,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",270,0,0,4,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadCircleFireball",315,0,0,4,1,0)
+		SGHG B 32
+		TNT1 A 0 A_ReFire
+		Goto ReadyB
+	FireWave:
+		TNT1 A 0 A_JumpIfinventory("PPE_MagicAmmo",40,1)
+		Goto FireBalls
+		TNT1 A 0 A_TakeInventory("PPE_MagicAmmo",39,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/head/fire")
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadWaveBall",0,1,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadWaveBall",0,0,-24,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_GuardianHeadWaveBall",0,0,24,2)
+		SGHG CCC 1
+		SGHG C 32
+		TNT1 A 0 A_ReFire
+		Goto ReadyC
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 2, "User1")
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 1, "User3")
+		Goto User2
+	User1:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 1, 1)
+		Goto Ready
+		TNT1 A 0 A_SetInventory("PPE_HeadMode",0)
+		TNT1 A 0 A_PlaySound("weapons/head/switch")
+		SGHG A 6 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
+		Goto Ready
+	User2:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 1, "ReadyB")
+		TNT1 A 0 A_SetInventory("PPE_HeadMode",1)
+		TNT1 A 0 A_PlaySound("weapons/head/switch")
+		SGHG B 6 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
+		Goto ReadyB
+	User3:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeadMode", 2, "ReadyC")
+		TNT1 A 0 A_SetInventory("PPE_HeadMode",2)
+		TNT1 A 0 A_PlaySound("weapons/head/switch")
+		SGHG C 6 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
+		Goto ReadyC
+  	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 A 1 A_SetPitch(pitch-0.05)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.05)
+		Goto LightDone
+  	Spawn:
+		SGHP A -1
+		Stop
+	}
+}
+
+Actor PPE_GuardianHeadCircleFireball : PPE_GuardianHeadFireCircle
+{
+	var int user_countdown;
+	Damage (200)
+	ProjectileKickBack 600
+	+NOEXTREMEDEATH
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SetUserVar("user_countdown",60)
+	Loopy:
+		TNT1 A 0 A_JumpIf(user_countdown==0,"Death")
+		//TNT1 A 0 A_SpawnItemEx("PPE_UnmakerFireballHitter",0,0,0,0,0,0,0,SXF_TRANSFERPOINTERS|SXF_SETMASTER)
+		GHFB ABCD 1 bright 
+		{
+			A_Warp(AAPTR_TARGET, 96, 0, 32, 6, WARPF_NOCHECKPOSITION|WARPF_USECALLERANGLE|WARPF_COPYINTERPOLATION);
+			A_TraceFireball();
+		}
+		TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+		loop
+	Death:
+		GHFB ABCD 1 bright
+		stop
+	}
+}
+
+Actor PPE_GuardianHeadWaveBall : FastProjectile
+{
+	+BLOODLESSIMPACT
+	+PAINLESS
+	+GETOWNER
+	+RIPPER
+	SeeSound ""
+	DeathSound ""
+	Radius 4
+	Height 9
+	Speed 64
+	RenderStyle "Normal"
+	Damage (0)
+	States
+	{
+	Spawn:
+		GHFB CDA 1 bright
+	Loopy:
+		TNT1 A 0 A_PlaySound("weapons/head/napalm")
+		GHFB BCCDA 1 bright A_SpawnProjectile("PPE_GuardianHeadWaveSplosion",0,0,0,CMF_TRACKOWNER|CMF_AIMDIRECTION)
+		Loop
+	Death:
+		TNT1 A 0 A_PlaySound("weapons/head/napalm")
+		TNT1 A 0 A_SpawnProjectile("PPE_GuardianHeadWaveSplosion",0,0,0,CMF_TRACKOWNER|CMF_AIMDIRECTION)
+		Stop
+	}
+}
+
+Actor PPE_GuardianHeadWaveSplosion : FastProjectile
+{
+	+FLOORHUGGER
+	+EXTREMEDEATH
+	+FORCERADIUSDMG
+	+OLDRADIUSDMG
+	Projectile
+	Speed 0
+	ProjectileKickBack 5
+	States
+	{
+	Spawn:
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_Explode(96,96,0)
+		DKXP ABCDEFGHIJK 2 bright
+		Stop
+	}
+}
+
+Actor PPE_HeadMode : Inventory
+{
+	Inventory.MaxAmount 2
+}

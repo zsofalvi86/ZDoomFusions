@@ -103,7 +103,7 @@ ACTOR PPE_ShrinkerMissile : PPE_ShrinkerMissileBase//PPE_SlowMissileBase //Morph
 	Speed 22
 	SeeSound ""
 	DeathSound "Weapons/Shrinker/Impact"
-	Damage (200)
+	Damage (250)
 	-ROCKETTRAIL
 	+NOBLOOD
 	States

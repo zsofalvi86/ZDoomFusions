@@ -197,6 +197,7 @@ Actor PPE_CasingSpot
 	+NOBLOCKMAP
 	+MOVEWITHSECTOR
 	+NOTONAUTOMAP 
+	-NOGRAVITY
 	States
 	{
 	Spawn:

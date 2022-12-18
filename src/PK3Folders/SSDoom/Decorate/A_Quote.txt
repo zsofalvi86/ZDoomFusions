@@ -1,0 +1,26 @@
+Actor DSS_Quote : CustomInventory
+{
+	+DONTGIB +NOTONAUTOMAP 
+	+INVENTORY.QUIET
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	States
+	{
+	Spawn:
+        TNT1 A -1
+		stop
+	PickUp:
+		TNT1 A 100 A_PlaySound("q/chainsaw/1",5)
+		stop
+	}
+}
+
+Actor DSS_BossQuote : DSS_Quote
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("q/boss",5)
+		stop
+	}
+}

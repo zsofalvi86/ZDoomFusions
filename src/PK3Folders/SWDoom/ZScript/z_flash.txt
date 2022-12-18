@@ -1,0 +1,63 @@
+Class PPE_Flasher : BFGBall
+{
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		//console.printf("%s%p", "tt:", target.Target);
+		self.master = target;
+		if (target != self.target && CheckIfInTargetLOS(85,JLOSF_CHECKMASTER|JLOSF_DEADNOJUMP,320))
+		{
+			target.A_SetBlend("ff ff ff",1.0,80);
+			if(target.bIsMonster)
+			{
+				target.TriggerPainChance('Normal',true);
+				target.GiveInventory("PPE_PainTrain",1);
+			}
+		}
+		else
+		{
+			target.A_SetBlend("ff ff ff",0.6,65);
+			if(target.bIsMonster) {target.TriggerPainChance('Normal',true);}
+		}
+		return 0;
+	}
+	
+	States
+	{
+	Spawn:
+	Death:
+		TNT1 A 0;
+		TNT1 A 0 A_Explode((10),99999,1,0,99999);
+		Stop;
+	}
+	
+	Default {damage 0; deathsound "";}
+}
+
+Class PPE_PainTrain : Powerup
+{
+	override void DoEffect()
+	{
+		owner.TriggerPainChance('Normal',false);
+	}
+	
+	Default
+	{
+		Powerup.Duration 35;
+	}
+}
+
+Class PPE_CaltropPainTrain : PPE_PainTrain
+{
+	override void DoEffect()
+	{
+		if (!owner.player) 
+		{
+			owner.TriggerPainChance('Normal',false);
+		}
+	}
+	
+	Default
+	{
+		Powerup.Duration 30;
+	}
+}

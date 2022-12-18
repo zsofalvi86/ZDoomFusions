@@ -1,0 +1,58 @@
+Actor PPE_FortuneCookie : CustomInventory replaces SoulSphere
+{
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	+COUNTITEM
+	Inventory.PickupSound "items/gong"
+	Inventory.PickupMessage "$GOTCOOKIE"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",50)
+		COOK A -1
+		Stop
+	PickUp:
+		TNT1 A 0 A_GiveInventory("PPE_SWHealthBonus",50)
+		TNT1 A 0 A_Jump(256,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22)
+		TNT1 A 0 A_Print("Fortune Say: Sorry, you no win this time, try again.") stop
+		TNT1 A 0 A_Print("Fortune Say: Baseball wrong. Man with 4 balls cannot walk.") stop
+		TNT1 A 0 A_Print("Fortune Say: No man is island, except Lo Wang.") stop
+		TNT1 A 0 A_Print("Fortune Say: You should kill all business associates.") stop
+		TNT1 A 0 A_Print("Fortune Say: You should not scratch yourself there.") stop
+		TNT1 A 0 A_Print("Fortune Say: Man who stand on toilet, high on pot.") stop
+		TNT1 A 0 A_Print("Fortune Say: Man who buy drowned cat pay for wet pussy.") stop
+		TNT1 A 0 A_Print("Fortune Say: Don't you know you the scum of society?!") stop
+		TNT1 A 0 A_Print("Fortune Say: Man trapped in pantry has ass in jam.") stop
+		TNT1 A 0 A_Print("Fortune Say: You never going to score.") stop
+		TNT1 A 0 A_Print("Fortune Say: You try harder get along. Be a nice man.") stop
+		TNT1 A 0 A_Print("Fortune Say: 26-31-43-82-16-29") stop
+		TNT1 A 0 A_Print("Fortune Say: Your chi attracts many chicks.") stop
+		TNT1 A 0 A_Print("Fortune Say: Man who fart in church sit in own pew.") stop
+		TNT1 A 0 A_Print("Fortune Say: It is better to have loved and lost than to have loved and got syphilis") stop
+		TNT1 A 0 A_Print("Fortune Say: There is much death in future.") stop
+		TNT1 A 0 A_Print("Fortune Say: (c)1997, 3DRealms fortune cookie company.") stop
+		TNT1 A 0 A_Print("Fortune Say: Courtesy is contagious. So is Gonorrhea.") stop
+		TNT1 A 0 A_Print("Fortune Say: Having sex is like playing bridge, If you don't have a good partner, you better have a good hand.") stop
+		TNT1 A 0 A_Print("Fortune Say: Laugh and the world laughs with you. Cry and the world laughs at you.") stop
+		TNT1 A 0 A_Print("Fortune Say: No one ever died from a broken heart. But a heart sliced from their chest while they looked on screaming? Not gonna lie. That's killed a couple people.") stop
+		TNT1 A 0 A_Print("Fortune Say: ERROR 404 - FORTUNE NOT FOUND") stop
+	}
+}
+
+ACTOR PPE_MegaCookie : Megasphere replaces Megasphere
+{
+	Inventory.PickupMessage "$GOTCOOKIE2"
+	Inventory.PickupSound "items/gong"
+	States
+	{
+	Spawn:
+		COOK A -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("PPE_SWKevlarArmor", 1)
+		TNT1 A 0 A_GiveInventory("PPE_FortuneCookie", 1)
+		TNT1 A 0 A_GiveInventory("PPE_SWHealthBonus",150)
+		Stop
+	}
+}

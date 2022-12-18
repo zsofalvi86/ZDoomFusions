@@ -188,7 +188,7 @@ ACTOR PPE_TeleportSpark : PPE_IteratorEffect replaces TeleportFog
 		{
 			for (A_SetUserVar(user_i, 0); user_i < 300; A_SetUserVar(user_i, user_i + 1))
 			{
-				A_SpawnParticle(green,SPF_FULLBRIGHT|SPF_RELATIVE,22,7,FRandom(0,360),0,0,40,Random(1,20),0,Random(-20,20));
+				A_SpawnParticle(green,SPF_FULLBRIGHT|SPF_RELATIVE,16,7,FRandom(0,360),0,0,40,Random(1,17),0,Random(-17,17));
 			}
 		}
 		TFOG ABABCDEFGHIJ 3 Bright

@@ -1,0 +1,5 @@
+GameInfo
+{
+   PlayerClasses = "PPE_LoWangPlayer"
+   AddEventHandlers = "PPE_SWEventHandler"
+}

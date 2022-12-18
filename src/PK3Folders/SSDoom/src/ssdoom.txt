@@ -56,7 +56,7 @@ script "SetSpawn" (int spawnTag)
 	}
 	
 	if(SG>4){SG=2;}
-	if(SSG>3){SSG=1;}
+	if(SSG>4){SSG=1;}
 	if(CG>2){CG=2;}
 	if(RL>2){RL=1;}
 	if(PG>2){PG=1;}
@@ -72,9 +72,9 @@ script "SetSpawn" (int spawnTag)
 	
 	if(SG==1 && CS==2) {SG=2;CS=3;} // avoid collission
 	if(SG==3 && SSG==1) {SG=2;SSG=2;} // avoid collission
-	if(SG==4 && SSG==3) {SG=2;SSG=1;} // avoid collission
+	if(SG==4 && SSG==3) {SG=2;SSG=4;} // avoid collission
 	if(SSG==2 && CS==3) {SSG=3;CS=5;} // avoid collission
-	if(SSG==3 && CS==4) {SSG=1;CS=5;} // avoid collission
+	if(SSG==3 && CS==4) {SSG=4;CS=5;} // avoid collission
 	if(CG==2 && CS==5) {CG=1;CS=1;} // avoid collission
 }
 

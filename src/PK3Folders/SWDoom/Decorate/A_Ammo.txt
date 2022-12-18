@@ -1,0 +1,125 @@
+Actor PPE_ShurikenAmmo : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 99
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 99
+  Inventory.Icon "SHRMA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Bullets : Ammo
+{
+  Inventory.Amount 10
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 10
+  Ammo.BackpackMaxAmount 400
+  Inventory.Icon "BULAA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_RailgunRods : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 20
+  Ammo.BackpackAmount 2
+  Ammo.BackpackMaxAmount 40
+  Inventory.Icon "RRDAA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Shells : Ammo
+{
+  Inventory.Amount 4
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 4
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "SHLSA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_GrenadeShells : Ammo
+{
+  Inventory.Amount 2
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "GRNAA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Rockets : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "RTAMA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_StickyBombs : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 20
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 40
+  Inventory.Icon "SBAMA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_MagicAmmo : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 600
+  Inventory.Icon "IMGCA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Nukes : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 1
+  Ammo.BackpackAmount 0
+  Ammo.BackpackMaxAmount 1
+  Inventory.Icon "SNUKA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}

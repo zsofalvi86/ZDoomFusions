@@ -1,4 +1,4 @@
-Class PPE_Q2PlasmaBeamBase : Plasmarifle
+Class PPE_BeamWeaponBase : Plasmarifle
 {
 	int phase;
 	
@@ -10,9 +10,9 @@ Class PPE_Q2PlasmaBeamBase : Plasmarifle
 		else { invoker.phase+=ringspeed; }
 		
 		FLineTraceData trc;
-		if (!LineTrace(angle,9000,pitch,0,hgt,0,0,trc)) { return; }
+		LineTrace(angle,9000,pitch,0,hgt,0,0,trc);
 		
-		//A_FireBullets(0,0,1,(0),"PPE_PainlessPuff",FBF_NORANDOM,9000,"none",0);
+		LineAttack(angle,9000,pitch,0,"Normal","PPE_PainlessPuff",0);
 		let bobdelta = invoker.owner.player.viewz - invoker.owner.pos.Z - invoker.owner.player.viewheight;
 		
 		for (int i=step*3; i<trc.distance; i+=step)
@@ -39,10 +39,31 @@ Class PPE_Q2PlasmaBeamBase : Plasmarifle
 			beamp2.bRollSprite = true;
 			beamp2.angle = angle+90;
 			beamp2.roll = -pitch-90;
+			
 				//TNT1 A 0 A_SetAngle(angle+90)
 				//TNT1 A 0 A_SetRoll(-pitch-90)
 			//}
 			//else {break;}
+		}
+	}
+	
+	Action void A_LightningBeam(int range)
+	{
+		int hgt = 32; int step = 24;
+		
+		FLineTraceData trc;
+		LineTrace(angle,range,pitch,0,hgt,0,0,trc);
+		LineAttack(angle,range,pitch,0,"Normal","PPE_PainlessPuff",0);
+		
+		//A_FireBullets(0,0,1,(0),"PPE_PainlessPuff",FBF_NORANDOM,9000,"none",0);
+		let bobdelta = invoker.owner.player.viewz - invoker.owner.pos.Z - invoker.owner.player.viewheight;
+		
+		for (int i=step*3; i<trc.distance; i+=step)
+		{
+			let poswithheight = Vec3Offset(0,0,hgt + bobdelta);
+			let ppos = poswithheight + i * trc.HitDir;//Vec3Angle(i,angle,((trc.hitlocation.z-(pos.z+hgt))*(i/trc.distance))+hgt);
+			
+			Spawn("PPE_LightningTrail",ppos);
 		}
 	}
 }

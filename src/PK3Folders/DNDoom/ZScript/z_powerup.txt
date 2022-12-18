@@ -144,7 +144,7 @@ Class PowerGoggles : PowerLightAmp
 Class PPE_DukeJetpackPers : Inventory
 {
 	bool inuse; double useTics;
-	const ticPerInv = (30 * 35) / 100;
+	const ticPerInv = (60 * 35) / 100;
 	
 	override bool Use(bool pickup)
 	{
