@@ -1,0 +1,97 @@
+Actor PPE_Bullets : Ammo
+{
+  Inventory.Amount 10
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 5
+  Ammo.BackpackMaxAmount 400
+  Inventory.Icon "IBULA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Nails : Ammo
+{
+  Inventory.Amount 10
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 10
+  Ammo.BackpackMaxAmount 400
+  Inventory.Icon "INALA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Shells : Ammo
+{
+  Inventory.Amount 8
+  Inventory.MaxAmount 100
+  Ammo.BackpackAmount 4
+  Ammo.BackpackMaxAmount 200
+  Inventory.Icon "ISHLA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Slugs : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "ISLGA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Rockets : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "IRKTA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Cells : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 10
+  Ammo.BackpackMaxAmount 600
+  Inventory.Icon "ICELA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Nukes : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 30
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 60
+  Inventory.Icon "INUKA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}

@@ -1,0 +1,83 @@
+Actor PPE_Railgun : PlasmaRifle
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_RG"
+	Tag "$TAG_PPE_RG"
+	Weapon.SelectionOrder 1400
+	Weapon.SlotNumber 8
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 4
+	Weapon.AmmoType "PPE_RailgunRods"
+	Weapon.UpSound "weapons/boltup"
+	Inventory.PickupSound "q/railgun"
+	Weapon.KickBack 100
+	States
+	{
+	Ready:
+		SRGG BBCCDDEEAAAAA 1 bright A_WeaponReady
+		Loop
+  	Deselect:
+    	SRGG A 1 bright A_Lower(12)
+    	Loop
+  	Select:
+    	SRGG A 1 bright A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_Jump(208,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		SRGG FGH 1 bright
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/railgun/fire")
+		TNT1 A 0 A_RailAttack((150),0,1,"none","none",RGF_SILENT,0,"None",0,0,3500,0,96,0,"PPE_SWRailRing",0)
+		TNT1 A 0 A_GunFlash
+		SRGG IIJJKKEE 1 bright
+		SRGG FGHE 2 bright
+		SRGG A 23 bright
+		TNT1 A 0 A_ReFire
+		Goto Ready
+  	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.5)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+1.0)
+		Goto LightDone
+  	Spawn:
+		SRGP A -1
+		Stop
+	}
+}
+
+Actor PPE_SWRailRing : PPE_TrailBase
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIfCloser(64,"Despawn")
+    	SRTR ABCDEFGHIJKL 2 bright
+		Stop
+	Despawn:
+		TNT1 A 0
+    	Stop
+	}
+}
+
+Actor PPE_SWRailPuff : BulletPuff
+{
+	+ALWAYSPUFF
+	-ALLOWPARTICLES
+	RenderStyle Normal
+	VSpeed 0
+	States
+	{
+	Crash:
+		TNT1 A 0
+		BMYP ABCDEF 2 bright
+		Stop
+	Spawn:
+	Melee:
+		TNT1 A 0
+		Stop
+  }
+}

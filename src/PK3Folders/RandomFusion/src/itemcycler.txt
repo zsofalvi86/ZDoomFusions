@@ -1,0 +1,142 @@
+#library "itemcycler"
+#include "zcommon.acs"
+
+int players;
+
+script "startup" ENTER
+{
+	Thing_ChangeTID(0, 6000 + PlayerNumber());
+	players++;
+}
+
+global int 1:level;
+global int 2:SG;
+global int 3:SSG;
+global int 4:CG;
+global int 5:RL;
+global int 6:PG;
+global int 7:BFG;
+global int 8:CS;
+global int 9:BER;
+global int 10:POW;
+global int 11:BPK;
+global int 12:MEGA;
+global int 13:HP;
+global int 14:ALT;
+global int 15:CGD;
+
+script "map exit" UNLOADING
+{
+	level += 1;
+	For(int i=0;i<players;i++)
+	{
+		If (GetActorProperty(6000+i, APROP_HEALTH) <= 0) // any player dead, reset the levels
+		{
+			SG=0; SSG=0; CG=0; RL=0; PG=0; BFG=0; BPK=0; CGD=0;
+			level=1;
+			break;
+		}
+	}
+}
+
+script "GetLevelNum" (void)
+{
+	SetResultValue(level);
+	Print(i:level); // For debug purposes, it doesn't work on inventory anyway
+}
+
+script "SetSpawn" (int spawnTag)
+{
+	switch(spawnTag)
+	{
+		case 0:SG++;break;
+		case 1:SSG++;break;
+		case 2:CG++;break;
+		case 3:RL++;break;
+		case 4:PG++;break;
+		case 5:BFG++;break;
+		case 6:CS++;break;
+		case 7:ALT++;break;
+		case 9:BER++;break;
+		case 10:POW++;break;
+		case 11:BPK++;break;
+		case 12:MEGA++;break;
+		case 13:HP++;break;
+	}
+	
+	if(SG>3){SG=2;}
+	if(SSG>3){SSG=1;}
+	if(CG>4){CG=3;}
+	if(RL>2){RL=1;}
+	if(PG>2){PG=1;}
+	if(BFG>2){BFG=1;}
+	if(CS>2){CS=1;}
+	if(BER>2){BER=1;}
+	if(POW>3){POW=1;}
+	if(BPK>2){BPK=1;}
+	if(MEGA>2){MEGA=1;}
+	if(HP>6){HP=1;}
+	if(ALT>1){ALT=0;}
+	
+	if(CG==3 && RL==0 && PG==0) {CG=1;} // limit cg spawns
+	if(CG==4 && RL==0 && PG==0) {CG=2;} // limit cg spawns
+	if(SG==2 && (RL==0 || PG==0)) {SG=1;} // limit sg spawns
+	if(SG==3 && (RL==0 || PG==0)) {SG=1;} // limit sg spawns
+	if(SSG==2 && (RL==0 || PG==0)) {SSG=1;} // limit ssg spawns
+	
+	if(CGD==0 && level>4 && (PG==1 || CG==3)) {CGD=1;} // chaingun drop
+	if(CGD==1 && level>5 && (PG==2 || CG==4)) {CGD=2;} // chaingun drop
+	
+	if(spawnTag==0)//sg
+	{
+		if(SG==2 && SSG==2) {SG=3;} // avoid collission
+		if(SG==2 && SSG==3) {SG=1;} // avoid collission
+		if(SG==3 && SSG==1) {SG=2;} // avoid collission
+	}
+	if(spawnTag==1)//ssg
+	{
+		if(SG==2 && SSG==2) {SSG=1;} // avoid collission
+		if(SG==2 && SSG==3) {SSG=1;} // avoid collission
+		if(SG==3 && SSG==1) {SSG=3;} // avoid collission
+	}
+	if(spawnTag==2)//cg
+	{
+		if(CG<3 && SSG>0 && (RL>0 || PG>0)) {CG=3;} // skip mg/ng if late
+	}
+}
+
+script "GetSpawn" (int spawnTag) // call this with correct values, this checks nothing!
+{
+	int ret = 0;
+	switch(spawnTag)
+	{
+		case 0:ret=SG;break;
+		case 1:ret=SSG;break;
+		case 2:ret=CG;break;
+		case 3:ret=RL;break;
+		case 4:ret=PG;break;
+		case 5:ret=BFG;break;
+		case 6:ret=CS;break;
+		case 7:ret=CGD+ALT+1;break;
+		case 9:ret=BER;break;
+		case 10:ret=POW;break;
+		case 11:ret=BPK;break;
+		case 12:ret=MEGA;break;
+		case 13:ret=HP;break;
+	}
+	
+	SetResultValue(ret);
+}
+
+script "SetBandolierAmmo" (void)
+{
+	if (GetAmmoCapacity("PPE_Bullets") < 800)
+	{
+		SetAmmoCapacity("PPE_Bullets",600);
+		SetAmmoCapacity("PPE_Shells",75);
+		SetAmmoCapacity("PPE_Slugs",75);
+		SetAmmoCapacity("PPE_MagSlugs",75);
+		SetAmmoCapacity("PPE_Cells",450);
+		SetAmmoCapacity("PPE_Flechettes",300);
+	}
+}

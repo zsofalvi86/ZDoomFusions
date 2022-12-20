@@ -1,0 +1,111 @@
+Actor PPE_RipperHeart : PPE_WeaponBase
+{
+	+WEAPON.NOAUTOAIM
+	Inventory.Pickupmessage "$GOT_PPE_HRT"
+	Tag "$TAG_PPE_HRT"
+	Weapon.SelectionOrder 1600
+	Weapon.SlotNumber 0
+	Weapon.AmmoUse 100
+	Weapon.AmmoGive 40
+	Weapon.AmmoType "PPE_MagicAmmo"
+	Weapon.UpSound "weapons/sw/heart/up"
+	Inventory.PickupSound "q/bigweapon"
+	States
+	{
+	Ready:
+		TNT1 A 0 A_PlaySound("weapons/sw/heart/idle")
+		SHRT AAAAAAABBBBBBB 1 A_WeaponReady
+		Loop
+  	Deselect:
+    	SHRT A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	SHRT A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/heart/fire")
+		TNT1 A 0 A_KillChildren
+		TNT1 A 0 
+		{
+			if (A_SpawnItemEx("PPE_HeartClone",48,0,0,0,0,0,0,SXF_TRANSFERTRANSLATION|SXF_SETMASTER))
+			{
+				return State("");
+			}
+			return state("SkipSpend");
+		}
+		TNT1 A 0 A_FireCustomMissile("PPE_BloodChunkHeart",Random(-45,45),1,0,2,0,Random(5,12))
+	SkipSpend:
+		TNT1 AAA 0 A_FireCustomMissile("PPE_BloodChunkHeart",Random(-45,45),0,0,2,0,Random(5,12))
+		SHRT CCDDDCC 1
+		SHRT AAAA 1
+		TNT1 A 0 A_PlaySound("weapons/sw/heart/idle")
+		SHRT AAAAAAABBBBBBB 1
+		TNT1 A 0 A_ReFire
+		Goto Ready
+  	Spawn:
+		TNT1 A 0 A_PlaySound("weapons/sw/heart/idle")
+		SHRP AAAAAAABBBBBBB 1
+		Loop
+	}
+}
+
+Actor PPE_BloodChunkHeart : PPE_BloodChunk 
+{ 
+	Speed 18
+	States
+	{ Spawn: TNT1 A 0 
+	Goto SpawnLoop}
+}
+
+ACTOR PPE_HeartClone
+{
+  var int user_countdown;
+  Health 400
+  Radius 20
+  Height 56
+  Mass 150
+  Speed 8
+  PainChance 32
+  Monster
+  +FLOORCLIP +MISSILEMORE +MISSILEEVENMORE +FRIENDLY
+  SeeSound "grunt/sight"
+  AttackSound "weapons/railgun/fire"
+  PainSound "grunt/pain"
+  DeathSound "grunt/death"
+  ActiveSound "grunt/active"
+  HitObituary "$OB_IMPHIT"
+  Obituary "$OB_IMP"
+  RenderStyle "Translucent"
+  Alpha 0.75
+  States
+  {
+  Spawn:
+    PLAY A 1 A_Look
+	Loop
+  See:
+	TNT1 A 0 A_SetUserVar("user_countdown",700)
+	TNT1 A 0 A_JumpIf(user_countdown<=0,"PreDeath")
+    PLAY AAAABBBBCCCCDDDD 1 {A_Chase; A_SetUserVar("user_countdown",user_countdown-1);}
+    Loop
+  Melee:
+  Missile:
+    PLAY E 10 {A_FaceTarget;A_SetUserVar("user_countdown",user_countdown-24);}
+    PLAY F 6 bright A_CustomRailgun((125),0,"none","none",0,1,0,"PPE_SWRailPuff",0,0,3500,0,96,0,"PPE_SWRailRing",0)
+    Goto See
+  Pain:
+	PLAY G 4 
+	PLAY G 4 A_Pain
+    Goto See
+  PreDeath:
+	TNT1 A 0 A_Die
+  Death:
+  XDeath:
+	PLAY O 5
+	PLAY P 5 A_XScream
+	PLAY Q 5 A_NoBlocking
+	PLAY RSTUV 5
+	PLAY W -1
+	Stop
+  }
+}

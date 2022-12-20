@@ -1,0 +1,38 @@
+Class DSS_BeamWeaponBase : Plasmarifle
+{	
+	Action void A_LightningBeam(int range)
+	{
+		int hgt = 32; int step = 24;
+		
+		FLineTraceData trc;
+		LineTrace(angle,range,pitch,0,hgt,0,0,trc);
+		LineAttack(angle,range,pitch,0,"Normal","DSS_PainlessPuff",0);
+		
+		//A_FireBullets(0,0,1,(0),"PPE_PainlessPuff",FBF_NORANDOM,9000,"none",0);
+		let bobdelta = invoker.owner.player.viewz - invoker.owner.pos.Z - invoker.owner.player.viewheight;
+		
+		for (int i=step*3; i<trc.distance; i+=step)
+		{
+			let poswithheight = Vec3Offset(0,0,hgt + bobdelta);
+			let ppos = poswithheight + i * trc.HitDir;//Vec3Angle(i,angle,((trc.hitlocation.z-(pos.z+hgt))*(i/trc.distance))+hgt);
+			
+			Spawn("DSS_GhostBusterTrail",ppos);
+		}
+	}
+}
+
+Class DSS_PainlessPuff : BulletPuff
+{
+	Default{
+	-ALLOWPARTICLES;
+	+PAINLESS;
+	+BLOODLESSIMPACT;
+	}
+	States
+	{
+	Spawn:
+	Melee:
+		TNT1 A 0;
+		Stop;
+	}
+}

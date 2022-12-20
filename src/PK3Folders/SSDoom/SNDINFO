@@ -59,6 +59,11 @@ weapons/flame/start		ssftst
 weapons/flame/stop		ssftx
 weapons/flame/burn		ssftburn
 
+//Ghostbuster
+weapons/beam/loop		ssgbbl
+weapons/beam/start		ssgbbs
+weapons/beam/stop		ssgbbx
+
 //Sniper Rifle
 weapons/sssniperf		sssnipf
 weapons/sssniperz		sssnipz

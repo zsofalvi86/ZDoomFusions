@@ -109,10 +109,11 @@ Class DSS_SeriousPlayer : DoomPlayer
 		Player.WeaponSlot 3, "DSS_Shotgun", "DSS_CoachGun";
 		Player.WeaponSlot 4, "DSS_TommyGun", "DSS_MiniGun";
 		Player.WeaponSlot 5, "DSS_GrenadeLauncher", "DSS_RocketLauncher";
-		Player.WeaponSlot 6, "DSS_LaserGun", "DSS_Flamethrower";
+		Player.WeaponSlot 6, "DSS_Flamethrower";
 		Player.WeaponSlot 7, "DSS_SniperRifle";
-		Player.WeaponSlot 8, "DSS_Devastator", "DSS_Cannon";
-		Player.WeaponSlot 9, "DSS_SeriousBomb";
+		Player.WeaponSlot 8, "DSS_Ghostbuster", "DSS_LaserGun";
+		Player.WeaponSlot 9, "DSS_Devastator", "DSS_Cannon";
+		Player.WeaponSlot 0, "DSS_SeriousBomb";
 		
 		DamageFactor "SeriousKnife", 1.0;
 		DamageFactor "SeriousSaw", 0.85;

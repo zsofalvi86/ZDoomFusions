@@ -1,0 +1,105 @@
+ACTOR PPE_QuakeFusionPlayer : DoomPlayer
+{	
+	Speed 1.0
+	Mass 100
+	PainChance 255
+	Species Player
+	Player.StartItem "PPE_Shells", 25
+	Player.StartItem "PPE_Shotgun"
+	Player.DisplayName "Grunt"
+	Player.SoundClass PPE_QuakePlayer
+	
+	Player.WeaponSlot 1, PPE_Gauntlet, PPE_Chainsaw
+	Player.WeaponSlot 2, PPE_Machinegun, PPE_Machinegun_P, PPE_Chaingun, PPE_Chaingun_P
+	Player.WeaponSlot 3, PPE_Shotgun, PPE_Shotgun_P, PPE_SuperShotgun, PPE_SuperShotgun_P
+	Player.WeaponSlot 4, PPE_Nailgun, PPE_Nailgun_P, PPE_SuperNailgun, PPE_SuperNailgun_P
+	Player.WeaponSlot 5, PPE_GrenadeLauncher, PPE_GrenadeLauncher_P, PPE_RocketLauncher, PPE_RocketLauncher_P
+	Player.WeaponSlot 6, PPE_IonRipper, PPE_IonRipper_P, PPE_HyperBlaster, PPE_HyperBlaster_P
+	Player.WeaponSlot 7, PPE_Phalanx, PPE_Phalanx_P, PPE_Railgun, PPE_Railgun_P
+	Player.WeaponSlot 8, PPE_PlasmaGun, PPE_PlasmaGun_P, PPE_Thunderbolt, PPE_Thunderbolt_P
+	Player.WeaponSlot 9, PPE_LaserCannon, PPE_LaserCannon_P, PPE_BFGQ3, PPE_BFGQ3_P
+	Player.WeaponSlot 0, PPE_Mjolnir, PPE_Mjolnir_P, PPE_BFGQ2, PPE_BFGQ2_P
+	
+	DamageFactor "Quake2Chainsaw", 0.5
+	DamageFactor "Quake2Bullet", 0.66
+	DamageFactor "Quake2BulletCg", 0.5
+	DamageFactor "Quake2Shell", 0.54
+	DamageFactor "Quake2Rocket", 0.513
+	DamageFactor "Quake2Proxy", 0.43
+	DamageFactor "Quake2Cell", 0.66
+	DamageFactor "Quake2Plasma", 0.75
+	DamageFactor "Quake2Bfg", 0.66
+	DamageFactor "Quake2Flech", 0.54
+	DamageFactor "Quake2Slug", 0.54
+	DamageFactor "Quake2Mag", 0.5
+  
+	States
+	{
+	Spawn:
+		PLAY A -1
+		Loop
+	See:
+		PLAY AAAABBBBCCCCDDDD 1
+		/*{
+			If(velx > 1 || velx < -1)
+			{
+				//A_SetRoll(-10*(velx/Abs(velx)),SPF_INTERPOLATE);
+				//A_SetRoll((velx)*0.65,SPF_INTERPOLATE);
+			}
+			Else
+			{
+				//A_SetRoll(0,SPF_INTERPOLATE);
+			}
+			
+		}*/
+		Loop
+	Missile:
+		PLAY E 12 
+		Goto Spawn
+	Melee:
+		PLAY F 6 BRIGHT
+		Goto Missile
+	Pain:
+		PLAY G 4 
+		PLAY G 4 A_Pain
+		Goto Spawn
+	Death:
+		PLAY H 0 A_PlayerSkinCheck("AltSkinDeath")
+	Death1:
+		PLAY H 10
+		PLAY I 10 A_PlayerScream
+		PLAY J 10 A_NoBlocking
+		PLAY KLM 10
+		PLAY N -1
+		Stop
+	XDeath:
+		PLAY O 0 A_PlayerSkinCheck("AltSkinXDeath")
+	XDeath1:
+		PLAY O 5
+		PLAY P 5 A_XScream
+		PLAY Q 5 A_NoBlocking
+		PLAY RSTUV 5
+		PLAY W -1
+		Stop
+	AltSkinDeath:
+		PLAY H 6
+		PLAY I 6 A_PlayerScream
+		PLAY JK 6
+		PLAY L 6 A_NoBlocking
+		PLAY MNO 6
+		PLAY P -1
+		Stop
+	AltSkinXDeath:
+		PLAY Q 5 A_PlayerScream
+		PLAY R 0 A_NoBlocking
+		PLAY R 5 A_SkullPop
+		PLAY STUVWX 5
+		PLAY Y -1
+		Stop
+	}
+}
+
+Actor PPE_TempHealth : Inventory
+{
+	Inventory.MaxAmount 200
+}

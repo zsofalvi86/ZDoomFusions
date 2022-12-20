@@ -1,0 +1,5 @@
+#Include Decorate/Guns/Slot7/IonRipper.txt
+#Include Decorate/Guns/Slot7/Phalanx.txt
+#Include Decorate/Guns/Slot7/RailgunSW.txt
+#Include Decorate/Guns/Slot7/RailgunQ2.txt
+#Include Decorate/Guns/Slot7/RailgunQ3.txt

@@ -1,0 +1,10 @@
+#Include Decorate/Guns/Slot1/A_Include.txt
+#Include Decorate/Guns/Slot2/A_Include.txt
+#Include Decorate/Guns/Slot3/A_Include.txt
+#Include Decorate/Guns/Slot4/A_Include.txt
+#Include Decorate/Guns/Slot5/A_Include.txt
+#Include Decorate/Guns/Slot6/A_Include.txt
+#Include Decorate/Guns/Slot7/A_Include.txt
+#Include Decorate/Guns/Slot8/A_Include.txt
+#Include Decorate/Guns/Slot9/A_Include.txt
+#Include Decorate/Guns/Slot0/A_Include.txt

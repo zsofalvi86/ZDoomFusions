@@ -4,6 +4,7 @@ Actor DSS_Revolver : Pistol
 	Inventory.Pickupmessage "$GOT_DSS_C1"
 	Tag "$TAG_DSS_C1"
 	Inventory.PickupSound "items/ssweapon"
+	Inventory.Icon "SSPWA0"
 	Weapon.SelectionOrder 1500
 	Weapon.SlotNumber 2
 	Weapon.AmmoUse 0
@@ -80,9 +81,6 @@ Actor DSS_Revolver : Pistol
     	TNT1 A 2 bright A_Light1
 		TNT1 A 2 A_Light2
 		Goto LightDone
-  	Spawn:
-    	REVW A -1
-    	Stop
 	}
 }
 
@@ -92,6 +90,7 @@ Actor DSS_Revolvers : Pistol
 	Inventory.Pickupmessage "$GOT_DSS_C2"
 	Tag "$TAG_DSS_C1"
 	Inventory.PickupSound "items/ssweapon"
+	Inventory.Icon "SSPWB0"
 	Weapon.SelectionOrder 1400
 	Weapon.SlotNumber 2
 	Weapon.AmmoUse 0
@@ -199,7 +198,7 @@ Actor DSS_Revolvers : Pistol
 		TNT1 AA 1 //A_SetPitch(pitch+0.7)
 		Goto LightDone
   	Spawn:
-    	REVW A -1
+    	SSPW A -1
     	Stop
 	}
 }

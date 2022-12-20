@@ -108,6 +108,7 @@ Actor PPE_Uzis : PPE_Uzi
 	Weapon.AmmoUse 2
 	Inventory.Pickupmessage "$GOT_PPE_UZI2"
 	Inventory.PickupSound "q/uzi2"
+	Weapon.SisterWeapon "PPE_Uzi"
 	Tag "$TAG_PPE_UZI2"
 	States
 	{

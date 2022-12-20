@@ -1,0 +1,3 @@
+#Include Decorate/Guns/Slot2/BlasterQ2.txt
+#Include Decorate/Guns/Slot2/PistolDN.txt
+#Include Decorate/Guns/Slot2/PistolSS.txt

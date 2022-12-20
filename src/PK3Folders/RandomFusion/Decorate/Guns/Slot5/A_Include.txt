@@ -1,0 +1,6 @@
+#Include Decorate/Guns/Slot5/GrenadeLauncherQ1.txt
+#Include Decorate/Guns/Slot5/GrenadeLauncherQ2.txt
+#Include Decorate/Guns/Slot5/GrenadeLauncherQ3.txt
+#Include Decorate/Guns/Slot5/RocketLauncherQ1.txt
+#Include Decorate/Guns/Slot5/RocketLauncherQ2.txt
+#Include Decorate/Guns/Slot5/RocketLauncherQ3.txt

@@ -1,0 +1,189 @@
+ACTOR PPE_QStimpack : Stimpack replaces Stimpack
+{
+	+FLOATBOB
+	Inventory.PickupSound "items/health2"
+	Inventory.Amount 10
+	States
+	{
+	Spawn:
+		MEDS A -1 bright
+		Stop
+	}
+}
+
+ACTOR PPE_QMediKit : MediKit replaces MediKit
+{
+	+FLOATBOB
+	Inventory.PickupSound "items/health3"
+	Inventory.Amount 25
+	States
+	{
+	Spawn:
+		MEDL A -1 bright
+		Stop
+	}
+}
+
+ACTOR PPE_HealthBonus : HealthBonus
+{
+	+FLOATBOB
+	Inventory.PickupSound "items/health1"
+	Inventory.Amount 1
+	Inventory.MaxAmount 250
+	States
+	{
+	Spawn:
+		HBSP ABCDDCBA 2 bright
+		Loop
+	}
+}
+
+ACTOR PPE_HealthBonusPickup : CustomInventory replaces HealthBonus
+{
+	+FLOATBOB
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.PickupMessage "$GOTHTHBONUS"
+	Inventory.PickupSound "items/health1"
+	States
+	{
+	Spawn:
+		HBSP ABCDDCBA 2 bright
+		Loop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("PPE_HealthBonus",1)
+		TNT1 A 0 A_GiveInventory("PPE_TempHealthBuffer",3)
+		Stop
+	}
+}
+
+ACTOR PPE_Adrenaline_Upgrade : UpgradeStamina replaces Berserk
+{
+	Inventory.PickupMessage "$GOTADRENALINE"
+	Inventory.PickupSound "items/q2pickup"
+	Inventory.Amount 1
+	Inventory.MaxAmount 200
+	States
+	{
+	Spawn:
+		2ADR A -1
+		Stop
+	}
+}
+
+Actor PPE_Bandolier : Backpack replaces Backpack
+{
+	Inventory.PickupMessage "$GOTBANDOLIER"
+	Inventory.PickupSound "items/q2pickup"
+	States
+	{
+	Spawn:
+		2BAN A -1
+		Stop
+	}
+}
+
+ACTOR PPE_ArmorBonus : ArmorBonus replaces ArmorBonus
+{
+	+FLOATBOB
+	Inventory.PickupSound "items/armor1"
+	Inventory.Icon "IARMA0"
+	//Armor.SavePercent 30
+	Armor.SaveAmount 1
+	Armor.MaxSaveAmount 200
+	States
+	{
+	Spawn:
+		ARSD AABCDDCBA 2 bright
+		Loop
+	}
+}
+
+ACTOR PPE_MegaHealth : CustomInventory replaces Soulsphere
+{
+	+FLOATBOB
+	+COUNTITEM
+	+INVENTORY.ALWAYSPICKUP
+	Inventory.PickupMessage "$GOTSUPER"
+	Inventory.PickupSound "items/health4"
+	States
+	{
+	Spawn:
+		MHSP AABCDEFGH 2 bright
+		Loop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("PPE_HealthBonus",100)
+		TNT1 A 0 A_GiveInventory("PPE_TempHealth",100)
+		TNT1 A 0 A_GiveInventory("PPE_TempHealthBuffer",5)
+		Stop
+	}
+}
+
+ACTOR PPE_YellowArmor : GreenArmor replaces GreenArmor
+{
+	+FLOATBOB
+	Inventory.PickupMessage "$GOTARMOR1"
+	Inventory.PickupSound "items/armor2"
+	Inventory.Icon "IARMB0"
+	//Armor.SavePercent 66.66
+	Armor.SaveAmount 100
+	States
+    {
+    Spawn:
+		3AR1 ABCDEFGHI 2 bright
+		Loop
+    }
+}
+
+ACTOR PPE_RedArmor : BlueArmor replaces BlueArmor
+{
+	+FLOATBOB
+	Inventory.PickupMessage "$GOTARMOR2"
+	Inventory.PickupSound "items/armor2"
+	Inventory.Icon "IARMC0"
+	Armor.SavePercent 66.66
+	Armor.SaveAmount 200
+	States
+    {
+    Spawn:
+		3AR2 ABCDEFGHI 2 bright
+		Loop
+    }
+}
+
+Actor PPE_Q2PowerArmor : Megasphere
+{
+	Inventory.PickupSound "items/q2pickup"
+	Inventory.Icon "2ARMD0"
+	Inventory.PickupMessage "$GOTPOWERSHIELD"
+	Tag "$TAG_PPE_POWERSHIELD"
+	States
+	{
+	Spawn:
+		2ARM D -1
+		Stop
+	Pickup:
+		TNT1 A 0 A_JumpIfInventory("PPE_PowerArmor",1,2)
+		TNT1 A 0 A_PlaySound("items/powershield/on")
+		TNT1 A 0 A_GiveInventory("PPE_PowerArmor",300)
+		Stop
+	}
+}
+
+Actor PPE_PowerArmor : Inventory
+{
+	+INVENTORY.INVBAR
+	Inventory.Icon "2ARMD0"
+	Inventory.MaxAmount 300
+	Inventory.InterHubAmount 300
+}
+
+Actor PPE_TempHealth : Inventory
+{
+	Inventory.MaxAmount 150
+}
+
+Actor PPE_TempHealthBuffer : Inventory
+{
+	Inventory.MaxAmount 5
+}

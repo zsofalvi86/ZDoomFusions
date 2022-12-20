@@ -1,0 +1,47 @@
+Class PPE_WeaponBase : Weapon
+{	
+	Override bool TryPickup(in out Actor toucher)
+	{
+		if (!toucher || !toucher.player || !toucher.player.weapons) {return Super.TryPickup(toucher);}
+		let index = 0;
+		let wcount = 0;
+		do
+		{
+			let type = toucher.player.weapons.GetWeapon(SlotNumber, index);
+			let weap = Weapon(FindInventory(type));
+			if (weap != null){wcount++;}
+		} while(++index >= toucher.player.weapons.SlotSize(SlotNumber))
+		
+		if (wcount >= 2) { toucher.A_Print("Slot "..SlotNumber.." full"); return false; }
+		return Super.TryPickup(toucher);
+	}
+
+	Default
+	{
+		+WEAPON.NOALERT;
+		+WEAPON.CHEATNOTWEAPON;
+		Weapon.BobRangeX 0.75;
+		Weapon.BobRangeY 0.75;
+		Weapon.BobSpeed 2.0;
+	}
+}
+
+Class PPE_Quake1WeaponBase : PPE_WeaponBase
+{
+	Default {Inventory.PickupSound "weapons/quake1/pickup";}
+}
+
+Class PPE_Quake2WeaponBase : PPE_WeaponBase
+{
+	Default {Inventory.PickupSound "weapons/quake2/pickup";}
+}
+
+Class PPE_Quake3WeaponBase : PPE_WeaponBase
+{
+	Default {Weapon.UpSound "weapons/quake3/switch"; Inventory.PickupSound "weapons/quake3/pickup";}
+}
+
+Class PPE_SeriousSamWeaponBase : PPE_WeaponBase
+{
+	Default {Inventory.PickupSound "weapons/ss/pickup";}
+}

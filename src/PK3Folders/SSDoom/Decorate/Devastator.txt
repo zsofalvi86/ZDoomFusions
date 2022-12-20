@@ -6,7 +6,7 @@ Actor DSS_Devastator : DSS_Scoped
 	Tag "$TAG_DSS_DEV"
 	Inventory.PickupSound "items/ssweapon"
 	Weapon.SelectionOrder 500
-	Weapon.SlotNumber 8
+	Weapon.SlotNumber 9
 	Weapon.AmmoType "DSS_DevastatorShells"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 4

@@ -16,7 +16,7 @@ Actor DSS_Cannon : BFG9000
 	Tag "$TAG_DSS_CN"
 	Inventory.PickupSound "items/ssweapon"
 	Weapon.SelectionOrder 500
-	Weapon.SlotNumber 8
+	Weapon.SlotNumber 9
 	Weapon.AmmoType "DSS_CannonBalls"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 2

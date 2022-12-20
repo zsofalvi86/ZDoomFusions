@@ -1,0 +1,126 @@
+[enu default]
+
+// Gun Tags
+GOTWEAPONPRE = "You got the ";
+GOTWEAPONPOST = "!";
+//Quake 1
+TAG_Q1_AXE = "Axe";
+TAG_Q1_SG = "Boomer Shotgun";
+TAG_Q1_DSG = "Double Barreled Shotgun";
+TAG_Q1_NG = "Oscillator Nailgun";
+TAG_Q1_SNG = "Perforator Super Nailgun";
+TAG_Q1_GL = "Trailblazer Grenade Launcher";
+TAG_Q1_RL = "Rocket Launcher";
+TAG_Q1_TB = "Thunderbolt";
+TAG_Q1_LG = "Last Ritual Laser Cannon";
+TAG_Q1_MJ = "Mjolnir";
+//Quake 2
+TAG_Q2_BLS = "Blaster";
+TAG_Q2_SG = "Bitterman Shotgun";
+TAG_Q2_SSG = "Trespasser Super Shotgun";
+TAG_Q2_MG = "Stepchild Sub-Machinegun";
+TAG_Q2_ETF = "Explosive Tipped Flechette Rifle";
+TAG_Q2_CG = "Old Painless Chaingun";
+TAG_Q2_GL = "Joker Grenade Launcher";
+TAG_Q2_RL = "Peacemaker Rocket Launcher";
+TAG_Q2_HYB = "Executioner Hyperblaster";
+TAG_Q2_RG = "Eradicator Railgun";
+TAG_Q2_PHX = "Phalanx Particle Cannon";
+TAG_Q2_BFG = "Makron BFG";
+//Quake 3
+TAG_Q3_FST = "Pummel Gauntlet";
+TAG_Q3_MG = "Cess Rifle";
+TAG_Q3_CG = "Chaingun";
+TAG_Q3_NG = "Nailgun";
+TAG_Q3_SG = "Terminator Shotgun";
+TAG_Q3_GL = "Grenade Launcher";
+TAG_Q3_RL = "Last Judgement Rocket Launcher";
+TAG_Q3_LG = "Shaft Lightning Gun";
+TAG_Q3_PG = "Disruptor Plasma Gun";
+TAG_Q3_RG = "Eraser Railgun";
+TAG_Q3_BFG = "Vadrigar BFG";
+//Shadow Warrior
+TAG_SW_FST = "Fists of Fury";
+TAG_SW_SHR = "Shurikens";
+TAG_SW_RSG = "Riot Gun";
+TAG_SW_UZI = "Pride of Woo Sub-Machinegun";
+TAG_SW_RL = "Last Judgement Rocket Launcher";
+TAG_SW_GL = "Grenade Launcher";
+TAG_SW_RG = "Railgun";
+TAG_SW_HEAD = "Guardian Head";
+TAG_SW_HEART = "Ripper Heart";
+//Serious Sam
+TAG_SS_PS = "Schofield TMAR Pistol";
+TAG_SS_SG = "Headless Hunter Shotgun";
+TAG_SS_SSG = "Bonesnapper Coach Gun";
+TAG_SS_TG = "Thompson Sub-Machinegun";
+TAG_SS_MG = "Serious Minigun";
+TAG_SS_GL = "Grenade Launcher";
+TAG_SS_RL = "Rocket Launcher";
+TAG_SS_LG = "Laser Gun";
+TAG_SS_FT = "XOP Flamethrower";
+TAG_SS_RIF = "RAPTOR Sniper Rifle";
+TAG_SS_DEV = "Devastator";
+TAG_SS_CAN = "SBC Cannon";
+TAG_SS_SB = "Serious Bomb";
+
+// Items
+GOTARMOR1 = "Picked up the light armor.";
+GOTARMOR2 = "Picked up the heavy armor.";
+GOTPARMOR = "Picked up the power armor!";
+GOTHTHBONUS = "Picked up a health orb.";
+GOTARMBONUS = "Picked up an armor shard.";
+GOTSTIM = "You recover 10 health.";
+GOTMEDINEED = "You recover 25 health with urgency.";
+GOTMEDIKIT = "You recover 25 health.";
+GOTSUPER = "Mega-Health!";
+GOTADRENALINE = "Adrenaline!";
+GOTINVUL = "Invulnerability!";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Shadow Power!";
+GOTSUIT = "Picked up a Battle Suit!";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTQUAD = "Quad Damage!";
+GOTMEDKIT = "Picked up a Portable MedKit.";
+GOTTELEPORT = "Picked up a Personal Teleport.";
+
+// Inventory Tags
+TAG_PPE_MEDKIT = "Portable MedKit";
+TAG_PPE_TELEPORT = "Personal Teleport";
+
+// Ammo
+GOTBULLETS = "Picked up a cartridge of bullets.";
+GOTBULLETBOX = "Picked up a box of bullets.";
+GOTNAILS = "Picked up a cartridge of nails.";
+GOTNAILBOX = "Picked up a box of nails.";
+GOTSHELLS = "Picked up a bundle of shells.";
+GOTSHELLBOX = "Picked up a box of shells.";
+GOTSLUGS = "Picked up some slugs.";
+GOTSLUGBOX = "Picked up a box of slugs.";
+GOTROCKET = "Picked up a rocket.";
+GOTROCKBOX = "Picked up a box of rockets.";
+GOTCELL = "Picked up a small energy cell.";
+GOTCELLBOX = "Picked up a large energy cell.";
+GOTNUKE = "Picked up a small nuclear cell.";
+GOTNUKEBOX = "Picked up a large nuclear cell.";
+GOTBANDOLIER = "Picked up a bandolier full of ammo!";
+
+// Obituary strings
+OB_MPAX = "%o was ax-murdered by %k.";
+OB_MPSG = "%o chewed on %k's boomstick";
+OB_MPDSG = "%o ate 2 loads of %k's buckshot.";
+OB_MPNG = "%o was nailed by %k.";
+OB_MPSNG = "%o was punctured by %k.";
+OB_MPGL = "%o eats %k's pineapple.";
+OB_MPRL = "%o rides %k's rocket.";
+OB_MPPL = "%o got too friendly with %k's bomb.";
+OB_MPTB = "%o was melted by %k's plasma gun.";
+OB_MPLC = "%o was toasted by %k's laser.";
+OB_MPMJ = "%o was slammed by %k's hammer.";
+OB_MPTELEFRAG = "%o was telefragged by %k.";
+
+//Other
+
+SECRETMESSAGE = "You've found a secret area!";

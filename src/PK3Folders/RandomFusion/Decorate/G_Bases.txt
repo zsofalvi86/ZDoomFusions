@@ -1,0 +1,27 @@
+Actor PPE_AltAmmo : PowerupGiver
+{
+	Powerup.Type PowerAlt
+	+Inventory.AutoActivate
+}
+
+ACTOR PowerAlt : PowerWeaponLevel2
+{
+	Powerup.Duration 0x7FFFFFFD
+}
+
+Actor PPE_MachinegunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_ChaingunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_ShotgunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_SuperShotgunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_NailgunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_SuperNailgunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_GrenadeLauncherAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_RocketLauncherAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_IonRipperAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_HyperblasterAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_PlasmaGunAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_ThunderboltAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_LaserCannonAlt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_BFGQ3Alt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_BFGQ2Alt : Inventory { Inventory.MaxAmount 1 }
+Actor PPE_MjolnirAlt : Inventory { Inventory.MaxAmount 1 }

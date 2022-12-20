@@ -1,0 +1,142 @@
+Actor PPE_Q3GrenadeLauncher : RocketLauncher
+{
+	Weapon.SelectionOrder 2200
+	Weapon.AmmoUse1 1
+	Weapon.AmmoUse2 1
+	Weapon.AmmoGive 2
+	Weapon.AmmoType1 "PPE_Grenades"
+	Weapon.SlotNumber 4
+	Weapon.UpSound "items/q3switch"
+	Weapon.BobSpeed 2
+	Inventory.PickupSound "items/q3weapon"
+	Inventory.Pickupmessage "$GOT_PPE_GL"
+	Tag "$TAG_PPE_GL"
+	+NOAUTOFIRE
+	+NOALERT
+	+NOAUTOAIM
+	States
+	{
+	Ready:
+		Q3GL A 1 A_WeaponReady
+		Loop
+	Deselect:
+		Q3GL A 1 A_Lower(18)
+		Loop
+	Select:
+		Q3GL A 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/grenade/fire",1)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"FireH")
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3Grenade",0,1,0,1,1,7)
+		Q3GL BCDEF 2 bright
+		Q3GL A 18
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	FireH:
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3GrenadeHaste",0,1,0,1,1,6)
+		Q3GL BCDEF 2 bright
+		Q3GL A 10
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 //A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 //A_SetPitch(pitch+0.8)
+		Goto LightDone
+	Spawn:
+		Q3GL W -1
+		Stop
+   }
+}
+
+Actor PPE_Q3Grenade : PPE_SlowMissileBase
+{
+	var int user_countdown;
+	+USEBOUNCESTATE
+	+BOUNCEONWALLS
+	+BOUNCEONFLOORS
+	+BOUNCEONCEILINGS
+	+DONTBOUNCEONSKY
+	-NOGRAVITY
+	-BOUNCEAUTOOFF
+	-BOUNCEAUTOOFFFLOORONLY
+	SeeSound ""
+	BounceSound ""
+	BounceFactor 0.5
+	WallBounceFactor 0.5
+	Gravity 0.4
+	BounceCount 99
+	Speed 24
+	ProjectileKickBack 100
+	Damage (0)
+	DamageType "Quake3SplashImpact"
+	Decal Scorch
+	SeeSound ""
+	DeathSound "weapons/q3exp"
+	Obituary "$OB_MPROCKET"
+	+VULNERABLE
+	-NOBLOCKMAP
+	Health 5
+	Mass 10000
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SetUserVar("user_countdown",87)
+	SpawnLoop:
+		TNT1 A 0 A_JumpIf(user_countdown==0,"Death")
+		DGRD A 1 A_SpawnItemEx("PPE_SmokeTrail",0,0,0,0,0,0,0,0,64)
+		TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
+		Loop
+	Bounce:
+		"####" "#" 1 
+		{
+			A_SetUserVar("user_countdown",user_countdown-1);
+			If(user_countdown==0)
+			{
+				return state("Death");
+			}
+			Else If(vely>1 || velx>1 || velz>1 || vely<-1 || velx<-1 || velz<-1)
+			{
+				return state("RealBounce");
+			}
+			return state(0);
+		}
+		Loop
+	RealBounce:
+		TNT1 A 0 A_PlaySound("weapons/grenade/bounce")
+	RealBounceLoop:
+		DGRR AABBCCDDEEFFGGHHIIJJKKLL 1
+		{
+			A_SpawnItemEx("PPE_SmokeTrail",0,0,0,0,0,0,0,0,64);
+			A_SetUserVar("user_countdown",user_countdown-1);
+			If(user_countdown==0)
+			{
+				return state("Death");
+			}
+			return state(0);
+		}
+		Loop
+	Death:
+		TNT1 A 0 A_SetInvulnerable
+		TNT1 A 0 A_NoGravity
+		TNT1 A 0 A_Explode(100,172,1,0,0,0,0,"None","Quake3Splash")
+		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE)
+		TNT1 A 0 A_Quake(4,5,0,224,"")
+		TNT1 A 0 A_Quake(2,6,0,512,"")
+		TNT1 A 0 A_Quake(1,6,0,3072,"")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+	}
+}
+
+Actor PPE_Q3GrenadeHaste : PPE_Q3Grenade
+{
+	Speed 31
+}

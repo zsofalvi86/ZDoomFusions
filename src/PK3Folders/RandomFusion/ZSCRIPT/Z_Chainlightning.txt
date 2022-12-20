@@ -1,0 +1,116 @@
+Class PPE_ChainLightningPuffBase : BulletPuff
+{
+	int jumps;
+	int rad;
+	Array<Actor> chaineds;
+	Actor jumptarget; Actor srctarget;
+	int mdamage; Name mdamagetype; bool dmgd; bool initd;
+	
+	property Jumps: jumps;
+	property ChainRange: rad;
+
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		InitChain(target, damage, damagetype, jumps, chaineds, self.target);
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	Action void A_ChainLightning()
+	{
+		if (!invoker.initd || !invoker.srctarget || !invoker.jumptarget) return;
+		
+		//invoker.jumptarget.A_SpawnItem("TeleportFog");
+		FLineTraceData trc;
+		invoker.ReTrace(invoker.srctarget, invoker.jumptarget, trc);
+		if (!invoker.dmgd) {invoker.DealDamage(invoker.jumptarget,trc); invoker.dmgd=true;}
+		invoker.Lightning(invoker.srctarget, trc);
+	}
+	
+	void InitChain(Actor target, int damage, Name damagetype, int njumps, Array<Actor> nchaineds, Actor inflictor)
+	{
+		jumps = njumps;
+		if (jumps > 0)
+		{
+			chaineds.Move(nchaineds);
+			srctarget = target;
+			self.target = inflictor;
+			if (chaineds.Find(self.target) == chaineds.Size()){chaineds.Push(self.target);} //shooter, requires puffgetsowner
+			if (chaineds.Find(target) == chaineds.Size()){chaineds.Push(target);} //current target
+			FLineTraceData trc;
+			jumptarget = FindNextTarget(srctarget,rad,chaineds,trc);
+			mdamage = damage; mdamagetype = damagetype;
+		}
+		initd = true;
+	}
+	
+	Actor FindNextTarget(Actor from, int dist, Array<Actor> exclude, out FLineTraceData trc)
+	{
+		BlockThingsIterator it = BlockThingsIterator.Create(from, dist);
+		let mindist = dist+1; Actor mo; Actor candidate;
+			
+		while (it.Next())
+		{
+			mo = it.thing;	
+			let alreadychained = exclude.Find(mo) != exclude.Size();
+			if (!mo || alreadychained || !mo.bShootable || 
+			from.Distance3D(mo) > mindist) {continue;}
+			ReTrace(from, mo, trc);
+			if (trc.HitActor == mo)
+			{
+				candidate = mo;
+				mindist = Distance3D(candidate);
+			}
+		}
+		return candidate;
+	}
+	
+	void Lightning(Actor from, FLineTraceData trc)
+	{
+		int step = 9;
+				
+		for (int i=step; i<trc.distance; i+=step)
+		{
+			let ppos = from.Vec3Offset(0,0,from.height/2) + i * trc.HitDir;//Vec3Angle(i,angle,((trc.hitlocation.z-(pos.z+hgt))*(i/trc.distance))+hgt);
+				
+			Spawn("PPE_LightningTrail",ppos);
+		}
+	}
+	
+	bool ReTrace(Actor from, Actor ntarget, out FLineTraceData trc)
+	{
+		let sourcemidpos = from.Vec3Offset(0,0,from.height/2);
+		let targetmidpos = ntarget.Vec3Offset(0,0,ntarget.height/2);
+				
+		let distf = from.Vec2to(ntarget);
+		double angle = from.AngleTo(ntarget);
+			
+		double distz = targetmidpos.z - sourcemidpos.z;
+		double ddist = sqrt(distf.X*distf.X + distf.Y*distf.Y + distz*distz);
+		double pitch = Normalize180(-asin(distz / ddist));
+			
+		return from.LineTrace(angle,from.Distance3d(ntarget),pitch,0,0,0,0,trc);
+	}
+	
+	void DealDamage(Actor victim, FLineTraceData trc)
+	{
+		Actor chpuff; int dmg;
+		double apitch = AimLineAttack(AngleTo(victim),trc.distance,null,0.,ALF_CHECK3D);
+		[chpuff, dmg] = LineAttack(AngleTo(victim),trc.distance,apitch,mdamage,mdamagetype,"PPE_DummyLGPuff",LAF_TARGETISSOURCE,null,0,trc.distance-victim.radius-1);
+		chpuff = Spawn(GetClass(),victim.Vec3Offset(0,0,victim.height/2));
+		let typedpuff = PPE_ChainLightningPuffBase(chpuff);
+		if (typedpuff){typedpuff.InitChain(victim, mdamage, mdamagetype, jumps-1, chaineds, self.target);}
+	}
+	
+	Default
+	{
+		-ALLOWPARTICLES;
+		+PUFFONACTORS;
+		+ALWAYSPUFF;
+		+BLOODLESSIMPACT;
+		+PUFFGETSOWNER;
+		RenderStyle "Normal";
+		Vspeed 0;
+		PPE_ChainLightningPuffBase.Jumps 3;
+		PPE_ChainLightningPuffBase.ChainRange 512;
+	}
+}

@@ -1,0 +1,139 @@
+Actor DSS_Ghostbuster : DSS_BeamWeaponBase
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_DSS_GB"
+	Tag "$TAG_DSS_GB"
+	Inventory.PickupSound "items/ssweapon"
+	Weapon.SelectionOrder 115
+	Weapon.SlotNumber 8
+	Weapon.AmmoUse 2
+	Weapon.AmmoType "DSS_Cells"
+	Weapon.AmmoGive 40
+	States
+	{
+	Spawn:
+		SGBW A -1
+		Stop
+	Ready:
+		SGBG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_StopSound(6)
+	DeseLoop:
+		SGBG A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		SGBG A 1 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash("PreFlash")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/beam/start",1)
+	    SGBG ABBB 1
+		TNT1 A 0 A_PlaySound("weapons/beam/loop",6,1.0,1)
+		SGBG CCD 1
+		TNT1 A 0 A_Refire("Hold")
+		TNT1 A 0 A_PlaySound("weapons/beam/stop",6)
+		SGBG DCC 1
+		SGBG BBB 1
+		Goto Ready
+	Hold:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/beam/loop",6,1.0,1)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"DSS_GhostBusterPuff",FBF_USEAMMO|FBF_NORANDOM,2048,"none",0)
+	    SGBG EF 1 bright A_LightningBeam(2048)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"DSS_GhostBusterPuff",FBF_NORANDOM,2048,"none",0)
+		SGBG GH 1 bright A_LightningBeam(2048)
+		TNT1 A 0 A_Refire("Hold2")
+		Goto Winddown
+	Hold2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/beam/loop",6,1.0,1)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"DSS_GhostBusterPuff",FBF_USEAMMO|FBF_NORANDOM,2048,"none",0)
+	    SGBG EF 1 bright A_LightningBeam(2048)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"DSS_GhostBusterPuff",FBF_NORANDOM,2048,"none",0)
+		TNT1 A 0 A_Jump(256,"HG","HH")
+		HG: SGBG G 1 bright A_LightningBeam(2048)
+		Goto Refire2
+		HH: SGBG H 1 bright A_LightningBeam(2048)
+	Refire2:
+		TNT1 A 0 A_Refire("Hold")
+		Goto Winddown
+	Winddown:
+		TNT1 A 0 A_PlaySound("weapons/beam/stop",6)
+		SGBG ABBCCCDDD 1
+		Goto Ready
+	PreFlash:
+		TNT1 A 0 A_Light1
+		TNT1 A 8 A_Light1
+		Goto LightDone
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 //A_SetPitch(pitch+0.8)
+		Goto LightDone
+	}
+}
+
+Actor DSS_GhostBusterTrail : DSS_TrailBase
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("DSS_GhostBusterTrailParticle",0,FRandom(-1,1),FRandom(-1,1))
+		Stop
+	Despawn:
+		TNT1 A 0
+    	Stop
+	}
+}
+
+Actor DSS_GhostBusterTrailParticle : DSS_TrailBase
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,"A","B","C","D","E","F")
+		A:
+    	LSHF A 1 bright
+		Stop
+		B:
+    	LSHF B 1 bright
+    	Stop
+		C:
+    	LSHF C 1 bright
+    	Stop
+		D:
+    	LSHF D 1 bright
+    	Stop
+		E:
+    	LSHF E 1 bright
+    	Stop
+		F:
+    	LSHF F 1 bright
+		Stop
+	Despawn:
+		TNT1 A 0
+    	Stop
+	}
+}
+
+Actor DSS_GhostBusterPuff : BulletPuff
+{
+	-ALLOWPARTICLES
+	+BLOODLESSIMPACT
+	States
+	{
+	Spawn:
+	Melee:
+		TNT1 A 0
+		Stop
+	}
+}

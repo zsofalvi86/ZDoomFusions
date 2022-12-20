@@ -1,0 +1,100 @@
+ACTOR DSS_SeriousBomb : PPE_WeaponBase
+{
+	Inventory.Pickupmessage "$GOT_SS_SB"
+	Tag "$TAG_SS_SB"
+	Inventory.PickupSound "items/ss/weapon"
+	Weapon.SelectionOrder 5000
+	Weapon.SlotNumber 0
+	Weapon.AmmoType "DSS_SeriousBombs"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 1
+    States 
+    { 
+    Spawn: 
+		SBMW A -1 
+		Loop 
+    Ready:
+		TNT1 A 0 A_JumpIfNoAmmo("ReadyLoopNoAmmo")
+		SBMB A 0 A_Playsound("weapons/ss/seriousbomb/zippo")
+	ReadyLoop:
+        SBMB AABBCC 1 A_WeaponReady 
+        Loop
+	ReadyLoopNoAmmo:
+		SBMX A 1 A_WeaponReady
+		Goto Ready
+    Deselect: 
+        TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_JumpIfNoAmmo("DeseLoopNoAmmo")
+	DeseLoop:
+        SBMC A 1 A_Lower
+		TNT1 A 0 A_Lower
+        Loop
+	DeseLoopNoAmmo:
+		SBMX A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+    Select: 
+		TNT1 A 0 A_JumpIfNoAmmo("SeLoopNoAmmo")
+	SeLoop:
+        SBMC A 1 A_Raise
+		TNT1 A 0 A_Raise
+        Loop
+	SeLoopNoAmmo:
+		SBMX A 1 A_Raise
+		TNT1 A 0 A_Raise
+        Loop
+    Fire: 
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_Playsound("weapons/ss/seriousbomb/explode")
+		SBMB DEFG 2 
+		TNT1 A 0 A_Playsound("weapons/ss/seriousbomb/fuse",6,1,1)
+		TNT1 A 0 A_AlertMonsters
+		SBMB HIJKLMNO 2
+		SBMB PQRSTUVW 2
+		SBMB XYZ 2
+		SBME ABC 2
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_FireCustomMissile("none",0,1)
+		TNT1 A 0 A_SetBlend("ff ff ff",1.0,80)
+		TNT1 A 0 A_Explode(9999,9999,0,XF_NOTMISSILE,9999)
+		TNT1 A 0 A_JumpIfNoAmmo("CoolNoAmmo")
+		SBMF CCCCCCCCC 1 A_WeaponReady(WRF_NOFIRE|WRF_DISABLESWITCH)
+		SBMF BBBBBBBBB 1 A_WeaponReady(WRF_NOFIRE|WRF_DISABLESWITCH)
+		SBMF AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE|WRF_DISABLESWITCH)
+		SBMC AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMC AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMC AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMC AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMC AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMC AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_WeaponReady
+		Goto Ready
+	CoolNoAmmo:
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE|WRF_DISABLESWITCH)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE|WRF_DISABLESWITCH)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE|WRF_DISABLESWITCH)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
+		TNT1 A 0 A_WeaponReady
+		TNT1 A 0 A_SelectWeapon("DSS_LaserGun",SWF_SELECTPRIORITY)
+		Goto Ready
+    } 
+}
+
+Actor DSS_SeriousBombFlash : CustomInventory
+{
+	+INVENTORY.AUTOACTIVATE
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		stop
+	Pickup:
+		TNT1 A 0 A_SetBlend("ff ff ff",1.0,80)
+		stop
+	}
+}

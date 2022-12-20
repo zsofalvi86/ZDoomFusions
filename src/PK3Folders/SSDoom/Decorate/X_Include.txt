@@ -12,6 +12,7 @@
 #Include Decorate/GrenadeLauncher.txt
 #Include Decorate/RocketLauncher.txt
 #Include Decorate/LaserGun.txt
+#Include Decorate/GhostBuster.txt
 #Include Decorate/Flamethrower.txt
 #Include Decorate/SniperRifle.txt
 #Include Decorate/Devastator.txt

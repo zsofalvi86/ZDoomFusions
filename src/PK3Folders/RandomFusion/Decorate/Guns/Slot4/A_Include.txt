@@ -1,0 +1,6 @@
+#Include Decorate/Guns/Slot4/MachinegunQ2.txt
+#Include Decorate/Guns/Slot4/MachinegunQ3.txt
+#Include Decorate/Guns/Slot4/NailgunQ1.txt
+#Include Decorate/Guns/Slot4/SuperNailgun.txt
+#Include Decorate/Guns/Slot4/ChaingunQ2.txt
+#Include Decorate/Guns/Slot4/ChaingunQ3.txt
