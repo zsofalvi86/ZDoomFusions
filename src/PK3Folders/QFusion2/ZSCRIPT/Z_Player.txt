@@ -126,22 +126,21 @@ Class PPE_QuakeFusionPlayer : DoomPlayer
 		PainChance 255;
 		Gravity 1.0;
 		Species "Player";
-		Player.StartItem "PPE_Blaster";
-		Player.StartItem "PPE_Gauntlet";
-		Player.StartItem "PPE_Q2DamageMod";
+		Player.StartItem "PPE_Q2Blaster";
+		//Player.StartItem "PPE_Q3Gauntlet";
 		Player.DisplayName "Quake Ranger";
 		Player.SoundClass "PPE_QuakePlayer";
 	
-		Player.WeaponSlot 1, "PPE_Gauntlet";
-		Player.WeaponSlot 2, "PPE_Blaster", "PPE_Machinegun";
-		Player.WeaponSlot 3, "PPE_Shotgun", "PPE_SuperShotgun";
-		Player.WeaponSlot 4, "PPE_Nailgun", "PPE_SuperNailgun";
-		Player.WeaponSlot 5, "PPE_Chaingun";
-		Player.WeaponSlot 6, "PPE_ChainLightningGun", "PPE_Thunderbolt";
-		Player.WeaponSlot 7, "PPE_GrenadeLauncher", "PPE_RocketLauncher";
-		Player.WeaponSlot 8, "PPE_PlasmaGun";
-		Player.WeaponSlot 9, "PPE_Phalanx", "PPE_Railgun";
-		Player.WeaponSlot 0, "PPE_Q3BFG", "PPE_Q2BFG";
+		//Player.WeaponSlot 1, "PPE_Gauntlet";
+		//Player.WeaponSlot 2, "PPE_Blaster", "PPE_Machinegun";
+		//Player.WeaponSlot 3, "PPE_Shotgun", "PPE_SuperShotgun";
+		//Player.WeaponSlot 4, "PPE_Nailgun", "PPE_SuperNailgun";
+		//Player.WeaponSlot 5, "PPE_Chaingun";
+		//Player.WeaponSlot 6, "PPE_ChainLightningGun", "PPE_Thunderbolt";
+		//Player.WeaponSlot 7, "PPE_GrenadeLauncher", "PPE_RocketLauncher";
+		//Player.WeaponSlot 8, "PPE_PlasmaGun";
+		//Player.WeaponSlot 9, "PPE_Phalanx", "PPE_Railgun";
+		//Player.WeaponSlot 0, "PPE_Q3BFG", "PPE_Q2BFG";
 	}
 	
 	States

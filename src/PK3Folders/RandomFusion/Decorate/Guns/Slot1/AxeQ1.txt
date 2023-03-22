@@ -10,10 +10,10 @@ Actor PPE_Axe : PPE_Quake1WeaponBase
     	QAXE A 1 A_WeaponReady
     	Loop
   	Deselect:
-		TNT1 A 0 A_Lower
+		QAXE A 0 A_Lower(12)
     	Loop
   	Select:
-		TNT1 A 0 A_Raise
+		QAXE A 0 A_Raise(12)
     	Loop
   	Fire:
 		TNT1 A 0 A_AlertMonsters

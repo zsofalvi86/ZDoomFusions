@@ -53,8 +53,8 @@ Actor DSS_Devastator : DSS_Scoped
 		TNT1 A 0 A_Refire
 		Goto Ready
 	FireScope:
-		SSSS ZZZZZ 2 bright
-		SSSS ZZZZZZZZ 1 A_WeaponReady(WRF_NOPRIMARY|WRF_NOBOB)
+		SSSS YYYYY 2 bright
+		SSSS YYYYYYZZ 1 A_WeaponReady(WRF_NOPRIMARY|WRF_NOBOB)
 		TNT1 A 0 A_ReFire
 		Goto Ready
 	AltFire:

@@ -358,3 +358,10 @@ Actor PPE_Q3BFGSpawn : PPE_BfgSpawn
 		stop
 	}
 }
+
+Actor ShotgunRandom : RandomSpawner
+{
+    DropItem "PPE_Q2Shotgun", 255, 10
+    DropItem "PPE_SamShotgun", 255, 10
+    DropItem "PPE_DoubleBarrelShotgun", 255, 10
+}

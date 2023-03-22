@@ -1,0 +1,88 @@
+Class PPE_WeaponBase : Weapon
+{	
+	Override bool TryPickup(in out Actor toucher)
+	{
+		if (!toucher || !toucher.player) {return Super.TryPickup(toucher);}
+		let index = 0;
+		let wcount = 0;
+		//toucher.A_Print("Slot number "..SlotNumber.." - size "..toucher.player.weapons.SlotSize(SlotNumber));
+		do
+		{
+			let type = toucher.player.weapons.GetWeapon(SlotNumber, index);
+			let weap = Weapon(toucher.FindInventory(type,true));
+			if (weap != null){wcount++;}
+		} while(++index < toucher.player.weapons.SlotSize(SlotNumber))
+		
+		if (wcount >= 1) 
+		{
+			if (PickupForAmmo2(toucher))
+			{
+				//toucher.A_Print("Slot "..SlotNumber.." full - ammo scavenged");
+				A_ActiveSound();
+				AmmoGive1 = 0; AmmoGive2 = 0;
+			}
+			
+			//toucher.A_Print("Slot "..SlotNumber.." full");}
+			return false;
+		}
+		return Super.TryPickup(toucher);
+	}
+	
+	protected bool PickupForAmmo2(Actor pwner)
+	{
+		bool gotstuff = false;
+		let ppwner = PlayerPawn(pwner);
+		// Don't take ammo if the weapon sticks around.
+		if (!ShouldStay() && pwner && pwner.player && ppwner)
+		{
+			int oldamount1 = 0; Ammo ammo1i = Ammo(pwner.FindInventory(AmmoType1));
+			int oldamount2 = 0; Ammo ammo2i = Ammo(pwner.FindInventory(AmmoType2));
+			if (ammo1i != NULL) oldamount1 = ammo1i.Amount;
+			if (ammo2i != NULL) oldamount2 = ammo2i.Amount;
+
+			if (AmmoGive1 > 0) gotstuff = AddExistingAmmo(ammo1i, AmmoGive1);
+			if (AmmoGive2 > 0) gotstuff |= AddExistingAmmo (ammo2i, AmmoGive2);
+
+			if (gotstuff)
+			{
+				bool localview = pwner.CheckLocalView();
+				PrintPickupMessage(localview, PickupMessage());
+
+				if (ammo1i != NULL && oldamount1 == 0)
+				{
+					ppwner.CheckWeaponSwitch(ammo1i.GetClass());
+				}
+				else if (ammo2i != NULL && oldamount2 == 0)
+				{
+					ppwner.CheckWeaponSwitch(ammo2i.GetClass());
+				}
+			}
+		}
+		return gotstuff;
+	}
+
+	Default
+	{
+		+WEAPON.NOALERT;
+		+WEAPON.CHEATNOTWEAPON;
+		Weapon.UpSound "weapons/switch";
+		Weapon.BobRangeX 0.05;
+		Weapon.BobRangeY 0.75;
+		Weapon.BobSpeed 2.0;
+	}
+}
+
+Class PPE_Quake1WeaponBase : PPE_WeaponBase
+{
+	Default {Inventory.PickupSound "items/weapon1"; ActiveSound "items/ammo1";}
+}
+
+Class PPE_Quake2WeaponBase : PPE_WeaponBase
+{
+	Default {Inventory.PickupSound "items/weapon2"; ActiveSound "items/ammo2";}
+}
+
+Class PPE_Quake3WeaponBase : PPE_WeaponBase
+{
+	Default {Inventory.PickupSound "items/weapon2"; ActiveSound "items/ammo2";}
+}

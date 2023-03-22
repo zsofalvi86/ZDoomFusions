@@ -1,5 +1,7 @@
 #include "zscript/z_player.txt"
-#include "zscript/z_q2damage.txt"
+#include "zscript/z_weaponbase.txt"
+#include "zscript/z_backpack.txt"
+#include "zscript/z_q2railgun.txt"
 #include "zscript/z_beams.txt"
 #include "zscript/z_chainlightning.txt"
 #include "zscript/z_bfg.txt"

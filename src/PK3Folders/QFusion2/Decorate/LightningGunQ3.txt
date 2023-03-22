@@ -1,0 +1,84 @@
+Actor PPE_Q3LightningGun : PPE_BeamWeaponBase
+{
+	Inventory.Pickupmessage "$GOT_PPE_CLG"
+	Tag "$TAG_PPE_CLG"
+	Decal LightningScorch
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoGive 40
+	Weapon.SlotNumber 8
+	Weapon.KickBack 0
+	Inventory.PickupSound "items/weapon2"
+	Weapon.UpSound "weapons/switch"
+	DamageType "Quake1Cell"
+	States
+	{
+	Spawn:
+		3LGW A 1// AAAAABBCCDDCCBB 1
+		Loop
+	Ready:
+		3LGG AAABBCCDDDCCBBA 1 bright A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_StopSound(6)
+	DeseLoop:
+		3LGG A 1 A_Lower(18)
+		Loop
+	Select:
+		3LGG A 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_PlaySound("weapons/q3/lightning/start",CHAN_WEAPON)
+	Hold1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireBullets(0,0,1,(8),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		3LGF AB 1 bright A_LightningBeam(768)
+		TNT1 A 0 A_FireBullets(0,0,1,(8),"PPE_LightningPuffActual",FBF_NORANDOM,768,"none",0)
+		3LGF CD 1 bright A_LightningBeam(768)
+		TNT1 A 0 A_Refire("Hold2")
+		goto Winddown
+	Hold2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireBullets(0,0,1,(8),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		3LGF AB 1 bright A_LightningBeam(768)
+		TNT1 A 0 A_FireBullets(0,0,1,(8),"PPE_LightningPuffActual",FBF_NORANDOM,768,"none",0)
+		3LGF C 1 bright A_LightningBeam(768)
+		TNT1 A 0 A_PlaySound("weapons/q3/lightning/loop",6,1.0,1)
+		TNT1 A 0 A_Refire("Hold1")
+		goto Winddown
+	Winddown:
+		3LGF EF 2 bright
+		TNT1 A 0 A_StopSound(6)
+		Goto Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1
+		TNT1 A 0 A_Light2
+		TNT1 A 1
+		Goto LightDone
+	}
+}
+
+Actor PPE_LightningPuffActual : PPE_ChainLightningPuffBase
+{
+	-ALLOWPARTICLES
+	+PUFFONACTORS
+	+ALWAYSPUFF
+	+BLOODLESSIMPACT
+	RenderStyle Normal
+	Vspeed 0
+	States
+	{
+	Spawn:
+	Melee:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/lightning/hit")
+		PLSE BB 1 bright A_ChainLightning
+		PLSE CCDD 1 bright
+		Stop
+	}
+}

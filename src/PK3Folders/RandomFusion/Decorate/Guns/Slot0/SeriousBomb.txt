@@ -26,22 +26,18 @@ ACTOR DSS_SeriousBomb : PPE_WeaponBase
         TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_JumpIfNoAmmo("DeseLoopNoAmmo")
 	DeseLoop:
-        SBMC A 1 A_Lower
-		TNT1 A 0 A_Lower
+        SBMC A 1 A_Lower(12)
         Loop
 	DeseLoopNoAmmo:
-		SBMX A 1 A_Lower
-		TNT1 A 0 A_Lower
+		SBMX A 1 A_Lower(12)
 		Loop
     Select: 
 		TNT1 A 0 A_JumpIfNoAmmo("SeLoopNoAmmo")
 	SeLoop:
-        SBMC A 1 A_Raise
-		TNT1 A 0 A_Raise
+        SBMC A 1 A_Raise(12)
         Loop
 	SeLoopNoAmmo:
-		SBMX A 1 A_Raise
-		TNT1 A 0 A_Raise
+		SBMX A 1 A_Raise(12)
         Loop
     Fire: 
 		TNT1 A 0 A_CheckReload

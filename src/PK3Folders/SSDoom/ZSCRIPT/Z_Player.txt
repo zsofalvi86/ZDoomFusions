@@ -3,7 +3,6 @@ Class DSS_SeriousPlayer : DoomPlayer
 	double tilt; double desiredTilt;
 	const maxtilt = 1.4;
 	int tic;
-	bool zoom;
 
 	Override void Tick ()
 	{
@@ -15,32 +14,10 @@ Class DSS_SeriousPlayer : DoomPlayer
 		bool left = insm < -1000;
 		bool right = insm > 1000;
 		
-		zoom = CountInv("DSS_SniperZoom");
-		
-		Crosshair();
 		SetTilt(left, right);
 		Timer();
 		PerHalfSec();
 		SeriousSpeedZoom();
-	}
-	
-	void Crosshair()
-	{
-		if (!zoom)
-		{
-			let bobdelta = player.viewz - pos.Z - player.viewheight;
-		
-			FTranslatedLineTarget hit;
-			LineAttack(angle, 9999, pitch, 0, 'Normal', "DSS_InvisCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,hit,5+bobdelta);
-			if(hit.linetarget)
-			{
-				double ratio = double(hit.linetarget.health) / hit.linetarget.GetSpawnHealth();
-				if (ratio < 0.33) {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_RedCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
-				else if (ratio < 0.66) {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_YellowCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
-				else {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_GreenCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
-			}
-			else {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_NeutralCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
-		}
 	}
 	
 	void SetTilt(bool left, bool right)
@@ -77,9 +54,9 @@ Class DSS_SeriousPlayer : DoomPlayer
 	void SeriousSpeedZoom()
 	{
 		let sspeed = Powerup(FindInventory("PowerSpeedSS"));
-		if (sspeed != null && !zoom)
+		if (sspeed != null && !CountInv("DSS_SniperZoom"))
 		{
-			player.FOV = player.DesiredFOV * 1.3;
+			player.FOV = player.DesiredFOV * (1.3 - max(0,double(500-sspeed.EffectTics)/3000));
 		}
 	}
 	

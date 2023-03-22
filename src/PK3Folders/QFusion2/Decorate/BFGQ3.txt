@@ -1,4 +1,4 @@
-Actor PPE_Q3Bfg : BFG9000
+Actor PPE_Q3Bfg : PPE_Quake3WeaponBase
 {
 	+WEAPON.NOAUTOAIM
 	+WEAPON.NOALERT
@@ -8,13 +8,10 @@ Actor PPE_Q3Bfg : BFG9000
 	Inventory.PickupSound "items/weapon2"
 	Weapon.UpSound "weapons/switch"
 	Weapon.SelectionOrder 500
-	Weapon.SlotNumber 9
+	Weapon.SlotNumber 0
 	Weapon.AmmoType "PPE_Nukes"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 4
-	Weapon.BobRangeX 0.05
-	Weapon.BobRangeY 0.75
-	Weapon.BobSpeed 2.0
 	States
 	{
 	Spawn:
@@ -33,7 +30,7 @@ Actor PPE_Q3Bfg : BFG9000
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlaySound("weapons/bfg/fire3",1)
+		TNT1 A 0 A_PlaySound("weapons/q3/bfg/fire",1)
 		TNT1 A 0 A_FireCustomMissile("PPE_Q3BfgBall",0,1,0,1,1,0)
 		3BFF ABCD 1 bright
 		3BFG EFG 1
@@ -56,7 +53,7 @@ actor PPE_Q3BfgBall : PPE_SlowMissileBase
 	DamageType "Quake3SplashImpact"
 	Decal BFGLightning
 	SeeSound ""
-	DeathSound "weapons/bfg/explode3"
+	DeathSound "weapons/q3/bfg/explode"
 	Obituary "$OB_MPROCKET"
 	+FORCERADIUSDMG
 	States

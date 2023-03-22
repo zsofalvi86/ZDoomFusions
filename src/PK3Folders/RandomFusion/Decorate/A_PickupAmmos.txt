@@ -270,7 +270,6 @@ ACTOR PPE_LargeShell : PPE_Shells
   }
 }
 
-
 ACTOR PPE_LargeRocket : PPE_Rockets
 {
   Inventory.Amount 5

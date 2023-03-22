@@ -23,6 +23,7 @@ Actor PPE_ShotgunSpawner : PPE_Spawner replaces Shotgun
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",6,50)
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",1)
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",1) == 2,"Spawn2")
 		TNT1 A 0 A_SpawnPermanent("PPE_RiotGunSpawn")
@@ -52,6 +53,7 @@ Actor PPE_SuperShotgunSpawner : PPE_Spawner replaces SuperShotgun
 	{
 	Spawn:
 		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",3,25)
 		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",5,75)
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",2)
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 2,"Spawn2")
@@ -74,6 +76,8 @@ Actor PPE_ChaingunSpawner : PPE_Spawner replaces Chaingun
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,50)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",5,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",6,25)
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",3)
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 3,"Spawn1")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 2,"Spawn2")
@@ -124,6 +128,7 @@ Actor PPE_PlasmaGunSpawner : PPE_Spawner replaces PlasmaRifle
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",6,75)
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",5)
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 2,"Spawn2")
 		TNT1 A 0 A_SpawnPermanent("PPE_GuardianHeadSpawn")
@@ -140,8 +145,9 @@ Actor PPE_BFGSpawner : PPE_Spawner replaces BFG9000
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,25)
 		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",1,100)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",2,25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",3,25)
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",6)
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 2,"Spawn2")
 		TNT1 A 0 A_SpawnPermanent("PPE_RipperHeartSpawn")

@@ -1,4 +1,4 @@
-Actor PPE_Gauntlet : Fist
+Actor PPE_Gauntlet : PPE_Quake3WeaponBase
 {
 	Inventory.Pickupmessage "$GOT_PPE_FST"
 	Tag "$TAG_PPE_FST"
@@ -18,10 +18,10 @@ Actor PPE_Gauntlet : Fist
 	Deselect:
 		TNT1 A 0 A_StopSound(6)
   	DeseLoop:
-		Q3GN A 1 A_Lower(18)
+		Q3GN A 1 A_Lower(12)
     	Loop
   	Select:
-		SSKN A 1 A_Raise(18)
+		SSKN A 1 A_Raise(12)
     	Loop
   	Fire:
 		TNT1 A 0 A_PlaySound("weapons/gauntlet/run",6,1,1)

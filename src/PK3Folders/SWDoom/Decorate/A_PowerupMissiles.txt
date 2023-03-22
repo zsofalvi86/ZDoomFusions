@@ -41,6 +41,7 @@ Actor PPE_SWGasGrenade : PPE_BouncyGrenadeBase
 Actor PPE_NukeGas : PPE_SWGasGrenade
 {
 	BounceType "None"
+	DeathSound ""
 	Speed 0
 	States
 	{
@@ -84,7 +85,7 @@ actor PPE_CaltropMissile : PPE_SlowMissileBase
   States
   {
   Spawn:
-	SCAM AB 2
+	SCAM AB 4
   Spawnloop:
 	SCAM C 1
 	loop

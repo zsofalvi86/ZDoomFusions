@@ -1,8 +1,8 @@
-Actor QD_DoubleBarrelShotgun : SuperShotgun replaces Shotgun
+Actor PPE_DoubleBarrelShotgun : SuperShotgun
 {
 	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_QD_DSG"
-	Tag "$TAG_QD_DSG"
+	Inventory.Pickupmessage "$GOT_PPE_DSG"
+	Tag "$TAG_PPE_DSG"
 	Inventory.PickupSound "items/qweapon"
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
@@ -10,7 +10,7 @@ Actor QD_DoubleBarrelShotgun : SuperShotgun replaces Shotgun
 	Weapon.BobRangeY 0.75
 	Weapon.BobSpeed 2.0
 	Weapon.AmmoUse 2
-	Weapon.AmmoType "QD_Shells"
+	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoGive 16
 	Decal "BulletChip"
 	DamageType "Quake1Shell"
@@ -30,7 +30,7 @@ Actor QD_DoubleBarrelShotgun : SuperShotgun replaces Shotgun
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters // 4
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_FireBullets(7.5,4.0,14,(6),"QD_BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(7.5,4.0,14,(6),"PPE_BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		TNT1 A 0 A_PlayWeaponSound("weapons/dbsgfire")
 		QDGF ABC 2 bright
 		QDGG BCD 2

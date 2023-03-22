@@ -6,6 +6,7 @@ Actor PPE_PowerupSpawner : PPE_Spawner
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",8)
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 7,"Spawn7")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 6,"Spawn6")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 5,"Spawn5")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 4,"Spawn4")
@@ -28,6 +29,9 @@ Actor PPE_PowerupSpawner : PPE_Spawner
 	Spawn6:
 		TNT1 A 0 A_SpawnPermanent("PPE_FlashBomb")
 		stop
+	Spawn7:
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallShuriken")
+		stop
 	}
 }
 
@@ -37,8 +41,9 @@ Actor PPE_InvisSpawner : PPE_Spawner replaces BlurSphere
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",3,70)
-		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,30)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",3,60)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",4,20)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterPOW",6,20)
 		TNT1 A 0 A_SpawnPermanent("PPE_PowerupSpawner")
 		stop
 	}
@@ -106,7 +111,7 @@ Actor PPE_NightVisonGoggles : PPE_SWGogglesPers replaces Infrared
 Actor PPE_SmokeBomb : PPE_SmokeBombPers
 {
 	Inventory.PickupSound "items/pickup"
-	Inventory.UseSound "items/bomb"
+	Inventory.UseSound "items/smoke/puff"
 	Inventory.PickupMessage "$GOTSMOKE"
 	Inventory.Icon "SSBBA0"
 	Tag "$TAG_PPE_SMOKE"

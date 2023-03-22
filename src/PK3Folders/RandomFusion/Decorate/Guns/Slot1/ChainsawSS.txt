@@ -23,14 +23,12 @@ Actor PPE_Chainsaw : PPE_SeriousSamWeaponBase
   	Deselect:
 		TNT1 A 0 A_PlaySound("weapons/sawoff",6)
 	DeseLoop:
-		SSWG E 1 A_Lower
-		TNT1 A 0 A_Lower
+		SSWG E 1 A_Lower(12)
     	Loop
   	Select:
 		TNT1 A 0 A_PlaySound("weapons/sawon",7)
 	SeLoop:
-		SSWG E 1 A_Raise
-		TNT1 A 0 A_Raise
+		SSWG E 1 A_Raise(12)
     	Loop
   	Fire:
 		TNT1 A 0 A_WeaponOffset(0,32)

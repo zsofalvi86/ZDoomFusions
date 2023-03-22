@@ -40,6 +40,20 @@ Actor PPE_Shells : Ammo
   }
 }
 
+Actor PPE_Q2Shells : Ammo
+{
+  Inventory.Amount 4
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 2
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "ISHLB0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
 Actor PPE_Slugs : Ammo
 {
   Inventory.Amount 1

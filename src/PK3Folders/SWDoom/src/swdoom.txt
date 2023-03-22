@@ -11,7 +11,7 @@ global int 7:BFG;
 global int 8:CS;
 global int 9:BER;
 global int 10:POW;
-global int 11:HP;
+global int 11:BON;
 global int 12:DROP;
 global int 13:XSHP;
 global int 14:XSPOW[];
@@ -57,7 +57,7 @@ script "SetSpawn" (int spawnTag)
 		case 6:BFG++;break;
 		case 7:BER++;break;
 		case 8:POW++;break;
-		case 9:HP++;break;
+		case 9:BON++;break;
 		case 10:DROP++;break;
 	}
 	
@@ -70,7 +70,7 @@ script "SetSpawn" (int spawnTag)
 	if(CS>2){CS=1;}
 	if(BER>5){BER=1;}
 	if(POW>5){POW=1;}
-	if(HP>2){HP=1;}
+	if(BON>10){BON=1;}
 	if(DROP>3){DROP=2;}
 	
 	if(spawnTag==1) //SG
@@ -118,9 +118,9 @@ script "SetSpawn" (int spawnTag)
 	if(spawnTag==8) //POW(erups)
 	{
 		int i,j; int amo=100;
-		for (i=1; i<=5; i++) {if(XSPOW[i] > amo) {amo = XSPOW[i];j=i;}}
+		for (i=1; i<=6; i++) {if(XSPOW[i] > amo) {amo = XSPOW[i];j=i;}}
 		if (XSPOW[j] > 100) {XSPOW[j]-=100; POW=j;}
-		else {POW=6;}
+		else {POW=7;}
 	}
 	if(spawnTag==10) //shotgunner DROP
 	{
@@ -145,7 +145,7 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 		case 6:ret=BFG;break;
 		case 7:ret=BER;break;
 		case 8:ret=POW;break;
-		case 9:ret=HP;break;
+		case 9:ret=BON;break;
 		case 10:ret=DROP;break;
 	}
 	

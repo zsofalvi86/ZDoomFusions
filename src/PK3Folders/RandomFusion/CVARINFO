@@ -1,0 +1,8 @@
+server bool q1 = true;
+server bool q1x1 = true;
+server bool q1x2 = true;
+server bool q2 = true;
+server bool q2x1 = true;
+server bool q2x2 = true;
+server bool q3 = true;
+server bool q3x1 = true;

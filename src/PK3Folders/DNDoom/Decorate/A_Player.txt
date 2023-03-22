@@ -12,7 +12,7 @@ ACTOR PPE_DukePlayer : DoomPlayer
 	
 	Player.WeaponSlot 1, PPE_DNMightyFoot
 	Player.WeaponSlot 2, PPE_DNPistol
-	Player.WeaponSlot 3, PPE_DNShotgun, PPE_DNLeadCannon
+	Player.WeaponSlot 3, PPE_DNLeadCannon, PPE_DNShotgun
 	Player.WeaponSlot 4, PPE_DNRipper
 	Player.WeaponSlot 5, PPE_DNRPG_Seeker, PPE_DNRPG
 	Player.WeaponSlot 6, PPE_DNDetonator, PPE_DNPipebomb

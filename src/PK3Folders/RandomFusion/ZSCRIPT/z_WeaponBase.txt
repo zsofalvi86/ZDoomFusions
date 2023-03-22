@@ -2,18 +2,63 @@ Class PPE_WeaponBase : Weapon
 {	
 	Override bool TryPickup(in out Actor toucher)
 	{
-		if (!toucher || !toucher.player || !toucher.player.weapons) {return Super.TryPickup(toucher);}
+		if (!toucher || !toucher.player) {return Super.TryPickup(toucher);}
 		let index = 0;
 		let wcount = 0;
+		//toucher.A_Print("Slot number "..SlotNumber.." - size "..toucher.player.weapons.SlotSize(SlotNumber));
 		do
 		{
 			let type = toucher.player.weapons.GetWeapon(SlotNumber, index);
-			let weap = Weapon(FindInventory(type));
+			let weap = Weapon(toucher.FindInventory(type,true));
 			if (weap != null){wcount++;}
-		} while(++index >= toucher.player.weapons.SlotSize(SlotNumber))
+		} while(++index < toucher.player.weapons.SlotSize(SlotNumber))
 		
-		if (wcount >= 2) { toucher.A_Print("Slot "..SlotNumber.." full"); return false; }
+		if (wcount >= 1) 
+		{
+			if (PickupForAmmo2(toucher))
+			{
+				//toucher.A_Print("Slot "..SlotNumber.." full - ammo scavenged");
+				A_ActiveSound();
+				AmmoGive1 = 0; AmmoGive2 = 0;
+			}
+			
+			//toucher.A_Print("Slot "..SlotNumber.." full");}
+			return false;
+		}
 		return Super.TryPickup(toucher);
+	}
+	
+	protected bool PickupForAmmo2(Actor pwner)
+	{
+		bool gotstuff = false;
+		let ppwner = PlayerPawn(pwner);
+		// Don't take ammo if the weapon sticks around.
+		if (!ShouldStay() && pwner && pwner.player && ppwner)
+		{
+			int oldamount1 = 0; Ammo ammo1i = Ammo(pwner.FindInventory(AmmoType1));
+			int oldamount2 = 0; Ammo ammo2i = Ammo(pwner.FindInventory(AmmoType2));
+			if (ammo1i != NULL) oldamount1 = ammo1i.Amount;
+			if (ammo2i != NULL) oldamount2 = ammo2i.Amount;
+
+			if (AmmoGive1 > 0) gotstuff = AddExistingAmmo(ammo1i, AmmoGive1);
+			if (AmmoGive2 > 0) gotstuff |= AddExistingAmmo (ammo2i, AmmoGive2);
+
+			if (gotstuff)
+			{
+				bool localview = pwner.CheckLocalView();
+				PrintPickupMessage(localview, PickupMessage());
+
+				if (ammo1i != NULL && oldamount1 == 0)
+				{
+					ppwner.CheckWeaponSwitch(ammo1i.GetClass());
+				}
+				else if (ammo2i != NULL && oldamount2 == 0)
+				{
+					ppwner.CheckWeaponSwitch(ammo2i.GetClass());
+				}
+			}
+		}
+		return gotstuff;
 	}
 
 	Default
@@ -28,20 +73,20 @@ Class PPE_WeaponBase : Weapon
 
 Class PPE_Quake1WeaponBase : PPE_WeaponBase
 {
-	Default {Inventory.PickupSound "weapons/quake1/pickup";}
+	Default {Inventory.PickupSound "weapons/quake1/pickup"; ActiveSound "items/quake1/ammo";}
 }
 
 Class PPE_Quake2WeaponBase : PPE_WeaponBase
 {
-	Default {Inventory.PickupSound "weapons/quake2/pickup";}
+	Default {Inventory.PickupSound "weapons/quake2/pickup"; ActiveSound "items/quake2/ammo";}
 }
 
 Class PPE_Quake3WeaponBase : PPE_WeaponBase
 {
-	Default {Weapon.UpSound "weapons/quake3/switch"; Inventory.PickupSound "weapons/quake3/pickup";}
+	Default {Weapon.UpSound "weapons/quake3/switch"; Inventory.PickupSound "weapons/quake3/pickup"; ActiveSound "items/quake3/ammo";}
 }
 
 Class PPE_SeriousSamWeaponBase : PPE_WeaponBase
 {
-	Default {Inventory.PickupSound "weapons/ss/pickup";}
+	Default {Inventory.PickupSound "weapons/ss/pickup"; ActiveSound "items/ss/ammo";}
 }

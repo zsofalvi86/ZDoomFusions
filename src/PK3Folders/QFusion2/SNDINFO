@@ -67,8 +67,15 @@ $volume weapons/blaster/fly 0.5
 $limit weapons/blaster/hit 5
 
 //Shotguns
-weapons/shotgun/fire		sshotf
-weapons/lightshotgun/fire	shotgn1
+weapons/q1/shotgun/fire			shotgn1
+weapons/q1/dbsg/fire		shotgn2
+
+weapons/q2/shotgun/fire			shotgf
+weapons/q2/shotgun/reload		shotgr
+
+weapons/q2/supershotgun/fire	sshotf1
+
+weapons/q3/shotgun/fire			sshotf
 
 weapons/phalanx/init		gunatck1
 weapons/phalanx/tick		ticktock
@@ -82,7 +89,7 @@ mgf1	q3mgf1
 mgf2	q3mgf2
 mgf3	q3mgf3
 mgf4	q3mgf4
-$random weapons/machinegun/fire { mgf1 mgf2 mgf3 mgf4 }
+$random weapons/q3/machinegun/fire { mgf1 mgf2 mgf3 mgf4 }
 
 //Chaingun
 cgf11	mgf1
@@ -90,33 +97,39 @@ cgf12	mgf2
 cgf13	mgf3
 cgf14	mgf4
 cgf15	mgf5
-$random weapons/chaingun/fire { cgf11 cgf12 cgf13 cgf14 cgf15 }
+$random weapons/q2/chaingun/fire { cgf11 cgf12 cgf13 cgf14 cgf15 }
+$random weapons/q2/machinegun/fire { cgf11 cgf12 cgf13 cgf14 cgf15 }
+cgf21	cgf1
+cgf22	cgf2
+cgf23	cgf3
+cgf24	cgf4
+$random weapons/q3/chaingun/fire { cgf21 cgf22 cgf23 cgf24 }
 
-weapons/chaingun/xfire	xfire
-weapons/chaingun/xloop	mcnloop
-weapons/chaingun/windup	chgwu
-weapons/chaingun/loop	chgloop
-weapons/chaingun/winddown	chgwd
-weapons/chaingun/run	wvulfire
-weapons/chaingun/cool	wvulwind
+weapons/q2/chaingun/xfire	xfire
+weapons/q2/chaingun/xloop	mcnloop
+weapons/q2/chaingun/windup	chgwu
+weapons/q2/chaingun/loop	chgloop
+weapons/q2/chaingun/winddown	chgwd
+weapons/q3/chaingun/run		wvulfire
+weapons/q3/chaingun/cool	wvulwind
 
 //Nailguns
-weapons/nailgun/fire	spike1
-weapons/nailgun/shoot	tspike1
-weapons/nailgun/wallhit	tink1
-$limit weapons/nailgun/fire 0
-weapons/supernailgun/fire	spike2
+weapons/q1/nailgun/fire	spike1
+weapons/q1/nailgun/shoot	tspike1
+weapons/q1/nailgun/wallhit	tink1
+$limit weapons/q1/nailgun/fire 0
+weapons/q1/supernailgun/fire	spike2
 weapons/supernailgun/windup	tsnglb
 weapons/supernailgun/loop	tspike2
-$limit weapons/supernailgun/fire 0
-weapons/nailgun/lavaon	lavaon
-weapons/nailgun/lavaoff	lavaoff
-weapons/nailgun/cool	nailcd
-weapons/nailgun/fireta	wnalfire
-weapons/nailgun/fly	wnalflit
-weapons/nailgun/bounce wnalimpm
-weapons/nailgun/impact wnalimpd
-weapons/nailgun/hit 	wnalimpl
+$limit weapons/q1/supernailgun/fire 0
+weapons/q1/nailgun/lavaon	lavaon
+weapons/q1/nailgun/lavaoff	lavaoff
+weapons/q1/nailgun/cool	nailcd
+weapons/q3/nailgun/fire		wnalfire
+weapons/q3/nailgun/fly		wnalflit
+weapons/q3/nailgun/bounce 	wnalimpm
+weapons/q3/nailgun/impact 	wnalimpd
+weapons/q3/nailgun/hit 		wnalimpl
 weapons/etf/fire		spike1
 weapons/etf/hit			lashit
 weapons/etf/shoot		spike3
@@ -124,13 +137,13 @@ weapons/etf/shoot		spike3
 //Grenade
 hgrb1	hgrenb1
 hgrb2	hgrenb2
-$random weapons/grenade/bounce3 { hgrb1 hgrb2 }
-weapons/grenade/fire2	grenlf
-weapons/grenade/reload	grenlr
-weapons/grenade/bounce2	grenlb
-weapons/grenade/fire1	qnade
-weapons/grenade/bounce1	qbnc
-weapons/grenade/explode	qexp
+$random weapons/q3/grenade/bounce { hgrb1 hgrb2 }
+weapons/q2/grenade/fire		grenlf
+weapons/q2/grenade/reload	grenlr
+weapons/q2/grenade/bounce	grenlb
+weapons/q1/grenade/fire		qnade
+weapons/q1/grenade/bounce	qbnc
+weapons/q1/grenade/explode	qexp
 weapons/proximity/fire1	proxf
 weapons/proximity/fire3	wstbfire
 prximp1 wstbimpd
@@ -144,14 +157,15 @@ weapons/tesla/open		teslaopen
 weapons/tesla/lash		tesla
 
 //Rocket Launcher
-weapons/rocket/fire1	qrocket
-weapons/rocket/fire2	rocklf
-weapons/rocket/fire3	rocklf1a
-weapons/rocket/reload	rocklr
+weapons/q1/rocket/fire	qrocket
+weapons/q2/rocket/fire	rocklf
+weapons/q3/rocket/fire	rocklf1a
+weapons/q2/rocket/reload	rocklr
 weapons/rocket/fly		rockfly
 $volume weapons/rocket/fly 0.8
-weapons/rocket/explode	qexp
-weapons/rocket/explode3	rocklx1a
+weapons/q1/rocket/explode	qexp
+weapons/q2/rocket/explode	rocklx1a
+weapons/q3/rocket/explode	rocklx1a
 
 //Energy Weapons
 weapons/plasma/fire1		hyprbf1a
@@ -173,40 +187,40 @@ weapons/plasmabeam/run			laserr
 weapons/plasmabeam/winddown		lasoff
 
 //Railgun
-weapons/railgun/fire	railgf
-weapons/railgun/reload	railgs
-weapons/railgun/fire2	railgf1a
-weapons/railgun/hit		plasmx1a
-weapons/railgun/hum		rghum
+weapons/q2/railgun/fire		railgf
+weapons/q2/railgun/reload	railgs
+weapons/q3/railgun/fire		railgf1a
+weapons/q3/railgun/hit			plasmx1a
+weapons/railgun/hum			rghum
 
 //Lightning Gun
 lghit1 lg_hit
 lghit2 lg_hit2
 lghit3 lg_hit3
-$random weapons/lightning/hit { lghit1 lghit2 lghit3 }
-$limit weapons/lightning/hit 10
-$volume weapons/lightning/hit 0.6
+$random weapons/q3/lightning/hit { lghit1 lghit2 lghit3 }
+$limit weapons/q3/lightning/hit 10
+$volume weapons/q3/lightning/hit 0.6
 lgimp1 lg_imp1
 lgimp2 lg_imp2
 lgimp3 lg_imp3
-$random weapons/lightning/impact { lgimp1 lgimp2 lgimp3 }
-$limit weapons/lightning/impact 10
-$volume weapons/lightning/impact 0.4
-weapons/lightning/start			lstart
-weapons/lightning/loop			lhit
+$random weapons/q3/lightning/impact { lgimp1 lgimp2 lgimp3 }
+$limit weapons/q3/lightning/impact 10
+$volume weapons/q3/lightning/impact 0.4
+weapons/q1/lightning/start		lstart
+weapons/q1/lightning/loop		lhit
 weapons/lightning/tesla			power
-weapons/lightning/mjolnir		mjolhit
-weapons/lightning/start3		lg3fire
-weapons/lightning/loop3			lg3hum
-weapons/lightning/startta		lgtfire
-weapons/lightning/loopta		lgthum
+weapons/q1/lightning/mjolnir	mjolhit
+weapons/q3/lightning/start		lg3fire
+weapons/q3/lightning/loop		lg3hum
+weapons/q3/lightning/startta	lgtfire
+weapons/q3/lightning/loopta		lgthum
 
 //BFG
-weapons/bfg/fire2		bfgf
-weapons/bfg/fly			bfgfly
-weapons/bfg/explode2	bfgx
-weapons/bfg/fire3		bfg_fire
-weapons/bfg/explode3	rocklx1a
+weapons/q2/bfg/fire		bfgf
+weapons/q2/bfg/fly		bfgfly
+weapons/q2/bfg/explode	bfgx
+weapons/q3/bfg/fire		bfg_fire
+weapons/q3/bfg/explode	rocklx1a
 $limit weapons/bfg/explode3 6
 weapons/bfg/hum			bfghum
 weapons/dmg/fire1		dmg_fire
@@ -277,7 +291,7 @@ $playersounddup	PPE_QuakePlayer	male	*pain75-falling		*pain100-falling
 $playersounddup	PPE_QuakePlayer	male	*pain50-falling		*pain100-falling
 $playersounddup	PPE_QuakePlayer	male	*pain25-falling		*pain100-falling
 $playersound	PPE_QuakePlayer	male	*grunt		land
-$playersounddup	PPE_QuakePlayer	male	*land		*grunt
+$playersound	PPE_QuakePlayer	male	*land		land1
 $playersound	PPE_QuakePlayer	male	*jump		plyrjmp8
 $playersounddup	PPE_QuakePlayer	male	*usefail	*grunt
 

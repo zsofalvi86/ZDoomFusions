@@ -36,8 +36,8 @@ Actor DSS_Ghostbuster : DSS_BeamWeaponBase
 		SGBG CCD 1
 		TNT1 A 0 A_Refire("Hold")
 		TNT1 A 0 A_PlaySound("weapons/beam/stop",6)
-		SGBG DCC 1
-		SGBG BBB 1
+		SGBG AB 1
+		SGBG CCDD 1
 		Goto Ready
 	Hold:
 		TNT1 A 0 A_GunFlash

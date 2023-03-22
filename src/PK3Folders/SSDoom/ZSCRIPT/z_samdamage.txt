@@ -39,4 +39,144 @@ Class DSS_SamDamageMod : Inventory
 			}
 		}
 	}
+	
+	Override void DoEffect()
+	{
+		if (!owner.CountInv("DSS_SniperZoom"))
+		{
+			let xhair = DSS_SamCrosshair(owner.FindInventory("DSS_SamCrosshair"));
+			if (!xhair) 
+			{
+				xhair = DSS_SamCrosshair(owner.GiveInventoryType("DSS_SamCrosshair"));
+				//let ww = owner.GiveInventory("DSS_SamCrosshair",1);
+				//xhair = DSS_SamCrosshair(owner.FindInventory("DSS_SamCrosshair"));
+				//owner.A_Print("xh:"..xhair);
+				return;
+			}
+			return;
+			
+			let bobdelta = owner.player.viewz - owner.pos.Z - owner.player.viewheight;
+		
+			//FTranslatedLineTarget hit;
+			//LineAttack(owner.angle, 9999, owner.pitch, 0, 'Normal', "DSS_InvisCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,hit,5+bobdelta);
+			FLineTraceData hit;
+			owner.LineTrace(owner.angle, 256, owner.pitch, 0, owner.player.viewheight + bobdelta, 0, 0, hit);
+			let distratio = min(4, 1/(hit.Distance/256));
+			
+			if(hit.HitActor)
+			{
+				double hpratio = double(hit.HitActor.health) / hit.HitActor.GetSpawnHealth();
+				
+				//if (hpratio < 0.33) {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_RedCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+				//else if (hpratio < 0.66) {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_YellowCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+				//else {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_GreenCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+				//if (hpratio < 0.33) { xhair.SetXhairSprite(3); }
+				//else if (hpratio < 0.66) { xhair.SetXhairSprite(2); }
+				//else { xhair.SetXhairSprite(1); }
+			}
+			//else { xhair.SetXhairSprite(0); }
+			//else {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_NeutralCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+			
+			//owner.A_Print("scale:"..distratio);
+			//A_OverlayScale(11,distratio,distratio,WOF_INTERPOLATE);
+		}
+		else
+		{
+			owner.TakeInventory("DSS_SamCrosshair",1);
+		}
+	}
+	
+	States
+	{
+	SpawnWhite:
+		SXHP A 1 Bright;
+		loop;
+	SpawnGreen:
+		SXHP B 1 Bright;
+		loop;
+	SpawnYellow:
+		SXHP C 1 Bright;
+		loop;
+	SpawnRed:
+		SXHP D 1 Bright;
+		loop;
+	}
+}
+
+
+Class DSS_SamCrosshair : CustomInventory
+{
+	Double distratio;
+	
+	Action bool SetXhairSprite()
+	{
+		let bobdelta = invoker.owner.player.viewz - invoker.owner.pos.Z - invoker.owner.player.viewheight;
+		
+		//FTranslatedLineTarget hit;
+		//LineAttack(owner.angle, 9999, owner.pitch, 0, 'Normal', "DSS_InvisCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,hit,5+bobdelta);
+		FLineTraceData hit;
+		invoker.owner.LineTrace(invoker.owner.angle, 99999, invoker.owner.pitch, 0, invoker.owner.player.viewheight + bobdelta, 0, 0, hit);
+		invoker.distratio = max(0.25,min(2, 1/(hit.Distance/128)));
+		//invoker.owner.A_Print("scale:"..invoker.distratio.." d:"..hit.Distance);
+		if(hit.HitActor)
+		{
+			double hpratio = double(hit.HitActor.health) / hit.HitActor.GetSpawnHealth();
+				
+			//if (hpratio < 0.33) {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_RedCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+			//else if (hpratio < 0.66) {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_YellowCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+			//else {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_GreenCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+			if (hpratio < 0.33) { A_Overlay(11,"SpawnRed"); }
+			else if (hpratio < 0.66) { A_Overlay(11,"SpawnYellow"); }
+			else { A_Overlay(11,"SpawnGreen"); }
+		}
+		else { A_Overlay(11,"SpawnWhite"); }
+		//else {LineAttack(angle, 256, pitch, 0, 'Normal', "DSS_NeutralCrosshair", LAF_NORANDOMPUFFZ|LAF_NOIMPACTDECAL|LAF_NOINTERACT,null,5+bobdelta);}
+		
+		return true;
+	}
+	
+	Action void GroomXhair()
+	{
+		A_OverlayFlags(11,PSPF_PIVOTPERCENT,true);
+		A_OverlayPivot(11,0.5,0.5);
+		A_OverlayScale(11,invoker.distratio,invoker.distratio);//,WOF_INTERPOLATE);
+		//A_OverlayRotate(11,32);
+		//invoker.owner.A_Print("scale:"..invoker.distratio);
+	}
+	
+	Default 
+	{
+	Inventory.Amount 1; 
+	Inventory.MaxAmount 1;
+	+INVENTORY.AUTOACTIVATE;
+	}
+	
+	States
+	{
+		Spawn:
+			TNT1 A 0;
+			stop;
+		Pickup:
+			TNT1 A 0 {return true;}
+			stop;
+		Use: //does not persist without use
+			TNT1 A 0 SetXhairSprite();
+			stop;
+		SpawnWhite:
+			TNT1 A 0 GroomXhair();
+			SXHP A 1 Bright;
+			loop;
+		SpawnGreen:
+			TNT1 A 0 GroomXhair();
+			SXHP B 1 Bright;
+			loop;
+		SpawnYellow:
+			TNT1 A 0 GroomXhair();
+			SXHP C 1 Bright;
+			loop;
+		SpawnRed:
+			TNT1 A 0 GroomXhair();
+			SXHP D 1 Bright;
+			loop;
+	}
 }

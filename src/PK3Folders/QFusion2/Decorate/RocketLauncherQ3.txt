@@ -1,0 +1,100 @@
+Actor PPE_Q3RocketLauncher : PPE_Quake3WeaponBase
+{
+	Weapon.SelectionOrder 2400
+	Weapon.AmmoUse1 1
+	Weapon.AmmoUse2 1
+	Weapon.AmmoGive 2
+	Weapon.AmmoType1 "PPE_Rockets"
+	Weapon.SlotNumber 7
+	Inventory.Pickupmessage "$GOT_PPE_RL"
+	Tag "$TAG_PPE_RL"
+	+NOAUTOFIRE
+	+NOALERT
+	+NOAUTOAIM
+	States
+	{
+	Ready:
+		Q3RG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		Q3RG A 1 A_Lower(18)
+		Loop
+	Select:
+		Q3RG A 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/q3/rocket/fire",1)
+		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"FireH")
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3Rocket",0,1,0,1,1,0)
+		Q3RF ABCDE 2 bright
+		Q3RG A 18
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	FireH:
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3RocketHaste",0,1,0,1,1,0)
+		Q3RF ABCDE 2 bright
+		Q3RG A 10
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+0.8)
+		Goto LightDone
+	Spawn:
+		Q3RP A -1
+		Stop
+   }
+}
+
+Actor PPE_Q3Rocket : PPE_SlowMissileBase
+{
+	Speed 30
+	ProjectileKickBack 125
+	Damage (104)
+	DamageType "Quake3SplashImpact"
+	Decal Scorch
+	SeeSound ""
+	DeathSound "weapons/q3/rocket/explode"
+	Obituary "$OB_MPROCKET"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/rocket/fly",6,1,1)
+	Loopy:
+		QAMS AABBCCDD 1 bright A_SpawnItemEx("PPE_Q3RocketTrail")
+		loop
+	Death:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_Explode(100,128,1,0,0,0,0,"None","Quake3Splash")
+		TNT1 A 0 A_Quake(4,5,0,224,"")
+		TNT1 A 0 A_Quake(2,6,0,512,"")
+		TNT1 A 0 A_Quake(1,6,0,3072,"")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+	}
+}
+
+Actor PPE_Q3RocketTrail : PPE_TrailBase
+{
+	RenderStyle "Translucent"
+	Alpha 0.45
+	States
+	{
+  	Spawn:
+		TNT1 A 2
+    	WTRL ABCDEF 5
+    	Stop
+	}
+}
+
+Actor PPE_Q3RocketHaste : PPE_Q3Rocket
+{
+	Speed 39
+}

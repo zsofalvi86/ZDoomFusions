@@ -34,7 +34,7 @@ Actor PPE_DNLeadCannon : PPE_DNWeaponBase
 		//TNT1 A 0 A_FireCustomMissile("PPE_NukemShotgunPellet",0,1,0,4,1,0)
 		//TNT1 AAAAAAAA 0 A_FireCustomMissile("PPE_NukemShotgunPellet",FRandom(-2.3,2.3),0,0,4,1,FRandom(-1.1,1.1))
 		TNT1 A 0 A_JumpIfAltAmmo("FireAlt")
-		TNT1 A 0 A_FireBullets(6.5,3.25,28,(11),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(6.5,3.25,32,(10),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		Goto FireEnd
 	FireAlt:
 		TNT1 A 0 A_FireBullets(8.0,4.5,14,(20),"PPE_DNExplosiveLeadPelletPuff",FBF_USEAMMO|FBF_NORANDOM)

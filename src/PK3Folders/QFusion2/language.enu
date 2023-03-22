@@ -21,6 +21,12 @@ GOTMSPHERE = "MegaSphere!";
 GOTQUAD = "Quad Damage!";
 GOTMEDKIT = "Picked up a Portable MedKit.";
 GOTTELEPORT = "Picked up a Personal Teleport.";
+GOTZMBP = "Picked up a Zombieman's Backpack";
+GOTSGBP = "Picked up a Shotgunner's Backpack";
+GOTCGBP = "Picked up a Chaingunner's Backpack";
+GOTSHELLBP = "Picked up a Backpack containing Shells";
+GOTROCKBP = "Picked up a Backpack containing a Rocket";
+GOTCELLBP = "Picked up a Backpack containing Cells";
 
 // Inventory Tags
 TAG_PPE_MEDKIT = "Portable MedKit";

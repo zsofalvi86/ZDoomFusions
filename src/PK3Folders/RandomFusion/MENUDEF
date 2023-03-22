@@ -1,0 +1,20 @@
+OptionMenu "QFOptions"
+{
+    Title "Quake Fusion Spawn Settings"
+    Option "Quake 1 Base Weapons", "q1", "ENABLEDISABLE"
+	Option "Quake 1 Scourge of Armagon Weapons", "q1x1", "ENABLEDISABLE"
+	Option "Quake 1 Dissolution of Eternity Weapons", "q1x2", "ENABLEDISABLE"
+    Option "Quake 2 Base Weapons", "q2", "ENABLEDISABLE"
+	Option "Quake 2 Reckoning Weapons", "q2x1", "ENABLEDISABLE"
+	Option "Quake 2 Ground Zero Weapons", "q2x2", "ENABLEDISABLE"
+	Option "Quake 3 Base Weapons", "q3", "ENABLEDISABLE"
+	Option "Quake 3 Team Arena Weapons", "q3x1", "ENABLEDISABLE"
+}
+
+OptionValue "ENABLEDISABLE" { 0, "Disable" 1, "Enable"}
+
+AddOptionMenu "OptionsMenu"
+{
+    StaticText ""
+    Submenu "Quake Fusion Settings", "QFOptions"
+}

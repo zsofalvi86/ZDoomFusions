@@ -1,0 +1,54 @@
+Class PPE_AmmoBackpack : CustomInventory
+{	
+	Actor powner;
+
+	Action bool A_GiveBpAmmo(Class<Ammo> atype1, int amo1, Class<Ammo> atype2, int amo2)
+	{
+		bool gotstuff = false;
+		bool ammo1max = false; bool ammo2max = false;
+		bool hasA1W = false; bool hasA2W = false;
+		
+		//A_Print(GetPointer(AAPTR_DEFAULT).GetClassName());
+		invoker.powner = GetPointer(AAPTR_DEFAULT);
+		if (!invoker.powner) {return false;}
+		
+		let ammo1 = invoker.powner.FindInventory(atype1); let ammo2 = invoker.powner.FindInventory(atype2);
+		
+		if (ammo1 && ammo1.Amount >= ammo1.MaxAmount) {ammo1max = true;}
+		if (ammo2 && ammo2.Amount >= ammo2.MaxAmount) {ammo2max = true;}
+		
+		if (ammo1 && invoker.HasWeaponForAmmo(ammo1.GetClassName())) {hasA1W = true;}
+		if (ammo2 && invoker.HasWeaponForAmmo(ammo2.GetClassName())) {hasA2W = true;}
+		
+		//A_Print("a1:"..ammo1max.." w1:"..hasA1W.." a2:"..ammo2max.." w2:"..hasA2W);
+		
+		if (!ammo1max && !ammo2max && hasA1w && hasA2w) {A_GiveInventory(atype1,amo1/2);A_GiveInventory(atype2,amo2/2);gotstuff = true;}
+		else if ((ammo1max || hasA2w) && !ammo2max) {A_GiveInventory(atype2,amo2); gotstuff = true;}
+		else if (!ammo1max) {A_GiveInventory(atype1,amo1); gotstuff = true;}
+		
+		return gotstuff;
+	}
+	
+	bool HasWeaponForAmmo (string ammotype)
+	{
+		Array<string> BullWeaps = {"PPE_Q2Machinegun","PPE_Q3Machinegun","PPE_Q2Chaingun","PPE_Q3Chaingun"};
+		Array<string> NailWeaps = {"PPE_Q1Nailgun","PPE_Q1SuperNailgun"};
+		Array<string> ShelWeaps = {"PPE_Q1Shotgun","PPE_Q1DoubleBarrelShotgun","PPE_Q3SuperShotgun"};
+		Array<string> She2Weaps = {"PPE_Q2Shotgun","PPE_Q2SuperShotgun"};
+
+		if (ammotype=="PPE_Bullets") {return CheckWeaponArray(BullWeaps);}
+		if (ammotype=="PPE_Nails") {return CheckWeaponArray(NailWeaps);}
+		if (ammotype=="PPE_Shells") {return CheckWeaponArray(ShelWeaps);}
+		if (ammotype=="PPE_Q2Shells") {return CheckWeaponArray(She2Weaps);}
+		return false;
+	}
+	
+	bool CheckWeaponArray (Array<string> warr)
+	{
+		for (int i=0; i<warr.Size(); i++)
+		{
+			if (powner.CountInv(warr[i])) {return true;}
+		}
+		return false;
+	}
+}
