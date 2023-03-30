@@ -1,4 +1,4 @@
-Actor PPE_Chainsaw : PPE_SeriousSamWeaponBase
+Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 {
 	Inventory.Pickupmessage "$GOT_PPE_CS"
 	Tag "$TAG_PPE_CS"

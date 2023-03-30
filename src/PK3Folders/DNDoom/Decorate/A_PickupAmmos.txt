@@ -219,12 +219,14 @@ Actor PPE_SmartSmallCell : PPE_SmartSpawnerBase replaces Cell
 		TNT1 A 0 A_CheckProximity("CheckType","PPE_SCelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
 		TNT1 A 0 A_CheckProximity("CheckType","PPE_CelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
 		TNT1 A 0 A_Repeat("CheckLoop")
-		TNT1 A 0 A_Jump(256,"SpawnFreezer")
+		TNT1 A 0 A_Jump(256,"SpawnCellDefault")
 	CheckType:
 		TNT1 A 0 A_JumpIf(CheckClass("PPE_ShrinkerSpawn", AAPTR_TARGET), "SpawnShrinker")
 		TNT1 A 0 A_JumpIf(CheckClass("PPE_FreezerSpawn", AAPTR_TARGET), "SpawnFreezer")
 		TNT1 A 0 A_JumpIf(CheckClass("PPE_DevastatorSpawn", AAPTR_TARGET), "SpawnDevastator")
-		TNT1 A 0 A_Jump(256,"SpawnFreezer")
+		TNT1 A 0 A_Jump(256,"SpawnCellDefault")
+	SpawnCellDefault:
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) > 0,"SpawnDevastator")
 	SpawnShrinker:
 		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",5)
 		TNT1 A 0 A_SpawnPermanent("PPE_SmallShrinker")

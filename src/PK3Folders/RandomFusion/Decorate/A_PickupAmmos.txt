@@ -3,190 +3,8 @@ const int PPE_C_SA_LARGE_CIRCLE = 7200;
 const int PPE_C_SA_MEDIUM_CIRCLE = 420;
 const int PPE_C_SA_SMALL_CIRCLE = 166;
 
-Actor PPE_SmartSpawnerBase : PPE_Spawner
-{
-	+DONTGIB +NOTONAUTOMAP
-	States
-	{
-	Spawn:
-		TNT1 A 0
-		TNT1 A 1 A_SetRepeat(PPE_C_SA_REPEATS)
-		TNT1 A 0 A_Jump(256,"CheckLoop") //Virtual jump
-		stop
-	}
-}
 
-Actor PPE_SmartSmallClip : PPE_SmartSpawnerBase replaces Clip
-{
-	States
-	{
-	CheckLoop:
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_BulSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_Repeat("CheckLoop")
-		TNT1 A 0 A_Jump(256,"SpawnBullet")
-	CheckType:
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_MachinegunSpawn", AAPTR_TARGET), "SpawnChaingunBullet")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_ChaingunSpawn", AAPTR_TARGET), "SpawnChaingunBullet")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_NailgunSpawn", AAPTR_TARGET), "SpawnNail")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_SuperNailgunSpawn", AAPTR_TARGET), "SpawnNail")
-		TNT1 A 0 A_Jump(256,"SpawnBullet")
-	SpawnBullet:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallBullet")
-		stop
-	SpawnNail:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallNail")
-		stop
-	Drop:
-		TNT1 A 0
-		TNT1 A 0 A_DropItem("PPE_SmallBullet")
-		stop
-	}
-}
-
-Actor PPE_SmartLargeClip : PPE_SmartSmallClip replaces ClipBox
-{
-	States
-	{
-	SpawnBullet:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeBullet")
-		stop
-	SpawnNail:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeNail")
-		stop
-	}
-}
-
-Actor PPE_SmartSmallShell : PPE_SmartSpawnerBase replaces Shell
-{
-	States
-	{
-	CheckLoop:
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_ShelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_Repeat("CheckLoop")
-		TNT1 A 0 A_Jump(256,"SpawnShell")
-	CheckType:
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_ShotgunSpawn", AAPTR_TARGET), "SpawnShell")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_SuperShotgunSpawn", AAPTR_TARGET), "SpawnShell")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_RailgunSpawn", AAPTR_TARGET), "SpawnSlug")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_PhalanxSpawn", AAPTR_TARGET), "SpawnSlug")
-		TNT1 A 0 A_Jump(256,"SpawnShell")
-	SpawnShell:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallShell")
-		stop
-	SpawnSlug:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallSlug")
-		stop
-	Drop:
-		TNT1 A 0
-		TNT1 A 0 A_DropItem("PPE_SmallShell")
-		stop
-	}
-}
-
-Actor PPE_SmartLargeShell : PPE_SmartSmallShell replaces ShellBox
-{
-	States
-	{
-	SpawnShell:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeShell")
-		stop
-	SpawnSlug:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeSlug")
-		stop
-	}
-}
-
-Actor PPE_SmartSmallRocket : PPE_SmartSpawnerBase replaces RocketAmmo
-{
-	States
-	{
-	CheckLoop:
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("CheckType","PPE_RcktSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_SETTARGET|CPXF_CLOSEST)
-		TNT1 A 0 A_Repeat("CheckLoop")
-		TNT1 A 0 A_Jump(256,"SpawnRocket")
-	CheckType:
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_RocketLauncherSpawn", AAPTR_TARGET), "SpawnRocket")
-		TNT1 A 0 A_JumpIf(CheckClass("PPE_GrenadeLauncherSpawn", AAPTR_TARGET), "SpawnGrenade")
-		TNT1 A 0 A_Jump(256,"SpawnRocket")
-	SpawnRocket:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallRocket")
-		stop
-    SpawnGrenade:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallRocket")
-		stop
-	SpawnProx:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallRocket")
-		stop
-	Drop:
-		TNT1 A 0
-		TNT1 A 0 A_DropItem("PPE_SmallRocket")
-		stop
-	}
-}
-
-Actor PPE_SmartLargeRocket : PPE_SmartSmallRocket replaces RocketBox
-{
-	States
-	{
-	SpawnRocket:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeRocket")
-		stop
-	SpawnGrenade:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeRocket")
-		stop
-	SpawnProx:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeRocket")
-		stop
-	}
-}
-
-Actor PPE_SmartSmallCell : PPE_SmartSpawnerBase replaces Cell
-{
-	States
-	{
-	CheckLoop:
-		TNT1 A 0 A_CheckProximity("SpawnNuke","PPE_BfgSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("SpawnCell","PPE_CelSpawn",PPE_C_SA_SMALL_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("SpawnNuke","PPE_BfgSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("SpawnCell","PPE_CelSpawn",PPE_C_SA_MEDIUM_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("SpawnNuke","PPE_BfgSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_CLOSEST)
-		TNT1 A 0 A_CheckProximity("SpawnCell","PPE_CelSpawn",PPE_C_SA_LARGE_CIRCLE,1,CPXF_ANCESTOR|CPXF_NOZ|CPXF_CLOSEST)
-		TNT1 A 0 A_Repeat("CheckLoop")
-		TNT1 A 0 A_Jump(256,"SpawnCell")
-	SpawnCell:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallCell")
-		stop
-    SpawnNuke:
-		TNT1 A 0 A_SpawnPermanent("PPE_SmallNuke")
-		stop
-	Drop:
-		TNT1 A 0
-		TNT1 A 0 A_DropItem("PPE_SmallCell")
-		stop
-	}
-}
-
-Actor PPE_SmartLargeCell : PPE_SmartSmallCell replaces CellPack
-{
-	States
-	{
-	SpawnCell:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeCell")
-		stop
-	SpawnNuke:
-		TNT1 A 0 A_SpawnPermanent("PPE_LargeNuke")
-		stop
-	}
-}
-
-
-ACTOR PPE_SmallBullet : PPE_Bullets
+ACTOR PPE_SmallBullet : PPE_Bullets replaces Clip
 {
   Inventory.Amount 10
   +FLOORCLIP +DONTGIB
@@ -200,7 +18,7 @@ ACTOR PPE_SmallBullet : PPE_Bullets
   }
 }
 
-ACTOR PPE_SmallShell : PPE_Shells
+ACTOR PPE_SmallShell : PPE_Shells replaces Shell
 {
   Inventory.Amount 8
   +FLOORCLIP +DONTGIB
@@ -214,7 +32,7 @@ ACTOR PPE_SmallShell : PPE_Shells
   }
 }
 
-ACTOR PPE_SmallRocket : PPE_Rockets
+ACTOR PPE_SmallRocket : PPE_Rockets replaces RocketAmmo
 {
   Inventory.Amount 1
   +FLOORCLIP +DONTGIB
@@ -228,7 +46,7 @@ ACTOR PPE_SmallRocket : PPE_Rockets
   }
 }
 
-ACTOR PPE_SmallCell : PPE_Cells
+ACTOR PPE_SmallCell : PPE_Cells replaces Cell
 {
   Inventory.Amount 20
   +FLOORCLIP +DONTGIB
@@ -242,7 +60,7 @@ ACTOR PPE_SmallCell : PPE_Cells
   }
 }
 
-ACTOR PPE_LargeBullet : PPE_Bullets
+ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
 {
   Inventory.Amount 50
   +FLOORCLIP +DONTGIB
@@ -256,7 +74,7 @@ ACTOR PPE_LargeBullet : PPE_Bullets
   }
 }
 
-ACTOR PPE_LargeShell : PPE_Shells
+ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
 {
   Inventory.Amount 40
   +FLOORCLIP +DONTGIB
@@ -270,7 +88,7 @@ ACTOR PPE_LargeShell : PPE_Shells
   }
 }
 
-ACTOR PPE_LargeRocket : PPE_Rockets
+ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketAmmo
 {
   Inventory.Amount 5
   +FLOORCLIP +DONTGIB
@@ -284,7 +102,7 @@ ACTOR PPE_LargeRocket : PPE_Rockets
   }
 }
 
-ACTOR PPE_LargeCell : PPE_Cells
+ACTOR PPE_LargeCell : PPE_Cells replaces CellPack
 {
   Inventory.Amount 100
   +FLOORCLIP +DONTGIB
@@ -294,90 +112,6 @@ ACTOR PPE_LargeCell : PPE_Cells
   {
   Spawn:
     BCLP ABCDDCBAA 2 bright
-    Loop
-  }
-}
-
-ACTOR PPE_SmallSlug : PPE_Slugs
-{
-  Inventory.Amount 2
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTSLUGS"
-  Inventory.PickupSound "items/ammo2"
-  States
-  {
-  Spawn:
-    SLUG B -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallNail : PPE_Nails
-{
-  Inventory.Amount 10
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNAILS"
-  Inventory.PickupSound "items/ammo1"
-  States
-  {
-  Spawn:
-    NBXS A -1
-    Stop
-  }
-}
-
-ACTOR PPE_SmallNuke : PPE_Nukes
-{
-  Inventory.Amount 2
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNUKE"
-  Inventory.PickupSound "items/ammo2"
-  States
-  {
-  Spawn:
-    GCLQ ABCDDCBAA 2 bright 
-    Loop
-  }
-}
-
-ACTOR PPE_LargeSlug : PPE_Slugs
-{
-  Inventory.Amount 10
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTSLUGBOX"
-  Inventory.PickupSound "items/ammo2"
-  States
-  {
-  Spawn:
-	SLGB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeNail : PPE_Nails
-{
-  Inventory.Amount 50
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNAILBOX"
-  Inventory.PickupSound "items/ammo1"
-  States
-  {
-  Spawn:
-    NBXB A -1
-    Stop
-  }
-}
-
-ACTOR PPE_LargeNuke : PPE_Nukes
-{
-  Inventory.Amount 10
-  +FLOORCLIP +DONTGIB
-  Inventory.PickupMessage "$GOTNUKEBOX"
-  Inventory.PickupSound "items/ammo2"
-  States
-  {
-  Spawn:
-    GCLP ABCDDCBAA 2 bright
     Loop
   }
 }

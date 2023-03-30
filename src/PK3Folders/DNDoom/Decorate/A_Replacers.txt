@@ -132,6 +132,10 @@ Actor PPE_BFGSpawner : PPE_Spawner replaces BFG9000
 	{
 	Spawn:
 		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",5) //use WithResult otherwise it'll run in parellel
+		//TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",5) == 2,"Spawn2")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",1,10)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",0,10)
 		TNT1 A 0 A_SpawnPermanent("PPE_DevastatorSpawn")
 		stop
 	Drop:
