@@ -86,8 +86,13 @@ Actor PPE_PhalanxMissile : PPE_SlowMissileBase
 		TNT1 A 0 A_Quake(2,5,0,480,"")
 		TNT1 A 0 A_Quake(1,5,0,3008,"")
 		TNT1 A 0 A_SpawnItem("PPE_OrangeQuakeExplo")
-		PMXP A 4 bright
-		PMXP BCDEF 3 bright
+		TNT1 A 0 A_CheckFloor("Floor")
+		PMWP AB 3 bright
+		PMWP CDEFG 3 bright
+		Stop
+	Floor:
+		PMFP AB 3 bright
+		PMFP CDEFG 3 bright
 		Stop
 	}
 }

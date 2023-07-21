@@ -92,7 +92,7 @@ items/armor4	armor4
 items/armor5	armor5
 
 //Player
-$playeralias	DSS_SeriousPlayer	male	*death		sspdeath
+$playersound	DSS_SeriousPlayer	male	*death		sspdeath
 $playersounddup	DSS_SeriousPlayer	male	*xdeath		*death
 $playersound	DSS_SeriousPlayer	male	*gibbed		sspdeath
 $playersound	DSS_SeriousPlayer	male	*gibbed-telefrag	teledth1

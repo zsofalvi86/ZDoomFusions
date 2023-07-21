@@ -17,6 +17,7 @@ Actor QD_LaserCannonBullet
 	WallBounceFactor 1.0
 	DamageType "Quake1Cell"
 	+USEBOUNCESTATE
+	+BLOODSPLATTER
 	States
 	{
 	Spawn:
@@ -33,9 +34,11 @@ Actor QD_LaserCannonBullet
 	StopDeath:
 		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE)
 	Crash:
-	XDeath:
 	Death:
 		RPSX ABCDE 3 bright
+		stop
+	XDeath:
+		TNT1 A 10
 		stop
 	}
 }
@@ -75,9 +78,9 @@ Actor QD_LaserCannon : PlasmaRifle
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_FireCustomMissile("QD_LaserCannonBullet",0,1,-5,-4)
 		TNT1 A 0 A_FireCustomMissile("QD_LaserCannonBullet",0,0,5,-4)
-	    QLSG A 1 bright
-		QLSG A 1 bright
-		QLSG A 1 bright
+	    QLSF D 1 bright
+		QLSF E 1 bright
+		QLSF F 1 bright
 		TNT1 A 0 A_Refire
 		Goto Ready
 	Hold:
@@ -87,17 +90,17 @@ Actor QD_LaserCannon : PlasmaRifle
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_FireCustomMissile("QD_LaserCannonBullet",0,1,0,3)
 		TNT1 A 0 A_FireCustomMissile("QD_LaserCannonBullet",0,0,0,3)
-		QLSG A 1 bright
-		QLSG A 1 bright
-		QLSG A 1 bright
+		QLSF A 1 bright
+		QLSF B 1 bright
+		QLSF C 1 bright
 		QLSG A 1
 		TNT1 A 0 A_ClearRefire
 		goto Ready
 	Flash:
 		TNT1 A 0 A_Light1
-		TNT1 AA 1 A_SetPitch(pitch-0.4)
+		TNT1 AA 1 A_SetPitch(pitch-0.3)
 		TNT1 A 0 A_Light2
-		TNT1 A 1 A_SetPitch(pitch+0.8)
+		TNT1 A 1 A_SetPitch(pitch+0.6)
 		Goto LightDone
 	}
 }

@@ -23,7 +23,7 @@ ACTOR PPE_Q2MediKit : MediKit
 	}
 }
 
-ACTOR PPE_Q2HealthBonus : HealthBonus replaces HealthBonus
+ACTOR PPE_Q2HealthBonus : HealthBonus
 {
   Inventory.PickupSound "items/health1"
   Inventory.PickupMessage "$GOTSTIM"
@@ -37,7 +37,7 @@ ACTOR PPE_Q2HealthBonus : HealthBonus replaces HealthBonus
   }
 }
 
-ACTOR PPE_Adrenaline_Upgrade : UpgradeStamina replaces Berserk
+ACTOR PPE_Adrenaline_Upgrade : UpgradeStamina
 {
   +COUNTITEM
   Inventory.PickupMessage "$GOTADRENALINE"
@@ -52,7 +52,7 @@ ACTOR PPE_Adrenaline_Upgrade : UpgradeStamina replaces Berserk
   }
 }
 
-ACTOR PPE_Q2MegaHealth : CustomInventory replaces Soulsphere
+ACTOR PPE_Q2MegaHealth : CustomInventory
 {
   +COUNTITEM
   +INVENTORY.ALWAYSPICKUP
@@ -71,18 +71,138 @@ ACTOR PPE_Q2MegaHealth : CustomInventory replaces Soulsphere
   }
 }
 
-Actor PPE_25HealthSpawner : PPE_Spawner replaces MediKit
+ACTOR PPE_Q2HealthBonusSpawner : PPE_Spawner replaces HealthBonus
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",0,1) == 1,"SpawnHp")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,1)
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallGrenade")
+		stop
+	SpawnHp:
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2HealthBonus")
+		stop
+	}
+}
+
+ACTOR PPE_Q2ArmorBonusSpawner : PPE_Spawner replaces ArmorBonus
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",1,1) == 1,"SpawnAr")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,1)
+		TNT1 A 0 A_SpawnPermanent("PPE_SmallGrenade")
+		stop
+	SpawnAr:
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2ArmorBonus")
+		stop
+	}
+}
+
+ACTOR PPE_Q2SoulSpawner : PPE_Spawner replaces Soulsphere
 {
 	States
 	{
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",13) //use WithResult otherwise it'll run in parellel
-		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",13) == 4,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",13) == 3,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",13) == 2,"Spawn2")
+	Spawn1:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,25)
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2MegaHealth")
+		stop
+	Spawn2:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",0,1) == 1,"Spawn2a")
+		Goto Spawn1
+	Spawn2a:
+		TNT1 A 0 A_SpawnPermanent("PPE_Adrenaline_Upgrade")
+		stop
+	Spawn3:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",1,100) == 1,"Spawn3a")
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",0,1) == 1,"Spawn2a")
+		Goto Spawn1
+	Spawn3a:
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2RedArmor")
+		stop
+	}
+}
+
+Actor PPE_25HealthSpawner : PPE_Spawner replaces MediKit
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",14) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",14) == 6,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",14) == 4,"Spawn2")
+	Spawn1:
 		TNT1 A 0 A_SpawnPermanent("PPE_Q2MediKit")
 		stop
 	Spawn2:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",1,50) == 1,"Spawn2b")
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",1,25) == 1,"Spawn2a")
+		Goto Spawn1
+	Spawn2a:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,25)
 		TNT1 A 0 A_SpawnPermanent("PPE_Q2GreenArmor")
+		stop
+	Spawn2b:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,25)
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2YellowArmor")
+		stop
+	Spawn3:
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",0,76) == 1,"Spawn3b")
+		TNT1 A 0 A_JumpIf(CallAcs("SpendExcess",0,50) == 1,"Spawn3a")
+		Goto Spawn1
+	Spawn3a:
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2MegaHealth")
+		stop
+	Spawn3b:
+		TNT1 A 0 A_SpawnPermanent("PPE_Adrenaline_Upgrade")
+		stop
+	}
+}
+
+Actor PPE_Q2GreenArmorSpawner : PPE_Spawner replaces GreenArmor
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("CheckExcess",1,500) == 1,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("CheckExcess",1,100) == 1,"Spawn2")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,75)
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2GreenArmor")
+		stop
+	Spawn2:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,50)
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2YellowArmor")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2RedArmor")
+		stop
+	}
+}
+
+Actor PPE_Q2BlueArmorSpawner : PPE_Spawner replaces BlueArmor
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("CheckExcess",1,50) == 1,"Spawn2")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,150)
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2YellowArmor")
+		stop
+	Spawn2:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,100)
+		TNT1 A 0 A_SpawnPermanent("PPE_Q2RedArmor")
 		stop
 	}
 }
@@ -112,12 +232,18 @@ Actor PPE_MegaSphereSpawner : PPE_Spawner replaces Megasphere
 		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",12) //use WithResult otherwise it'll run in parellel
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",12) == 3,"Spawn3")
 		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",12) == 2,"Spawn2")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,150)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,100)
 		TNT1 A 0 A_SpawnPermanent("PPE_Q2PowerArmor")
 		stop
 	Spawn2:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,100)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,200)
 		TNT1 A 0 A_SpawnPermanent("PPE_Q2MegaHealth")
 		stop
 	Spawn3:
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",0,150)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterExcess",1,100)
 		TNT1 A 0 A_SpawnPermanent("PPE_Q2RedArmor")
 		stop
 	}

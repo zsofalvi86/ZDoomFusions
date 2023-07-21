@@ -1,0 +1,56 @@
+Actor PPE_Announcement : CustomInventory
+{
+	+DONTGIB +NOTONAUTOMAP 
+	+INVENTORY.QUIET
+	+INVENTORY.AUTOACTIVATE
+	+INVENTORY.ALWAYSPICKUP
+	States
+	{
+	Spawn:
+        TNT1 A -1
+		stop
+	PickUp:
+		TNT1 A 1
+		stop
+	}
+}
+
+Actor PPE_Accuracy : PPE_Announcement
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("announcer/accuracy",5)
+		stop
+	}
+}
+
+Actor PPE_Excellent : PPE_Announcement
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("announcer/excellent",5)
+		stop
+	}
+}
+
+Actor PPE_Humiliation : PPE_Announcement
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("announcer/humiliation",5)
+		stop
+	}
+}
+
+Actor PPE_Impressive : PPE_Announcement
+{
+	States
+	{
+	PickUp:
+		TNT1 A 100 A_PlaySound("announcer/impressive",5)
+		stop
+	}
+}

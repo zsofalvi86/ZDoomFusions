@@ -15,8 +15,8 @@ Actor PPE_DNShrinker : PPE_DNWeaponBase
 	States
 	{
 	Spawn:
-		SHRP A -1
-		Stop
+		SHRP AAAAAABBCCDDCCBB 1
+		Loop
 	Ready.Ready:
 		SHRG AAAABBBCCCDDDEEEEDDDCCCBBBAA 1 A_WeaponReady
 		Loop
@@ -65,17 +65,17 @@ Actor PPE_DNExpander : PPE_DNWeaponBase
 	States
 	{
 	Spawn:
-		SHRP A -1
-		Stop
+		SHEP AAAAAABBCCDDCCBB 1
+		Loop
 	Ready.Ready:
 		SHEG AAAABBBCCCDDDEEEEDDDCCCBBBAA 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
 	Deselect:
-		SHRG A 1 A_Lower
+		SHEG A 1 A_Lower
 		TNT1 A 0 A_Lower
 		Loop
 	Select:
-		SHRG A 1 A_Raise
+		SHEG A 1 A_Raise
 		TNT1 A 0 A_Raise
 		Loop
     Fire:
@@ -83,8 +83,8 @@ Actor PPE_DNExpander : PPE_DNWeaponBase
         TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash("FlashExpander")
 		TNT1 A 0 A_FireBullets(0,0,1,(15),"PPE_ExpanderPuff",FBF_USEAMMO|FBF_NORANDOM)
-		SHRF ABCD 1 bright
-		SHEG A 2
+		SHEF ABCD 1 bright
+		SHEG DC 1
 		TNT1 A 0 A_ReFire
 		Goto Ready.Ready
 	FlashExpander:
@@ -207,14 +207,22 @@ Actor PPE_ExpanderPuff : PPE_ExpanderPuffBase
 {
 	+ALWAYSPUFF
 	+PUFFONACTORS
+	+BLOODLESSIMPACT
+	-ALLOWPARTICLES
 	VSpeed 0
 	RenderStyle Normal
 	States
 	{
 	Spawn:
 		TNT1 A 0
-		WTRL AB 2
-		WTRL CDEF 2
-		Stop
+		TNT1 A 0 A_Jump(256,"A","B","C","D")
+		A: BMEB ABCD 2 bright
+		stop
+		B: BMEB BCDA 2 bright
+		stop
+		C: BMEB CDAB 2 bright
+		stop
+		D: BMEB DABC 2 bright
+		stop
 	}
 }

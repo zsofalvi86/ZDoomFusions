@@ -1,4 +1,4 @@
-Class PPE_Q2ArmorBonus : ArmorBonus replaces ArmorBonus
+Class PPE_Q2ArmorBonus : ArmorBonus
 {
 	bool nrg;
 	Default
@@ -121,7 +121,7 @@ Class PPE_Q2GreenArmor : PPE_Q2ArmorPickup
 	}
 }
 
-Class PPE_Q2YellowArmor : PPE_Q2ArmorPickup replaces GreenArmor
+Class PPE_Q2YellowArmor : PPE_Q2ArmorPickup // actual pickup
 {
 	Default
 	{
@@ -191,7 +191,7 @@ Class PPE_Q2YellowArmor : PPE_Q2ArmorPickup replaces GreenArmor
 	}
 }
 
-Class PPE_Q2RedArmor : PPE_Q2ArmorPickup replaces BlueArmor
+Class PPE_Q2RedArmor : PPE_Q2ArmorPickup // actual pickup
 {
 	Default
 	{

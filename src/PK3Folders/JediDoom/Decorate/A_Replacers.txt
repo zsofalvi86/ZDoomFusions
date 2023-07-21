@@ -1,0 +1,155 @@
+Actor PPE_ChainsawSpawner : CustomInventory replaces Chainsaw
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",8) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",8) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnItem("PPE_ChainsawSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_ProximityLauncherSpawn")
+		stop
+	}
+}
+
+Actor PPE_ShotgunSpawner : CustomInventory replaces Shotgun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",2) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",2) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_BowcasterSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_FlechetteSpawn")
+		stop
+	Drop:
+		TNT1 A 0
+		TNT1 A 0 A_DropItem("PPE_Bowcaster")
+		stop
+	}
+}
+
+Actor PPE_SuperShotgunSpawner : CustomInventory replaces SuperShotgun
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",3) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",3) == 2,"Spawn2")
+		TNT1 A 0 A_SpawnItem("PPE_FlechetteSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_RepeaterSpawn")
+		stop
+	}
+}
+
+Actor PPE_PlasmaGunSpawner : CustomInventory replaces PlasmaRifle
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("SetSpawn",6) //use WithResult otherwise it'll run in parellel
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 2,"Spawn2")
+		TNT1 A 0 A_JumpIf(CallAcs("GetSpawn",6) == 3,"Spawn3")
+		TNT1 A 0 A_SpawnItem("PPE_RepeaterSpawn")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnItem("PPE_DEMPSpawn")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnItem("PPE_DisruptorSpawn")
+		stop
+	}
+}
+
+Actor PPE_WeaponSpawnBase
+{
+	+DONTGIB +NOTONAUTOMAP
+}
+
+Actor PPE_BulSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_ShelSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_RcktSpawn : PPE_WeaponSpawnBase { }
+Actor PPE_CelSpawn : PPE_WeaponSpawnBase { }
+
+
+Actor PPE_BowcasterSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Bowcaster")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_FlechetteSpawn : PPE_ShelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_FlechetteCannon")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_RepeaterSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Repeater")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_DEMPSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_DEMP")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_DisruptorSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Disruptor")
+        TNT1 A 100
+		stop
+	}
+}
+
+Actor PPE_ConcussionSpawn : PPE_CelSpawn
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_Q2Bfg")
+        TNT1 A 100
+		stop
+	}
+}

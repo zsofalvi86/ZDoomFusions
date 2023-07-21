@@ -64,9 +64,9 @@ Actor PPE_Q2SuperShotgun : SuperShotgun
 		Q2SS B 1 Offset(-11,35)
 		Q2SS B 1 Offset(-12,34)
 		Q2SS A 1 Offset(0,32)
-		Q2SS A 1 Offset(0,30)
-		Q2SS A 1 Offset(0,28)
-		Q2SS A 1 Offset(0,30)
+		Q2SS A 1 Offset(0,33)
+		Q2SS A 1 Offset(0,34)
+		Q2SS A 1 Offset(0,33)
 		Q2SS A 1 Offset(0,32)
 		Q2SS A 2
 		//Q2SS HHGGFFEEAAA 1

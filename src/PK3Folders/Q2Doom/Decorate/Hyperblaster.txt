@@ -141,10 +141,12 @@ Actor PPE_HyperBlasterBolt : PPE_SlowMissileBase
 		GLAP A 1 bright
 		loop
 	Crash:
-	XDeath:
 	Death:
 		TNT1 A 0 A_StopSound(6)
 		GPSX ABCDE 3 bright
+		stop
+	XDeath:
+		TNT1 A 1
 		stop
 	}
 }

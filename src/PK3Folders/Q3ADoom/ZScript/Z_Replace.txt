@@ -30,5 +30,103 @@ Class PPE_Q3Replace : EventHandler
 		}
 	}*/
 	
-	//void CheckForR 
+	int lastkill;
+	int killcount;
+	int gibcount;
+	int hpbuffer;
+	int lastrail;
+	int[99] lasthit;
+	int dmgbuffer;
+
+	override void WorldThingDied (WorldEvent e)
+	{
+		let q3player = PPE_Q3Player(e.Thing.Target);
+		if (q3player) { q3player.WorldThingDied(e); }
+	
+		/*if (e.Thing && e.Thing.Target
+		&& (e.Thing.bIsMonster || e.Thing.Player)
+		&& e.Thing.Target.GetClassName() == "PPE_Q3Player")
+		{
+			if (e.Inflictor && e.Inflictor.GetClassName() == "PPE_GauntletPuff" && (e.Thing.GetSpawnHealth() > 200 || e.Thing.Player))
+			{
+				e.Thing.Target.GiveInventory("PPE_Humiliation",1);
+			}
+			
+			if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150)) { gibcount++; }
+			hpbuffer += e.Thing.GetSpawnHealth();
+			killcount++;
+			
+			if (level.time < lastkill + 70)
+			{
+				if (hpbuffer > 500 || killcount > 3 || gibcount > 1)
+				{
+					e.Thing.Target.GiveInventory("PPE_Excellent",1);
+					hpbuffer = 0;
+					killcount = 0;
+					gibcount = 0;
+				}
+			}
+			else
+			{
+				hpbuffer = 0;
+				killcount = 0;
+				gibcount = 0;
+			}
+			lastkill = level.time;
+		}*/
+	}
+	
+	override void WorldThingDamaged (WorldEvent e)
+	{
+		let q3player = PPE_Q3Player(e.DamageSource);
+		if (q3player) { q3player.WorldThingDamaged(e); }
+		
+		/*if (e.Thing 
+		&& (e.Thing.bIsMonster || e.Thing.Player)
+		&& e.DamageSource 
+		&& e.DamageSource.GetClassName() == "PPE_Q3Player")
+		{
+			if (e.Inflictor && e.Inflictor.GetClassName() == "PPE_Q3RailPuff")
+			{
+				if ((level.time < lastrail + 35) || (level.time < lastrail + 70 && e.Thing.Player))
+				{
+					e.DamageSource.GiveInventory("PPE_Impressive",1);
+				}
+				else if (level.time > lastrail + 70 && e.Thing.Distance3D(e.DamageSource) > 1024)
+				{
+					e.DamageSource.GiveInventory("PPE_Accuracy",1);
+				}
+				lastrail = level.time;
+			}
+			
+			if (e.DamageSource.CountInv("PPE_AccShots") > 0 &&
+			e.DamageSource.CountInv("PPE_AccHits") + e.DamageSource.CountInv("PPE_AccShots") >= 100)
+			{
+				double ratio = e.DamageSource.CountInv("PPE_AccHits") / e.DamageSource.CountInv("PPE_AccShots");
+				if (ratio > 0.35)
+				{
+					e.DamageSource.GiveInventory("PPE_Accuracy",1);
+				}
+				e.DamageSource.SetInventory("PPE_AccHits",0);
+				e.DamageSource.SetInventory("PPE_AccShots",0);
+			}
+			
+			//console.printf("%s%i", "pn:", e.DamageSource.PlayerNumber()+1);
+			//console.printf("%s%i", "lh:", lasthit[e.DamageSource.PlayerNumber()]);
+			if (lasthit[e.DamageSource.PlayerNumber()] != level.time)
+			{
+				e.DamageSource.GiveInventory("PPE_AccHits",1);
+				//console.printf("%s%i", "hit:", e.DamageSource.CountInv("PPE_AccHits"));
+				//console.printf("%s%i", "shot:", e.DamageSource.CountInv("PPE_AccShots"));
+			}
+			
+			if (lasthit[e.DamageSource.PlayerNumber()] < level.time + 70)
+			{
+			}
+			else
+			{
+			}
+			lasthit[e.DamageSource.PlayerNumber()] = level.time;
+		}*/
+	}
 }

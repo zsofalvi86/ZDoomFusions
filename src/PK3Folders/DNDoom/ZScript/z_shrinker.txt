@@ -2,7 +2,7 @@ Class PPE_ShrinkerMissileBase : Rocket
 {	
 	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
 	{
-		A_SetRenderStyle(1,STYLE_None);
+		//A_SetRenderStyle(1,STYLE_None); // done by flash
 		if (target && 
 		!target.Morph(self.target,"PPE_ActionFigurePlayer","PPE_ActionFigureMonster",410,MRF_FULLHEALTH|MRF_TRANSFERTRANSLATION,"PPE_ShrinkFog","PPE_UnShrinkFog"))
 		{
@@ -19,7 +19,7 @@ Class PPE_ShrinkerMissileBase : Rocket
 				mo.health = target.health;
 				mo.sprite = target.sprite;
 				mo.frame = target.frame;
-				//mo.A_SetRenderStyle(target.alpha,target.GetRenderStyle()); // done by flash
+				mo.A_SetRenderStyle(target.alpha,target.GetRenderStyle());
 			}
 		}
 		
@@ -44,6 +44,7 @@ Class PPE_ShrinkFog : Actor
 			shadow.A_SetScale(scale);
 			shadow.sprite = target.sprite;
 			shadow.frame = target.frame;
+			shadow.A_SetRenderStyle(1,oldrenderstyle);
 			scale-=0.025;
 		}
 		"####" A 0 {target.A_SetRenderStyle(1,oldrenderstyle);}
@@ -68,6 +69,7 @@ Class PPE_UnShrinkFog : Actor
 			shadow.A_SetScale(scale);
 			shadow.sprite = target.sprite;
 			shadow.frame = target.frame;
+			shadow.A_SetRenderStyle(1,oldrenderstyle);
 			scale+=0.025;
 		}
 		"####" A 0 {target.A_SetRenderStyle(1,oldrenderstyle);}

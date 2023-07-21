@@ -131,6 +131,14 @@ items/ammoregen/pickup		cl_ammo
 weapons/kamikaze/explode kamif
 weapons/kamikaze/fire	kamis
 
+//Announcer
+announcer/accuracy q3aaacc
+aexc1 q3aaexc1 aexc2 q3aaexc2
+$random announcer/excellent { aexc1 aexc2 }
+announcer/humiliation q3aahum
+aimp1 q3aaimp1 aimp2 q3aaimp2
+$random announcer/impressive { aimp1 aimp2 }
+
 //Player
 pdth1		death1
 pdth2		death2

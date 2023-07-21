@@ -21,6 +21,8 @@ Actor PPE_Q2ChainGun : Chaingun
 		Loop
 	Deselect:
 		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_SetInventory("PPE_ChaingunOvershoot",0)
+		TNT1 A 0 A_SetInventory("PPE_ChaingunSpin",0)
 	DeseLoop:
 		Q2CG A 1 A_Lower
 		Loop

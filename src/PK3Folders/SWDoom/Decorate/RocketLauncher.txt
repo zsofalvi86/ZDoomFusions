@@ -65,7 +65,7 @@ Actor PPE_RocketLauncher : RocketLauncher
 		SRLG AA 2 bright
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("weapons/rocket/fire")
-		TNT1 A 0 A_FireCustomMissile("PPE_SWRocket",0,1,0,4)
+		TNT1 A 0 A_FireProjectile("PPE_SWRocket",0,1,0,4)
 		TNT1 A 0 A_GunFlash
 		SRLG AAA 2 bright
 		SRLG A 16
@@ -78,7 +78,7 @@ Actor PPE_RocketLauncher : RocketLauncher
 		SRLG BB 2 bright
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("weapons/rocket/fire")
-		TNT1 A 0 A_FireCustomMissile("PPE_SWRocket_Seeker",0,1,0,4)
+		TNT1 A 0 A_FireProjectile("PPE_SWRocket_Seeker",0,1,0,4)
 		TNT1 A 0 A_TakeInventory("PPE_HeatSeekerCard",1)
 		TNT1 A 0 A_GunFlash
 		SRLG BBB 2 bright
@@ -96,7 +96,7 @@ Actor PPE_RocketLauncher : RocketLauncher
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("weapons/rocket/fire")
 		TNT1 A 0 A_PlaySound("weapons/nuke/warn",6)
-		TNT1 A 0 A_FireCustomMissile("PPE_SWNuke",0,0,0,4)
+		TNT1 A 0 A_FireProjectile("PPE_SWNuke",0,0,0,4,FPF_NOAUTOAIM)
 		TNT1 A 0 A_TakeInventory("PPE_Nukes",1)
 		TNT1 A 0 A_SetInventory("PPE_NukeReady",0)
 		TNT1 A 0 A_GunFlash("FlashNuke")

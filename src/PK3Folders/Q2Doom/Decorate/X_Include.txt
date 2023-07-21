@@ -9,6 +9,7 @@
 #Include Decorate/Machinegun.txt
 #Include Decorate/ETF.txt
 #Include Decorate/Chaingun.txt
+#Include Decorate/HandGrenade.txt
 #Include Decorate/GrenadeLauncher.txt
 #Include Decorate/ProximityLauncher.txt
 #Include Decorate/RocketLauncher.txt

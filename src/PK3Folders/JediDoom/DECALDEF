@@ -1,0 +1,7 @@
+decal Q2CellScorch
+{
+	pic PBMBB0
+	add 1.0
+	animator GoAway
+	lowerdecal PlasmaScorchLower
+}

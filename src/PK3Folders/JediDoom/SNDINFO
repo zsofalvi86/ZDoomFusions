@@ -1,0 +1,219 @@
+
+ric1	ric1
+ric2	ric2
+ric3	ric3
+$random weapons/ric { ric1 ric2 ric3 }
+
+//Pickups
+items/q2ammo			am_pkup
+items/q2weapon			w_pkup
+items/q2pickup			pkup
+items/health1			s_health
+items/health2			n_health
+items/health3			l_health
+items/megahealth		m_health
+items/armor1			ar2_pkup
+items/armor2			ar1_pkup
+items/armor3			ar3_pkup
+
+misc/k_pkup			pkup
+
+//Items
+items/suit/fade			airout
+items/suit/breath1		u_br1
+items/suit/breath2		u_br2
+items/visor/use			ir_start
+items/quad/use			damage
+items/quad/fade			damage2
+items/quad/amp			damage3
+items/invul/use			protect
+items/invul/fade		protect2
+items/invul/absorb		protect3
+
+items/nuke/warn			nukewarn
+items/powershield/on	power1
+items/powershield/off	power2
+items/powershield/hit	lashit
+
+items/weapon/pickup w_pkup
+items/ammo/pickup w_pkup
+items/health/pickup h_pkup
+items/armor/pickup a_pkup
+
+//Lightsaber
+weapons/lightsaber/idle	sawidle
+weapons/lightsaber/fire	sawhit
+
+//Blaster Pistol
+weapons/blasterpistol/fire	bpf
+weapons/blasterpistol/altfire	bpf2
+weapons/blasterpistol/charge	bpch
+weapons/blasterpistol/impact	bpi
+weapons/blasterpistol/up	bpu
+
+//Blaster Rifle
+weapons/blasterrifle/fire	brf
+weapons/blasterrifle/altfire	brf2
+weapons/blasterrifle/impact	bri
+weapons/blasterrifle/up	bru
+brr1 brr1 brr2 brr2 brr3 brr3
+$random weapons/blaster/ric { brr1 brr2 brr3 }
+
+//Crossbow
+weapons/crossbow/fire	bcf
+weapons/crossbow/altfire	bcf2
+weapons/crossbow/bounce	bcb
+weapons/crossbow/charge	bcch
+weapons/crossbow/impact	bci
+weapons/crossbow/up	bcu
+
+//Flechette
+weapons/flechette/fire	fcf
+weapons/flechette/altfire	fcf2
+fcr1 fcr1 fcr2 fcr2
+$random weapons/flechette/ric { fcr1 fcr2 }
+weapons/flechette/sizzle	fcsiz
+weapons/flechette/up	fcu
+
+//Rocket Launcher
+weapons/rocket/fire		rlf
+weapons/rocket/altfire		rlf2
+weapons/rocket/lock	rllock
+weapons/rocket/tick	rltick
+weapons/rocket/fly		rlfly
+$volume weapons/rocket/fly 0.8
+weapons/q2exp			rocklx
+$limit weapons/q2exp 6
+
+//Repeater
+weapons/repeater/fire	ref
+weapons/repeater/altfire	ref2
+weapons/repeater/impact	rei
+weapons/repeater/explode	reexp
+weapons/repeater/up	reu
+
+//Grenade
+weapons/handgrenade/twist	hgrenw
+weapons/handgrenade/loop	hgrenc
+weapons/handgrenade/fire	hgrenf
+hgrb1	hgrenb1
+hgrb2	hgrenb2
+$random weapons/handgrenade/bounce { hgrb1 hgrb2 }
+weapons/grenade/fire	grenlf
+weapons/grenade/reload	grenlr
+weapons/grenade/bounce	grenlb
+weapons/proximity/open	proxopen
+weapons/proximity/warn	proxwarn
+weapons/grenade/explode	grenlx
+weapons/tesla/open		teslaopen
+weapons/tesla/lash		tesla
+
+//DEMP
+weapons/demp/fire		def
+weapons/demp/altfire		def2
+weapons/demp/charge		dech
+weapons/demp/impact		dei
+weapons/demp/up		deu
+
+//Disruptor
+weapons/disruptor/fire	dif
+weapons/disruptor/altfire	dif2
+weapons/disruptor/charge	dich
+weapons/disruptor/impact	dii
+weapons/disruptor/zoom/start	dzs
+weapons/disruptor/zoom/end	dze
+weapons/disruptor/zoom/loop	dzl
+weapons/disruptor/up	diu
+
+//Concussion
+weapons/concussion/fire	cof
+weapons/concussion/altfire	cof2
+weapons/concussion/impact	coi
+weapons/concussion/explode	coexp
+weapons/concussion/idle	coidl
+weapons/concussion/fly	cofly
+weapons/concussion/up	cou
+
+//Trap
+weapons/trap/cock		trapcock
+weapons/trap/open		trapdown
+weapons/trap/loop		traploop
+weapons/trap/suck		trapsuck
+
+//Player
+pdth1		death1
+pdth2		death2
+pdth3		death3
+pdth4		death4
+$random player/death { pdth1 pdth2 pdth3 }
+
+pp1001 painf_1
+pp1002 painf_2
+$random player/pain100 { pp1001 pp1002 }
+
+pp751 pain75_1
+pp752 pain75_2
+$random player/pain75 { pp751 pp752 }
+
+pp501 pain50_1
+pp502 pain50_2
+$random player/pain50 { pp501 pp502 }
+
+pp251 pain25_1
+pp252 pain25_2
+$random player/pain25 { pp251 pp252 }
+
+pbrn1 burn1
+pbrn2 burn2
+$random player/burn { pbrn1 pbrn2 }
+
+pdrn1 gurp1
+pdrn2 gurp2
+$random player/drown { pdrn1 pdrn2 }
+
+$playeralias	PPE_Quake2Player	male	*death		player/death
+$playersound	PPE_Quake2Player	male	*xdeath		udeath
+$playersound	PPE_Quake2Player	male	*gibbed		udeath
+$playersound	PPE_Quake2Player	male	*gibbed-telefrag	teledth1
+$playeralias	PPE_Quake2Player	male	*pain100	player/pain100
+$playeralias	PPE_Quake2Player	male	*pain75		player/pain75
+$playeralias	PPE_Quake2Player	male	*pain50		player/pain50
+$playeralias	PPE_Quake2Player	male	*pain25		player/pain25
+$playeralias	PPE_Quake2Player	male	*pain100-fire	player/burn
+$playersounddup	PPE_Quake2Player	male	*pain75-fire	*pain100-fire
+$playersounddup	PPE_Quake2Player	male	*pain50-fire	*pain100-fire
+$playersounddup	PPE_Quake2Player	male	*pain25-fire	*pain100-fire
+$playersounddup	PPE_Quake2Player	male	*pain100-slime	*pain100
+$playersounddup	PPE_Quake2Player	male	*pain75-slime	*pain75
+$playersounddup	PPE_Quake2Player	male	*pain50-slime	*pain50
+$playersounddup	PPE_Quake2Player	male	*pain25-slime	*pain25
+$playeralias	PPE_Quake2Player	male	*pain100-drowning	player/drown
+$playersounddup	PPE_Quake2Player	male	*pain75-drowning	*pain100-drowning
+$playersounddup	PPE_Quake2Player	male	*pain50-drowning	*pain100-drowning
+$playersounddup	PPE_Quake2Player	male	*pain25-drowning	*pain100-drowning
+$playersound	PPE_Quake2Player	male	*pain100-falling	fall1
+$playersounddup	PPE_Quake2Player	male	*pain75-falling		*pain100-falling
+$playersound	PPE_Quake2Player	male	*pain50-falling		fall2
+$playersounddup	PPE_Quake2Player	male	*pain25-falling		*pain50-falling
+$playersound	PPE_Quake2Player	male	*grunt		push
+$playersound	PPE_Quake2Player	male	*land		land1
+$playersound	PPE_Quake2Player	male	*jump		jump1
+$playersounddup	PPE_Quake2Player	male	*usefail	*grunt
+
+//Misc
+menu/activate		menu2		// Activate a new menu
+menu/backup			menu2		// Backup to previous menu
+menu/prompt			menu2		// Activate a prompt "menu"
+menu/cursor			menu1		// Move cursor up/down
+menu/change			menu3		// Select new value for option
+menu/invalid		menu3		// Menu not available
+menu/dismiss		menu2		// Dismiss a prompt message
+menu/choose			menu1		// Choose a menu item
+menu/clear			menu2		// Close top menu
+
+misc/secret			secret
+misc/chat			talk		// Doom 2 chat sound
+misc/chat2			talk		// Chat sound for everything else
+
+//Teleport
+misc/teleport 		tele1

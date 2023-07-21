@@ -1,0 +1,15 @@
+#Include Decorate/G_MissileBases.txt
+#Include Decorate/A_Ammo.txt
+#Include Decorate/Lightsaber.txt
+#Include Decorate/BlasterPistol.txt
+#Include Decorate/BlasterRifle.txt
+#Include Decorate/Bowcaster.txt
+#Include Decorate/FlechetteCannon.txt
+#Include Decorate/RocketLauncher.txt
+#Include Decorate/Repeater.txt
+#Include Decorate/DEMP.txt
+#Include Decorate/Disruptor.txt
+#Include Decorate/ConcussionRifle.txt
+#Include Decorate/A_Replacers.txt
+#Include Decorate/A_Misc.txt
+#Include Decorate/A_Powerup.txt

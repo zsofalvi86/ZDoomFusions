@@ -106,10 +106,11 @@ Class PPE_Q2Player : DoomPlayer
 	{
 		Mass 100;
 		PainChance 255;
-		Gravity 1.0;
+		Gravity 0.9;
 		Species "Player";
 		Player.JumpZ 7.5;
 		Player.StartItem "PPE_Q2Blaster";
+		Player.StartItem "PPE_Q2HandGrenade";
 		Player.StartItem "PPE_Q2DamageMod";
 		Player.DisplayName "Grunt";
 		Player.SoundClass "PPE_Quake2Player";

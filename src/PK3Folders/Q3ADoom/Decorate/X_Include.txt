@@ -1,5 +1,6 @@
 #Include Decorate/G_MissileBases.txt
 //#Include Decorate/G_MissileParticles.txt
+#Include Decorate/A_Announcer.txt
 #Include Decorate/A_Ammo.txt
 #Include Decorate/A_PickupAmmos.txt
 #Include Decorate/Gauntlet.txt

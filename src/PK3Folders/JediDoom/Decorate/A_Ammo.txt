@@ -1,0 +1,167 @@
+Actor PPE_BlasterCells : Ammo
+{
+  Inventory.Amount 10
+  Inventory.MaxAmount 200
+  Ammo.BackpackAmount 10
+  Ammo.BackpackMaxAmount 400
+  Inventory.Icon "IBULA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_MetallicBolts : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 250
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 500
+  Inventory.Icon "ISHLA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Rockets : Ammo
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 50
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 100
+  Inventory.Icon "IGRNA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+Actor PPE_Cells : Ammo
+{
+  Inventory.Amount 20
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 600
+  Inventory.Icon "ICELA0"
+  States
+  {
+  Spawn:
+    Stop
+  }
+}
+
+ACTOR PPE_SmallBlasterCell : PPE_BlasterCells replaces Clip
+{
+  Inventory.Amount 10
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTABLAST1"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    BBXS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallMetallicBolt : PPE_MetallicBolts replaces Shell
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTABOLT1"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    SHLS A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallRocket : PPE_Rockets replaces RocketAmmo
+{
+  Inventory.Amount 1
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCK1"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    RCKP A -1
+    Stop
+  }
+}
+
+ACTOR PPE_SmallCell : PPE_Cells replaces Cell
+{
+  Inventory.Amount 20
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCELL1"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    GCLQ ABCDCB 2 bright 
+    Loop
+  }
+}
+
+ACTOR PPE_LargeBlasterCell : PPE_BlasterCells replaces ClipBox
+{
+  Inventory.Amount 50
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTABLAST2"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    BBXB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeMetallicBolt : PPE_MetallicBolts replaces ShellBox
+{
+  Inventory.Amount 100
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTABOLT2"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    SHLB A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketBox
+{
+  Inventory.Amount 5
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTROCK2"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    RTBX A -1
+    Stop
+  }
+}
+
+ACTOR PPE_LargeCell : PPE_Cells replaces CellPack
+{
+  Inventory.Amount 100
+  +FLOORCLIP +DONTGIB
+  Inventory.PickupMessage "$GOTCELL2"
+  Inventory.PickupSound "items/q2ammo"
+  States
+  {
+  Spawn:
+    GCLR ABCDCB 2 bright
+    Loop
+  }
+}

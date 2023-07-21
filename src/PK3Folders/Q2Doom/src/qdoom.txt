@@ -7,32 +7,7 @@ script "startup" ENTER
 {
 	Thing_ChangeTID(0, 6000 + PlayerNumber());
 	players++;
-	// Like in Quake, set health to at least 50
-	//If(GetActorProperty(0, APROP_HEALTH) < 50)
-	//{
-	//	SetActorProperty(0, APROP_HEALTH, 50);
-	//}
 }
-
-//script "vitaltickers" ENTER
-//{	
-//	while (true)
-//	{
-//		If(CheckInventory("PPE_TempHealth"))
-//		{
-//			TakeInventory("PPE_TempHealth", 1);
-//			If(GetActorProperty(0, APROP_HEALTH) > 100 + GetActorProperty(0, APROP_STAMINA))
-//			{
-//				SetActorProperty(0, APROP_HEALTH, GetActorProperty(0, APROP_HEALTH) - 1);
-//			}
-//			else
-//			{
-//				TakeInventory("PPE_TempHealth", 255);
-//			}
-//		}
-//		Delay(35);
-//	}
-//}
 
 global int 1:level;
 global int 2:SG;
@@ -46,7 +21,9 @@ global int 9:BER;
 global int 10:POW;
 global int 11:BPK;
 global int 12:MEGA;
-global int 13:HP;
+global int 13:SOUL;
+global int 14:HP;
+global int 15:XS[];
 
 script "map exit" UNLOADING
 {
@@ -85,7 +62,8 @@ script "SetSpawn" (int spawnTag)
 		case 10:POW++;break;
 		case 11:BPK++;break;
 		case 12:MEGA++;break;
-		case 13:HP++;break;
+		case 13:SOUL++;break;
+		case 14:HP++;break;
 	}
 	
 	if(SG>3){SG=1;}
@@ -99,6 +77,7 @@ script "SetSpawn" (int spawnTag)
 	if(POW>3){POW=1;}
 	if(BPK>2){BPK=1;}
 	if(MEGA>3){MEGA=2;}
+	if(SOUL>3){SOUL=1;}
 	if(HP>6){HP=1;}
 	
 	if(SG>1 && !(CG>2 || RL>2 || PG>1)) {SG=1;} // limit sg spawns
@@ -130,9 +109,29 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 		case 10:ret=POW;break;
 		case 11:ret=BPK;break;
 		case 12:ret=MEGA;break;
-		case 13:ret=HP;break;
+		case 13:ret=SOUL;break;
+		case 14:ret=HP;break;
 	}
 	
+	SetResultValue(ret);
+}
+
+script "RegisterExcess" (int slot, int amount)
+{
+	XS[slot] += amount;
+}
+
+script "SpendExcess" (int slot, int amount)
+{
+	int ret = 0;
+	if(XS[slot] > amount) {XS[slot]-=amount; ret=1;}
+	SetResultValue(ret);
+}
+
+script "CheckExcess" (int slot, int amount)
+{
+	int ret = 0;
+	if(XS[slot] > amount) {ret=1;}
 	SetResultValue(ret);
 }
 

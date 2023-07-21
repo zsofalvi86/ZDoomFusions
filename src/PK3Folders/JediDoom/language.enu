@@ -1,0 +1,80 @@
+[enu default]
+
+// Items
+GOTARMOR1 = "Picked up 100 Shields.";
+GOTARMOR2 = "Picked up 200 Shields.";
+GOTSTIM = "Picked up a stim pack.";
+GOTSHARD = "Picked up shield boost.";
+GOTMED1 = "Picked up a First Aid Kit.";
+GOTMEDINEED = "Picked up a Medikit. You needed it.";
+GOTMEDIKIT = "Picked up a Medikit.";
+GOTMEGA = "Mega-Health!";
+GOTINVULN = "Picked up the Invulnerability";
+GOTBERSERK = "Berserk!";
+GOTINVIS = "Partial Invisibility";
+GOTMAP = "Computer Area Map";
+GOTVISOR = "Light Amplification Visor";
+GOTMSPHERE = "MegaSphere!";
+GOTQUAD = "Picked up the Quad Damage";
+GOTPOWERSHIELD = "Picked up a Power Shield";
+GOTSILENCER = "Picked up a silencer";
+GOTIRGOGGLES = "Picked up the IR Goggles";
+GOTENVIRO = "Picked up the Environment Suit";
+GOTBACKPACK = "Picked up an Ammo Pack";
+GOTBANDOLIER = "Picked up a Bandolier";
+
+// Force Power Tags
+TAG_FPUSH = "Force Push";
+TAG_FPULL = "Force Pull";
+TAG_FSPEED = "Force Speed";
+TAG_FSIGHT = "Force Sight";
+TAG_FHEAL = "Force Heal";
+TAG_FCONTROL = "Mind Control";
+TAG_FPROTECT = "Force Protection";
+TAG_FABSORB = "Force Absorption";
+TAG_FDRAIN = "Force Drain";
+TAG_FGRIP = "Force Grip";
+TAG_FRAGE = "Force Rage";
+TAG_FLIGHTNING = "Force Lightning";
+
+// Ammo
+GOTABLAST1 = "Picked up a blaster cell.";
+GOTABLAST2 = "Picked up a blaster cell pack.";
+GOTABOLT1 = "Picked up metallic bolts.";
+GOTABOLT2 = "Picked up a box of metallic bolts.";
+GOTAROCK1 = "Picked up a rocket.";
+GOTAROCK2 = "Picked up a box of rockets.";
+GOTABLAST1 = "Picked up a blaster cell.";
+GOTABLAST2 = "Picked up a blaster cell pack.";
+GOTBACKPACK = "Picked up a backpack full of ammo!";
+
+// Guns
+GOT_LSB = "Don't lose it, this weapon is your life!";
+GOT_BLP = "You got the Blaster Pistol!";
+GOT_BLR = "You got the Blaster Rifle!";
+GOT_CBW = "You got the Bowcaster!";
+GOT_FLC = "You got the Flechette Cannon!";
+GOT_RL = "You got the Rocket Launcher!";
+GOT_REP = "You got the Repeater!";
+GOT_DEMP = "You got the D-EMP!";
+GOT_DISR = "You got the Disruptor!";
+GOT_CONC = "You got the Concussion Rifle!";
+
+// Gun Tags
+TAG_LSB = "Lightsaber";
+TAG_BLP = "Blaster Pistol";
+TAG_BLP = "Blaster Pistol";
+TAG_BLR = "Blaster Rifle";
+TAG_CBW = "Bowcaster";
+TAG_FLC = "Flechette Cannon";
+TAG_RL = "Rocket Launcher";
+TAG_REP = "Repeater";
+TAG_DEMP = "D-EMP";
+TAG_DISR = "Disruptor";
+TAG_CONC = "Concussion Rifle";
+
+// Obituary strings
+
+//Other
+
+SECRETMESSAGE = "Secret Area!";
