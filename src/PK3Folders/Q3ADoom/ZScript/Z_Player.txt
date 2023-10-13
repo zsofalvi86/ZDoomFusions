@@ -184,6 +184,7 @@ Class PPE_Q3Player : DoomPlayer
 		Player.StartItem "PPE_Q3MachineGun";
 		Player.StartItem "PPE_Bullets", 75;
 		Player.StartItem "PPE_Gauntlet";
+		Player.StartItem "PPE_Q3DamageMod";
 		Player.DisplayName "Sarge";
 		Player.SoundClass "PPE_Quake3Player";
 		

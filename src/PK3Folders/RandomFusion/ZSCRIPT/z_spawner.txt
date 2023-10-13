@@ -38,3 +38,25 @@ Class PPE_Spawner : CustomInventory
 		Inventory.PickupMessage "";
 	}
 }
+
+Class PPE_WeaponSpawner : PPE_Spawner
+{
+	Override void PostBeginPlay()
+	//Action void A_SpawnWeapon()
+	{
+		ACS_NamedExecuteWithResult("SetSpawn",13); //use WithResult otherwise it'll run in parellel
+		let spawn = CallAcs("GetSpawn",13);
+		
+		let index = 0;
+		let wcount = 0;
+		//toucher.A_Print("Slot number "..SlotNumber.." - size "..toucher.player.weapons.SlotSize(SlotNumber));
+		/*do
+		{
+			let type = toucher.player.weapons.GetWeapon(SlotNumber, index);
+			let weap = Weapon(toucher.FindInventory(type,true));
+			if (weap != null){wcount++;}
+		} while(++index < toucher.player.weapons.SlotSize(SlotNumber))*/
+		
+		Super.PostBeginPlay();
+	}
+}

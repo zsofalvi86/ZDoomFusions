@@ -33,10 +33,17 @@ script "SetSpawn" (int spawnTag)
 		case 2:SSG++;break;
 		case 3:CS++;break;
 		case 4:BER++;break;
-		case 5:POW++;break;
 		case 6:SOUL++;break;
 		case 7:BPK++;break;
 		case 8:SG++;break;
+	}
+	
+	if(spawnTag==5) //POW(erups)
+	{
+		int i,j; int amo=100;
+		for (i=1; i<=6; i++) {if(XSPOW[i] > amo) {amo = XSPOW[i];j=i;}}
+		if (XSPOW[j] > 100) {XSPOW[j]-=100; POW=j;}
+		else {POW=7;}
 	}
 	
 	if(CG>2){CG=1;}
@@ -76,4 +83,9 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 	}
 	
 	SetResultValue(ret);
+}
+
+script "RegisterPOW" (int slot, int amount)
+{
+	XSPOW[slot]+=amount;
 }

@@ -1,8 +1,7 @@
-Actor DSS_Revolver : Pistol
+Actor PPE_SSColt : PPE_SeriousSamWeaponBase
 {
 	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_DSS_C1"
-	Tag "$TAG_DSS_C1"
+	Tag "$TAG_SS_PS"
 	Inventory.PickupSound "items/ssweapon"
 	Weapon.SelectionOrder 1500
 	Weapon.SlotNumber 2
@@ -15,7 +14,7 @@ Actor DSS_Revolver : Pistol
     	SSRS A 1 A_WeaponReady(WRF_ALLOWRELOAD)
     	Loop
   	Deselect:
-		TNT1 A 0 A_SetInventory("DSS_RevolverMagazine",0)
+		TNT1 A 0 A_SetInventory("PPE_RevolverMagazine",0)
 	DeseLoop:
 		SSRS A 1 A_Lower
 		TNT1 A 0 A_Lower
@@ -25,12 +24,12 @@ Actor DSS_Revolver : Pistol
 		TNT1 A 0 A_Raise
     	Loop
   	Fire:
-		TNT1 A 0 A_JumpIfInventory("DSS_RevolverMagazine",0,"Reload")
+		TNT1 A 0 A_JumpIfInventory("PPE_RevolverMagazine",0,"Reload")
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
-		TNT1 A 0 A_PlayWeaponSound("weapons/coltfire") //10
-		TNT1 A 0 A_FireBullets(0,0,1,(13),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_GiveInventory("DSS_RevolverMagazine",2)
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/colt/fire") //10
+		TNT1 A 0 A_FireBullets(0,0,1,(13),"PPE_SSBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_GiveInventory("PPE_RevolverMagazine",2)
     	SSRT ABC 2 bright
 		SSRS CDEC 1
 		SSRS BA 1
@@ -38,10 +37,10 @@ Actor DSS_Revolver : Pistol
 		TNT1 A 0 A_ReFire
 		Goto Ready
 	Reload:
-		TNT1 A 0 A_JumpIfInventory("DSS_RevolverMagazine",1,1)
+		TNT1 A 0 A_JumpIfInventory("PPE_RevolverMagazine",1,1)
 		Goto Ready
-		TNT1 A 0 A_SetInventory("DSS_RevolverMagazine",0)
-		TNT1 A 0 A_PlaySound("weapons/coltload",6)
+		TNT1 A 0 A_SetInventory("PPE_RevolverMagazine",0)
+		TNT1 A 0 A_PlaySound("weapons/ss/colt/load",6)
 		//SSRS C 30
 		SSRU A 1 Offset(-24,32)
 		SSRU A 1 Offset(-16,36)
@@ -86,11 +85,11 @@ Actor DSS_Revolver : Pistol
 	}
 }
 
-Actor DSS_Revolvers : Pistol
+Actor PPE_Revolvers : PPE_SeriousSamWeaponBase
 {
 	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_DSS_C2"
-	Tag "$TAG_DSS_C1"
+	Inventory.Pickupmessage "$GOT_PPE_C2"
+	Tag "$TAG_PPE_C1"
 	Inventory.PickupSound "items/ssweapon"
 	Weapon.SelectionOrder 1400
 	Weapon.SlotNumber 2
@@ -103,7 +102,7 @@ Actor DSS_Revolvers : Pistol
     	SSRR A 1 A_WeaponReady(WRF_ALLOWRELOAD)
     	Loop
   	Deselect:
-		TNT1 A 0 A_SetInventory("DSS_RevolverMagazine",0)
+		TNT1 A 0 A_SetInventory("PPE_RevolverMagazine",0)
 	DeseLoop:
 		SSRR A 1 A_Lower
 		TNT1 A 0 A_Lower
@@ -113,13 +112,13 @@ Actor DSS_Revolvers : Pistol
 		TNT1 A 0 A_Raise
     	Loop
   	Fire:
-		TNT1 A 0 A_JumpIfInventory("DSS_RevolverMagazine",0,"Reload")
-		TNT1 A 0 A_JumpIf(CountInv("DSS_RevolverMagazine") % 2 == 1,"Hold")
+		TNT1 A 0 A_JumpIfInventory("PPE_RevolverMagazine",0,"Reload")
+		TNT1 A 0 A_JumpIf(CountInv("PPE_RevolverMagazine") % 2 == 1,"Hold")
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
-		TNT1 A 0 A_PlayWeaponSound("weapons/coltfire") // 10
-		TNT1 A 0 A_FireBullets(0,0,1,(13),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_GiveInventory("DSS_RevolverMagazine",1)
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/colt/fire") // 10
+		TNT1 A 0 A_FireBullets(0,0,1,(13),"PPE_SSBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_GiveInventory("PPE_RevolverMagazine",1)
     	SSRQ ABC 2 bright
 		SSRR CDEC 1
 		SSRR B 1
@@ -127,12 +126,12 @@ Actor DSS_Revolvers : Pistol
 		SSRR A 4
 		Goto Ready
 	Hold:
-		TNT1 A 0 A_JumpIfInventory("DSS_RevolverMagazine",0,"Reload")
+		TNT1 A 0 A_JumpIfInventory("PPE_RevolverMagazine",0,"Reload")
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
-		TNT1 A 0 A_PlayWeaponSound("weapons/coltfire")
-		TNT1 A 0 A_FireBullets(0,0,1,(13),"DSS_BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_GiveInventory("DSS_RevolverMagazine",1)
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/colt/fire")
+		TNT1 A 0 A_FireBullets(0,0,1,(13),"PPE_SSBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_GiveInventory("PPE_RevolverMagazine",1)
 		SSRQ DEF 2 bright
 		SSRR GHIG 1
 		SSRR F 1
@@ -140,17 +139,17 @@ Actor DSS_Revolvers : Pistol
 		SSRR A 4
 		Goto Ready
 	Reload:
-		TNT1 A 0 A_JumpIfInventory("DSS_RevolverMagazine",1,1)
+		TNT1 A 0 A_JumpIfInventory("PPE_RevolverMagazine",1,1)
 		Goto Ready
-		TNT1 A 0 A_SetInventory("DSS_RevolverMagazine",0)
-		TNT1 A 0 A_PlaySound("weapons/coltload",6)
+		TNT1 A 0 A_SetInventory("PPE_RevolverMagazine",0)
+		TNT1 A 0 A_PlaySound("weapons/ss/colt/load",6)
 		TNT1 A 0 A_Overlay(11,"ReloadAnim",false)
 		TNT1 A 0 A_Overlay(12,"ReloadStill",false)
 		TNT1 A 0 A_OverlayFlags(12,PSPF_FLIP|PSPF_MIRROR,true)
 		TNT1 A 22
 		TNT1 A 0 A_Overlay(12,"ReloadAnim",false)
 		TNT1 A 0 A_OverlayFlags(12,PSPF_FLIP|PSPF_MIRROR,true)
-		TNT1 A 0 A_PlaySound("weapons/coltload",6)
+		TNT1 A 0 A_PlaySound("weapons/ss/colt/load",6)
 		TNT1 A 30
 		TNT1 A 0 A_ClearOverlays(11,12)
 		TNT1 A 0 A_ReFire("Fire")
@@ -204,7 +203,7 @@ Actor DSS_Revolvers : Pistol
 	}
 }
 
-Actor DSS_RevolverMagazine : Inventory
+Actor PPE_RevolverMagazine : Inventory
 {
 	Inventory.MaxAmount 12
 }

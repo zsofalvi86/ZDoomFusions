@@ -1,13 +1,12 @@
 Actor PPE_RipperHeart : PPE_WeaponBase
 {
 	+WEAPON.NOAUTOAIM
-	Inventory.Pickupmessage "$GOT_PPE_HRT"
 	Tag "$TAG_PPE_HRT"
 	Weapon.SelectionOrder 1600
 	Weapon.SlotNumber 0
 	Weapon.AmmoUse 100
 	Weapon.AmmoGive 40
-	Weapon.AmmoType "PPE_MagicAmmo"
+	Weapon.AmmoType "PPE_Cells"
 	Weapon.UpSound "weapons/sw/heart/up"
 	Inventory.PickupSound "q/bigweapon"
 	States

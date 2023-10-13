@@ -2,6 +2,7 @@
 #Include Decorate/Guns/Slot3/ShotgunQ2.txt
 #Include Decorate/Guns/Slot3/ShotgunQ3.txt
 #Include Decorate/Guns/Slot3/ShotgunSS.txt
-#Include Decorate/Guns/Slot3/DoubleBarreledShotgun.txt
+#Include Decorate/Guns/Slot3/DoubleBarrelShotgun.txt
 #Include Decorate/Guns/Slot3/SuperShotgunQ2.txt
 #Include Decorate/Guns/Slot3/NailgunQ3.txt
+#Include Decorate/Guns/Slot3/CoachGun.txt

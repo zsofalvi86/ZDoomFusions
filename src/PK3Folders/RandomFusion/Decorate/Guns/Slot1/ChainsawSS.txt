@@ -1,8 +1,7 @@
 Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 {
-	Inventory.Pickupmessage "$GOT_PPE_CS"
-	Tag "$TAG_PPE_CS"
-	Weapon.UpSound "weapons/sawon"
+	Tag "$TAG_SS_CS"
+	Weapon.UpSound "weapons/ss/saw/on"
 	Weapon.SlotNumber 1
 	States
 	{
@@ -16,27 +15,27 @@ Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 		SSWG EEEE 1 A_WeaponReady
 		TNT1 A 0 A_WeaponOffset(Random(-1,1),33+Random(-2,2))
 	Ready:
-		TNT1 A 0 A_PlaySound("weapons/sawidle",6,1.0,1)
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/idle",6,1.0,1)
     	SSWG EEEE 1 A_WeaponReady
 		TNT1 A 0 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
     	Loop
   	Deselect:
-		TNT1 A 0 A_PlaySound("weapons/sawoff",6)
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/off",6)
 	DeseLoop:
 		SSWG E 1 A_Lower(12)
     	Loop
   	Select:
-		TNT1 A 0 A_PlaySound("weapons/sawon",7)
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/on",7)
 	SeLoop:
 		SSWG E 1 A_Raise(12)
     	Loop
   	Fire:
 		TNT1 A 0 A_WeaponOffset(0,32)
-		TNT1 A 0 A_PlaySound("weapons/sawstart",7)
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/start",7)
 		SSWG FGH 2
 	FireLoop1:
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlaySound("weapons/sawloop",6,1.0,1) // 25
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/loop",6,1.0,1) // 25
 		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_SSChainsawPuff",FBF_NORANDOM,128)
 		TNT1 A 0 A_Jump(256,"FL11","FL12")
 	FL11:
@@ -58,7 +57,7 @@ Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 		SSWG DD 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
 		TNT1 A 0 A_ReFire("FireLoop1")
 	FireEnd:
-		TNT1 A 0 A_PlaySound("weapons/sawstop",6)
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/stop",6)
 		TNT1 A 0 A_WeaponOffset(0,32)
 		SSWG HGF 2
 		Goto ReadySilent

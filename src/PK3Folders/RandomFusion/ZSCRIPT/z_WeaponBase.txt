@@ -13,7 +13,7 @@ Class PPE_WeaponBase : Weapon
 			if (weap != null){wcount++;}
 		} while(++index < toucher.player.weapons.SlotSize(SlotNumber))
 		
-		if (wcount >= 1) 
+		if (wcount >= 2) 
 		{
 			if (PickupForAmmo2(toucher))
 			{
@@ -26,6 +26,11 @@ Class PPE_WeaponBase : Weapon
 			return false;
 		}
 		return Super.TryPickup(toucher);
+	}
+	
+	Override String PickupMessage()
+	{
+		return Stringtable.Localize("$GOTWEAPONPRE")..GetTag()..Stringtable.Localize("$GOTWEAPONPOST");
 	}
 	
 	protected bool PickupForAmmo2(Actor pwner)

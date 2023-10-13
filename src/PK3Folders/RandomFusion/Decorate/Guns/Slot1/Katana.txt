@@ -1,15 +1,11 @@
-Actor PPE_Katana: PPE_WeaponBase
+Actor PPE_SWKatana: PPE_WeaponBase
 {
-	+Weapon.NoAlert
-	+Weapon.AMMO_OPTIONAL
-    +Weapon.NOAUTOAIM
 	Weapon.SlotNumber 1
 	Weapon.SelectionOrder 2200
 	Inventory.PickupSound "weapons/swpu"
 	Weapon.UpSound "weapons/katana/up"
 	Weapon.ReadySound ""
-	Inventory.Pickupmessage "$GOT_PPE_KAT"
-	Tag "$TAG_PPE_KAT"
+	Tag "$TAG_SW_KAT"
 	Decal "BulletChip"
 	States
 	{
@@ -29,12 +25,12 @@ Actor PPE_Katana: PPE_WeaponBase
 		KATG A 1 Offset(72, 24)
 		KATG A 1 Offset(104, 16)
 	HoldLeft:
-		TNT1 A 0 A_PlayWeaponSound("weapons/katana/swing")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/katana/swing")
 		KATG A 1 Offset(128, 42)
 		KATG A 1 Offset(96, 35) //A_FireCustomMissile("PPE_KatanaMissileLeft", -6, 0, 24, 16)
 		KATG A 1 Offset(64, 22) //A_FireCustomMissile("PPE_KatanaMissileLeft", -4, 0, 16, 14)
 		KATG B 1 Offset(32, 13) //A_FireCustomMissile("PPE_KatanaMissileLeft", -2, 0, 8, 12)
-		TNT1 A 0 A_FireBullets(-8,2,-1,(Random(100,160)),"PPE_KatanaPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,96)
+		TNT1 A 0 A_FireBullets(-8,2,-1,(120),"PPE_KatanaPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,96)
 		KATG B 1 Offset(0, 2) //A_FireCustomMissile("PPE_KatanaMissileLeft", 0, 0, 0, 10)
 		KATG B 1 Offset(-32, 13) //A_FireCustomMissile("PPE_KatanaMissileLeft", 2, 0, -8, 8)
 		KATG C 1 Offset(-64, 22) //A_FireCustomMissile("PPE_KatanaMissileLeft", 4, 0, -16, 6)
@@ -48,19 +44,19 @@ Actor PPE_Katana: PPE_WeaponBase
 		KATG A 1 Offset(-16, 30)
 		KATG A 1 Offset(-8, 32)
 		KATG A 1
-		Goto ReadyLoop
+		Goto Ready
 	SwingRight:
 		KATG A 1 Offset(-20, 32)
 		KATG A 1 Offset(-44, 30)
 		KATG A 1 Offset(-72, 24)
 		KATG A 1 Offset(-104, 16)
 	HoldRight:
-		TNT1 A 0 A_PlayWeaponSound("weapons/katana/swing")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/katana/swing")
 		KATG D 1 Offset(-128, 42)
 		KATG D 1 Offset(-96, 35) //A_FireCustomMissile("PPE_KatanaMissileRight", 6, 0, -24, 16)
 		KATG D 1 Offset(-64, 22) //A_FireCustomMissile("PPE_KatanaMissileRight", 4, 0, -16, 14)
 		KATG E 1 Offset(-32, 13) //A_FireCustomMissile("PPE_KatanaMissileRight", 2, 0, -8, 12)
-		TNT1 A 0 A_FireBullets(-8,2,-1,(120)),"PPE_KatanaPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,96)
+		TNT1 A 0 A_FireBullets(-8,2,-1,(120),"PPE_KatanaPuff",FBF_NORANDOM|FBF_EXPLICITANGLE,96)
 		KATG E 1 Offset(0, 2) //A_FireCustomMissile("PPE_KatanaMissileRight", 0, 0, 0, 10)
 		KATG E 1 Offset(32, 13) //A_FireCustomMissile("PPE_KatanaMissileRight", -2, 0, 8, 8)
 		KATG F 1 Offset(64, 22) //A_FireCustomMissile("PPE_KatanaMissileRight", -4, 0, 16, 6)
@@ -74,7 +70,7 @@ Actor PPE_Katana: PPE_WeaponBase
 		KATG A 1 Offset(16, 30)
 		KATG A 1 Offset(8, 32)
 		KATG A 1
-		Goto ReadyLoop
+		Goto Ready
 	Spawn:
 		KATW A -1
 		stop
@@ -85,8 +81,8 @@ Actor PPE_KatanaPuff : BulletPuff
 {
 	+EXTREMEDEATH
 	+PUFFONACTORS
-	SeeSound "weapons/katana/hit"
-	AttackSound "weapons/katana/impact"
+	SeeSound "weapons/sw/katana/hit"
+	AttackSound "weapons/sw/katana/impact"
 	States
 	{
 	Spawn:

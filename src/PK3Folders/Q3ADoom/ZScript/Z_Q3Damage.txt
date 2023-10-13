@@ -1,0 +1,21 @@
+Class PPE_Q3DamageMod : Inventory
+{
+	Override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		if (!passive && inflictor && source)
+		{
+			if (source.bIsMonster)
+			{
+				if (inflictor.GetClassName() == "PPE_Q3RailPuff")
+				{
+					newdamage = damage * 2;
+				}
+				
+				if (inflictor.GetClassName() == "PPE_Q3RailPuff")
+				{
+					newdamage = damage * 2;
+				}
+			}
+		}
+	}
+}

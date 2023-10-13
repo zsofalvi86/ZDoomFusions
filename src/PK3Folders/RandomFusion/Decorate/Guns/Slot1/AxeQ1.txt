@@ -1,7 +1,6 @@
-Actor PPE_Axe : PPE_Quake1WeaponBase
+Actor PPE_Q1Axe : PPE_Quake1WeaponBase
 {
-	Inventory.Pickupmessage "$GOT_QD_AX"
-	Tag "$TAG_QD_AX"
+	Tag "$TAG_Q1_AXE"
 	Weapon.SlotNumber 1
 	Decal "BulletChip"
 	States

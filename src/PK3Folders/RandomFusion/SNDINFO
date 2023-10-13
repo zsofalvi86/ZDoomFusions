@@ -78,6 +78,9 @@ weapons/quake2/blaster/fly		lasfly
 weapons/quake2/blaster/hit		lashit
 $volume weapons/quake2/blaster/fly 0.5
 $limit weapons/quake2/blaster/hit 5
+weapons/quake2/shotgun/fire			shotgf
+weapons/quake2/shotgun/reload		shotgr
+weapons/quake2/supershotgun/fire	sshotf1
 2cgf11 mgf1 2cgf12 mgf2 2cgf13 mgf3 2cgf14 mgf4 2cgf15 mgf5
 $random weapons/quake2/machinegun/fire { 2cgf11 2cgf12 2cgf13 2cgf14 2cgf15 }
 $random weapons/quake2/chaingun/fire { 2cgf11 2cgf12 2cgf13 2cgf14 2cgf15 }
@@ -100,6 +103,7 @@ weapons/quake2/rocket/reload	rocklr
 weapons/quake2/rocket/fly		rockfly
 $volume weapons/quake2/rocket/fly 0.8
 weapons/quake2/rocket/explode	rocklx
+weapons/quake2/ionripper/fire		rippfire
 weapons/quake2/hyperblaster/fire		hybf
 weapons/quake2/hyperblaster/windup		hybwu
 weapons/quake2/hyperblaster/loop		hybloop
@@ -134,6 +138,8 @@ weapons/quake3/gauntlet/hit	fstatck
 weapons/quake3/shotgun/fire	sshotf
 3mgf1 q3mgf1 3mgf2 q3mgf2 3mgf3 q3mgf3 3mgf4 q3mgf4
 $random weapons/quake3/machinegun/fire { 3mgf1 3mgf2 3mgf3 3mgf4 }
+3cgf1 cgf1 3cgf2 cgf2 3cgf3 cgf3 3cgf4 cgf4
+$random weapons/quake3/chaingun/fire { 3cgf1 3cgf2 3cgf3 3cgf4 }
 weapons/quake3/chaingun/run/slow	mcnloop
 weapons/quake3/chaingun/run/fast	wvulfire
 weapons/quake3/chaingun/cool		wvulwind

@@ -73,7 +73,7 @@ Actor PPE_Q3Grenade : PPE_SlowMissileBase
 	BounceCount 99
 	Speed 24
 	ProjectileKickBack 100
-	Damage (0)
+	Damage (100)
 	DamageType "Quake3SplashImpact"
 	Decal Scorch
 	SeeSound ""

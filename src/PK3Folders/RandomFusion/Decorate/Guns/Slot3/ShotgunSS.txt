@@ -1,9 +1,6 @@
-Actor PPE_SamShotgun : Shotgun
+Actor PPE_SSShotgun : PPE_SeriousSamWeaponBase
 {
-	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_PPE_SG"
-	Tag "$TAG_PPE_SG"
-	Inventory.PickupSound "items/ssweapon"
+	Tag "$TAG_SS_SG"
 	Weapon.SelectionOrder 1300
 	Weapon.SlotNumber 3
 	Weapon.AmmoUse 1
@@ -35,7 +32,7 @@ Actor PPE_SamShotgun : Shotgun
 		TNT1 A 0 A_FireBullets(-0.6,0.35,-1,(10),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(3,0.35,-1,(10),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(-3,0.35,-1,(10),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_PlayWeaponSound("weapons/ssshotgun")
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/shotgun/fire")
     	SSSF ABC 2 bright
 		SSSG B 2 Offset(25,52)
 		SSSG B 2 Offset(0,32)
@@ -66,4 +63,4 @@ Actor PPE_SamShotgun : Shotgun
 	}
 }
 
-Actor PPE_ShotgunPuff : PPE_BulletPuff {} // searched for in zscript to make close gibbing
+Actor PPE_ShotgunPuff : PPE_SSBulletPuff {} // searched for in zscript to make close gibbing

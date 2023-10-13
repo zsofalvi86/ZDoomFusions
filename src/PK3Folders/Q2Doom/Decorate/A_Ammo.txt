@@ -84,9 +84,9 @@ Actor PPE_Slugs : Ammo
 
 Actor PPE_Flechettes : Ammo
 {
-  Inventory.Amount 15
+  Inventory.Amount 10
   Inventory.MaxAmount 200
-  Ammo.BackpackAmount 15
+  Ammo.BackpackAmount 10
   Ammo.BackpackMaxAmount 400
   Inventory.Icon "INALA0"
   States

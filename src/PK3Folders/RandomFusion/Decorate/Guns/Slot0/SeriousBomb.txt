@@ -1,12 +1,11 @@
-ACTOR DSS_SeriousBomb : PPE_WeaponBase
+ACTOR PPE_SeriousBomb : PPE_SeriousSamWeaponBase
 {
-	Inventory.Pickupmessage "$GOT_SS_SB"
 	Tag "$TAG_SS_SB"
 	Inventory.PickupSound "items/ss/weapon"
 	Weapon.SelectionOrder 5000
 	Weapon.SlotNumber 0
-	Weapon.AmmoType "DSS_SeriousBombs"
-	Weapon.AmmoUse 1
+	Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoUse 200
 	Weapon.AmmoGive 1
     States 
     { 
@@ -76,12 +75,12 @@ ACTOR DSS_SeriousBomb : PPE_WeaponBase
 		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
 		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
 		TNT1 A 0 A_WeaponReady
-		TNT1 A 0 A_SelectWeapon("DSS_LaserGun",SWF_SELECTPRIORITY)
+		TNT1 A 0 A_SelectWeapon("PPE_LaserGun",SWF_SELECTPRIORITY)
 		Goto Ready
     } 
 }
 
-Actor DSS_SeriousBombFlash : CustomInventory
+Actor PPE_SeriousBombFlash : CustomInventory
 {
 	+INVENTORY.AUTOACTIVATE
 	States

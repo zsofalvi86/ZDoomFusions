@@ -58,7 +58,7 @@ Actor PPE_Q3Rocket : PPE_SlowMissileBase
 {
 	Speed 30
 	ProjectileKickBack 100
-	Damage (0)
+	Damage (100)
 	DamageType "Quake3SplashImpact"
 	Decal Scorch
 	SeeSound ""

@@ -1,4 +1,4 @@
-Class PPE_BeamWeaponBase : Plasmarifle
+Class PPE_BeamWeaponBase : PPE_WeaponBase
 {
 	int phase;
 	

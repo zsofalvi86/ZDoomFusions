@@ -1,16 +1,12 @@
-Actor PPE_Phalanx : PlasmaRifle
+Actor PPE_Q2Phalanx : PPE_Quake2WeaponBase
 {
 	+WEAPON.NOAUTOAIM
-	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_PPE_PHX"
-	Tag "$TAG_PPE_PHX"
-	Inventory.PickupSound "items/weapon2"
-	Weapon.UpSound "weapons/switch"
+	Tag "$TAG_Q2_PHX"
 	Weapon.SelectionOrder 2000
-	Weapon.SlotNumber 9
-	Weapon.AmmoUse 2
-	Weapon.AmmoType "PPE_Slugs"
-	Weapon.AmmoGive 4
+	Weapon.SlotNumber 7
+	Weapon.AmmoUse 4
+	Weapon.AmmoType "PPE_Shells"
+	Weapon.AmmoGive 8
 	Weapon.KickBack 200
 	States
 	{
@@ -27,7 +23,7 @@ Actor PPE_Phalanx : PlasmaRifle
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlaySound("weapons/phalanx/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_PlaySound("weapons/quake2/phalanx/fire",1,1-(CountInv("PowerSilencer")*0.7))
 		TNT1 A 0 A_FireCustomMissile("PPE_PhalanxMissile",0,1,-4,4,1,0)
 		PHAF ABC 2 bright
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
@@ -61,7 +57,7 @@ Actor PPE_PhalanxMissile : PPE_SlowMissileBase
 	+BLOODSPLATTER
 	+FORCERADIUSDMG
 	SeeSound ""
-	DeathSound "weapons/q2exp"
+	DeathSound "weapons/quake2/rocket/explode"
 	Obituary "$OB_MPPHALANX"
 	Speed 35
 	DamageType "Quake2Mag"
@@ -72,7 +68,7 @@ Actor PPE_PhalanxMissile : PPE_SlowMissileBase
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_PlaySound("weapons/phalanx/fly",6,1.0,1)
+		TNT1 A 0 A_PlaySound("weapons/quake2/phalanx/fly",6,1.0,1)
 	Loopy:
 		PHML AABBCCDDEEFF 1 bright
 		{

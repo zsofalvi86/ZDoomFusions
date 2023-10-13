@@ -8,7 +8,7 @@ Actor PPE_Q2ETF : Chaingun
 	Weapon.SlotNumber 5
 	Weapon.AmmoType "PPE_Flechettes"
 	Weapon.AmmoUse 1
-	Weapon.AmmoGive 30
+	Weapon.AmmoGive 40
 	Decal "BulletChip"
 	DamageType "Quake3"
 	States
@@ -61,7 +61,7 @@ Actor PPE_ETFlechette : PPE_NailBase
 	+PIERCEARMOR
 	//Decal BulletChip
 	DeathSound "weapons/laser/hit"
-	Damage (20) // 14 - upscaled to match shells
+	Damage (13) // 10 - upscaled to match bullets
 	DamageType "Quake2Flech"
 	Speed 35
 	States

@@ -1,13 +1,11 @@
 Actor PPE_DNPistol : PPE_DNWeaponBase
 {
-+WEAPON.NOALERT
-Inventory.Pickupmessage "$GOT_PPE_DNPS"
-Tag "$TAG_PPE_DNPS"
+Tag "$TAG_DN_PS"
 Inventory.PickupSound "weapons/dn/pickup"
 Weapon.UpSound "weapons/dn/pistol/clipin"
 Weapon.SlotNumber 2
 Weapon.AmmoUse 1
-Weapon.AmmoType "PPE_PistolBullets"
+Weapon.AmmoType "PPE_Bullets"
 PPE_DNWeaponBase.AmmoTypeAlt "PPE_PistolBullets_Dumdum"
 Weapon.AmmoGive 24
 Decal "BulletChip"

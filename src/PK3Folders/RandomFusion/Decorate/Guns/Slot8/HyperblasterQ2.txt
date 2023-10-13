@@ -1,12 +1,7 @@
-Actor PPE_Q2HyperBlaster : PlasmaRifle
+Actor PPE_Q2HyperBlaster : PPE_Quake2WeaponBase
 {
-	+DONTGIB
-	+WEAPON.NOAUTOAIM
-	+WEAPON.NOALERT
 	Decal Q2CellScorch
-	Inventory.Pickupmessage "$GOT_PPE_HYB"
-	Inventory.PickupSound "items/q2weapon"
-	Tag "$TAG_PPE_HYB"
+	Tag "$TAG_Q2_HYB"
 	Weapon.SelectionOrder 105
 	Weapon.SlotNumber 8
 	Weapon.AmmoUse 1
@@ -26,7 +21,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
     	HHYB A 1 A_Raise
     	Loop
   	Fire:
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/windup",5,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/windup",5,1-(CountInv("PowerSilencer")*0.7))
 		TNT1 A 0 A_SetInventory("PPE_XPos",3)
 		TNT1 A 0 A_SetInventory("PPE_YPos",6)
 	FireHyperblaster:
@@ -34,7 +29,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/fire",1,1-(CountInv("PowerSilencer")*0.7))
 		TNT1 A 0 A_FireCustomMissile("PPE_HyperBlasterBolt",0,1,CountInv("PPE_XPos")-3,CountInv("PPE_YPos")+1,1,0)
 		Goto FireAnimation
 	FireAnimation:
@@ -51,7 +46,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
 		HHYQ A 1 bright
 		TNT1 A 0 A_SetInventory("PPE_XPos",0)
 		TNT1 A 0 A_SetInventory("PPE_YPos",3)
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
 		TNT1 A 0 A_ReFire("FireHyperblaster")
 		Goto Spindown
 	FireCont1: // HybState: 1, frames: 3
@@ -61,7 +56,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
 		HHYF F 1 bright
 		TNT1 A 0 A_SetInventory("PPE_XPos",3)
 		TNT1 A 0 A_SetInventory("PPE_YPos",0)
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
 		TNT1 A 0 A_ReFire("FireHyperblaster")
 		goto Spindown
 	FireCont2: // HybState: 2, frames: 4
@@ -72,7 +67,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
 		HHYQ B 1 bright
 		TNT1 A 0 A_SetInventory("PPE_XPos",0)
 		TNT1 A 0 A_SetInventory("PPE_YPos",3)
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
 		TNT1 A 0 A_ReFire("FireHyperblaster")
 		Goto Spindown
 	FireCont3: // HybState: 3, frames: 3
@@ -82,7 +77,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
 		HHYF L 1 bright
 		TNT1 A 0 A_SetInventory("PPE_XPos",3)
 		TNT1 A 0 A_SetInventory("PPE_YPos",6)
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/loop",6,1-(CountInv("PowerSilencer")*0.7),1)
 		TNT1 A 0 A_ReFire("FireHyperblaster")
 		goto Spindown
 	Spindown:
@@ -101,7 +96,7 @@ Actor PPE_Q2HyperBlaster : PlasmaRifle
 		HHYQ BCAB 1
 	SpindownEnd:
 		//TNT1 A 0 A_StopSound(6)
-		TNT1 A 0 A_PlaySound("weapons/hyperblaster/winddown",6,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/winddown",6,1-(CountInv("PowerSilencer")*0.7))
 		HHYB DEABC 1
 		HHYQ ABC 1
 		HHYQ ABC 2
@@ -128,15 +123,15 @@ Actor PPE_HyperBlasterBolt : PPE_SlowMissileBase
 {
 	Decal Q2CellScorch
 	SeeSound ""
-	DeathSound "weapons/laser/hit"
+	DeathSound "weapons/quake2/hyperblaster/hit"
 	Speed 35
-	Damage (25) // 20 - upscaled to match plasma
+	Damage (25) // 20 - upscaled to match plasma dps
 	DamageType "Quake2Cell"
 	States
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_PlaySound("weapons/laser/fly",6,1.0,1)
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/fly",6,1.0,1)
 	Loopy:
 		GLAP A 1 bright
 		loop

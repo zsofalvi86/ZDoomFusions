@@ -3,3 +3,4 @@
 #Include Decorate/Guns/Slot7/RailgunSW.txt
 #Include Decorate/Guns/Slot7/RailgunQ2.txt
 #Include Decorate/Guns/Slot7/RailgunQ3.txt
+#Include Decorate/Guns/Slot7/SniperRifleSS.txt

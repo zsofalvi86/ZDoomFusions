@@ -1,13 +1,11 @@
-ACTOR PPE_Blaster : PPE_WeaponBase
+ACTOR PPE_Q2Blaster : PPE_WeaponBase
 {
   Weapon.SelectionOrder 2000
   Weapon.SlotNumber 2
   Obituary "$OB_MPBLASTER"
   +WEAPON.AMMO_OPTIONAL
   +WEAPON.WIMPY_WEAPON
-  Inventory.Pickupmessage "$GOT_PPE_BLS"
-  Tag "$TAG_PPE_BLS"
-  Inventory.PickupSound "items/q2/weapon2"
+  Tag "$TAG_Q2_BLS"
   States
   {
   Spawn:

@@ -1,15 +1,9 @@
-Actor PPE_Gauntlet : PPE_Quake3WeaponBase
+Actor PPE_Q3Gauntlet : PPE_Quake3WeaponBase
 {
-	Inventory.Pickupmessage "$GOT_PPE_FST"
-	Tag "$TAG_PPE_FST"
+	Tag "$TAG_Q3_FST"
 	Weapon.SlotNumber 1
 	Weapon.Kickback 175
-	Weapon.UpSound "weapons/quake3/switch"
-	Inventory.PickupSound "weapons/quake3/pickup"
 	Decal "BulletChip"
-	Weapon.BobRangeX 0.05
-	Weapon.BobRangeY 0.75
-	Weapon.BobSpeed 2.0
 	States
 	{
 	Ready:
@@ -24,7 +18,7 @@ Actor PPE_Gauntlet : PPE_Quake3WeaponBase
 		SSKN A 1 A_Raise(12)
     	Loop
   	Fire:
-		TNT1 A 0 A_PlaySound("weapons/gauntlet/run",6,1,1)
+		TNT1 A 0 A_PlaySound("weapons/quake3/gauntlet/run",6,1,1)
 		Q3GN BBCC 1 
 		{
 			A_FireBullets(0,0,1,(0),"PPE_GauntletPrePuff",FBF_NORANDOM,64);
@@ -39,7 +33,7 @@ Actor PPE_Gauntlet : PPE_Quake3WeaponBase
 		Goto Ready
 	Swing:
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlaySound("weapons/gauntlet/hit",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("weapons/quake3/gauntlet/hit",CHAN_WEAPON)
 		TNT1 A 0 A_FireBullets(0,0,1,(50),"PPE_GauntletPuff",FBF_NORANDOM,100)
 	SwingAnim:
 		Q3GN B 1 offset(-7,28)

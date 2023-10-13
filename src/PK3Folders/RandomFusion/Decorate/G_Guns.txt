@@ -8,3 +8,28 @@
 #Include Decorate/Guns/Slot8/A_Include.txt
 #Include Decorate/Guns/Slot9/A_Include.txt
 #Include Decorate/Guns/Slot0/A_Include.txt
+
+Actor PPE_StartingGunRandomGiver : CustomInventory replaces Pistol
+{
+	States
+	{
+	Spawn:
+	Pickup:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,"GiveQuake","GiveQuake2","GiveShadow","GiveSam")
+	GiveQuake:
+		TNT1 A 0 A_GiveInventory("PPE_Q1Axe")
+		TNT1 A 0 A_GiveInventory("PPE_Q1Shotgun")
+		TNT1 A 0 A_GiveInventory("PPE_Shells",15)
+		stop
+	GiveQuake2:
+		TNT1 A 0 A_GiveInventory("PPE_Q2Blaster")
+		stop
+	GiveShadow:
+		TNT1 A 0 A_GiveInventory("PPE_SWKatana")
+		stop
+	GiveSam:
+		TNT1 A 0 A_GiveInventory("PPE_SSColt")
+		stop
+	}
+}

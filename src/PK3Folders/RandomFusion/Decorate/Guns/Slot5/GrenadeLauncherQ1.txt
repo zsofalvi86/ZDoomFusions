@@ -7,8 +7,8 @@ actor PPE_QGrenade : Rocket
 	-NOGRAVITY
 	BounceType Doom
 	SeeSound ""
-	BounceSound "weapons/grenade/bounce1"
-	DeathSound "weapons/grenade/explode"
+	BounceSound "weapons/quake1/grenade/bounce"
+	DeathSound "weapons/quake1/explode"
 	BounceFactor 0.6
 	WallBounceFactor 0.6
 	Gravity 0.4
@@ -38,22 +38,15 @@ actor PPE_QGrenade : Rocket
 	}
 }
 
-actor PPE_GrenadeLauncher : RocketLauncher
+actor PPE_Q1GrenadeLauncher : PPE_Quake1WeaponBase
 {
 	Weapon.SelectionOrder 2500
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 2
 	Weapon.AmmoType "PPE_Rockets"
-	Weapon.SlotNumber 7
-	Inventory.PickupSound "items/weapon1"
-	Weapon.UpSound "weapons/switch"
-	Inventory.Pickupmessage "$GOT_PPE_GL"
-	Tag "$TAG_PPE_GL"
-	Weapon.BobRangeX 0.05
-	Weapon.BobRangeY 0.75
-	Weapon.BobSpeed 2.0
+	Weapon.SlotNumber 5
+	Tag "$TAG_Q1_GL"
 	+NOAUTOFIRE
-	+NOALERT
 	+NOAUTOAIM
 	States
 	{
@@ -71,7 +64,7 @@ actor PPE_GrenadeLauncher : RocketLauncher
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_FireCustomMissile("PPE_QGrenade",0,1,0,0,1,8)
-		TNT1 A 0 A_PlaySound("weapons/grenade/fire1",1)    	
+		TNT1 A 0 A_PlaySound("weapons/quake1/grenade/fire",1)    	
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
 		QGLF ABCD 2 bright
 		QGLG A 13

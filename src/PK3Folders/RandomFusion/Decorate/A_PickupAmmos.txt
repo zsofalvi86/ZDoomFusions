@@ -20,7 +20,7 @@ ACTOR PPE_SmallBullet : PPE_Bullets replaces Clip
 
 ACTOR PPE_SmallShell : PPE_Shells replaces Shell
 {
-  Inventory.Amount 8
+  Inventory.Amount 4
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLS"
   Inventory.PickupSound "items/ammo1"
@@ -76,7 +76,7 @@ ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
 
 ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
 {
-  Inventory.Amount 40
+  Inventory.Amount 20
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLBOX"
   Inventory.PickupSound "items/ammo1"
@@ -88,7 +88,7 @@ ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
   }
 }
 
-ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketAmmo
+ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketBox
 {
   Inventory.Amount 5
   +FLOORCLIP +DONTGIB

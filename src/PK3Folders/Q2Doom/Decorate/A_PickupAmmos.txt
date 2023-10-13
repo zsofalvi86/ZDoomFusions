@@ -313,7 +313,7 @@ ACTOR PPE_SmallSlug : PPE_Slugs
 
 ACTOR PPE_SmallFlechette : PPE_Flechettes
 {
-  Inventory.Amount 5
+  Inventory.Amount 10
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTFLECHETTES"
   Inventory.PickupSound "items/q2ammo"
@@ -369,7 +369,7 @@ ACTOR PPE_LargeSlug : PPE_Slugs
 
 ACTOR PPE_LargeFlechette : PPE_Flechettes
 {
-  Inventory.Amount 25
+  Inventory.Amount 50
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTFLECHETTEBOX"
   Inventory.PickupSound "items/q2ammo"

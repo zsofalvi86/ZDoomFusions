@@ -34,7 +34,7 @@ actor PPE_Q2RocketLauncher : RocketLauncher
 		Q2RF DE 2 bright
 		Q2RG A 2
 		Q2RG BCDEF 3
-		Q2RG A 6
+		Q2RG A 3
 		TNT1 A 0 A_ReFire
     	Goto Ready
 	Flash:

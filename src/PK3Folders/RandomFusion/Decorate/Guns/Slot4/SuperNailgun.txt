@@ -1,45 +1,11 @@
-Actor PPE_SuperNail : PPE_Nail1Base
+Actor PPE_Q1SuperNailgun : PPE_Quake1WeaponBase
 {
-	DamageType "Quake1Nail"
-	Speed 40
-	DamageType LesserCloseSplatter
-	Damage (20) // 18
-}
-
-Actor PPE_SuperFireNail : PPE_FireNail1Base
-{
-	+PIERCEARMOR
-	DamageType "Quake1Nail"
-	Speed 40
-	DamageType CloseSplatter
-	Damage (40) // 30
-}
-
-Actor PPE_ShotNailBounce0 : PPE_ShotNailBounceBase
-{
-	Damage (24)
-}
-
-Actor PPE_ShotNailBounceLava0 : PPE_ShotNailBounceLavaBase
-{
-	Damage (40)
-}
-
-Actor PPE_SuperNailgun : Plasmarifle
-{
-	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_PPE_SNG"
-	Tag "$TAG_PPE_SNG"
-	Inventory.PickupSound "items/weapon1"
-	Weapon.UpSound "weapons/switch"
+	Tag "$TAG_Q1_SNG"
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 4
-	Weapon.AmmoType "PPE_Nails"
+	Weapon.AmmoType "PPE_Bullets"
 	Weapon.AmmoUse 2
 	Weapon.AmmoGive 20
-	Weapon.BobRangeX 0.05
-	Weapon.BobRangeY 0.75
-	Weapon.BobSpeed 2.0
 	States
 	{
 	Spawn:
@@ -69,7 +35,7 @@ Actor PPE_SuperNailgun : Plasmarifle
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlaySound("weapons/supernailgun/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("weapons/quake1/supernailgun/fire",CHAN_WEAPON)
 		TNT1 A 0 //A_PlaySound("weapons/supernailgun/loop",6)
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_FireCustomMissile("PPE_SuperNail",0,1,0,3,1,0)
@@ -139,9 +105,8 @@ Actor PPE_SuperNailgun : Plasmarifle
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlaySound("weapons/supernailgun/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("weapons/quake1/supernailgun/fire",CHAN_WEAPON)
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlaySound("weapons/supernailgun/loop",6)
 		TNT1 A 0 A_FireCustomMissile("PPE_SuperFireNail",0,1,0,3,1,0)
 		TNT1 A 0 A_FireCustomMissile("none",0,1,0,3,1,0)
 		TNT1 A 0 A_Jump(256,"FireAnimationLava")
@@ -202,7 +167,7 @@ Actor PPE_SuperNailgun : Plasmarifle
 		TNT1 A 0 A_ReFire("FireLoop")
 		goto SpindownLava
 	SpindownLava:
-		TNT1 A 0 A_PlaySound("weapons/nailgun/cool",6)
+		TNT1 A 0 A_PlaySound("weapons/quake1/nailgun/cool",6)
 		NG2L A 1
 		NG2M BC 1
 		NG2M DE 2
@@ -212,13 +177,13 @@ Actor PPE_SuperNailgun : Plasmarifle
 	AltFire:
 		TNT1 A 0 A_JumpIfInventory("PPE_SngHeat",64,"UnLava")
 		TNT1 A 0 A_SetInventory("PPE_SngHeat",65)
-		TNT1 A 0 A_PlaySound("weapons/nailgun/lavaon",5)
+		TNT1 A 0 A_PlaySound("weapons/quake1/nailgun/lavaon",5)
 		NG2G A 2
 		NG2L CBA 2
 		Goto Ready
 	UnLava:
 		TNT1 A 0 A_SetInventory("PPE_SngHeat",0)
-		TNT1 A 0 A_PlaySound("weapons/nailgun/lavaoff",5)
+		TNT1 A 0 A_PlaySound("weapons/quake1/nailgun/lavaoff",5)
 		NG2L ABC 2
 		NG2G A 2
 		Goto Ready
@@ -228,49 +193,24 @@ Actor PPE_SuperNailgun : Plasmarifle
 		TNT1 A 0 A_Light2
 		TNT1 A 1 A_SetPitch(pitch+0.6)
 		Goto LightDone
-	//AltFire:
-		TNT1 A 0 A_JumpIfInventory("PPE_SngHeat",48,"AltFireLava")
-		TNT1 A 0 A_GiveInventory("PPE_SngHeat",12)
-		TNT1 A 0 A_GunFlash
-		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
-		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlaySound("weapons/nailgun/fireta",CHAN_WEAPON)
-		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounce1",FRandom(-4.3,4.3),1,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounce1",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 AA 0 A_FireProjectile("PPE_ShotNailBounce4",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounce2",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounce3",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		NG2F ABC 2 bright
-		NG2G DEF 2
-		NG2G ABC 3
-		NG2G DEF 4
-		NG2G A 2
-		TNT1 A 0 A_ReFire
-		goto Ready
-	//AltFireLava:
-		TNT1 A 0 A_GiveInventory("PPE_SngHeat",12)
-		TNT1 A 0 A_GunFlash
-		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
-		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlaySound("weapons/nailgun/fireta",CHAN_WEAPON)
-		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounceLava1",FRandom(-4.3,4.3),1,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounceLava1",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 AA 0 A_FireProjectile("PPE_ShotNailBounceLava4",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounceLava2",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 AAA 0 A_FireProjectile("PPE_ShotNailBounceLava3",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
-		TNT1 A 0 A_FireCustomMissile("none",0,1,0,3,1,0)
-		NG2N ABC 2 bright
-		NG2M DEF 2
-		TNT1 A 0 A_PlaySound ("weapons/nailgun/cool",6)
-		NG2L CBA 1
-		NG2M BC 3
-		NG2M DEF 4
-		NG2L AB 1
-		TNT1 A 0 A_ReFire
-		goto Ready
 	}
+}
+
+Actor PPE_SuperNail : PPE_Nail1Base
+{
+	DamageType "Quake1Nail"
+	Speed 40
+	DamageType LesserCloseSplatter
+	Damage (20) // 18
+}
+
+Actor PPE_SuperFireNail : PPE_FireNail1Base
+{
+	+PIERCEARMOR
+	DamageType "Quake1Nail"
+	Speed 40
+	DamageType CloseSplatter
+	Damage (40) // 30
 }
 
 Actor PPE_SngState : Inventory
@@ -281,44 +221,4 @@ Actor PPE_SngState : Inventory
 Actor PPE_SngHeat : Inventory
 {
 	Inventory.MaxAmount 96
-}
-
-Actor PPE_ShotNailBounce1 : PPE_ShotNailBounce0
-{
-	Speed 35
-}
-
-Actor PPE_ShotNailBounce2 : PPE_ShotNailBounce0
-{
-	Speed 37
-}
-
-Actor PPE_ShotNailBounce3 : PPE_ShotNailBounce0
-{
-	Speed 39
-}
-
-Actor PPE_ShotNailBounce4 : PPE_ShotNailBounce0
-{
-	Speed 41
-}
-
-Actor PPE_ShotNailBounceLava1 : PPE_ShotNailBounceLava0
-{
-	Speed 35
-}
-
-Actor PPE_ShotNailBounceLava2 : PPE_ShotNailBounceLava0
-{
-	Speed 37
-}
-
-Actor PPE_ShotNailBounceLava3 : PPE_ShotNailBounceLava0
-{
-	Speed 39
-}
-
-Actor PPE_ShotNailBounceLava4 : PPE_ShotNailBounceLava0
-{
-	Speed 41
 }

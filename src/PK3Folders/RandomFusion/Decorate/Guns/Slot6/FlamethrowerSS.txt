@@ -1,15 +1,12 @@
-Actor DSS_Flamethrower : PlasmaRifle
+Actor PPE_SSFlamethrower : PPE_SeriousSamWeaponBase
 {
 	+DONTGIB
 	+WEAPON.NOAUTOAIM
-	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_DSS_FT"
-	Tag "$TAG_DSS_FT"
-	Inventory.PickupSound "items/ssweapon"
+	Tag "$TAG_SS_FT"
 	Weapon.SelectionOrder 800
 	Weapon.SlotNumber 6
 	Weapon.AmmoUse 1
-	Weapon.AmmoType "DSS_Napalm"
+	Weapon.AmmoType "PPE_Cells"
 	Weapon.AmmoGive 20
 	States
 	{
@@ -27,23 +24,23 @@ Actor DSS_Flamethrower : PlasmaRifle
 		TNT1 A 0 A_Raise
     	Loop
   	Fire:
-		TNT1 A 0 A_PlayWeaponSound("weapons/flame/start")
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/flame/start")
 	Hold:
 		TNT1 A 0 A_AlertMonsters
-		SSFT E 1 bright A_FireCustomMissile("DSS_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
-    	SSFT F 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
-        SSFT G 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
-        //SSFT E 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+		SSFT E 1 bright A_FireCustomMissile("PPE_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
+    	SSFT F 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+        SSFT G 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
+        //SSFT E 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_PlaySound("weapons/flame/fire",6,1,1)
-		SSFT F 1 bright A_FireCustomMissile("DSS_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
-    	SSFT G 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
-    	SSFT E 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
-    	SSFT F 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+		TNT1 A 0 A_PlaySound("weapons/ss/flame/fire",6,1,1)
+		SSFT F 1 bright A_FireCustomMissile("PPE_FlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
+    	SSFT G 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+    	SSFT E 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),1,0,4,1,FRandom(-0.75,0.75))
+    	SSFT F 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
     	TNT1 A 0 A_ReFire
 		TNT1 A 0 A_StopSound(6)
-		TNT1 A 0 A_PlayWeaponSound("weapons/flame/stop")
-    	SSFT GHIJ 1 bright A_FireCustomMissile("DSS_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/flame/stop")
+    	SSFT GHIJ 1 bright A_FireCustomMissile("PPE_FakeFlameMissile",FRandom(-2,2),0,0,4,1,FRandom(-0.75,0.75))
 		Goto Ready
   	Flash:
     	TNT1 A 0 A_Light1
@@ -57,7 +54,7 @@ Actor DSS_Flamethrower : PlasmaRifle
 	}
 }
 
-Actor DSS_FlameMissile : DSS_SlowMissileBase
+Actor PPE_FlameMissile : PPE_SlowMissileBase
 {
 	+RIPPER
 	+BLOODLESSIMPACT
@@ -76,15 +73,15 @@ Actor DSS_FlameMissile : DSS_SlowMissileBase
 	{
 	Spawn:
 		TNT1 A 0
-		FLPR ABCDE 1 bright A_CustomMissile("DSS_IgniteMissile",0,0,0,CMF_TRACKOWNER|CMF_AIMDIRECTION|CMF_ABSOLUTEPITCH|CMF_OFFSETPITCH|CMF_SAVEPITCH)
-		FLSS ABCDEFGHIJK 1 bright A_CustomMissile("DSS_IgniteMissile",0,0,0,CMF_TRACKOWNER|CMF_AIMDIRECTION|CMF_ABSOLUTEPITCH|CMF_OFFSETPITCH|CMF_SAVEPITCH)
+		FLPR ABCDE 1 bright A_CustomMissile("PPE_IgniteMissile",0,0,0,CMF_TRACKOWNER|CMF_AIMDIRECTION|CMF_ABSOLUTEPITCH|CMF_OFFSETPITCH|CMF_SAVEPITCH)
+		FLSS ABCDEFGHIJK 1 bright A_CustomMissile("PPE_IgniteMissile",0,0,0,CMF_TRACKOWNER|CMF_AIMDIRECTION|CMF_ABSOLUTEPITCH|CMF_OFFSETPITCH|CMF_SAVEPITCH)
 	Death:
 		TNT1 A 0
 		stop
 	}
 }
 
-Actor DSS_IgniteMissile : DSS_SlowMissileBase
+Actor PPE_IgniteMissile : PPE_SlowMissileBase
 {
 	var int user_countdown;
 	+HITTRACER
@@ -110,12 +107,12 @@ Actor DSS_IgniteMissile : DSS_SlowMissileBase
 	BurnLoop:
 		TNT1 A 0 A_JumpIf(user_countdown==0,"BurnEnd")
 		TNT1 AA 1 A_Warp(AAPTR_TRACER, 0, 0, 0, 0, WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION )
-		TNT1 A 0 A_CheckProximity("KillOther","DSS_IgniteMissile",10,1,CPXF_SETMASTER)
+		TNT1 A 0 A_CheckProximity("KillOther","PPE_IgniteMissile",10,1,CPXF_SETMASTER)
 		Goto Resume
 	KillOther:
 		TNT1 A 0 A_RemoveMaster(RMVF_EVERYTHING)
 	Resume:
-		TNT1 A 0 A_SpawnItemEx("DSS_FT_FireChunk",Random(-16,16),Random(-16,16),12,0,0,3,0,0,64)
+		TNT1 A 0 A_SpawnItemEx("PPE_FT_FireChunk",Random(-16,16),Random(-16,16),12,0,0,3,0,0,64)
 		TNT1 A 0 A_Explode(5,20,0,0,20)
 		TNT1 A 0 A_SetUserVar("user_countdown",user_countdown-1)
 		Goto BurnLoop
@@ -125,7 +122,7 @@ Actor DSS_IgniteMissile : DSS_SlowMissileBase
 	}
 }
 
-Actor DSS_FT_FireChunk : ArchvileFire
+Actor PPE_FT_FireChunk : ArchvileFire
 {
 	RenderStyle Normal
 	Alpha 1.0
@@ -133,7 +130,7 @@ Actor DSS_FT_FireChunk : ArchvileFire
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_PlaySound("weapons/flame/burn")
+		TNT1 A 0 A_PlaySound("weapons/ss/flame/burn")
 		TNT1 A 0 A_Jump(255,"A","B")
 		A:
 		SFIR ABCDEFGH 2 bright
@@ -144,7 +141,7 @@ Actor DSS_FT_FireChunk : ArchvileFire
 	}
 }
 
-Actor DSS_FakeFlameMissile : DSS_FlameMissile
+Actor PPE_FakeFlameMissile : PPE_FlameMissile
 {
 	Damage (0)
 	+NOPAIN

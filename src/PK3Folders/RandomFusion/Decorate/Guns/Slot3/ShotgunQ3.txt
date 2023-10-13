@@ -1,19 +1,11 @@
-Actor PPE_SuperShotgun : Shotgun
+Actor PPE_Q3Shotgun : PPE_Quake3WeaponBase
 {
-	+WEAPON.NOALERT
-	+WEAPON.NOAUTOAIM
-	Inventory.Pickupmessage "$GOT_PPE_SSG"
-	Tag "$TAG_PPE_SSG"
-	Inventory.PickupSound "items/weapon2"
-	Weapon.UpSound "weapons/switch"
+	Tag "$TAG_Q3_SG"
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
-	Weapon.AmmoUse 2
+	Weapon.AmmoUse 1
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoGive 16
-	Weapon.BobRangeX 0.05
-	Weapon.BobRangeY 0.75
-	Weapon.BobSpeed 2.0
+	Weapon.AmmoGive 8
 	Decal "BulletChip"
 	States
 	{
@@ -30,28 +22,42 @@ Actor PPE_SuperShotgun : Shotgun
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
-		// 1st row, 1 pellet
-		TNT1 A 0 A_FireBullets(0,-4.0,-1,(8),"PPE_RicBulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
-		// 2nd row, 2 pellets
-		TNT1 A 0 A_FireBullets(3.7,-2.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-3.7,-2.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		// 3rd row, 2 pellets
-		TNT1 A 0 A_FireBullets(1.5,-1.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-1.5,-1.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_JumpIfInventory("PPE_Q3ShotgunLaser",1,"FireTwo")
+	FireOne:
+		TNT1 A 0 A_FireBullets(6.5,3.9,11,(10),"PPE_Quake3BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		Goto Anim
+	FireTwo:
+		TNT1 A 0 A_JumpIfInventory("PPE_Shells",2,1)
+		Goto FireOne
+		// 1st row, 2 pellets
+		TNT1 A 0 A_FireBullets(2,-4.0,-1,(8),"PPE_Quake3BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-2,-4.0,-1,(8),"PPE_Quake3BulletPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		// 2nd row, 3 pellets
+		TNT1 A 0 A_FireBullets(3.7,-2.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,-2.6,-1,(9),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-3.7,-2.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		// 3rd row, 3 pellets
+		TNT1 A 0 A_FireBullets(1.5,-1.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,-1.6,-1,(9),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-1.5,-1.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		// 4th row, 4 pellets
-		TNT1 A 0 A_FireBullets(6.5,0,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(3.2,0,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-3.2,0,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-6.5,0,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		// 5th row, 2 pellets
-		TNT1 A 0 A_FireBullets(1.5,1.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-1.5,1.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		// 6th row, 2 pellets
-		TNT1 A 0 A_FireBullets(3.7,2.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_FireBullets(-3.7,2.6,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		// 7st row, 1 pellet
-		TNT1 A 0 A_FireBullets(0,4.0,-1,(8),"PPE_RicBulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_PlayWeaponSound("weapons/shotgun/fire")
+		TNT1 A 0 A_FireBullets(6.5,0,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(3.2,0,-1,(9),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-3.2,0,-1,(9),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-6.5,0,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		// 5th row, 3 pellets
+		TNT1 A 0 A_FireBullets(1.5,1.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,1.6,-1,(9),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-1.5,1.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		// 6th row, 3 pellets
+		TNT1 A 0 A_FireBullets(3.7,2.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(0,2.6,-1,(9),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-3.7,2.6,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		// 7st row, 2 pellets
+		TNT1 A 0 A_FireBullets(2,4.0,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-2,4.0,-1,(8),"PPE_Quake3BulletPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+	Anim:
+		TNT1 A 0 A_PlayWeaponSound("weapons/quake3/shotgun/fire")
 		Q3SF ABC 2 bright
 		Q3SG A 6 Offset(0,37)
 		Q3SG B 1 Offset(0,32)
@@ -61,6 +67,18 @@ Actor PPE_SuperShotgun : Shotgun
 		Q3SG DDEEFFGGHH 1
 		Q3SG AAAAAAAAA 1
 		TNT1 A 0 A_ReFire
+		Goto Ready
+	AltFire:
+		TNT1 A 0 A_JumpIfInventory("PPE_Q3ShotgunLaser",1,"LaserOff")
+	LaserOn:
+		TNT1 A 0 A_PlaySound("items/quad/use",6,1)
+		TNT1 A 0 A_SetInventory("PPE_Q3ShotgunLaser",1)
+		Goto ReadyNoAlt
+	LaserOff:
+		TNT1 A 0 A_PlaySound("items/quad/use",6,1)
+		TNT1 A 0 A_SetInventory("PPE_Q3ShotgunLaser",0)
+	ReadyNoAlt:
+		Q3SG AAAAAAAAAAAAA 1 A_WeaponReady(WRF_NOSECONDARY)
 		Goto Ready
   	Flash:
     	TNT1 A 1 A_Light1
@@ -72,6 +90,11 @@ Actor PPE_SuperShotgun : Shotgun
     	Q3SP A -1
     	Stop
 	}
+}
+
+Actor PPE_Q3ShotgunLaser : Inventory
+{
+	Inventory.MaxAmount 1
 }
 
 Actor PPE_Q3SGShellCasingShooterL : PPE_CasingShooterBase

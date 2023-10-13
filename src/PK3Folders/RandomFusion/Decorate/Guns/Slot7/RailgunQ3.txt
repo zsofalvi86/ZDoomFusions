@@ -1,16 +1,12 @@
-Actor PPE_Q3RailGun : Chaingun
+Actor PPE_Q3RailGun : PPE_Quake3WeaponBase
 {
-	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_PPE_RG"
-	Tag "$TAG_PPE_RG"
-	Inventory.PickupSound "items/q3weapon"
-	Weapon.UpSound "items/q3switch"
+	+WEAPON.NOAUTOAIM
+	Tag "$TAG_Q3_RG"
 	Weapon.SelectionOrder 800
 	Weapon.SlotNumber 7
-	Weapon.AmmoType "PPE_Slugs"
-	Weapon.AmmoUse 1
-	Weapon.AmmoGive 4
-	Weapon.BobSpeed 2
+	Weapon.AmmoType "PPE_Shells"
+	Weapon.AmmoUse 3
+	Weapon.AmmoGive 8
 	Decal "BulletChip"
 	DamageType "Quake3Rail"
 	States
@@ -42,7 +38,7 @@ Actor PPE_Q3RailGun : Chaingun
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlayWeaponSound("weapons/railgun/fire")
+		TNT1 A 0 A_PlayWeaponSound("weapons/quake3/railgun/fire")
 		TNT1 A 0 A_RailAttack((100),0,1,"none","none",RGF_SILENT,0,"PPE_Q3RailPuff",0,0,3500,0,96,0,"PPE_Q3RailRing",0)
 		TNT1 A 0 A_RailAttack((0),0,0,"none","none",RGF_SILENT,0,"PPE_InvisiPuff",0,0,3500,0,8,0,"PPE_Q3RailTrail",0)
 		TNT1 A 0 A_JumpIfinventory("PPE_RailZoom",1,"FireZoom")
@@ -157,7 +153,7 @@ Actor PPE_Q3RailPuff : BulletPuff
 	{
 	Crash:
 		TNT1 A 0
-		TNT1 A 0 A_PlaySound("weapons/railgun/impact")
+		TNT1 A 0 A_PlaySound("weapons/quake3/railgun/impact")
 		PLCR ABCD 4 bright
 		Stop
 	Spawn:

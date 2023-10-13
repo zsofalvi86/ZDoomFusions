@@ -1,30 +1,12 @@
-Actor PPE_ShotNailBase2 : PPE_ShotNailBase
+Actor PPE_Q3Nailgun : PPE_Quake3WeaponBase
 {
-	Damage (12)
-}
-
-Actor PPE_ShotNailBounceBase : PPE_ShotNailBase
-{
-	BounceType Doom
-	BounceCount 3
-	BounceFactor 1.0
-	WallBounceFactor 1.0
-	Damage (12)
-}
-
-Actor PPE_TANailshotgun : SuperShotgun
-{
-	Inventory.Pickupmessage "$GOT_PPE_NG"
-	Tag "$TAG_PPE_NG"
-	Weapon.AmmoType1 "PPE_Nails"
-	Weapon.AmmoType2 "PPE_Nails"
-	Weapon.AmmoUse1 1
-	Weapon.AmmoUse2 1
-	Weapon.AmmoGive 4
+	Tag "$TAG_Q3_NG"
+	Weapon.AmmoType1 "PPE_Shells"
+	Weapon.AmmoType2 "PPE_Shells"
+	Weapon.AmmoUse1 2
+	Weapon.AmmoUse2 2
+	Weapon.AmmoGive 8
 	Weapon.SlotNumber 3
-	Weapon.BobSpeed 2
-	Inventory.PickupSound "items/q3weapon"
-	Weapon.UpSound "items/q3switch"
 	States
 	{
 	Ready:
@@ -37,7 +19,7 @@ Actor PPE_TANailshotgun : SuperShotgun
 		3NSG A 1 A_Raise(18)
     	Loop
 	Fire:
-		TNT1 A 0 A_PlayWeaponSound("weapons/tanailgun/fire")
+		TNT1 A 0 A_PlayWeaponSound("weapons/quake3/nailgun/fire")
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
@@ -82,6 +64,81 @@ Actor PPE_TANailshotgun : SuperShotgun
     	3NSW A -1
 		Stop
 	}
+}
+
+Actor PPE_ShotNailBase : PPE_NailBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/quake3/nailgun/fly",6)
+	Loopy:
+	    NALN A 1 A_SpawnItem("PPE_Q3ShotNailTrail")
+		Loop
+	Crash:
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_PlaySound("weapons/quake3/nailgun/impact",4)
+		PUFF AB 2 bright
+		PUFF CD 2
+		stop
+	XDeath:
+		TNT1 A 0
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_PlaySound("Weapons/quake3/nailgun/hit",4)
+		stop
+	}
+}
+
+Actor PPE_ShotNailBounceBase : PPE_ShotNailBase
+{
+	BounceType Doom
+	BounceCount 3
+	BounceFactor 1.0
+	WallBounceFactor 1.0
+	Damage (12)
+}
+
+Actor PPE_ShotNailBounceBase : PPE_ShotNailBase
+{
+	+USEBOUNCESTATE
+	BounceType Doom
+	BounceCount 2
+	BounceFactor 1.0
+	WallBounceFactor 1.0
+	Damage (24)
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/quake3/nailgun/fly",6)
+	Loopy:
+	    NALN A 1 A_SpawnItem("PPE_Q3ShotNailTrail")
+		Loop
+	Crash:
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_PlaySound("weapons/quake3/nailgun/impact",4)
+		PUFF AB 2 bright
+		PUFF CD 2
+		stop
+	XDeath:
+		TNT1 A 0
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_PlaySound("Weapons/quake3/nailgun/hit",4)
+		stop
+	Bounce:
+		TNT1 A 0 A_PlaySound("weapons/quake3/nailgun/bounce",4)
+		Goto Loopy
+	}
+}
+
+Actor PPE_ShotNailBase2 : PPE_ShotNailBase
+{
+	Damage (20)
 }
 
 Actor PPE_ShotNail1 : PPE_ShotNailBase2

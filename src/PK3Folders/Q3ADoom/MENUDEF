@@ -15,7 +15,7 @@ OptionMenu "Q3ADOptions"
 
 OptionValue "ENABLEDISABLE" { 0, "Disable" 1, "Enable"}
 OptionValue "Q3AHT" { 0, "Doom Style" 1, "Quake 3 Style"}
-OptionValue "Q3ABFG" { 0, "Doom Style Tracers" 1, "Extra Impact Damage"}
+OptionValue "Q3ABFG" { 0, "Extra Impact Damage" 1, "Doom Style Tracers"}
 OptionValue "TANG" { 0, "Disable" 1, "Team Arena (No Ricochet)" 2, "Quake Live (Nails Ricochet)"}
 OptionValue "TACG" { 0, "Disable" 1, "Team Arena (Instant Full Speed)" 2, "Quake Live (1s Half Speed)"}
 OptionValue "TAPL" { 0, "Disable" 1, "Enable"}

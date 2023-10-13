@@ -1,17 +1,12 @@
-Actor PPE_Q3LightningGun : PlasmaRifle
+Actor PPE_Q3LightningGun : PPE_Quake3WeaponBase
 {
-	+WEAPON.NOALERT
-	Inventory.Pickupmessage "$GOT_PPE_LG"
-	Tag "$TAG_PPE_LG"
-	Inventory.PickupSound "items/q3weapon"
-	Weapon.UpSound "items/q3switch"
+	Tag "$TAG_Q3_LG"
 	Weapon.SelectionOrder 115
-	Weapon.SlotNumber 6
+	Weapon.SlotNumber 8
 	Weapon.AmmoUse 1
-	Weapon.AmmoType "PPE_Lightnings"
-	Weapon.AmmoGive 24
-	Weapon.BobSpeed 2
-	Decal PlasmaScorch
+	Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoGive 40
+	Decal LightningScorch
 	DamageType "Quake3Lightning"
 	States
 	{
@@ -30,24 +25,24 @@ Actor PPE_Q3LightningGun : PlasmaRifle
 		3LGG A 1 A_Raise(18)
 		Loop
 	Fire:
-		TNT1 A 0 A_PlaySound("weapons/lightning/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/start",CHAN_WEAPON)
 	Hold1:
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"Hold1H")
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF AB 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF CD 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
 		TNT1 A 0 A_Refire("Hold2")
 		goto Winddown
 	Hold1H:
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF AB 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF C 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
 		TNT1 A 0 A_Refire("Hold2")
 		goto Winddown
@@ -56,21 +51,21 @@ Actor PPE_Q3LightningGun : PlasmaRifle
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_JumpIfInventory("PowerHaste",1,"Hold2H")
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF AB 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF C 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
-		TNT1 A 0 A_PlaySound("weapons/lightning/hum",6,1.0,1)
+		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/loop",6,1.0,1)
 		TNT1 A 0 A_Refire("Hold1")
 		goto Winddown
 	Hold2H:
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF B 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_RailAttack((8),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
+		TNT1 A 0 A_RailAttack((11),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffActual",0,0,768,0,14,0,"none",1)
 		3LGF D 1 bright A_RailAttack((0),0,0,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"PPE_LightningPuffFake",0,0,768,0,14,0,"PPE_LightningTrail",1)
-		TNT1 A 0 A_PlaySound("weapons/lightning/hum",6,1.0,1)
+		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/loop",6,1.0,1)
 		TNT1 A 0 A_Refire("Hold1")
 		goto Winddown
 	Winddown:
@@ -131,7 +126,7 @@ Actor PPE_LightningPuffActual : BulletPuff
 	Spawn:
 	Melee:
 		TNT1 A 0
-		TNT1 A 0 A_PlaySound("weapons/lightning/hit")
+		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/hit")
 		PLSE BCD 2 bright
 		Stop
 	}

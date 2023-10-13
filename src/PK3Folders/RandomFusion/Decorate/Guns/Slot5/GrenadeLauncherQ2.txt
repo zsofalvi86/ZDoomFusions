@@ -1,15 +1,12 @@
-actor PPE_Q2GrenadeLauncher : RocketLauncher
+actor PPE_Q2GrenadeLauncher : PPE_Quake2WeaponBase
 {
 	Weapon.SelectionOrder 2500
 	Weapon.AmmoUse 1
-	Weapon.AmmoGive 5
-	Weapon.AmmoType "PPE_Grenades"
-	Weapon.SlotNumber 6
-	Inventory.PickupSound "items/q2weapon"
-	Inventory.Pickupmessage "$GOT_PPE_GL"
-	Tag "$TAG_PPE_GL"
+	Weapon.AmmoGive 2
+	Weapon.AmmoType "PPE_Rockets"
+	Weapon.SlotNumber 5
+	Tag "$TAG_Q2_GL"
 	+NOAUTOFIRE
-	+NOALERT
 	+NOAUTOAIM
 	States
 	{
@@ -27,10 +24,10 @@ actor PPE_Q2GrenadeLauncher : RocketLauncher
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
-		TNT1 A 0 A_PlaySound("weapons/grenade/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_PlaySound("weapons/quake2/grenade/fire",1,1-(CountInv("PowerSilencer")*0.7))
 		TNT1 A 0 A_FireCustomMissile("PPE_LauncherGrenade",0,1,0,0,1,10)
 		2GLF AB 2 bright
-		TNT1 A 0 A_PlaySound("weapons/grenade/reload",6,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_PlaySound("weapons/quake2/grenade/reload",6,1-(CountInv("PowerSilencer")*0.7))
 		2GLF CDE 2 bright
 		2GLG BCDEEEEFGHI 2
 		2GLG A 10
@@ -56,8 +53,8 @@ Actor PPE_LauncherGrenade : PPE_SlowMissileBase
 	-NOGRAVITY
 	BounceType Doom
 	SeeSound ""
-	BounceSound "weapons/grenade/bounce"
-	DeathSound "weapons/grenade/explode"
+	BounceSound "weapons/quake2/grenade/bounce"
+	DeathSound "weapons/quake2/grenade/explode"
 	BounceFactor 0.7
 	WallBounceFactor 0.7
 	Gravity 0.4
