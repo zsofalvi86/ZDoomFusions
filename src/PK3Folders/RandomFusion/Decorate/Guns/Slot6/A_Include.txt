@@ -1,1 +1,0 @@
-#Include Decorate/Guns/Slot6/FlamethrowerSS.txt

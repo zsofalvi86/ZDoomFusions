@@ -1,4 +1,4 @@
-Class PPE_QuakeFusionPlayer : DoomPlayer
+Class PPE_RandomFusionPlayer : DoomPlayer
 {
 	double xPos, yPos, zPos;
 
@@ -56,14 +56,7 @@ Class PPE_QuakeFusionPlayer : DoomPlayer
 	}
 	
 	Override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
-	{
-		let newdamage = damage;
-		
-		if (source && source == self)
-		{
-			damage = damage / 2;
-		}
-		
+	{	
 		if(CheckInventory("PPE_PowerArmor",1)) 
 		{
 			int absorbed = damage * 0.6666;

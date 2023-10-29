@@ -1,0 +1,147 @@
+actor PPE_Q1RocketLauncher : PPE_Quake1WeaponBase
+{
+	Weapon.SelectionOrder 2500
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 2
+	Weapon.AmmoType "PPE_Rockets"
+	Weapon.SlotNumber 5
+	Weapon.SlotPriority 9
+	Tag "$TAG_Q1_RL"
+	PPE_WeaponBase.SpawnerId1 3,2
+	+NOAUTOFIRE
+	States
+	{
+	Ready.Ready:
+		TNT1 A 0 A_JumpIfMode(1,"Ready.M2")
+	Ready.M1:
+		QRLG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
+		Loop
+	Ready.M2:
+		QMRG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
+		Loop
+	Deselect:
+		QRLG A 1 A_Lower(18)
+		Loop
+	Select:
+		QRLG A 1 A_Raise(18)
+		Loop
+	Fire:
+		TNT1 A 0 A_JumpIfMode(1,"Fire.M2")
+	Fire.M1:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_QRocket",0,1,0,1,1,0)
+		TNT1 A 0 A_PlaySound("weapons/quake1/rocket/fire",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		QRLF ABCD 2 bright
+		QRLG A 20
+		TNT1 A 0 A_ReFire
+    	Goto Ready.Ready
+	Fire.M2:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfTargetInLos("FireTargeted",0,JLOSF_DEADNOJUMP|JLOSF_ALLYNOJUMP|JLOSF_COMBATANTONLY|JLOSF_NOAUTOAIM,256)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocket",-6,1,0,1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocket",-2,0,0,1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocket",2,0,0,1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocket",6,0,0,1,1,0)
+		Goto Anim
+	FireTargeted:
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocketTarget",-1,1,0,1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocketTarget",0,0,0,1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocketTarget",0,0,0,1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_QMiniRocketTarget",1,0,0,1,1,0)
+	Anim:
+		TNT1 A 0 A_PlaySound("weapons/quake1/rocket/fire",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		QMRF ABCD 2 bright
+		QMRG A 20
+		TNT1 A 0 A_ReFire
+    	Goto Ready
+	Reload:
+		TNT1 A 0 A_JumpIfMode(1,"BackToNormal")
+	User1:
+		TNT1 A 0 A_PlaySound("weapons/quake1/multirocket/on",5)
+		QMRG AAAAAAA 1
+		TNT1 A 0 A_SwapMode(1)
+		TNT1 A 0 A_ChangeAmmoUse(2)
+		Goto Ready.Ready
+	User2:
+	BackToNormal:
+		TNT1 A 0 A_PlaySound("weapons/quake1/multirocket/off",5)
+		QRLG AAAAAAA 1
+		TNT1 A 0 A_SwapMode(0)
+		TNT1 A 0 A_ChangeAmmoUse(1)
+		Goto Ready.Ready
+	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+0.8)
+		Goto LightDone
+	Spawn:
+		QRLP A -1
+		Stop
+   }
+}
+
+actor PPE_QRocket : Rocket
+{
+	Speed 35
+	Damage (96)
+	SeeSound ""
+	DeathSound "weapons/quake1/explode"
+	Obituary "$OB_MPROCKET"
+	DamageType "Quake1Rocket"
+	States
+	{
+	Death: // 40, 80
+		TNT1 A 0 A_Explode(40,128,1,0,128,0,0,"None","Normal")
+		TNT1 A 0 A_Explode(80,128,1,0,0,0,0,"None","Normal")
+		TNT1 A 0 A_Quake(4,5,0,224,"")
+		TNT1 A 0 A_Quake(2,6,0,512,"")
+		TNT1 A 0 A_Quake(1,6,0,3072,"")
+		TNT1 A 0 A_SpawnItem("PPE_RedQuakeExplo")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+	}
+}
+
+actor PPE_QMiniRocket : PPE_QRocket
+{
+	Speed 30
+	Damage (48)
+	DeathSound "weapons/quake1/explode"
+	Obituary "$OB_MPROCKET"
+	DamageType "Quake1Rocket"
+	States
+	{
+	Death:
+		TNT1 A 0 A_Explode(20,128,1,0,128,0,0,"None","Normal")
+		TNT1 A 0 A_Explode(40,128,1,0,0,0,0,"None","Normal")
+		TNT1 A 0 A_Quake(3,4,0,224,"")
+		TNT1 A 0 A_Quake(2,5,0,512,"")
+		TNT1 A 0 A_Quake(1,5,0,3072,"")
+		TNT1 A 0 A_SpawnItem("PPE_RedQuakeExploSmall")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		Stop
+	}
+}
+
+actor PPE_QMiniRocketTarget : PPE_QMiniRocket
+{
+	+SEEKERMISSILE
+	+SCREENSEEKER
+	DamageType "Quake1Rocket"
+	States
+	{
+	Spawn:
+		MISL AAAA 1 bright
+		TNT1 A 0 A_Tracer2
+		MISL A 1 A_SeekerMissile(10,25,SMF_LOOK|SMF_CURSPEED,256,4)
+		Goto Super::Spawn
+	}
+}

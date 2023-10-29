@@ -1,13 +1,9 @@
-#Include Decorate/Guns/Slot1/A_Include.txt
-#Include Decorate/Guns/Slot2/A_Include.txt
-#Include Decorate/Guns/Slot3/A_Include.txt
-#Include Decorate/Guns/Slot4/A_Include.txt
-#Include Decorate/Guns/Slot5/A_Include.txt
-#Include Decorate/Guns/Slot6/A_Include.txt
-#Include Decorate/Guns/Slot7/A_Include.txt
-#Include Decorate/Guns/Slot8/A_Include.txt
-#Include Decorate/Guns/Slot9/A_Include.txt
-#Include Decorate/Guns/Slot0/A_Include.txt
+#Include Decorate/Guns/Quake1/A_Include.txt
+#Include Decorate/Guns/Quake2/A_Include.txt
+#Include Decorate/Guns/Quake3/A_Include.txt
+#Include Decorate/Guns/DukeNukem/A_Include.txt
+#Include Decorate/Guns/ShadowWarrior/A_Include.txt
+#Include Decorate/Guns/SeriousSam/A_Include.txt
 
 Actor PPE_StartingGunRandomGiver : CustomInventory replaces Pistol
 {
@@ -16,20 +12,32 @@ Actor PPE_StartingGunRandomGiver : CustomInventory replaces Pistol
 	Spawn:
 	Pickup:
 		TNT1 A 0
-		TNT1 A 0 A_Jump(256,"GiveQuake","GiveQuake2","GiveShadow","GiveSam")
+		TNT1 A 0 A_Jump(256,"GiveQuake","GiveQuake2","GiveQuake3","GiveShadow","GiveSam","GiveDuke")
 	GiveQuake:
 		TNT1 A 0 A_GiveInventory("PPE_Q1Axe")
 		TNT1 A 0 A_GiveInventory("PPE_Q1Shotgun")
-		TNT1 A 0 A_GiveInventory("PPE_Shells",15)
+		TNT1 A 0 A_GiveInventory("PPE_Shells",7)
 		stop
 	GiveQuake2:
 		TNT1 A 0 A_GiveInventory("PPE_Q2Blaster")
 		stop
+	GiveQuake3:
+		TNT1 A 0 A_GiveInventory("PPE_Q3Gauntlet")
+		TNT1 A 0 A_GiveInventory("PPE_Q3MachinegunS2")
+		TNT1 A 0 A_GiveInventory("PPE_Bullets",30)
+		stop
 	GiveShadow:
 		TNT1 A 0 A_GiveInventory("PPE_SWKatana")
+		TNT1 A 0 A_GiveInventory("PPE_Shuriken")
+		TNT1 A 0 A_GiveInventory("PPE_Bullets",30)
 		stop
 	GiveSam:
-		TNT1 A 0 A_GiveInventory("PPE_SSColt")
+		TNT1 A 0 A_GiveInventory("PPE_SSColtS2")
+		stop
+	GiveDuke:
+		TNT1 A 0 A_GiveInventory("PPE_DNMightyFoot")
+		TNT1 A 0 A_GiveInventory("PPE_DNPistol")
+		TNT1 A 0 A_GiveInventory("PPE_Bullets",30)
 		stop
 	}
 }

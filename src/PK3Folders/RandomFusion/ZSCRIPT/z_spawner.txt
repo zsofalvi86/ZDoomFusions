@@ -41,22 +41,84 @@ Class PPE_Spawner : CustomInventory
 
 Class PPE_WeaponSpawner : PPE_Spawner
 {
+	//PROPERTIES
+	int spawnerId;
+	Property SpawnerId: spawnerId;
+	class<Inventory> asDrop;
+	Property DropAs: asDrop;
+	
+	int depth;
+	
 	Override void PostBeginPlay()
-	//Action void A_SpawnWeapon()
 	{
-		ACS_NamedExecuteWithResult("SetSpawn",13); //use WithResult otherwise it'll run in parellel
-		let spawn = CallAcs("GetSpawn",13);
-		
-		let index = 0;
-		let wcount = 0;
-		//toucher.A_Print("Slot number "..SlotNumber.." - size "..toucher.player.weapons.SlotSize(SlotNumber));
-		/*do
+		if (!bDropped || (asDrop && asDrop.GetClassName() == GetClassName()))
 		{
-			let type = toucher.player.weapons.GetWeapon(SlotNumber, index);
-			let weap = Weapon(toucher.FindInventory(type,true));
-			if (weap != null){wcount++;}
-		} while(++index < toucher.player.weapons.SlotSize(SlotNumber))*/
-		
-		Super.PostBeginPlay();
+			CVar debugcv = CVar.FindCVar('debug'); let debug = debugcv && debugcv.GetBool();
+			
+			ACS_NamedExecuteWithResult("SetSpawn",spawnerId); //use WithResult otherwise it'll run in parellel
+			let spawn = CallAcs("GetSpawn",spawnerId);
+
+			Array<PotentialSpawn> potentialSpawnList;
+
+			for (int i = 0; i < AllActorClasses.Size(); i++)
+			{
+				let wclass = PPE_WeaponBase(GetDefaultByType(AllActorClasses[i]));
+				if (wclass && wclass.CanSpawn(spawnerId,spawn))
+				{
+					let pspawn = new('PotentialSpawn');
+					pspawn.weapontype = wclass.GetClass();
+					pspawn.index = i;
+					potentialSpawnList.Push(pspawn);
+				}
+			}
+			
+			Array<Class<PPE_WeaponBase> > spawnList;
+			
+			let depth = min(potentialSpawnList.Size()*4,50);
+			let minrecents = depth*2;
+			for (int i = 0; i < potentialSpawnList.Size(); i++)
+			{
+				let recents = CallAcs("RecentSpawns",potentialSpawnList[i].index,spawnerId,depth);
+				potentialSpawnList[i].recentsvalue = recents;
+				if (recents < minrecents) {minrecents = recents;}
+			}
+			
+			let threshhold = minrecents + (depth / 5);
+			if (debug) console.printf("%s %i - %i", "wspawner depth:", depth, threshhold);
+			for (int k = 0; k < potentialSpawnList.Size(); k++)
+			{
+				let cpspawn = potentialSpawnList[k];
+				if (debug) console.printf("%s %i - %i - %s", "wspawner:", cpspawn.recentsvalue, cpspawn.index, cpspawn.weapontype.GetClassName());
+				if (cpspawn.recentsvalue < threshhold) {spawnList.Push(cpspawn.weapontype);}
+			}
+			
+			if (spawnList.Size()>=1)
+			{
+				let rng = random(0,spawnList.Size()-1);
+				if (debug) console.printf("%s %s", "wspawner result:", spawnList[rng].GetClassName());
+					
+				lastspawn = Spawn(spawnList[rng], pos);
+				InitSpawnedItem(lastspawn,SXF_TRANSFERSPECIAL|SXF_CLEARCALLERSPECIAL);
+				lastspawn.bDropped = bDropped;
+				ACS_NamedExecuteWithResult("RegisterSpawn",AllActorClasses.Find(lastspawn.GetClass()),spawnerId);
+				GoAwayAndDie();
+				return;
+			}
+			if (debug) console.printf("%s - %i - %i %s", "wspawner:", spawnerId, spawn, "returned no items");
+		}
+		else if (asDrop)
+		{
+			lastspawn = Spawn(asDrop);
+			InitSpawnedItem(lastspawn,SXF_TRANSFERSPECIAL|SXF_CLEARCALLERSPECIAL);
+			lastspawn.bDropped = bDropped;
+			GoAwayAndDie();
+		}
 	}
+}
+
+Class PotentialSpawn
+{
+	Class<PPE_WeaponBase> weapontype;
+	int index;
+	int recentsvalue;
 }

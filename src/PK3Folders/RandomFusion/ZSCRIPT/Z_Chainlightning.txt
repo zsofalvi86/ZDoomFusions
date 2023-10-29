@@ -72,7 +72,7 @@ Class PPE_ChainLightningPuffBase : BulletPuff
 		{
 			let ppos = from.Vec3Offset(0,0,from.height/2) + i * trc.HitDir;//Vec3Angle(i,angle,((trc.hitlocation.z-(pos.z+hgt))*(i/trc.distance))+hgt);
 				
-			Spawn("PPE_LightningTrail",ppos);
+			Spawn("PPE_Q3LightningTrail",ppos);
 		}
 	}
 	

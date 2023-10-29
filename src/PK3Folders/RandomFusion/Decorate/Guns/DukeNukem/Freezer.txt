@@ -1,0 +1,164 @@
+Actor PPE_DNFreezer : PPE_DNWeaponBase
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Tag "$TAG_DN_FRZ"
+	Weapon.SelectionOrder 500
+	Weapon.SlotNumber 6
+	Weapon.SlotPriority 4
+	Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoUse 2
+	Weapon.AmmoGive1 40
+	Inventory.PickupSound "weapons/pickup/quote"
+	PPE_WeaponBase.SlotAlt1 "PPE_DNFreezerS8"
+	PPE_WeaponBase.SpawnerId1 4,1
+	States
+	{
+	Spawn:
+		DFTW A -1
+		Stop
+	Ready.Ready:
+		DFTG A 1 A_WeaponReady
+		Loop
+	Deselect:
+		DFTG A 1 A_Lower(12)
+		Loop
+	Select:
+		DFTG A 1 A_Raise(12)
+		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/dn/freezethrower/fire",CHAN_WEAPON)
+	    TNT1 A 0 A_FireCustomMissile("PPE_FreezerMissile",0,1,0,2,1,0)
+		DFTF ABC 1 bright
+		DFTG A 1 bright
+		TNT1 A 0 A_ReFire("AFire")
+		goto Ready.Ready
+	AFire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/dn/freezethrower/fire",CHAN_WEAPON)
+	    TNT1 A 0 A_FireCustomMissile("PPE_FreezerMissile",0,1,0,2,1,0)
+		DFTF ABC 1 bright
+		DFTG A 2 bright
+		TNT1 A 0 A_ReFire("Fire")
+		goto Ready.Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.1)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.2)
+		Goto LightDone
+	}
+}
+
+Actor PPE_DNFreezerS8 : PPE_DNFreezer { Weapon.SlotNumber 8 PPE_WeaponBase.SlotAlt1 "PPE_DNFreezer" }
+
+Actor PPE_FreezerMissile : PPE_FreezerMissileBase
+{
+	var int user_bouncecnt;
+	Damage (39/(user_bouncecnt+1))
+    +FORCERADIUSDMG
+	+DOOMBOUNCE
+	+USEBOUNCESTATE
+	-BLOODSPLATTER
+	//DamageType "Ice"
+	BounceFactor 1.0
+	WallBounceFactor 1.0
+	BounceCount 3
+	Speed 30
+    SeeSound ""
+	DeathSound ""
+	Radius 11
+	Height 8
+	RenderStyle "Normal"
+	States
+	{
+	Spawn:
+		//TNT1 A 0
+		//TNT1 A 0 A_SetUserVar("user_bouncecnt",1)
+	MissileLoop:
+		FRBL ABCDEF 1 bright
+		Loop
+	Bounce:
+		TNT1 A 0 A_ChangeFlag("HITOWNER",1)
+		TNT1 A 0 A_SetUserVar("user_bouncecnt",user_bouncecnt+1)
+		Goto MissileLoop
+	Death:
+		FRBE ABCDEF 3 bright
+		Stop
+	}
+}
+
+Actor PPE_FrozenMonster : Chicken
+{
+  Health 1
+  PainChance 0
+  SeeSound "chicken/pain"
+  AttackSound "chicken/attack"
+  PainSound "chicken/pain"
+  DeathSound "chicken/death"
+  ActiveSound "chicken/active"
+  Obituary "$OB_CHICKEN"
+  Translation Ice
+  Height 62
+  Radius 30
+  Mass 100000
+  ReactionTime 0
+  States
+  {
+  Spawn:
+	"####" "#" 0
+	"####" "#" 1 A_SetRenderStyle(1,STYLE_Normal)
+  Loopy:
+	"####" "#" 1
+    Loop
+  Death:
+  XDeath:
+	"####" "#" 0 A_NoBlocking
+    "####" "#" 1 A_SpawnItemEx("PPE_IGD",0,0,0,0,0,0,0,SXF_NOCHECKPOSITION)
+	//TNT1 A -1
+    Stop
+  }
+}
+
+Actor PPE_IGD : Actor
+{
+  Height 58
+  Radius 32
+  States
+  {
+  Spawn:
+	TNT1 A 0 A_FreezeDeath
+    TNT1 A 1 A_IceGuyDie
+    Stop
+  }
+}
+
+ACTOR PPE_FrozenPlayer : PPE_RandomFusionPlayer
+{
+  Speed 0
+  Player.JumpZ 0
+  Player.ForwardMove 0, 0
+  Player.SideMove 0, 0
+  Player.SpawnClass "Action Figure"
+  Player.DisplayName "Action Figure"
+  Player.MorphWeapon "Beak"
+  Translation Ice
+  DropItem "PPE_AtomicHealth"
+  -PICKUP
+  States
+  {
+  Spawn:
+	"####" "#" 0
+	"####" "#" 1 A_SetRenderStyle(1,STYLE_Normal)
+  Loopy:
+	"####" "#" 1
+    Loop
+  Death:
+  XDeath:
+    "####" "#" 1 A_IceGuyDie
+    Stop
+  }
+}

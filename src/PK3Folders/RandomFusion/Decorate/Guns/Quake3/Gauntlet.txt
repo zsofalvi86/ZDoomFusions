@@ -1,0 +1,103 @@
+Actor PPE_Q3Gauntlet : PPE_Quake3WeaponBase
+{
+	Tag "$TAG_Q3_FST"
+	Weapon.SlotNumber 1
+	Weapon.SlotPriority 7
+	Weapon.Kickback 175
+	Decal "BulletChip"
+	PPE_WeaponBase.SpawnerId1 6,1
+	States
+	{
+	Ready.Ready:
+    	Q3GN A 1 A_WeaponReady
+    	Loop
+	Deselect:
+		TNT1 A 0 A_StopSound(6)
+  	DeseLoop:
+		Q3GN A 1 A_Lower(12)
+    	Loop
+  	Select:
+		SSKN A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_PlaySound("weapons/quake3/gauntlet/run",6,1,1)
+		Q3GN BBCC 1 
+		{
+			A_FireBullets(0,0,1,(0),"PPE_GauntletPrePuff",FBF_NORANDOM,64);
+			If(CountInv("PPE_GauntletHit") > 0) 
+			{
+				return state("Swing");
+			}
+			return state(0);
+		}
+		TNT1 A 0 A_ReFire("Fire")
+		TNT1 A 0 A_StopSound(6)
+		Goto Ready.Ready
+	Swing:
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake3/gauntlet/hit",CHAN_WEAPON)
+		TNT1 A 0 A_FireBullets(0,0,1,(50),"PPE_GauntletPuff",FBF_NORANDOM,100)
+	SwingAnim:
+		Q3GN B 1 offset(-7,28)
+		Q3GN B 1 offset(-14,25)
+		Q3GN C 1 offset(-21,22)
+		Q3GN C 1 offset(-30,27)
+		Q3GN B 1 offset(-40,36)
+		Q3GN B 1 offset(-52,50)
+		TNT1 A 4
+		Q3GN A 1 offset(15,55)
+		Q3GN A 1 offset(10,45)
+		Q3GN D 1 offset(5,38)
+		Q3GN D 1 offset(1,32)
+		TNT1 A 0 A_SetInventory("PPE_GauntletHit",0)
+		TNT1 A 0 A_ReFire("Fire")
+		TNT1 A 0 A_StopSound(6)
+		Goto Ready.Ready
+  	Spawn:
+    	Q3GN W -1
+    	Stop
+	}
+}
+
+Actor PPE_GauntletHit : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor PPE_GauntletPrePuff : BulletPuff
+{
+	+PUFFONACTORS
+	+PUFFGETSOWNER
+	-ALLOWPARTICLES
+	SeeSound ""
+	AttackSound ""
+	States
+	{
+	Crash:
+		TNT1 A 0
+		PUFF AB 2 Bright
+		PUFF CD 2
+		Stop
+	Spawn:
+	Melee:
+		TNT1 A 0
+		TNT1 A 0 A_GiveToTarget("PPE_GauntletHit",1)
+		Stop
+  }
+}
+
+Actor PPE_GauntletPuff : BulletPuff
+{
+	SeeSound ""
+	AttackSound ""
+	States
+	{
+	Spawn:
+	Crash:
+	Melee:
+		TNT1 A 0
+		PUFF AB 2 Bright
+		PUFF CD 2
+		Stop
+  }
+}

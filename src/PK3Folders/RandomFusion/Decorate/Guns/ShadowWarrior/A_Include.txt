@@ -1,0 +1,8 @@
+#Include Decorate/Guns/ShadowWarrior/A_WBase.txt
+#Include Decorate/Guns/ShadowWarrior/FistsOfFury.txt
+#Include Decorate/Guns/ShadowWarrior/Katana.txt
+#Include Decorate/Guns/ShadowWarrior/Shuriken.txt
+#Include Decorate/Guns/ShadowWarrior/RiotGun.txt
+#Include Decorate/Guns/ShadowWarrior/GrenadeLauncher.txt
+#Include Decorate/Guns/ShadowWarrior/Railgun.txt
+#Include Decorate/Guns/ShadowWarrior/RipperHeart.txt

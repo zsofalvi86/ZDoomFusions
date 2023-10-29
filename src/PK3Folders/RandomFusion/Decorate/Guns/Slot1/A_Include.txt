@@ -1,4 +1,0 @@
-#Include Decorate/Guns/Slot1/AxeQ1.txt
-#Include Decorate/Guns/Slot1/Gauntlet.txt
-#Include Decorate/Guns/Slot1/Katana.txt
-#Include Decorate/Guns/Slot1/ChainsawSS.txt

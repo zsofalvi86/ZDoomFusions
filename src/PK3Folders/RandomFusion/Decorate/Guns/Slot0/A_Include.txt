@@ -1,2 +1,0 @@
-#Include Decorate/Guns/Slot0/SeriousBomb.txt
-#Include Decorate/Guns/Slot0/RipperHeart.txt

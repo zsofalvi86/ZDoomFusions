@@ -1,5 +1,0 @@
-#Include Decorate/Guns/Slot8/HyperblasterQ2.txt
-#Include Decorate/Guns/Slot8/PlasmaGunQ3.txt
-#Include Decorate/Guns/Slot8/PlasmaBeam.txt
-#Include Decorate/Guns/Slot8/Thunderbolt.txt
-#Include Decorate/Guns/Slot8/LightningGunQ3.txt

@@ -8,7 +8,7 @@ Actor PPE_BloodSplatterBase : BloodSplatter
 	-ALLOWPARTICLES
 }
 
-Actor PPE_Blood : PPE_BloodBase replaces Blood
+Actor PPE_Blood : PPE_BloodBase //replaces Blood
 {
 	States
 	{
@@ -33,7 +33,7 @@ Actor PPE_Blood : PPE_BloodBase replaces Blood
 	}
 }
 
-Actor PPE_BloodSplatter : PPE_BloodSplatterBase replaces BloodSplatter
+Actor PPE_BloodSplatter : PPE_BloodSplatterBase //replaces BloodSplatter
 {
 	States
 	{

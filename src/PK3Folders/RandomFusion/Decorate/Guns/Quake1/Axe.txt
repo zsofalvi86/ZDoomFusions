@@ -1,0 +1,92 @@
+Actor PPE_Q1Axe : PPE_Quake1WeaponBase
+{
+	Tag "$TAG_Q1_AXE"
+	Weapon.SlotNumber 1
+	Weapon.SlotPriority 2
+	Decal "BulletChip"
+	States
+	{
+	Ready.Ready:
+    	QAXE A 1 A_WeaponReady
+    	Loop
+  	Deselect:
+		QAXE A 0 A_Lower(12)
+    	Loop
+  	Select:
+		QAXE A 0 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/quake1/axe/swing")
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+    	TNT1 A 0 A_Jump(128,"Swing2")
+		QAXE D 1 Offset(12,10)
+		QAXE C 1 Offset(8,26)
+		QAXE B 1 Offset(0,32)
+		QAXE B 1 Offset(6,28)
+		QAXE C 1 Offset(3,28)
+		QAXE C 1 Offset(-3,36)
+		QAXE D 1 Offset(2,30)
+		QAXE D 1 Offset(-2,34)
+		QAXE E 1 Offset(0,32) // 20
+		TNT1 A 0 A_FireBullets(0,0,1,(30),"PPE_AxePuff",FBF_NORANDOM,64)
+		QAXE E 1 Offset(-4,36)
+		QAXE E 1 Offset(-5,37)
+		QAXE E 1 Offset(-5,38)
+		QAXE E 1 Offset(-4,36)
+		QAXE D 1 Offset(8,40)
+		QAXE D 1 Offset(8,38)
+		QAXE A 1 Offset(0,36)
+		QAXE A 1 Offset(0,34)
+		QAXE A 1 Offset(0,32)
+		//QAXE HIJK 2
+		TNT1 A 0 A_ReFire
+		Goto Ready
+	Swing2:
+		QAXE D 1 Offset(-12,10)
+		QAXE C 1 Offset(-16,12)
+		QAXE F 1 Offset(0,32)
+		QAXE F 1 Offset(10,30)
+		QAXE G 1 Offset(0,32)
+		QAXE G 1 Offset(12,34)
+		QAXE G 1 Offset(25,36)
+		QAXE H 1 Offset(-22,28)
+		QAXE H 1 Offset(-11,30)
+		QAXE H 1 Offset(0,32) // 20
+		TNT1 A 0 A_FireBullets(0,0,1,(30),"PPE_AxePuff",FBF_NORANDOM,64)
+		QAXE H 1 Offset(11,33)
+		QAXE H 1 Offset(22,34)
+		QAXE E 1 Offset(13,40)
+		QAXE E 1 Offset(10,37)
+		QAXE D 1 Offset(16,40)
+		QAXE D 1 Offset(12,38)
+		QAXE A 1 Offset(0,36)
+		QAXE A 1 Offset(0,34)
+		QAXE A 1 Offset(0,32)
+		TNT1 A 0 A_ReFire
+		Goto Ready
+  	Spawn:
+    	AXEP A -1
+    	Stop
+	}
+}
+
+Actor PPE_AxePuff : BulletPuff
+{
+	+PUFFONACTORS
+	SeeSound "weapons/quake1/axe/flesh"
+	AttackSound "weapons/quake1/axe/hit"
+	States
+	{
+	Spawn:
+	Crash:
+	Melee:
+		TNT1 A 0
+		PUFF AB 2 Bright
+		PUFF CD 2
+		Stop
+	XDeath:
+		TNT1 A 10
+		Stop
+	}
+}

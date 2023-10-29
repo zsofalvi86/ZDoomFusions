@@ -1,4 +1,0 @@
-#Include Decorate/Guns/Bases/Quake1.txt
-#Include Decorate/Guns/Bases/Quake2.txt
-#Include Decorate/Guns/Bases/Quake3.txt
-#Include Decorate/Guns/Bases/SeriousSam.txt

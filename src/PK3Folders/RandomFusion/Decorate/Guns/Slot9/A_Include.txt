@@ -1,2 +1,0 @@
-#Include Decorate/Guns/Slot9/BFGQ2.txt
-#Include Decorate/Guns/Slot9/BFGQ3.txt

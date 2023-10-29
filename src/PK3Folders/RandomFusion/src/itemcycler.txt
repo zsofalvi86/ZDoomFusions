@@ -24,6 +24,14 @@ global int 12:MEGA;
 global int 13:HP;
 global int 14:ALT;
 global int 15:CGD;
+global int 16:SGD;
+global int 17:PGD;
+global int 18:recents[];
+global int 19:slotrecents1[];
+global int 20:slotrecents2[];
+global int 21:slotrecents3[];
+global int 22:slotrecents4[];
+global int 23:slotrecents5[];
 
 script "map exit" UNLOADING
 {
@@ -32,7 +40,7 @@ script "map exit" UNLOADING
 	{
 		If (GetActorProperty(6000+i, APROP_HEALTH) <= 0) // any player dead, reset the levels
 		{
-			SG=0; SSG=0; CG=0; RL=0; PG=0; BFG=0; BPK=0; CGD=0;
+			SG=0; SSG=0; CG=0; RL=0; PG=0; BFG=0; BPK=0; CGD=0; SGD=0; PGD=0;
 			level=1;
 			break;
 		}
@@ -62,13 +70,16 @@ script "SetSpawn" (int spawnTag)
 		case 11:BPK++;break;
 		case 12:MEGA++;break;
 		case 13:HP++;break;
+		case 14:CGD++;break;
+		case 15:SGD++;break;
+		case 16:PGD++;break;
 	}
 	
 	if(SG>3){SG=1;}
 	if(SSG>3){SSG=2;}
 	if(CG>4){CG=3;}
 	if(RL>2){RL=1;}
-	if(PG>2){PG=1;}
+	if(PG>3){PG=1;}
 	if(BFG>2){BFG=1;}
 	if(CS>2){CS=1;}
 	if(BER>2){BER=1;}
@@ -77,12 +88,15 @@ script "SetSpawn" (int spawnTag)
 	if(MEGA>2){MEGA=1;}
 	if(HP>6){HP=1;}
 	if(ALT>1){ALT=0;}
+	if(CGD>10){CGD=9;}
+	if(SGD>10){SGD=9;}
+	if(PGD>10){PGD=9;}
 	
 	if(CG==3 && RL==0 && PG==0) {CG=1;} // limit cg spawns
 	if(CG==4 && RL==0 && PG==0) {CG=2;} // limit cg spawns
 	if(SG==2 && (RL==0 || PG==0)) {SG=1;} // limit sg spawns
 	if(SG==3 && (RL==0 || PG==0)) {SG=1;} // limit sg spawns
-	if(SSG==2 && (RL==0 || PG==0)) {SSG=1;} // limit ssg spawns
+	if(SSG==2 && RL==0 && PG==0) {SSG=1;} // limit ssg spawns
 	
 	if(CGD==0 && level>4 && (PG==1 || CG==3)) {CGD=1;} // chaingun drop
 	if(CGD==1 && level>5 && (PG==2 || CG==4)) {CGD=2;} // chaingun drop
@@ -100,6 +114,17 @@ script "SetSpawn" (int spawnTag)
 	if(spawnTag==2)//cg
 	{
 		if(CG<3 && SSG>0 && (RL>0 || PG>0)) {CG=3;} // skip mg/ng if late
+	}
+	if(spawnTag==14)//cgd
+	{
+		if (CG==0){CGD++;}
+	}
+	if(spawnTag==15)//sgd
+	{
+		if (SSG==0 && SGD==10){SGD=9;}
+	}
+	if(spawnTag==16)//pgd
+	{
 	}
 }
 
@@ -121,6 +146,9 @@ script "GetSpawn" (int spawnTag) // call this with correct values, this checks n
 		case 11:ret=BPK;break;
 		case 12:ret=MEGA;break;
 		case 13:ret=HP;break;
+		case 14:ret=1+(CGD/10);break;
+		case 15:ret=1+(SGD/10);break;
+		case 16:ret=1+(PGD/10);break;
 	}
 	
 	SetResultValue(ret);
@@ -137,4 +165,39 @@ script "SetBandolierAmmo" (void)
 		SetAmmoCapacity("PPE_Cells",450);
 		SetAmmoCapacity("PPE_Flechettes",300);
 	}
+}
+
+script "RegisterSpawn" (int index, int slot)
+{
+	for(int i=0;i<50;i++)
+	{
+		recents[50-i] = recents[49-i];
+	}
+	recents[0] = index;
+	
+	slotrecents5[slot] = slotrecents4[slot];
+	slotrecents4[slot] = slotrecents3[slot];
+	slotrecents3[slot] = slotrecents2[slot];
+	slotrecents2[slot] = slotrecents1[slot];
+	slotrecents1[slot] = index;
+}
+
+script "RecentSpawns" (int index, int slot, int depth)
+{
+	int ret = 0;
+	for(int i=0;i<depth;i++)
+	{
+		if (recents[i] == index) {ret+=depth-i;}
+	}
+
+	if (slotrecents1[slot] == index) {ret+=depth;}
+	if (depth>=4 && slotrecents2[slot] == index) {ret+=depth-2;}
+	if (depth>=6 && slotrecents3[slot] == index) {ret+=depth-4;}
+	if (depth>=8 && slotrecents4[slot] == index) {ret+=depth-6;}
+	if (depth>=10 && slotrecents5[slot] == index) {ret+=depth-8;}
+	
+	Print(i:recents[0]); // For debug purposes, it doesn't work on inventory anyway
+	Print(i:slotrecents1[slot]); // For debug purposes, it doesn't work on inventory anyway
+	
+	SetResultValue(ret);
 }

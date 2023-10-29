@@ -4,7 +4,7 @@ const int PPE_C_SA_MEDIUM_CIRCLE = 420;
 const int PPE_C_SA_SMALL_CIRCLE = 166;
 
 
-ACTOR PPE_SmallBullet : PPE_Bullets replaces Clip
+ACTOR PPE_SmallBullet : PPE_Bullets
 {
   Inventory.Amount 10
   +FLOORCLIP +DONTGIB

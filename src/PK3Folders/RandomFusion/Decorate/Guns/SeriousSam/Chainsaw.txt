@@ -1,0 +1,91 @@
+Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
+{
+	Tag "$TAG_SS_CS"
+	Weapon.UpSound "weapons/ss/saw/on"
+	Weapon.SlotNumber 1
+	Weapon.SlotPriority 8
+	PPE_WeaponBase.SpawnerId1 6,1
+	States
+	{
+	ReadySilent:
+		SSWG EEEE 1 A_WeaponReady
+		TNT1 A 0 A_WeaponOffset(Random(-1,1),33+Random(-2,2))
+		SSWG EEEE 1 A_WeaponReady
+		TNT1 A 0 A_WeaponOffset(Random(-1,1),33+Random(-2,2))
+		SSWG EEEE 1 A_WeaponReady
+		TNT1 A 0 A_WeaponOffset(Random(-1,1),33+Random(-2,2))
+		SSWG EEEE 1 A_WeaponReady
+		TNT1 A 0 A_WeaponOffset(Random(-1,1),33+Random(-2,2))
+	Ready.Ready:
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/idle",6,1.0,1)
+    	SSWG EEEE 1 A_WeaponReady
+		TNT1 A 0 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+    	Loop
+  	Deselect:
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/off",6)
+	DeseLoop:
+		SSWG E 1 A_Lower(12)
+    	Loop
+  	Select:
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/on",7)
+	SeLoop:
+		SSWG E 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_WeaponOffset(0,32)
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/start",7)
+		SSWG FGH 2
+	FireLoop1:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/loop",6,1.0,1) // 25
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_SSChainsawPuff",FBF_NORANDOM,128)
+		TNT1 A 0 A_Jump(256,"FL11","FL12")
+	FL11:
+		SSWG AA 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_SSChainsawPuff",FBF_NORANDOM,128)
+		SSWG B 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+		TNT1 A 0 A_ReFire("FireLoop2")
+		Goto FireEnd
+	FL12:
+		SSWG A 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_SSChainsawPuff",FBF_NORANDOM,128)
+		SSWG BB 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+		TNT1 A 0 A_ReFire("FireLoop2")
+		Goto FireEnd
+	FireLoop2:
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_SSChainsawPuff",FBF_NORANDOM,128)
+		SSWG CC 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_SSChainsawPuff",FBF_NORANDOM,128)
+		SSWG DD 1 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
+		TNT1 A 0 A_ReFire("FireLoop1")
+	FireEnd:
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/stop",6)
+		TNT1 A 0 A_WeaponOffset(0,32)
+		SSWG HGF 2
+		Goto ReadySilent
+  	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAA 1 //A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 //A_SetPitch(pitch+0.8)
+		Goto LightDone
+  	Spawn:
+    	SSWW A -1
+    	Stop
+	}
+}
+
+Actor PPE_SSChainsawPuff : BulletPuff
+{
+	+EXTREMEDEATH
+	States
+	{
+	Spawn:
+	Crash:
+	Melee:
+		TNT1 A 0
+		PUFF AB 2 Bright
+		PUFF CD 2
+		Stop
+  }
+}

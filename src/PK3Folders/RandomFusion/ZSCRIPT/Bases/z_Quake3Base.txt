@@ -1,0 +1,11 @@
+Class PPE_Quake3WeaponBase : PPE_WeaponBase abstract
+{
+	Default 
+	{
+	Weapon.UpSound "weapons/quake3/switch"; Inventory.PickupSound "weapons/quake3/pickup"; ActiveSound "weapons/quake3/ammo";
+	+WEAPON.NOAUTOAIM;
+	}
+	
+	mixin PPE_SpriteBeam;
+	mixin PPE_FlatBeam;
+}

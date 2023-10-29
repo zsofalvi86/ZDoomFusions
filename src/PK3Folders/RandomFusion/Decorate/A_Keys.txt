@@ -1,4 +1,5 @@
-ACTOR PPE_BlueCard : BlueCard replaces BlueCard
+// Replace happens in events
+ACTOR PPE_BlueCard : BlueCard// replaces BlueCard
 {
 	Species "BlueCard"
 	Inventory.PickupMessage "$GOTBLUECARD"
@@ -13,7 +14,7 @@ ACTOR PPE_BlueCard : BlueCard replaces BlueCard
 	}
 }
 
-ACTOR PPE_YellowCard : YellowCard replaces YellowCard
+ACTOR PPE_YellowCard : YellowCard// replaces YellowCard
 {
 	Species "YellowCard"
 	Inventory.PickupMessage "$GOTYELWCARD"
@@ -28,7 +29,7 @@ ACTOR PPE_YellowCard : YellowCard replaces YellowCard
 	}
 }
 
-ACTOR PPE_RedCard : RedCard replaces RedCard
+ACTOR PPE_RedCard : RedCard// replaces RedCard
 {
 	Species "RedCard"
 	Inventory.PickupMessage "$GOTREDCARD"
@@ -43,7 +44,7 @@ ACTOR PPE_RedCard : RedCard replaces RedCard
 	}
 }
 
-ACTOR PPE_BlueSkull : BlueSkull replaces BlueSkull
+ACTOR PPE_BlueSkull : BlueSkull// replaces BlueSkull
 {
 	Species "BlueSkull"
 	Inventory.PickupMessage "$GOTBLUESKUL"
@@ -58,7 +59,7 @@ ACTOR PPE_BlueSkull : BlueSkull replaces BlueSkull
 	}
 }
 
-ACTOR PPE_YellowSkull : YellowSkull replaces YellowSkull
+ACTOR PPE_YellowSkull : YellowSkull// replaces YellowSkull
 {
 	Species "YellowSkull"
 	Inventory.PickupMessage "$GOTYELWSKUL"
@@ -73,7 +74,7 @@ ACTOR PPE_YellowSkull : YellowSkull replaces YellowSkull
 	}
 }
 
-ACTOR PPE_RedSkull : RedSkull replaces RedSkull
+ACTOR PPE_RedSkull : RedSkull// replaces RedSkull
 {
 	Species "RedSkull"
 	Inventory.PickupMessage "$GOTREDSKUL"

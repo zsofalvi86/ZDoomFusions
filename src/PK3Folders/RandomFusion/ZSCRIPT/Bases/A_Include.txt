@@ -1,0 +1,7 @@
+#include "zscript/bases/z_dnbase.txt"
+#include "zscript/bases/z_swbase.txt"
+#include "zscript/bases/z_bloodbase.txt"
+#include "zscript/bases/z_quake1base.txt"
+#include "zscript/bases/z_quake2base.txt"
+#include "zscript/bases/z_quake3base.txt"
+#include "zscript/bases/z_ssbase.txt"

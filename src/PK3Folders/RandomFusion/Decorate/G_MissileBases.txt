@@ -12,7 +12,7 @@ Actor PPE_TrailBase
 	Height 1
 }
 
-Actor PPE_DodgeableMissileBase
+Actor PPE_DodgeableMissileBase : PPE_PPEMissileBase
 {
 	Radius 11
 	Height 8
@@ -69,6 +69,37 @@ Actor PPE_NailBase : PPE_SlowMissileBase
 	XDeath:
 		TNT1 A 0
 		Stop
+	}
+}
+
+Actor PPE_LightningTrailParticle : PPE_TrailBase
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,"A","B","C","D","E","F")
+		A:
+    	LSHF A 1 bright
+		Stop
+		B:
+    	LSHF B 1 bright
+    	Stop
+		C:
+    	LSHF C 1 bright
+    	Stop
+		D:
+    	LSHF D 1 bright
+    	Stop
+		E:
+    	LSHF E 1 bright
+    	Stop
+		F:
+    	LSHF F 1 bright
+		Stop
+	Despawn:
+		TNT1 A 0
+    	Stop
 	}
 }
 
@@ -146,8 +177,5 @@ Actor PPE_ShellCasing : PPE_CasingBase
 	Loopy:
 		SCAS ABCDEFGH 2
 		Loop
-	Death:
-		"####" "#" 400
-		Stop
 	}
 }

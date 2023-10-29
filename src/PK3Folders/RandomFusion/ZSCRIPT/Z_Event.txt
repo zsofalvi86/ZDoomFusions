@@ -1,0 +1,30 @@
+Class PPE_EventHandler : EventHandler
+{	
+	override void CheckReplacement (ReplaceEvent e)
+	{	
+		CVar keys = CVar.FindCVar('keys');
+		if (e.Replacee == "BlueCard" && keys.GetBool()) {e.Replacement = "PPE_BlueCard"; e.isFinal = true;}
+		if (e.Replacee == "YellowCard" && keys.GetBool()) {e.Replacement = "PPE_YellowCard"; e.isFinal = true;}
+		if (e.Replacee == "RedCard" && keys.GetBool()) {e.Replacement = "PPE_RedCard"; e.isFinal = true;}
+		if (e.Replacee == "BlueSkull" && keys.GetBool()) {e.Replacement = "PPE_BlueSkull"; e.isFinal = true;}
+		if (e.Replacee == "YellowSkull" && keys.GetBool()) {e.Replacement = "PPE_YellowSkull"; e.isFinal = true;}
+		if (e.Replacee == "RedSkull" && keys.GetBool()) {e.Replacement = "PPE_RedSkull"; e.isFinal = true;}
+		//console.printf("%s%s%s%i", "event: ",e.Replacee.GetClassName(),e.Replacement.GetClassName(),keys.GetBool());
+	}
+
+	override void WorldThingDied (WorldEvent e)
+	{
+		let killer = e.Thing.Target;
+		if (!killer || !killer.player) { return; }
+		let weapon = PPE_WeaponBase(killer.player.ReadyWeapon);
+		if (weapon) { weapon.WorldThingDied(e); }
+	}
+	
+	override void WorldThingDamaged (WorldEvent e)
+	{
+		let inflictor = e.DamageSource;
+		if (!inflictor || !inflictor.player) { return; }
+		let weapon = PPE_WeaponBase(inflictor.player.ReadyWeapon);
+		if (weapon) { weapon.WorldThingDamaged(e); }
+	}
+}

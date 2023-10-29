@@ -37,10 +37,11 @@ items/visor/use			ir_start
 items/q2pickup			ipkup
 
 //Quake 1
-weapons/quake1/pikcup	q1wpkup
+weapons/quake1/pickup	q1wpkup
+weapons/quake1/ammo	q1apkup
+weapons/quake1/switch q1wpkup
 ric1 ric1 ric2 ric2 ric3 ric3
 $random weapons/quake1/ric { ric1 ric2 ric3 }
-weapons/quake1/ammo	q1apkup
 weapons/quake1/axe/swing		axsw
 weapons/quake1/axe/hit			axhit
 weapons/quake1/axe/flesh		axflh
@@ -57,12 +58,16 @@ weapons/quake1/grenade/bounce	qbnc
 weapons/quake1/proximity/fire	proxf
 weapons/quake1/proximity/warn	proxwarn
 weapons/quake1/rocket/fire		qrocket
+weapons/quake1/multirocket/on		q1wpkup
+weapons/quake1/multirocket/off		q1apkup
 weapons/quake1/explode			qexp
 weapons/quake1/lightning/start		lstart
 weapons/quake1/lightning/loop		lhit
 weapons/quake1/plasma/fire		lpfire
 weapons/quake1/plasma/explode	lpexp
 weapons/quake1/plasma/fly		lpfly
+weapons/quake1/plasma/on		q1wpkup
+weapons/quake1/plasma/off		q1apkup
 weapons/quake1/laser/fire		laserg
 weapons/quake1/laser/bounce		laserric
 weapons/quake1/laser/hit		lstop
@@ -70,12 +75,16 @@ weapons/quake1/mjolnir/hit		mjoltink
 weapons/quake1/mjolnir/lash		mjolhit
 
 //Quake 2
-weapons/quake2/pikcup	qwpkup
+weapons/quake2/pickup	q2wpkup
+weapons/quake2/ammo		q2apkup
+weapons/quake2/switch	change
 ric1_2 ric1_2
 $random weapons/quake2/ric { ric1_2 ric2 ric3 }
 weapons/quake2/blaster/fire	blastf
 weapons/quake2/blaster/fly		lasfly
 weapons/quake2/blaster/hit		lashit
+weapons/quake2/chainsaw/idle	sawidle
+weapons/quake2/chainsaw/fire	sawhit
 $volume weapons/quake2/blaster/fly 0.5
 $limit weapons/quake2/blaster/hit 5
 weapons/quake2/shotgun/fire			shotgf
@@ -110,7 +119,10 @@ weapons/quake2/hyperblaster/loop		hybloop
 weapons/quake2/hyperblaster/winddown	hybwd
 weapons/quake2/hyperblaster/fly		lasfly
 weapons/quake2/hyperblaster/hit		lashit
+$limit weapons/quake2/hyperblaster/hit 8
 weapons/quake2/plasmabeam/fire 	bfgfly
+weapons/quake2/plasmabeam/hit	lashit
+$limit weapons/quake2/plasmabeam/hit 9
 weapons/quake2/phalanx/fire		phaf
 weapons/quake2/phalanx/fly		phafly
 weapons/quake2/phalanx/explode	rocklx
@@ -125,7 +137,8 @@ weapons/quake2/trap/loop		traploop
 weapons/quake2/trap/suck		trapsuck
 
 //Quake 3
-weapons/quake3/pikcup	qwpkup
+weapons/quake3/pickup	q2wpkup
+weapons/quake3/ammo		q2apkup
 ric1_3 ric1_3 ric2_3 ric2_3 ric3_3 ric3_3
 ric4_3 ric4_3 ric5_3 ric5_3 ric6_3 ric6_3
 $random weapons/quake3/ric { ric1_3 ric2_3 ric3_3 }
@@ -136,6 +149,8 @@ weapons/quake3/gauntlet/hum	fsthum
 weapons/quake3/gauntlet/run	fstrun
 weapons/quake3/gauntlet/hit	fstatck
 weapons/quake3/shotgun/fire	sshotf
+weapons/quake3/laser/on		kcaction
+weapons/quake3/laser/off	nomenu
 3mgf1 q3mgf1 3mgf2 q3mgf2 3mgf3 q3mgf3 3mgf4 q3mgf4
 $random weapons/quake3/machinegun/fire { 3mgf1 3mgf2 3mgf3 3mgf4 }
 3cgf1 cgf1 3cgf2 cgf2 3cgf3 cgf3 3cgf4 cgf4
@@ -165,7 +180,7 @@ weapons/quake3/lightning/loop		lg3hum
 lghit1 lg_hit lghit2 lg_hit2 lghit3 lg_hit3
 $random weapons/quake3/lightning/hit { lghit1 lghit2 lghit3 }
 $limit weapons/quake3/lightning/hit 10
-$volume weapons/quake3/lightning/hit 0.6
+$volume weapons/quake3/lightning/hit 0.7
 weapons/quake3/railgun/fire		railgf1a
 weapons/quake3/railgun/hit		plasmx1a
 weapons/quake3/railgun/hum		rghum
@@ -178,7 +193,102 @@ weapons/quake3/bfg/explode	rocklx1a
 $limit weapons/bfg/explode 6
 weapons/quake3/bfg/hum		bfghum
 
+
+//Serious Sam
+weapons/ss/pickup 			ssweap
+weapons/ss/ammo 			ssweap
+weapons/ss/ric 				ssric
+weapons/ss/knife/swing		ssknif
+weapons/ss/saw/off			sawoff
+weapons/ss/saw/on			sawon
+weapons/ss/saw/idle			sawidl
+weapons/ss/saw/start		sawst
+weapons/ss/saw/stop			sawsp
+weapons/ss/saw/loop			sawloop
+weapons/ss/colt/fire		ssrevf
+weapons/ss/colt/load		ssrevr
+weapons/ss/shotgun/fire		sssgf
+weapons/ss/coachgun/fire	ssssgf
+weapons/ss/coachgun/load	ssssgr
+weapons/ss/tommygun/fire	sstomf
+weapons/ss/minigun/trigger		ssmintr
+weapons/ss/minigun/windup		ssminst
+weapons/ss/minigun/loop			ssminl
+weapons/ss/minigun/winddown		ssminsp
+weapons/ss/minigun/fire			ssminf
+$limit weapons/ss/minigun/fire 12
+weapons/ss/grenade/fire		ssglf
+weapons/ss/grenade/bounce	ssglb
+weapons/ss/rocket/fire		ssrlf
+weapons/ss/rocket/fly		ssrockf
+weapons/ss/devastator/fire		ssdevf
+weapons/ss/devastator/reload	ssdevr
+weapons/ss/explode			ssexpl
+weapons/ss/laser/fire		sslaserf
+$limit weapons/ss/laser/fire 10
+weapons/ss/laser/hit		dsnone
+weapons/ss/beam/loop		ssgbbl
+weapons/ss/beam/start		ssgbbs
+weapons/ss/beam/stop		ssgbbx
+weapons/ss/flame/fire		ssftf
+weapons/ss/flame/start		ssftst
+weapons/ss/flame/stop		ssftx
+weapons/ss/flame/burn		ssftburn
+weapons/ss/sniper/fire		sssnipf
+weapons/ss/sniper/zoom		sssnipz
+weapons/ss/devastator/fire			ssdevf
+weapons/ss/devastator/reload		ssdevr
+weapons/ss/cannon/fire		canf
+weapons/ss/cannon/charge	canc
+weapons/ss/cannon/bounce	canb
+weapons/ss/seriousbomb/zippo	sbmbzi
+weapons/ss/seriousbomb/fuse		sbmbfs
+weapons/ss/seriousbomb/explode	sbomb
+
+//DukeNukem
+items/dn/pickup	GETITM19
+items/dn/armor	KICKHIT
+items/dn/atom	teleport
+$pitchset items/dn/atom 3.0 //lol
+weapons/dn/knuckle knuckle
+weapons/dn/mightyfoot/hit kickhit
+weapons/dn/pistol/fire pistol
+weapons/dn/pistol/clipin clipin
+weapons/dn/pistol/clipout clipout
+weapons/dn/laser/on		goggle12
+weapons/dn/laser/off	item15
+weapons/dn/shotgun/fire shotgun7
+weapons/dn/shotgun/cock shotgnck
+weapons/dn/ripper/fire chaingun
+weapons/dn/rpg/fire rpgfire
+weapons/dn/pipebomb/bounce pbombbnc
+
+weapons/dn/shrinker/fire shrinker
+weapons/dn/shrinker/impact thud
+weapons/dn/shrinker/hit shrink
+
+weapons/dn/expander/fire EXSHOT3B
+weapons/dn/expander/expand enlarge
+
+weapons/dn/tripbomb/impact lsrbmbpt
+weapons/dn/tripbomb/activate lsrbmbwn
+
+weapons/dn/freezethrower/fire catfire
+weapons/dn/freezethrower/freeze freeze
+
+weapons/dn/ric ricochet
+weapons/dn/select wpnsel21
+weapons/dn/explosion bombexpl
+$limit weapons/dn/explosion 55 
+$attenuation weapons/dn/explosion 0.1
+weapons/dn/smexplosion bombexpl
+$volume weapons/dn/smexplosion 0.14
+$limit weapons/dn/smexplosion 256 
+$attenuation weapons/dn/smexplosion 0.15
+
 //Shadow Warrior
+weapons/sw/pickup			pitem
+weapons/sw/gong				pgong
 weapons/sw/boltup			bolt
 weapons/sw/fist/up			shuru
 weapons/sw/fist/swing		shurf
@@ -212,6 +322,9 @@ weapons/sw/nuke/warn		rnukew
 weapons/sw/grenade/fire		grenf
 weapons/sw/grenade/bounce	grenb
 weapons/sw/grenade/explode	grenx
+$volume weapons/sw/grenade/explode 1.35
+$limit weapons/sw/grenade/explode 4
+$attenuation weapons/sw/grenade/explode 0.15
 weapons/sw/grenade/flashbomb	bexp
 weapons/sw/gas/bounce		gasgb
 weapons/sw/gas/explode		gasgx
@@ -235,52 +348,13 @@ $attenuation weapons/sw/head/napalm 0.2
 weapons/sw/heart/up			shuru
 weapons/sw/heart/idle		hearth
 weapons/sw/heart/fire		heartf
+swric1	swric1
+swric2	swric2
+$random weapons/sw/ric { swric1 swric2 }
+swgib1 GIBS04 swgib2 GIBS05
+$random misc/sw/blood	{swgib1 swgib2}
 weapons/sw/casing/bullet bcas
 weapons/sw/casing/shell scas
-
-//Serious Sam
-weapons/ss/pickup 			ssweap
-weapons/ss/ric 			ssric
-weapons/ss/knife/swing		ssknif
-weapons/ss/saw/off			sawoff
-weapons/ss/saw/on			sawon
-weapons/ss/saw/idle			sawidl
-weapons/ss/saw/start		sawst
-weapons/ss/saw/stop			sawsp
-weapons/ss/saw/loop			sawloop
-weapons/ss/colt/fire		ssrevf
-weapons/ss/colt/load		ssrevr
-weapons/ss/shotgun/fire		sssgf
-weapons/ss/coachgun/fire	ssssgf
-weapons/ss/coachgun/load	ssssgr
-weapons/ss/tommygun/fire	sstomf
-weapons/ss/minigun/trigger		ssmintr
-weapons/ss/minigun/windup		ssminst
-weapons/ss/minigun/loop			ssminl
-weapons/ss/minigun/winddown		ssminsp
-weapons/ss/minigun/fire			ssminf
-$limit weapons/ss/minigun/fire 12
-weapons/ss/grenade/fire		ssglf
-weapons/ss/grenade/bounce	ssglb
-weapons/ss/rocket/fire		ssrlf
-weapons/ss/rocket/fly		ssrockf
-weapons/ss/devastator/fire		ssdevf
-weapons/ss/devastator/reload	ssdevr
-weapons/ss/explode			ssexpl
-weapons/ss/laser/fire		sslaserf
-$limit weapons/ss/laser/fire 10
-weapons/ss/flame/fire		ssftf
-weapons/ss/flame/start		ssftst
-weapons/ss/flame/stop		ssftx
-weapons/ss/flame/burn		ssftburn
-weapons/ss/sniper/fire		sssnipf
-weapons/ss/sniper/zoom		sssnipz
-weapons/ss/cannon/fire		canf
-weapons/ss/cannon/charge	canc
-weapons/ss/cannon/bounce	canb
-weapons/ss/seriousbomb/zippo	sbmbzi
-weapons/ss/seriousbomb/fuse		sbmbfs
-weapons/ss/seriousbomb/explode	sbomb
 
 //Player
 ppain1		pain1

@@ -1,0 +1,80 @@
+Actor PPE_Q1DoubleBarrelShotgun : PPE_Quake1WeaponBase
+{
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DSG"
+	Tag "$TAG_Q1_DSG"
+	Weapon.SelectionOrder 400
+	Weapon.SlotNumber 3
+	Weapon.SlotPriority 5
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "PPE_Shells"
+	Weapon.AmmoGive 8
+	Decal "BulletChip"
+	DamageType "Quake1Shell"
+	PPE_WeaponBase.SpawnerId1 0,2
+	PPE_WeaponBase.SpawnerId2 1,1
+	PPE_WeaponBase.SpawnerId3 15,2
+	States
+	{
+	Ready.Ready:
+    	QDGG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+    	Loop
+  	Deselect:
+		TNT1 A 0 A_Lower
+    	Loop
+  	Select:
+		TNT1 A 0 A_Raise
+    	Loop
+  	Fire:
+    	QDGG A 1
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters // 4
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireBullets(7.5,4.0,14,(6),"PPE_Quake1BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_PlayWeaponSound("weapons/quake1/doublebarreledshotgun/fire")
+		QDGF ABC 2 bright
+		QDGG BC 2 
+		TNT1 A 0 A_FireCustomMissile("PPE_Q1DSGShellCasingShooterL",0,0,0,6)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q1DSGShellCasingShooterR",0,0,0,6)
+		QDGG D 2
+		QDGG EFGH 2
+		QDGG A 5
+		//QDGG IJKL 2
+		Goto Ready.Ready
+  	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.6)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+1.2)
+		Goto LightDone
+  	Spawn:
+    	QDGP A -1
+    	Stop
+	}
+}
+
+Actor PPE_Q1DSGShellCasingShooterL : PPE_CasingShooterBase
+{
+	Speed 14
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_ShellCasing",0,0,FRandom(62,45),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-16,-22))
+		Stop
+	}
+}
+
+Actor PPE_Q1DSGShellCasingShooterR : PPE_CasingShooterBase
+{
+	Speed 14
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_ShellCasing",0,0,FRandom(-62,-45),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-16,-22))
+		Stop
+	}
+}

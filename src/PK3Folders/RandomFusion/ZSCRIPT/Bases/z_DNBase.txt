@@ -1,0 +1,4 @@
+Class PPE_DNWeaponBase : PPE_WeaponBase abstract
+{
+	Default {Weapon.UpSound "weapons/dn/select"; Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";}
+}

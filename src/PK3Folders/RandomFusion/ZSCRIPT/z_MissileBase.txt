@@ -1,0 +1,4 @@
+Class PPE_PPEMissileBase : Actor
+{
+	
+}

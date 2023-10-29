@@ -1,0 +1,5 @@
+Class PPE_BloodWeaponBase : PPE_WeaponBase abstract
+{
+	Default {Weapon.UpSound "weapons/blood/up"; Inventory.PickupSound "weapons/blood/pickup"; ActiveSound "weapons/blood/pickup";}
+	
+}

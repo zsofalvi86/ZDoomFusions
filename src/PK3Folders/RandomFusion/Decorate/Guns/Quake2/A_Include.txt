@@ -1,0 +1,16 @@
+#Include Decorate/Guns/Quake2/A_WBase.txt
+#Include Decorate/Guns/Quake2/Chainsaw.txt
+#Include Decorate/Guns/Quake2/Blaster.txt
+#Include Decorate/Guns/Quake2/Shotgun.txt
+#Include Decorate/Guns/Quake2/SuperShotgun.txt
+#Include Decorate/Guns/Quake2/Machinegun.txt
+#Include Decorate/Guns/Quake2/Chaingun.txt
+#Include Decorate/Guns/Quake2/ETF.txt
+#Include Decorate/Guns/Quake2/GrenadeLauncher.txt
+#Include Decorate/Guns/Quake2/RocketLauncher.txt
+#Include Decorate/Guns/Quake2/Hyperblaster.txt
+#Include Decorate/Guns/Quake2/IonRipper.txt
+#Include Decorate/Guns/Quake2/PlasmaBeam.txt
+#Include Decorate/Guns/Quake2/Railgun.txt
+#Include Decorate/Guns/Quake2/Phalanx.txt
+#Include Decorate/Guns/Quake2/BFG.txt

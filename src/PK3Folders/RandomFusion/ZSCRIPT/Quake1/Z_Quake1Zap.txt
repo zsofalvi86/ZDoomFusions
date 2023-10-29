@@ -1,0 +1,45 @@
+Class PPE_Q1Zapper : BFGBall
+{
+	bool zap;
+	Default
+	{
+		+FORCERADIUSDMG;
+	}
+	
+	mixin PPE_DirectedFlatBeam;
+	
+	Action void A_ToggleZap()
+	{
+		invoker.zap = !invoker.zap;
+	}
+	
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		if (CanHit(target))
+		{
+			bNODAMAGETHRUST = false;
+			if (zap)
+			{
+				A_ActiveSound();
+				DirectedFlatBeam("PPE_Q1PlasmaBeam", "PPE_ThunderboltPuff", target, 999, false);
+			}
+			return Super.DoSpecialDamage(target,damage,damagetype);
+		}
+		bNODAMAGETHRUST = true;
+		return 0;
+	}
+	
+	virtual bool CanHit(Actor target)
+	{
+		return true;
+	}
+}
+
+Class PPE_Q1ZapperMjolnir : PPE_Q1Zapper
+{
+	override bool CanHit(Actor target)
+	{
+		//console.printf("%s ang:%d angto:%d diff:%d", "mjolnir:", Normalize180(angle), AngleTo(target), AngleTo(target)-Normalize180(angle));
+		return abs(AngleTo(target)-Normalize180(angle)) <= 70; 
+	}
+}

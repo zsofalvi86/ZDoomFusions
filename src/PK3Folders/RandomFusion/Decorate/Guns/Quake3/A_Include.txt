@@ -1,0 +1,13 @@
+#Include Decorate/Guns/Quake3/A_WBase.txt
+#Include Decorate/Guns/Quake3/A_WPowerup.txt
+#Include Decorate/Guns/Quake3/Gauntlet.txt
+#Include Decorate/Guns/Quake3/Machinegun.txt
+#Include Decorate/Guns/Quake3/Shotgun.txt
+#Include Decorate/Guns/Quake3/GrenadeLauncher.txt
+#Include Decorate/Guns/Quake3/RocketLauncher.txt
+#Include Decorate/Guns/Quake3/LightningGun.txt
+#Include Decorate/Guns/Quake3/Railgun.txt
+#Include Decorate/Guns/Quake3/PlasmaGun.txt
+#Include Decorate/Guns/Quake3/BFG.txt
+#Include Decorate/Guns/Quake3/Chaingun.txt
+#Include Decorate/Guns/Quake3/Nailgun.txt

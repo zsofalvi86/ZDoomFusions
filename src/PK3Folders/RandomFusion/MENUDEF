@@ -1,4 +1,11 @@
-OptionMenu "QFOptions"
+OptionMenu "RFSOptions"
+{
+	Title "Quake Fusion Spawn Settings"
+	Option "Repalce Keys", "keys", "ENABLEDISABLE"
+	Submenu "Weapon Spawn Settings", "WSOptions"
+}
+
+OptionMenu "WSOptions"
 {
     Title "Quake Fusion Spawn Settings"
     Option "Quake 1 Base Weapons", "q1", "ENABLEDISABLE"
@@ -16,5 +23,5 @@ OptionValue "ENABLEDISABLE" { 0, "Disable" 1, "Enable"}
 AddOptionMenu "OptionsMenu"
 {
     StaticText ""
-    Submenu "Quake Fusion Settings", "QFOptions"
+    Submenu "Random Fusion Settings", "RFSOptions"
 }

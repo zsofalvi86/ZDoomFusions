@@ -177,7 +177,7 @@ Actor PPE_PowerShieldBlood : PPE_IteratorEffect
 	}
 }
 
-ACTOR PPE_TeleportSpark : PPE_IteratorEffect replaces TeleportFog
+ACTOR PPE_TeleportSpark : PPE_IteratorEffect //replaces TeleportFog
 {
 	States
 	{
