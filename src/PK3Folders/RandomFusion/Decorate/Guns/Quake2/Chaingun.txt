@@ -8,7 +8,8 @@ Actor PPE_Q2ChainGun : PPE_Quake2WeaponBase
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 20
 	Decal "BulletChip"
-	PPE_WeaponBase.SlotAlt1 "PPE_Q2ChainGunS8"
+	PPE_WeaponBase.SlotAlt1 "PPE_Q2ChainGunS5"
+	PPE_WeaponBase.SlotAlt2 "PPE_Q2ChainGunS4"
 	PPE_WeaponBase.SpawnerId1 2,2
 	PPE_WeaponBase.SpawnerId2 2,4
 	PPE_WeaponBase.SpawnerId3 14,2
@@ -147,7 +148,9 @@ Actor PPE_Q2ChainGun : PPE_Quake2WeaponBase
 	}
 }
 
-Actor PPE_Q2ChaingunS8 : PPE_Q2Chaingun { Weapon.SlotNumber 8 Weapon.SlotPriority 6 PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" }
+Actor PPE_Q2ChaingunS5 : PPE_Q2Chaingun { Weapon.SlotNumber 5 Weapon.SlotPriority 7 PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS4" }
+
+Actor PPE_Q2ChaingunS4 : PPE_Q2Chaingun { Weapon.SlotNumber 4 Weapon.SlotPriority 10 PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS5" }
 
 Actor PPE_ChaingunOvershoot : Inventory
 {

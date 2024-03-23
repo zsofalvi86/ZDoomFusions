@@ -108,8 +108,12 @@ Class PPE_WeaponBase : Weapon abstract
 	string cvarname;
 	Property EnableCvar: cvarname;
 	
+	int Up1; int Up2; int Up3; int Up4;
+	Property Upgrades: Up1, Up2, Up3, Up4;
+	
 	//Fields
 	int mode;
+	int upgradelevel;
 	bool instd;
 	
 	Override State GetDownState()
@@ -199,6 +203,28 @@ Class PPE_WeaponBase : Weapon abstract
 		invoker.AmmoUse2 = newval;
 	}
 	
+	//Upgrades
+	
+	Action state A_JumpIfUpgrade(int reqlevel, statelabel jumpto)
+	{
+		if (invoker.upgradelevel >= reqlevel) { return ResolveState(jumpto); }
+		return ResolveState(null);
+	}
+	
+	int Upgrade(int amount)
+	{
+		int tookUpg = 0;
+		switch(upgradelevel)
+		{
+			case 0: if (Up1>0 && Up1<=amount) {tookUpg=Up1; upgradelevel=1;}
+			case 1: if (Up2>0 && Up2<=amount) {tookUpg=Up2; upgradelevel=2;}
+			case 2: if (Up3>0 && Up3<=amount) {tookUpg=Up3; upgradelevel=3;}
+			case 3: if (Up4>0 && Up4<=amount) {tookUpg=Up4; upgradelevel=4;}
+		}
+		return tookUpg;
+	}
+	
+	//Look functions
 	Action void A_FocusTracer(bool pitchdown = false)
 	{
 		int pitchd = 90;
@@ -218,6 +244,7 @@ Class PPE_WeaponBase : Weapon abstract
 		//pitch -= 10;
 	}
 	
+	//AmmoType
 	Class<Ammo> GetOtherAmmoType()
 	{
 		if (AmmoType1 == AmmoTypeAlt) { return Default.AmmoType1; }
@@ -230,6 +257,7 @@ Class PPE_WeaponBase : Weapon abstract
 		return ammoitem && ammoitem.Amount >= amnt;
 	}
 	
+	//Overrides
 	override bool HandlePickup (Inventory item)
 	{
 		let oldammo = AmmoType1;

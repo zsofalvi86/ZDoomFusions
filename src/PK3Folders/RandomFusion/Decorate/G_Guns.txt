@@ -1,7 +1,9 @@
 #Include Decorate/Guns/Quake1/A_Include.txt
 #Include Decorate/Guns/Quake2/A_Include.txt
 #Include Decorate/Guns/Quake3/A_Include.txt
+#Include Decorate/Guns/Unreal/A_Include.txt
 #Include Decorate/Guns/DukeNukem/A_Include.txt
+#Include Decorate/Guns/Blood/A_Include.txt
 #Include Decorate/Guns/ShadowWarrior/A_Include.txt
 #Include Decorate/Guns/SeriousSam/A_Include.txt
 

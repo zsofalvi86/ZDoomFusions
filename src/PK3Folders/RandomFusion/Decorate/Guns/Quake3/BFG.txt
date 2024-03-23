@@ -3,14 +3,13 @@ Actor PPE_Q3Bfg : PPE_Quake3WeaponBase
 	+WEAPON.NOAUTOAIM
 	-WEAPON.NOAUTOFIRE
 	Tag "$TAG_Q3_BFG"
-	Inventory.PickupSound "items/weapon2"
-	Weapon.UpSound "weapons/switch"
 	Weapon.SelectionOrder 500
 	Weapon.SlotNumber 0
 	Weapon.SlotPriority 8
 	Weapon.AmmoType "PPE_Cells"
 	Weapon.AmmoUse 10
 	Weapon.AmmoGive 40
+	PPE_WeaponBase.SlotAlt1 "PPE_Q3BfgS9"
 	PPE_WeaponBase.SpawnerId1 5,1
 	States
 	{
@@ -44,6 +43,8 @@ Actor PPE_Q3Bfg : PPE_Quake3WeaponBase
 		Goto LightDone
 	}
 }
+
+Actor PPE_Q3BfgS9 : PPE_Q3Bfg { Weapon.SlotNumber 9 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_Q3Bfg" }
 
 actor PPE_Q3BfgBall : PPE_SlowMissileBase
 {

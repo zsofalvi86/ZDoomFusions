@@ -7,6 +7,7 @@ actor PPE_SSGrenadeLauncher : PPE_SeriousSamWeaponBase
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 5
 	Tag "$TAG_SS_GL"
+	PPE_WeaponBase.SlotAlt1 "PPE_SSGrenadeLauncherS6"
 	PPE_WeaponBase.SpawnerId1 3,2
 	+NOAUTOFIRE
 	+NOALERT
@@ -71,6 +72,8 @@ actor PPE_SSGrenadeLauncher : PPE_SeriousSamWeaponBase
 		Stop
    }
 }
+
+Actor PPE_SSGrenadeLauncherS6 : PPE_SSGrenadeLauncher { Weapon.SlotNumber 6 Weapon.SlotPriority 3 PPE_WeaponBase.SlotAlt1 "PPE_SSGrenadeLauncher" }
 
 Actor PPE_SSGrenadeBase : Rocket
 {

@@ -8,6 +8,7 @@ Actor PPE_Q3RocketLauncher : PPE_Quake3WeaponBase
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 8
 	Tag "$TAG_Q3_RL"
+	PPE_WeaponBase.SlotAlt1 "PPE_Q3RocketLauncherS7"
 	PPE_WeaponBase.SpawnerId1 3,2
 	+NOAUTOFIRE
 	+NOALERT
@@ -44,6 +45,8 @@ Actor PPE_Q3RocketLauncher : PPE_Quake3WeaponBase
 		Stop
    }
 }
+
+Actor PPE_Q3RocketLauncherS7 : PPE_Q3RocketLauncher { Weapon.SlotNumber 7 Weapon.SlotPriority 3 PPE_WeaponBase.SlotAlt1 "PPE_Q3RocketLauncher" }
 
 Actor PPE_Q3Rocket : PPE_SlowMissileBase
 {

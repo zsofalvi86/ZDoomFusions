@@ -1,0 +1,5 @@
+Class PPE_UWeaponBase : PPE_WeaponBase abstract
+{
+	Default {Weapon.UpSound "weapons/unr/up"; Inventory.PickupSound "weapons/unr/weapon"; ActiveSound "weapons/unr/ammo";}
+	
+}

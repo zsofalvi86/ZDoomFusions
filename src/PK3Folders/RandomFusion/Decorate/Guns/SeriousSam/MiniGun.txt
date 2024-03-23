@@ -10,6 +10,7 @@ Actor PPE_SSMiniGun : PPE_SeriousSamWeaponBase
 	Decal "BulletChip"
 	DamageType "SeriousBullet"
 	PPE_WeaponBase.SlotAlt1 "PPE_SSMiniGunS4"
+	PPE_WeaponBase.SlotAlt2 "PPE_SSMiniGunS5"
 	PPE_WeaponBase.SpawnerId1 2,2
 	PPE_WeaponBase.SpawnerId2 2,4
 	PPE_WeaponBase.SpawnerId3 14,2
@@ -96,7 +97,9 @@ Actor PPE_SSMiniGun : PPE_SeriousSamWeaponBase
 	}
 }
 
-Actor PPE_SSMiniGunS4 : PPE_SSMiniGun { Weapon.SlotNumber 4 Weapon.SlotPriority 10 PPE_WeaponBase.SlotAlt1 "PPE_SSMiniGun" }
+Actor PPE_SSMiniGunS4 : PPE_SSMiniGun { Weapon.SlotNumber 4 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_SSMiniGun" PPE_WeaponBase.SlotAlt2 "PPE_SSMiniGunS5" }
+
+Actor PPE_SSMiniGunS5 : PPE_SSMiniGun { Weapon.SlotNumber 5 Weapon.SlotPriority 8 PPE_WeaponBase.SlotAlt1 "PPE_SSMiniGun" PPE_WeaponBase.SlotAlt2 "PPE_SSMiniGunS4" }
 
 Actor PPE_MiniCounter : Inventory
 {

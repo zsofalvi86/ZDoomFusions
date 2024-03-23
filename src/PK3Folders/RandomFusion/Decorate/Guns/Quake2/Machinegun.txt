@@ -1,6 +1,7 @@
 Actor PPE_Q2MachineGun : PPE_Quake2WeaponBase
 {
 	Tag "$TAG_Q2_MG"
+	Weapon.UpSound "weapons/quake2/machinegun/up"
 	Weapon.SelectionOrder 800
 	Weapon.SlotNumber 4
 	Weapon.SlotPriority 3

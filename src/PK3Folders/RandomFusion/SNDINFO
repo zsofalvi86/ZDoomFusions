@@ -80,6 +80,8 @@ weapons/quake2/ammo		q2apkup
 weapons/quake2/switch	change
 ric1_2 ric1_2
 $random weapons/quake2/ric { ric1_2 ric2 ric3 }
+2btl1 q2btl1 2btl2 q2btl2 2btl5 q2btl5
+$random weapons/quake2/ambush { 2btl1 2btl2 2btl5 }
 weapons/quake2/blaster/fire	blastf
 weapons/quake2/blaster/fly		lasfly
 weapons/quake2/blaster/hit		lashit
@@ -89,7 +91,9 @@ $volume weapons/quake2/blaster/fly 0.5
 $limit weapons/quake2/blaster/hit 5
 weapons/quake2/shotgun/fire			shotgf
 weapons/quake2/shotgun/reload		shotgr
+weapons/quake2/supershotgun/up		q2ssgck
 weapons/quake2/supershotgun/fire	sshotf1
+weapons/quake2/machinegun/up		infatck3
 2cgf11 mgf1 2cgf12 mgf2 2cgf13 mgf3 2cgf14 mgf4 2cgf15 mgf5
 $random weapons/quake2/machinegun/fire { 2cgf11 2cgf12 2cgf13 2cgf14 2cgf15 }
 $random weapons/quake2/chaingun/fire { 2cgf11 2cgf12 2cgf13 2cgf14 2cgf15 }
@@ -143,6 +147,9 @@ ric1_3 ric1_3 ric2_3 ric2_3 ric3_3 ric3_3
 ric4_3 ric4_3 ric5_3 ric5_3 ric6_3 ric6_3
 $random weapons/quake3/ric { ric1_3 ric2_3 ric3_3 }
 $random weapons/quake3/teamarena/ric { ric4_3 ric5_3 ric6_3 }
+weapons/quake3/hit/low q3hitl
+weapons/quake3/hit/medium q3hitm
+weapons/quake3/hit/high q3hith
 weapons/quake3/whiz bulletby1
 weapons/quake3/switch	change
 weapons/quake3/gauntlet/hum	fsthum
@@ -192,6 +199,91 @@ weapons/quake3/bfg/fire		bfg_fire
 weapons/quake3/bfg/explode	rocklx1a
 $limit weapons/bfg/explode 6
 weapons/quake3/bfg/hum		bfghum
+//Announcer
+announcer/q3/accuracy q3aaacc
+aexc1 q3aaexc1 aexc2 q3aaexc2
+$random announcer/q3/excellent { aexc1 aexc2 }
+announcer/q3/humiliation q3aahum
+aimp1 q3aaimp1 aimp2 q3aaimp2
+$random announcer/q3/impressive { aimp1 aimp2 }
+
+//Unreal
+weapons/unr/ammo			uapkup
+weapons/unr/weapon			uwpkup
+uric1 uric1 uric2 uric2
+$random weapons/unr/ric { uric1 uric2 }
+weapons/unr/casing			ucasing
+//Dispersion Pistol
+weapons/unr/disp/up	dispup
+weapons/unr/disp/fire	dispf
+weapons/unr/disp/charge	dispch
+weapons/unr/disp/upg1	dispu1
+weapons/unr/disp/upg2	dispu2
+weapons/unr/disp/upg3	dispu3
+weapons/unr/disp/upg4	dispu4
+weapons/unr/disp/fly	dispfly
+weapons/unr/disp/explode	dispex
+//Automag
+weapons/unr/automag/up	amcock
+weapons/unr/automag/fire	amfire
+weapons/unr/automag/reload	amrel
+weapons/unr/automag/click	amclk
+//Stinger
+weapons/unr/stinger/up	stnup
+weapons/unr/stinger/firestart	stnf1
+weapons/unr/stinger/firecont	stnf2
+weapons/unr/stinger/fireend	stnf3
+weapons/unr/stinger/alt	stnalt
+weapons/unr/stinger/impact	rzjbnc
+weapons/unr/stinger/ric	stnx
+//ASMD
+weapons/unr/asmd/up	asmdup
+weapons/unr/asmd/fire		asmdf
+weapons/unr/asmd/alt		asmdalt
+weapons/unr/asmd/vape		asmdvap
+weapons/unr/asmd/explode		asmdx1
+weapons/unr/asmd/combo		asmdx2
+weapons/unr/asmd/shockwave	asmdxx
+//Eightball
+weapons/eball/up	eballup
+weapons/eball/load	eballl
+weapons/eball/fire	eballf
+weapons/eball/alt	eballalt
+weapons/eball/bounce	eballgb
+weapons/eball/explode	eballexp
+weapons/eball/lock	eballlck
+weapons/eball/unlock	eballlx
+//Flak
+weapons/unr/flak/up	flkup
+weapons/unr/flak/reload	flkre
+weapons/unr/flak/fire1	flkf1
+weapons/unr/flak/fire2	flkf2
+flkh1 flkh1 flkh2 flkh2 flkh3 flkh3
+$random weapons/unr/flak/hit { flkh1 flkh2 flkh3 }
+flkb1 flkb1 flkb2 flkb2 flkb3 flkb3
+$random weapons/unr/flak/bounce { flkb1 flkb2 flkb3 }
+weapons/unr/flak/explode eballexp
+//Razor
+weapons/unr/razor/up	rzjup
+weapons/unr/razor/fire	rzjf
+weapons/unr/razor/fly	rzjfly
+weapons/unr/razor/hit	rzjhit
+weapons/unr/razor/bounce	rzjbnc
+//Bio Rifle
+weapons/unr/bio/up	bioup
+weapons/unr/bio/fire	biof
+weapons/unr/bio/load	bioload
+weapons/unr/bio/hit	biohit
+weapons/unr/bio/explode	bioexp
+weapons/unr/bio/drip	biodrip
+//Rifle
+weapons/unr/rifle/up	rifup
+weapons/unr/rifle/fire	riff
+//Minigun
+weapons/unr/minigun/up	minup
+weapons/unr/minigun/fire1	minf1
+weapons/unr/minigun/fire2	minf2
+weapons/unr/minigun/winddown	minwd
 
 
 //Serious Sam
@@ -285,6 +377,20 @@ weapons/dn/smexplosion bombexpl
 $volume weapons/dn/smexplosion 0.14
 $limit weapons/dn/smexplosion 256 
 $attenuation weapons/dn/smexplosion 0.15
+
+//Blood
+items/blood/pickup	BPickup
+items/blood/ammo	BLAmmo
+items/blood/weapon	bweapon
+blric1 blric1 blric2 blric2
+$random weapons/blood/ric { blric1 blric2 }
+blbc1 shtshl blbc2 shtshl3
+$random weapons/blood/casing/bullet { blbc1 blbc2 }
+weapons/blood/casing/shell shtshll
+weapons/blood/sawedoff/fire shotfire
+weapons/blood/sawedoff/altfire shotfir2
+weapons/blood/sawedoff/load shotload
+weapons/blood/sawedoff/cock shotcock
 
 //Shadow Warrior
 weapons/sw/pickup			pitem

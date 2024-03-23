@@ -1,0 +1,3 @@
+#Include Decorate/Guns/Unreal/A_WBase.txt
+#Include Decorate/Guns/Unreal/Stinger.txt
+#Include Decorate/Guns/Unreal/FlakCannon.txt

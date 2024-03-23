@@ -8,6 +8,7 @@ Actor PPE_Q3GrenadeLauncher : PPE_Quake3WeaponBase
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 5
 	Tag "$TAG_Q3_GL"
+	PPE_WeaponBase.SlotAlt1 "PPE_Q3GrenadeLauncherS6"
 	PPE_WeaponBase.SpawnerId1 3,1
 	+NOAUTOFIRE
 	+NOAUTOAIM
@@ -43,6 +44,8 @@ Actor PPE_Q3GrenadeLauncher : PPE_Quake3WeaponBase
 		Stop
    }
 }
+
+Actor PPE_Q3GrenadeLauncherS6 : PPE_Q3GrenadeLauncher { Weapon.SlotNumber 6 Weapon.SlotPriority 2 PPE_WeaponBase.SlotAlt1 "PPE_Q3GrenadeLauncher" }
 
 Actor PPE_Q3Grenade : PPE_SlowMissileBase
 {

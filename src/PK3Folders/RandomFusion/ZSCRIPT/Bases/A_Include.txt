@@ -4,4 +4,5 @@
 #include "zscript/bases/z_quake1base.txt"
 #include "zscript/bases/z_quake2base.txt"
 #include "zscript/bases/z_quake3base.txt"
+#include "zscript/bases/z_ubase.txt"
 #include "zscript/bases/z_ssbase.txt"

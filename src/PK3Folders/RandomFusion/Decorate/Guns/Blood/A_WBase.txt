@@ -1,0 +1,48 @@
+Actor PPE_BloodBulletPuff : BulletPuff
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(190,"SkipRicochet")
+		TNT1 A 0 A_PlaySound("weapons/blood/ric",3)
+	SkipRicochet:
+		PUFF AB 2 Bright
+	Melee:
+		PUFF CD 2
+		Stop
+	XDeath:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("PPE_BloodBloodChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR|SXF_TRANSFERTRANSLATION ,144)
+		Stop
+  }
+}
+
+Actor PPE_BloodBloodChunk : PPE_BloodChunk
+{
+	Health 1
+	Radius 8
+	Height 1
+	+CORPSE
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/blood/blood")
+		goto SpawnLoop
+	}
+}
+
+Actor PPE_BloodBulletCasing : PPE_BulletCasing
+{
+	SeeSound ""
+	DeathSound "weapons/blood/casing/bullet"
+}
+
+Actor PPE_BloodShellCasing : PPE_ShellCasing
+{
+	SeeSound ""
+	DeathSound "weapons/blood/casing/shell"
+}

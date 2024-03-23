@@ -8,6 +8,7 @@ Actor PPE_DNRPG : PPE_DNWeaponBase
 	Weapon.SlotPriority 9
 	Inventory.PickupSound "weapons/pickup/quote"
 	Tag "$TAG_DN_RPG"
+	PPE_WeaponBase.SlotAlt1 "PPE_DNRPGS7"
 	PPE_WeaponBase.SpawnerId1 3,1
 	+NOAUTOFIRE
 	+NOALERT
@@ -43,6 +44,8 @@ Actor PPE_DNRPG : PPE_DNWeaponBase
 		Stop
    }
 }
+
+Actor PPE_DNRPGS7 : PPE_DNRPG { Weapon.SlotNumber 7 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_DNRPG" }
 
 actor PPE_DukeRocket : PPE_SlowMissileBase
 {

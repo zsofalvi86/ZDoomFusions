@@ -1,4 +1,4 @@
-Actor PPE_ShadowPower : CustomInventory //replaces BlurSphere
+Actor PPE_ShadowPower : CustomInventory replaces BlurSphere
 {
 	Inventory.PickupSound "items/ring/pickup"
 	Inventory.PickupMessage "$GOTINVIS"
@@ -54,7 +54,7 @@ Actor PowerShadow_Fake : PowerProtection
   DeathSound "items/ring/fade"
 }
 
-Actor PPE_QuadDamage : CustomInventory replaces BlurSphere
+Actor PPE_QuadDamage : CustomInventory //replaces BlurSphere
 {
 	Inventory.PickupSound "items/quad/pickup"
 	Inventory.PickupMessage "$GOTQUAD"

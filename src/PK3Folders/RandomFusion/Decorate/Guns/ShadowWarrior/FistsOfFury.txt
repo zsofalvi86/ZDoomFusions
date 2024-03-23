@@ -7,8 +7,7 @@ Actor PPE_FistsOfFury: PPE_SWWeaponBase
 	Inventory.PickupSound "weapons/sw/pu"
 	Weapon.UpSound "weapons/sw/fist/up"
 	Weapon.ReadySound ""
-	Inventory.Pickupmessage "$GOT_PPE_FOF"
-	Tag "$TAG_PPE_FOF"
+	Tag "$TAG_SW_FOF"
 	States
 	{
 	Ready.Ready:

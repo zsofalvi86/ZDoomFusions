@@ -7,6 +7,7 @@ actor PPE_SSRocketLauncher : PPE_SeriousSamWeaponBase
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 6
 	Tag "$TAG_SS_RL"
+	PPE_WeaponBase.SlotAlt1 "PPE_SSRocketLauncherS7"
 	PPE_WeaponBase.SpawnerId1 3,1
 	+NOAUTOFIRE
 	States
@@ -43,6 +44,8 @@ actor PPE_SSRocketLauncher : PPE_SeriousSamWeaponBase
 		Stop
    }
 }
+
+Actor PPE_SSRocketLauncherS7 : PPE_SSRocketLauncher { Weapon.SlotNumber 7 Weapon.SlotPriority 2 PPE_WeaponBase.SlotAlt1 "PPE_SSRocketLauncher" }
 
 Actor PPE_SSRocket : Rocket
 {

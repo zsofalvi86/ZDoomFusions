@@ -1,0 +1,181 @@
+Actor PPE_UnrFlakCannon : PPE_UWeaponBase
+{
++WEAPON.NOAUTOAIM
+Tag "$TAG_UNR_FLAK"
+Weapon.SelectionOrder 350
+Weapon.SlotNumber 3
+Weapon.SlotPriority 10
+Weapon.AmmoUse1 3
+Weapon.AmmoUse2 3
+Weapon.AmmoType1 "PPE_Shells"
+Weapon.AmmoType2 "PPE_Shells"
+Weapon.AmmoGive 4
+Weapon.UpSound "weapons/unr/flak/up"
+PPE_WeaponBase.SlotAlt1 "PPE_UnrFlakCannonS6"
+PPE_WeaponBase.SpawnerId1 1,3
+States
+	{
+	Ready.Ready:
+    	UFKR AABBCCDDEEFFGG 1 A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY)
+	ReadyLoop:
+		UFKG A 1 A_WeaponReady
+    	Loop
+  	Deselect:
+    	UFKG A 1 A_Lower
+		TNT1 A 0 A_Lower
+    	Loop
+  	Select:
+    	UFKG D 1 A_Raise
+		TNT1 A 0 A_Raise
+    	Loop
+  	Fire:
+		UFKG A 2
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_FireCustomMissile("PPE_FlakPellet",FRandom(-3.9,3.9),1,-3,4,1,FRandom(-2.9,2.9))
+		TNT1 AAA 0 A_FireCustomMissile("PPE_FlakPellet",FRandom(-3.9,3.9),0,-3,4,1,FRandom(-2.9,2.9))
+		TNT1 AAAA 0 A_FireCustomMissile("PPE_FlakPellet",FRandom(-3.9,3.9),0,3,4,1,FRandom(-2.9,2.9))
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/flak/fire1")
+		UFKG AAA 3 bright
+		UFKG BC 2
+		UFKE ABCD 2
+		Goto ShellIn
+	AltFire:
+		UFKG A 2
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_FlakShell",0,1,0,0,1,6)
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/flak/fire2")
+		UFKG AAA 3 bright
+		UFKG D 14
+		Goto ShellIn
+	ShellIn:
+		UFKG D 7
+		TNT1 A 0 A_PlaySound("weapons/unr/flak/reload",5)
+		UFKR ABCDEFG 2
+		TNT1 A 0 A_Refire
+		Goto ReadyLoop
+  	Flash:
+    	TNT1 A 0 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.8)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+1.6)
+		Goto LightDone
+	AltFlash:
+    	TNT1 A 0 A_Light1
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.8)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+1.6)
+		Goto LightDone
+  	Spawn:
+    	UFKP A -1
+    	Stop
+	}
+}
+
+Actor PPE_UnrFlakCannonS6 : PPE_UnrFlakCannon { Weapon.SlotNumber 6 Weapon.SlotPriority 8 PPE_WeaponBase.SlotAlt1 "PPE_UnrFlakCannon" }
+
+Actor PPE_FlakPellet : PPE_SlowMissileBase
+{
+	var int user_dist;
+	+USEBOUNCESTATE
+	+BLOODSPLATTER
+	-RANDOMIZE
+	+SYNCHRONIZED
+	BounceType Doom
+	SeeSound ""
+	BounceSound "weapons/unr/flak/bounce"
+	DeathSound ""
+	BounceFactor 0.6
+	WallBounceFactor 0.6
+	BounceCount 8
+	Gravity 0.2
+	Speed 35
+	ProjectileKickBack 150
+	Damage (3*(12-user_dist))
+	States
+	{
+	Spawn:
+		PUFF A 2 bright
+		TNT1 A 0 A_SpawnItem("PPE_FlakTrail")
+		PUFF A 2 bright
+		TNT1 A 0 A_JumpIf(user_dist > 6,2)
+		TNT1 A 0 A_SetUserVar("user_dist",user_dist+1)
+		TNT1 A 0 A_SpawnItem("PPE_FlakTrail")
+		Loop
+	Bounce:
+		TNT1 A 0 A_Gravity
+		Goto Spawn
+	Death:
+		TNT1 A 0
+		Stop
+	XDeath:
+		TNT1 A 0 A_PlaySound("weapons/unr/flak/hit",1)
+		Stop
+	}
+}
+
+Actor PPE_FlakPelletWeak : PPE_FlakPellet
+{
+	Speed 25
+	ProjectileKickBack 125
+	Damage (30)
+	DamageType LesserCloseSplatter
+}
+
+Actor PPE_FlakShell : PPE_SlowMissileBase
+{
+	-NOGRAVITY
+	SeeSound ""
+	DeathSound "weapons/unr/flak/explode"
+	RenderStyle Normal
+	Speed 35
+	ProjectileKickBack 150
+	Damage (72)
+	DamageType Explosive
+	Gravity 0.5
+	States
+	{
+	Spawn:
+		DGRD A 2
+		TNT1 A 0 A_SpawnItem("PPE_UnrFlakTrail")
+		loop
+	Death:
+		TNT1 A 0 A_NoGravity
+		TNT1 A 0 A_Explode(128,128)
+		TNT1 AAAAAAAA 0 A_CustomMissile("PPE_FlakPelletWeak",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,Random(5,70))
+		TNT1 A 0 A_Quake(3,3,0,224,"")
+		TNT1 A 0 A_Quake(2,4,0,512,"")
+		TNT1 A 0 A_Quake(1,4,0,3072,"")
+		BMXP A 4 bright
+		BMXP BCDEF 3 bright
+		stop
+	}
+}
+
+
+Actor PPE_FlakTrail : PPE_TrailBase
+{
+	+RANDOMIZE
+	RenderStyle Translucent
+	Alpha 0.25
+	Mass 5
+	States
+	{
+	Spawn:
+    	PSMK ABCDEFGH 2
+    Stop
+	}
+}
+
+Actor PPE_UnrFlakTrail : PPE_TrailBase
+{
+	RenderStyle "Translucent"
+	Alpha 0.45
+	States
+	{
+  	Spawn:
+		TNT1 A 2
+    	WTRL ABCDEF 5
+    	Stop
+	}
+}

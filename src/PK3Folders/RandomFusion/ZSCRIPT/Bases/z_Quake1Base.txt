@@ -5,6 +5,24 @@ Class PPE_Quake1WeaponBase : PPE_WeaponBase abstract
 	mixin PPE_FlatBeam;
 	mixin PPE_SpriteBeam;
 	
+	Override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		if (source && owner && owner.Player && owner.Player.mo && owner.Player.ReadyWeapon == self)
+		{
+			if (passive) //passive = taking dmg
+			{
+				if (source == owner)
+				{
+					newdamage = damage / 2;
+				}
+				else
+				{
+					newdamage = damage;
+				}
+			}
+		}
+	}
+	
 	Action void A_ThunderboltBeam(class<Actor> beam, int range, int step = 21, int skipsteps = 3)
 	{
 		int hgt = 32;

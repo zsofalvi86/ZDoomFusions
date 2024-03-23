@@ -1,6 +1,7 @@
 Actor PPE_Q2Shotgun : PPE_Quake2WeaponBase
 {
 	Tag "$TAG_Q2_SG"
+	Weapon.UpSound "weapons/quake2/shotgun/reload"
 	Weapon.SelectionOrder 800
 	Weapon.SlotNumber 2
 	Weapon.SlotPriority 6

@@ -3,7 +3,7 @@ Actor PPE_Q3Shotgun : PPE_Quake3WeaponBase
 	Tag "$TAG_Q3_SG"
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
-	Weapon.SlotPriority 5
+	Weapon.SlotPriority 7
 	Weapon.AmmoUse 1
 	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoGive 8

@@ -27,7 +27,7 @@ TAG_Q2_RL = "Peacemaker Rocket Launcher";
 TAG_Q2_RIP = "Ion Ripper";
 TAG_Q2_HYB = "Executioner Hyperblaster";
 TAG_Q2_PB = "Incinerator Plasma Beam";
-TAG_Q2_RG = "Eradicator Railgun";
+TAG_Q2_RG = "Malediction Railgun";
 TAG_Q2_PHX = "Phalanx Particle Cannon";
 TAG_Q2_BFG = "Makron BFG";
 //Quake 3
@@ -42,6 +42,16 @@ TAG_Q3_LG = "Shaft Lightning Gun";
 TAG_Q3_PG = "Disruptor Plasma Gun";
 TAG_Q3_RG = "Eraser Railgun";
 TAG_Q3_BFG = "Vadrigar BFG";
+//Unreal
+TAG_UNR_DISP = "Dispersion Pistol";
+TAG_UNR_AUTO = "AutoMag Pistol";
+TAG_UNR_STG = "Stinger";
+TAG_UNR_ASMD = "ASMD Shock Rifle";
+TAG_UNR_EBRL = "Eightball Rocket Launcher";
+TAG_UNR_FLAK = "Flak Cannon";
+TAG_UNR_RJ = "Razorjack";
+TAG_UNR_BIO = "GES Bio Rifle";
+TAG_UNR_RIF = "Rifle";
 //Shadow Warrior
 TAG_SW_FST = "Fists of Fury";
 TAG_SW_KAT = "Shadow Warrior Katana";
@@ -79,6 +89,15 @@ TAG_DN_RPG = "Atomic RPG";
 TAG_DN_SHR = "Shrinker/Expander";
 TAG_DN_DEV = "Devastator Weapon";
 TAG_DN_FRZ = "Freezethrower";
+//Blood
+TAG_BL_PF = "Pitchfork";
+TAG_BL_FG = "Flare Gun";
+TAG_BL_SO = "Sawed-Off Shotgun";
+TAG_BL_TG = "Tommy Gun";
+TAG_BL_NG = "Napalm Gun";
+TAG_BL_TSL = "Tesla Gun";
+TAG_BL_VD = "Voodoo Doll";
+TAG_BL_LL = "Life Leech";
 
 // Items
 GOTARMOR1 = "Picked up the light armor.";

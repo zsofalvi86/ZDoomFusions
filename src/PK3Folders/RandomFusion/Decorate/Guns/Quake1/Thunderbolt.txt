@@ -14,11 +14,11 @@ Actor PPE_Q1Thunderbolt : PPE_Quake1WeaponBase
 	States
 	{
 	Ready.Ready:
-		TNT1 A 0 A_JumpIfMode(1,"Ready.M2")
-	Ready.M1:
+		TNT1 A 0 A_JumpIfMode(1,"Ready.M1")
+	Ready.M0:
 		TBLG AAAAAAAAAAABBCCDDCCBBAAAAAAA 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
     	Loop
-	Ready.M2:
+	Ready.M1:
 		TBLP A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
     	Loop
   	Deselect:
@@ -30,8 +30,8 @@ Actor PPE_Q1Thunderbolt : PPE_Quake1WeaponBase
 		TBLG A 1 A_Raise(18)
     	Loop
 	Fire:
-		TNT1 A 0 A_JumpIfMode(1,"Fire.M2")
-	Fire.M1:
+		TNT1 A 0 A_JumpIfMode(1,"Fire.M1")
+	Fire.M0:
 		TNT1 A 0 A_PlaySound("weapons/quake1/lightning/start",5)
 	Anim1:
 		TNT1 A 0 A_GunFlash
@@ -75,7 +75,7 @@ Actor PPE_Q1Thunderbolt : PPE_Quake1WeaponBase
 	FireEnd:
 		TNT1 A 0 A_StopSound(6)
 		Goto Ready.Ready
-	Fire.M2:
+	Fire.M1:
 		TNT1 A 0 A_PlayWeaponSound("weapons/quake1/plasma/fire")
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
 		TBLQ ABCBA 2 bright
@@ -86,12 +86,13 @@ Actor PPE_Q1Thunderbolt : PPE_Quake1WeaponBase
 		TNT1 A 0 A_ReFire("Fire")
 		Goto Ready.Ready
 	Reload:
+	AltFire:
 		TNT1 A 0 A_JumpIfMode(1,"BackToThunder")
 	User1:
 		TNT1 A 0 A_PlaySound("weapons/quake1/plasma/on",5)
 		TBLP AAAAAAA 1
 		TNT1 A 0 A_SwapMode(1)
-		TNT1 A 0 A_ChangeAmmoUse(10)
+		TNT1 A 0 A_ChangeAmmoUse(15)
 		Goto Ready.Ready
 	User2:
 	BackToThunder:

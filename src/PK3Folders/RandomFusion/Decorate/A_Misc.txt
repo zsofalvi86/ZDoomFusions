@@ -1,3 +1,7 @@
+Actor PPE_ExtraHealth : Inventory { +InvBar Inventory.MaxAmount 999 }
+Actor PPE_ExtraPower : Inventory { +InvBar Inventory.MaxAmount 999 }
+Actor PPE_WeaponUpgrade : PPE_PPEUpgrade { +InvBar Inventory.MaxAmount 999 }
+
 ACTOR PPE_QStimpack : Stimpack replaces Stimpack
 {
 	+FLOATBOB

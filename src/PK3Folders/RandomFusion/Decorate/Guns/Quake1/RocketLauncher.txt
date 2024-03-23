@@ -7,16 +7,17 @@ actor PPE_Q1RocketLauncher : PPE_Quake1WeaponBase
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 9
 	Tag "$TAG_Q1_RL"
+	PPE_WeaponBase.SlotAlt1 "PPE_Q1RocketLauncherS7"
 	PPE_WeaponBase.SpawnerId1 3,2
 	+NOAUTOFIRE
 	States
 	{
 	Ready.Ready:
-		TNT1 A 0 A_JumpIfMode(1,"Ready.M2")
-	Ready.M1:
+		TNT1 A 0 A_JumpIfMode(1,"Ready.M1")
+	Ready.M0:
 		QRLG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
 		Loop
-	Ready.M2:
+	Ready.M1:
 		QMRG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2)
 		Loop
 	Deselect:
@@ -26,8 +27,8 @@ actor PPE_Q1RocketLauncher : PPE_Quake1WeaponBase
 		QRLG A 1 A_Raise(18)
 		Loop
 	Fire:
-		TNT1 A 0 A_JumpIfMode(1,"Fire.M2")
-	Fire.M1:
+		TNT1 A 0 A_JumpIfMode(1,"Fire.M1")
+	Fire.M0:
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
@@ -38,7 +39,7 @@ actor PPE_Q1RocketLauncher : PPE_Quake1WeaponBase
 		QRLG A 20
 		TNT1 A 0 A_ReFire
     	Goto Ready.Ready
-	Fire.M2:
+	Fire.M1:
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_JumpIfTargetInLos("FireTargeted",0,JLOSF_DEADNOJUMP|JLOSF_ALLYNOJUMP|JLOSF_COMBATANTONLY|JLOSF_NOAUTOAIM,256)
@@ -59,6 +60,7 @@ actor PPE_Q1RocketLauncher : PPE_Quake1WeaponBase
 		QMRG A 20
 		TNT1 A 0 A_ReFire
     	Goto Ready
+	AltFire:
 	Reload:
 		TNT1 A 0 A_JumpIfMode(1,"BackToNormal")
 	User1:
@@ -85,6 +87,8 @@ actor PPE_Q1RocketLauncher : PPE_Quake1WeaponBase
 		Stop
    }
 }
+
+Actor PPE_Q1RocketLauncherS7 : PPE_Q1RocketLauncher { Weapon.SlotNumber 7 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_Q1RocketLauncher" }
 
 actor PPE_QRocket : Rocket
 {

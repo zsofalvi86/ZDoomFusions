@@ -1,0 +1,22 @@
+Class PPE_QuoteBase : Inventory abstract
+{
+	default {inventory.maxamount 1;}
+	
+	override void AttachToOwner(Actor other)
+	{
+		if (!other.FindInventory("PPE_QuoteBase",true))
+		{
+			PlayPickupSound(other);
+		}
+		super.AttachToOwner(other);
+	}
+	
+	override void DoEffect()
+	{
+		if (!owner.IsActorPlayingSound(CHAN_ITEM,PickupSound))
+		{
+			owner.SetInventory(GetClass(),0);
+		}
+		Super.DoEffect();
+	}
+}

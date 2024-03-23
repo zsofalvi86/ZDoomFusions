@@ -1,7 +1,6 @@
 Actor PPE_DNFreezer : PPE_DNWeaponBase
 {
 	+WEAPON.NOAUTOAIM
-	+WEAPON.NOALERT
 	Tag "$TAG_DN_FRZ"
 	Weapon.SelectionOrder 500
 	Weapon.SlotNumber 6

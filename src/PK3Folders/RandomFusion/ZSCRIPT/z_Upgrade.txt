@@ -1,0 +1,13 @@
+Class PPE_PPEUpgrade : Inventory
+{
+	override bool Use(bool pickup)
+	{
+		let ppegun = PPE_WeaponBase(owner.player.ReadyWeapon);
+		if (ppegun)
+		{
+			let guntook = ppegun.Upgrade(owner.CountInv(GetClassName()));
+			owner.TakeInventory(GetClassName(), guntook);
+		}
+		return false;
+	}
+}

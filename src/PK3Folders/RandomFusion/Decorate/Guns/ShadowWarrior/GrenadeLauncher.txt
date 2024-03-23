@@ -13,6 +13,7 @@ Actor PPE_SWGrenadeLauncher : PPE_SWWeaponBase
 	Weapon.AmmoType2 "PPE_Cells"
 	Inventory.PickupSound "q/bigweapon"
 	Weapon.KickBack 160
+	PPE_WeaponBase.SlotAlt1 "PPE_SWGrenadeLauncherS6"
 	PPE_WeaponBase.SpawnerId1 3,2
 	States
 	{
@@ -57,6 +58,8 @@ Actor PPE_SWGrenadeLauncher : PPE_SWWeaponBase
 		Stop
 	}
 }
+
+Actor PPE_SWGrenadeLauncherS6 : PPE_SWGrenadeLauncher { Weapon.SlotNumber 6 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_SWGrenadeLauncher" }
 
 Actor PPE_SWGrenade : PPE_SlowMissileBase
 {

@@ -1,4 +1,4 @@
-ACTOR PPE_Q2Blaster : PPE_WeaponBase
+ACTOR PPE_Q2Blaster : PPE_Quake2WeaponBase
 {
   Weapon.SelectionOrder 2000
   Weapon.SlotNumber 1

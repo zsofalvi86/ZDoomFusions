@@ -31,11 +31,13 @@ Class PPE_Quake2WeaponBase : PPE_WeaponBase abstract
 				let curtime = level.Time;
 				if (memtic != curtime) {memactors.Clear();}
 				let membered = memactors.Find(source) != memactors.Size();
-				if((source.Target != owner || (memtic == curtime && membered)) && !source.Player)
+				//if((source.Target != owner || (memtic == curtime && membered)) && !source.Player)
+				if((source.InStateSequence(source.CurState,source.ResolveState("Spawn")) || (memtic == curtime && membered)) && !source.Player)
 				{
 					if (!membered) {memactors.Push(source);}
 					memtic = curtime;
 					//console.printf("%s", "ambush");
+					owner.A_StartSound("weapons/quake2/ambush");
 					newdamage = damage * 2;
 				}
 				else

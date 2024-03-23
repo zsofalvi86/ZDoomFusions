@@ -7,6 +7,8 @@ actor PPE_Q2RocketLauncher : PPE_Quake2WeaponBase
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 6
 	Tag "$TAG_Q2_RL"
+	Weapon.UpSound "weapons/quake2/rocket/reload"
+	PPE_WeaponBase.SlotAlt1 "PPE_Q2RocketLauncherS7"
 	PPE_WeaponBase.SpawnerId1 3,2
 	+NOAUTOFIRE
 	+NOALERT
@@ -48,6 +50,8 @@ actor PPE_Q2RocketLauncher : PPE_Quake2WeaponBase
 		Stop
    }
 }
+
+Actor PPE_Q2RocketLauncherS7 : PPE_Q2RocketLauncher { Weapon.SlotNumber 7 Weapon.SlotPriority 3 PPE_WeaponBase.SlotAlt1 "PPE_Q2RocketLauncher" }
 
 actor PPE_Q2Rocket : PPE_SlowMissileBase
 {

@@ -1,6 +1,7 @@
 Class PPE_Q1Zapper : BFGBall
 {
 	bool zap;
+	Array<Actor> memactors;
 	Default
 	{
 		+FORCERADIUSDMG;
@@ -21,12 +22,30 @@ Class PPE_Q1Zapper : BFGBall
 			if (zap)
 			{
 				A_ActiveSound();
-				DirectedFlatBeam("PPE_Q1PlasmaBeam", "PPE_ThunderboltPuff", target, 999, false);
 			}
+			
+			let membered = memactors.Find(target) != memactors.Size();
+			if (!membered) {memactors.Push(target);}
+			
 			return Super.DoSpecialDamage(target,damage,damagetype);
 		}
 		bNODAMAGETHRUST = true;
 		return 0;
+	}
+	
+	Override void Tick ()
+	{
+		if (GetAge() % 2 == 0)
+		{
+			for (int i=0; i<memactors.Size(); i++)
+			{
+				if (memactors[i])
+				{
+					DirectedFlatBeam("PPE_Q1PlasmaBeam", "PPE_ThunderboltPuff", memactors[i], 999, false);
+				}
+			}
+		}
+		Super.Tick();
 	}
 	
 	virtual bool CanHit(Actor target)

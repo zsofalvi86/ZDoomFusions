@@ -9,11 +9,10 @@ Actor PPE_Q1Nailgun : PPE_Quake1WeaponBase
 	PPE_WeaponBase.AmmoTypeAlt "PPE_Cells"
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 20
-	PPE_WeaponBase.SlotAlt1 "PPE_Q1NailgunS6"
+	PPE_WeaponBase.SlotAlt1 "PPE_Q1NailgunS2"
 	PPE_WeaponBase.SpawnerId1 2,1
 	PPE_WeaponBase.SpawnerId2 2,3
-	PPE_WeaponBase.SpawnerId3 4,3
-	PPE_WeaponBase.SpawnerId4 14,1
+	PPE_WeaponBase.SpawnerId3 14,1
 	States
 	{
 	Drop:
@@ -118,7 +117,7 @@ Actor PPE_Q1Nailgun : PPE_Quake1WeaponBase
 	}
 }
 
-Actor PPE_Q1NailgunS6 : PPE_Q1Nailgun { Weapon.SlotNumber 6 Weapon.SlotPriority 5 PPE_WeaponBase.SlotAlt1 "PPE_Q1Nailgun" }
+Actor PPE_Q1NailgunS2 : PPE_Q1Nailgun { Weapon.SlotNumber 2 Weapon.SlotPriority 8 PPE_WeaponBase.SlotAlt1 "PPE_Q1Nailgun" }
 
 Actor PPE_NailgunNail : PPE_Nail2Base
 {

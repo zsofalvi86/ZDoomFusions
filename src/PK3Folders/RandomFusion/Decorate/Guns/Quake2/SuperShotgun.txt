@@ -1,6 +1,7 @@
 Actor PPE_Q2SuperShotgun : PPE_Quake2WeaponBase
 {
 	Tag "$TAG_Q2_SSG"
+	Weapon.UpSound "weapons/quake2/supershotgun/up"
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
 	Weapon.SlotPriority 8
