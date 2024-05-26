@@ -5,9 +5,9 @@ Actor PPE_Q2SuperShotgun : PPE_Quake2WeaponBase
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
 	Weapon.SlotPriority 8
-	Weapon.AmmoUse 2
+	Weapon.AmmoUse 20
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoGive 8
+	Weapon.AmmoGive 80
 	Decal "BulletChip"
 	DamageType "Quake2Shell"
 	PPE_WeaponBase.SpawnerId1 0,2

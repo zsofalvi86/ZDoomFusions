@@ -30,6 +30,8 @@ Actor PPE_DNFreezer : PPE_DNWeaponBase
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlaySound("weapons/dn/freezethrower/fire",CHAN_WEAPON)
 	    TNT1 A 0 A_FireCustomMissile("PPE_FreezerMissile",0,1,0,2,1,0)
+		Goto Anim
+	Anim:
 		DFTF ABC 1 bright
 		DFTG A 1 bright
 		TNT1 A 0 A_ReFire("AFire")
@@ -52,7 +54,20 @@ Actor PPE_DNFreezer : PPE_DNWeaponBase
 	}
 }
 
-Actor PPE_DNFreezerS8 : PPE_DNFreezer { Weapon.SlotNumber 8 PPE_WeaponBase.SlotAlt1 "PPE_DNFreezer" }
+Actor PPE_DNFreezerS8 : PPE_DNFreezer 
+{ 
+	Weapon.SlotNumber 8 PPE_WeaponBase.SlotAlt1 "PPE_DNFreezer" 
+	Weapon.AmmoUse 3
+	States
+	{
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/dn/freezethrower/fire",CHAN_WEAPON)
+	    TNT1 A 0 A_FireCustomMissile("PPE_FreezerMissileS8",0,1,0,2,1,0)
+		Goto Anim
+	}
+}
 
 Actor PPE_FreezerMissile : PPE_FreezerMissileBase
 {
@@ -89,6 +104,8 @@ Actor PPE_FreezerMissile : PPE_FreezerMissileBase
 		Stop
 	}
 }
+
+Actor PPE_FreezerMissileS8 : PPE_FreezerMissile { Damage (59/(user_bouncecnt+1)) }
 
 Actor PPE_FrozenMonster : Chicken
 {

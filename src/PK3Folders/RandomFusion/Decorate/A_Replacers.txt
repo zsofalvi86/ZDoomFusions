@@ -238,7 +238,7 @@ ACTOR PPE_ShotgunnerBackpack : PPE_Spawner
 	TNT1 A 0 A_DropItem("PPE_ShotgunnerSpawner")
 	stop
   JustAmmo:
-	TNT1 A 0 A_DropItem("PPE_SmallShell",4)
+	TNT1 A 0 A_DropItem("PPE_SmallShell",40)
 	stop
   }
 }
@@ -261,7 +261,7 @@ ACTOR PPE_ChaingunnerBackpack : PPE_Spawner
 	TNT1 A 0 A_DropItem("PPE_ChaingunnerSpawner")
 	stop
   JustAmmo:
-	TNT1 A 0 A_DropItem("PPE_SmallBullet",10)
+	TNT1 A 0 A_DropItem("PPE_SmallBullet",100)
 	stop
   }
 }
@@ -283,7 +283,7 @@ ACTOR PPE_ZombiemanBackpack : PPE_Spawner
 	TNT1 A 0 A_DropItem("PPE_PistolguySpawner")
 	stop
   JustAmmo:
-	TNT1 A 0 A_DropItem("PPE_SmallBullet",5)
+	TNT1 A 0 A_DropItem("PPE_SmallBullet",50)
 	stop
   }
 }

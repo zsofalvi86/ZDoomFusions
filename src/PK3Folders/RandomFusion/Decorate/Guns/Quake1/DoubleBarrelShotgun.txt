@@ -6,9 +6,9 @@ Actor PPE_Q1DoubleBarrelShotgun : PPE_Quake1WeaponBase
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
 	Weapon.SlotPriority 6
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 9
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoGive 8
+	Weapon.AmmoGive 80
 	Decal "BulletChip"
 	DamageType "Quake1Shell"
 	PPE_WeaponBase.SpawnerId1 0,2

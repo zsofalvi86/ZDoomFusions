@@ -4,7 +4,7 @@ Actor PPE_Q1LaserCannon : PPE_Quake1WeaponBase
 	Weapon.SelectionOrder 110
 	Weapon.SlotNumber 8
 	Weapon.SlotPriority 3
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 2
 	Weapon.AmmoType "PPE_Cells"
 	Weapon.AmmoGive 40
 	PPE_WeaponBase.SlotAlt1 "PPE_Q1LaserCannonS6"
@@ -23,6 +23,46 @@ Actor PPE_Q1LaserCannon : PPE_Quake1WeaponBase
 	Select:
 		TNT1 A 0 A_Raise
 		Loop
+	Fire:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/quake1/laser/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireCustomMissile("PPE_LaserCannonBulletS8",0,1,-5,-4)
+		TNT1 A 0 A_FireCustomMissile("PPE_LaserCannonBulletS8",0,0,5,-4)
+	    QLSF D 1 bright
+		QLSF E 1 bright
+		QLSF F 1 bright
+		TNT1 A 0 A_Refire
+		Goto Ready
+	Hold:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/quake1/laser/fire",CHAN_WEAPON)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireCustomMissile("PPE_LaserCannonBulletS8",0,1,0,3)
+		TNT1 A 0 A_FireCustomMissile("PPE_LaserCannonBulletS8",0,0,0,3)
+		QLSF A 1 bright
+		QLSF B 1 bright
+		QLSF C 1 bright
+		QLSG A 1
+		TNT1 A 0 A_ClearRefire
+		goto Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.3)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.6)
+		Goto LightDone
+	}
+}
+
+Actor PPE_Q1LaserCannonS6 : PPE_Q1LaserCannon 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 6 PPE_WeaponBase.SlotAlt1 "PPE_Q1LaserCannon"
+	Weapon.AmmoUse 1
+	States
+	{
 	Fire:
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
@@ -48,16 +88,8 @@ Actor PPE_Q1LaserCannon : PPE_Quake1WeaponBase
 		QLSG A 1
 		TNT1 A 0 A_ClearRefire
 		goto Ready
-	Flash:
-		TNT1 A 0 A_Light1
-		TNT1 AA 1 A_SetPitch(pitch-0.3)
-		TNT1 A 0 A_Light2
-		TNT1 A 1 A_SetPitch(pitch+0.6)
-		Goto LightDone
 	}
 }
-
-Actor PPE_Q1LaserCannonS6 : PPE_Q1LaserCannon { Weapon.SlotNumber 6 Weapon.SlotPriority 6 PPE_WeaponBase.SlotAlt1 "PPE_Q1LaserCannon" }
 
 Actor PPE_LaserCannonBullet
 {
@@ -102,4 +134,9 @@ Actor PPE_LaserCannonBullet
 		TNT1 A 10
 		stop
 	}
+}
+
+Actor PPE_LaserCannonBulletS8 : PPE_LaserCannonBullet
+{
+	Damage (24)
 }

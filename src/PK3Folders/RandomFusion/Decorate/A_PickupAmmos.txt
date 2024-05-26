@@ -6,7 +6,7 @@ const int PPE_C_SA_SMALL_CIRCLE = 166;
 
 ACTOR PPE_SmallBullet : PPE_Bullets
 {
-  Inventory.Amount 10
+  Inventory.Amount 100
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTBULLETS"
   Inventory.PickupSound "items/ammo2"
@@ -20,7 +20,7 @@ ACTOR PPE_SmallBullet : PPE_Bullets
 
 ACTOR PPE_SmallShell : PPE_Shells replaces Shell
 {
-  Inventory.Amount 4
+  Inventory.Amount 40
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLS"
   Inventory.PickupSound "items/ammo1"
@@ -62,7 +62,7 @@ ACTOR PPE_SmallCell : PPE_Cells replaces Cell
 
 ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
 {
-  Inventory.Amount 50
+  Inventory.Amount 500
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTBULLETBOX"
   Inventory.PickupSound "items/ammo2"
@@ -76,7 +76,7 @@ ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
 
 ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
 {
-  Inventory.Amount 20
+  Inventory.Amount 200
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLBOX"
   Inventory.PickupSound "items/ammo1"

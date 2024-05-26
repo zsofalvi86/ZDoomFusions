@@ -36,7 +36,7 @@ Actor PPE_Q3LightningGun : PPE_Quake3WeaponBase
 		TNT1 A 0 A_FireBullets(0,0,1,(11),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
 		3LGF AB 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_FireBullets(0,0,1,(11),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		TNT1 A 0 A_FireBullets(0,0,1,(11),"PPE_LightningPuffActual",FBF_NORANDOM,768,"none",0)
 		3LGF CD 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
 		TNT1 A 0 A_Refire("Hold2")
 		goto Winddown
@@ -47,7 +47,7 @@ Actor PPE_Q3LightningGun : PPE_Quake3WeaponBase
 		TNT1 A 0 A_FireBullets(0,0,1,(11),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
 		3LGF AB 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
 		TNT1 A 0 A_CheckReload
-		TNT1 A 0 A_FireBullets(0,0,1,(11),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		TNT1 A 0 A_FireBullets(0,0,1,(11),"PPE_LightningPuffActual",FBF_NORANDOM,768,"none",0)
 		3LGF C 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
 		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/loop",6,1.0,1)
 		TNT1 A 0 A_Refire("Hold1")
@@ -65,7 +65,39 @@ Actor PPE_Q3LightningGun : PPE_Quake3WeaponBase
 	}
 }
 
-Actor PPE_Q3LightningGunS8 : PPE_Q3LightningGun { Weapon.SlotNumber 8 Weapon.SlotPriority 2 PPE_WeaponBase.SlotAlt1 "PPE_Q3LightningGun" }
+Actor PPE_Q3LightningGunS8 : PPE_Q3LightningGun 
+{ 
+	Weapon.SlotNumber 8 Weapon.SlotPriority 2 PPE_WeaponBase.SlotAlt1 "PPE_Q3LightningGun"
+	Weapon.AmmoUse 1
+	States
+	{
+	Fire:
+		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/start",CHAN_WEAPON)
+	Hold1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireBullets(0,0,1,(22),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		3LGF AB 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_FireBullets(0,0,1,(22),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		3LGF CD 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
+		TNT1 A 0 A_Refire("Hold2")
+		goto Winddown
+	Hold2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireBullets(0,0,1,(22),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		3LGF AB 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_FireBullets(0,0,1,(22),"PPE_LightningPuffActual",FBF_USEAMMO|FBF_NORANDOM,768,"none",0)
+		3LGF C 1 bright A_SpriteBeam("PPE_Q3LightningTrail",768)
+		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/loop",6,1.0,1)
+		TNT1 A 0 A_Refire("Hold1")
+		goto Winddown
+	}
+}
 
 Actor PPE_Q3LightningTrail : PPE_TrailBase
 {

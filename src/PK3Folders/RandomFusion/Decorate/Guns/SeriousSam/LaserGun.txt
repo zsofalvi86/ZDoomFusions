@@ -69,7 +69,49 @@ Actor PPE_SSLaserGun : PPE_SeriousSamWeaponBase
 	}
 }
 
-Actor PPE_SSLaserGunS8 : PPE_SSLaserGun { Weapon.SlotNumber 8 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_SSLaserGun" }
+Actor PPE_SSLaserGunS8 : PPE_SSLaserGun 
+{ 
+	Weapon.SlotNumber 8 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_SSLaserGun"
+	Weapon.AmmoUse 2
+	States
+	{
+	Fire:
+	Fire1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/ss/laser/fire",1)
+		TNT1 A 0 A_FireCustomMissile("PPE_SSLaserGunBulletS8",0,1,-5,4)
+	    SSLF ABC 1 bright
+		TNT1 A 0 A_Refire("Fire2")
+		Goto Ready.Ready
+	Fire2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/ss/laser/fire",2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SSLaserGunBulletS8",0,1,5,4)
+		SSLF DEF 1 bright
+		SSLG A 1
+		TNT1 A 0 A_Refire("Fire3")
+		goto Ready.Ready
+	Fire3:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/ss/laser/fire",3)
+		TNT1 A 0 A_FireCustomMissile("PPE_SSLaserGunBulletS8",0,1,-5,-4)
+		SSLF GHI 1 bright
+		TNT1 A 0 A_Refire("Fire4")
+		goto Ready.Ready
+	Fire4:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("Weapons/ss/laser/fire",4)
+		TNT1 A 0 A_FireCustomMissile("PPE_SSLaserGunBulletS8",0,1,5,-4)
+		SSLF JKL 1 bright
+		SSLG A 1
+		TNT1 A 0 A_Refire("Fire1")
+		goto Ready.Ready
+	}
+}
 
 Actor PPE_SSLaserGunBullet
 {
@@ -97,4 +139,9 @@ Actor PPE_SSLaserGunBullet
 		TNT1 A 2
 		stop
 	}
+}
+
+Actor PPE_SSLaserGunBulletS8 : PPE_SSLaserGunBullet
+{
+	Damage (48)
 }

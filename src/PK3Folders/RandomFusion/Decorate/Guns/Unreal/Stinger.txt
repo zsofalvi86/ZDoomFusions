@@ -7,10 +7,10 @@ Actor PPE_UnrStinger : PPE_UWeaponBase
 	Weapon.SlotPriority 3
 	Weapon.UpSound "weapons/unr/stinger/up"
 	Weapon.AmmoType1 "PPE_Bullets"
-	Weapon.AmmoUse1 1
+	Weapon.AmmoUse1 14
     Weapon.AmmoType2 "PPE_Bullets"
-	Weapon.AmmoUse2 5
-	Weapon.AmmoGive1 20
+	Weapon.AmmoUse2 75
+	Weapon.AmmoGive1 200
 	PPE_WeaponBase.SlotAlt1 "PPE_UnrStingerS4"
 	PPE_WeaponBase.SpawnerId1 2,1
 	PPE_WeaponBase.SpawnerId2 2,3

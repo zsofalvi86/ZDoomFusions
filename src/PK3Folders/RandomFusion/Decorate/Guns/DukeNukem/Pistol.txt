@@ -5,10 +5,10 @@ Actor PPE_DNPistol : PPE_DNWeaponBase
 	Weapon.UpSound "weapons/dn/pistol/clipin"
 	Weapon.SlotNumber 2
 	Weapon.SlotPriority 4
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 6
 	Weapon.AmmoType "PPE_Bullets"
 	//PPE_DNWeaponBase.AmmoTypeAlt "PPE_PistolBullets_Dumdum"
-	Weapon.AmmoGive 20
+	Weapon.AmmoGive 200
 	Decal "BulletChip"
 	//Weapon.SisterWeapon "PPE_DNPistol_Dumdum"
 	Weapon.SelectionOrder 700
@@ -21,7 +21,7 @@ Actor PPE_DNPistol : PPE_DNWeaponBase
     	DNAG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
     	Loop
   	Deselect:
-		TNT1 A 0 A_ChangeAmmoUse(1)
+		TNT1 A 0 A_ChangeAmmoUse(6)
 		TNT1 A 0 A_SwapIfOnlyOtherAmmo
 		TNT1 A 0 A_ResetReloadCounter
 	DeseLoop:
@@ -38,8 +38,8 @@ Actor PPE_DNPistol : PPE_DNWeaponBase
 		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(6),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		Goto FireEnd
 	FireAlt:
-		TNT1 A 0 A_ChangeAmmoUse(5)
-		TNT1 A 0 A_CheckForAmmo(5)
+		TNT1 A 0 A_ChangeAmmoUse(50)
+		TNT1 A 0 A_CheckForAmmo(50)
 		TNT1 A 0 A_FireBullets(2.8,2.1,1,(50),"PPE_DNBulletPuff_NoGib",FBF_USEAMMO|FBF_NORANDOM)
 	FireEnd:
 		TNT1 A 0 A_FireCustomMissile("PPE_DPBulletCasingShooter",0,0,0,2)
@@ -58,11 +58,11 @@ Actor PPE_DNPistol : PPE_DNWeaponBase
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/dn/pistol/fire")
 		TNT1 A 0 A_JumpIfMode(1,"Fire2Alt")
-		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(6),"PPE_DNBulletPuff",FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(2.8,2.1,-1,(6),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		Goto Fire2End
 	Fire2Alt:
-		TNT1 A 0 A_ChangeAmmoUse(5)
-		TNT1 A 0 A_CheckForAmmo(5)
+		TNT1 A 0 A_ChangeAmmoUse(50)
+		TNT1 A 0 A_CheckForAmmo(50)
 		TNT1 A 0 A_FireBullets(2.8,2.1,1,(50),"PPE_DNBulletPuff_NoGib",FBF_USEAMMO|FBF_NORANDOM)
 	Fire2End:
 		TNT1 A 0 A_FireCustomMissile("PPE_DPBulletCasingShooter",0,0,0,2)
@@ -98,12 +98,12 @@ Actor PPE_DNPistol : PPE_DNWeaponBase
 		DNAR C 2 Offset(0,32)
 		TNT1 A 0 A_JumpIfMode(0,"SwapAmmoToDumdum")
 	SwapAmmoToNormal:
-		TNT1 A 0 A_ChangeAmmoUse(1)
+		TNT1 A 0 A_ChangeAmmoUse(6)
 		TNT1 A 0 A_SwapMode(0)//A_SwapAmmo
 		Goto ResumeSwapAmmo
 	SwapAmmoToDumdum:
-		TNT1 A 0 A_ChangeAmmoUse(5)
-		TNT1 A 0 A_CheckForAmmo(5)
+		TNT1 A 0 A_ChangeAmmoUse(50)
+		TNT1 A 0 A_CheckForAmmo(50)
 	SwapAmmoToDumdumCont:
 		TNT1 A 0 A_SwapMode(1)//A_SwapAmmo
 	ResumeSwapAmmo:

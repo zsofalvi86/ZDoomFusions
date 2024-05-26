@@ -6,8 +6,8 @@ Actor PPE_Q2Shotgun : PPE_Quake2WeaponBase
 	Weapon.SlotNumber 2
 	Weapon.SlotPriority 6
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoUse 1
-	Weapon.AmmoGive 8
+	Weapon.AmmoUse 8
+	Weapon.AmmoGive 80
 	Decal "BulletChip"
 	DamageType "Quake2Shell"
 	PPE_WeaponBase.SlotAlt1 "PPE_Q2ShotgunS3"

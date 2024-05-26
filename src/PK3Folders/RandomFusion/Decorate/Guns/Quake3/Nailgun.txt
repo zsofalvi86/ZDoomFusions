@@ -3,9 +3,9 @@ Actor PPE_Q3Nailgun : PPE_Quake3WeaponBase
 	Tag "$TAG_Q3_NG"
 	Weapon.AmmoType1 "PPE_Shells"
 	Weapon.AmmoType2 "PPE_Shells"
-	Weapon.AmmoUse1 2
-	Weapon.AmmoUse2 2
-	Weapon.AmmoGive 8
+	Weapon.AmmoUse1 20
+	Weapon.AmmoUse2 20
+	Weapon.AmmoGive 80
 	Weapon.SlotNumber 3
 	Weapon.SlotPriority 9
 	PPE_WeaponBase.SlotAlt1 "PPE_Q3NailgunS6"

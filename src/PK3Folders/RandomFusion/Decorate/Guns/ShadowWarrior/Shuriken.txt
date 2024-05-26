@@ -3,9 +3,9 @@ Actor PPE_Shuriken: PPE_SWWeaponBase
 	Weapon.SlotNumber 2
 	Weapon.SlotPriority 3
 	Weapon.SelectionOrder 2100
-	Weapon.AmmoUse 3
+	Weapon.AmmoUse 30
 	Weapon.AmmoType "PPE_Bullets"
-	Weapon.AmmoGive 20
+	Weapon.AmmoGive 200
 	Inventory.PickupSound "weapons/sw/pickup"
 	Weapon.UpSound "weapons/sw/shuriken/up"
 	Weapon.ReadySound ""
@@ -88,7 +88,7 @@ ACTOR PPE_ShurikenRecoveryBladeStuck : SwitchingDecoration
     goto Disappear
   Active:
 	TNT1 A 0 A_PlaySound("items/sw/pickup")
-	TNT1 A 0 A_GiveToTarget("PPE_Bullets", 1)
+	TNT1 A 0 A_GiveToTarget("PPE_Bullets", 10)
 	stop
   Disappear:
 	TNT1 A 0

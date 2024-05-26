@@ -4,9 +4,9 @@ Actor PPE_SSShotgun : PPE_SeriousSamWeaponBase
 	Weapon.SelectionOrder 1300
 	Weapon.SlotNumber 3
 	Weapon.SlotPriority 4
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 8
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoGive 8
+	Weapon.AmmoGive 80
 	Decal "BulletChip"
 	PPE_WeaponBase.SlotAlt1 "PPE_SSShotgunS2"
 	PPE_WeaponBase.SpawnerId1 0,1

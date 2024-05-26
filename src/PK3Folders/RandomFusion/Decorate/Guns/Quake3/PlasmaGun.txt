@@ -3,7 +3,7 @@ actor PPE_Q3PlasmaGun : PPE_Quake3WeaponBase
 	Weapon.SelectionOrder 400
 	Weapon.AmmoGive 40
 	Weapon.AmmoType "PPE_Cells"
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 2
 	Weapon.SlotNumber 8
 	Weapon.SlotPriority 7
 	Tag "$TAG_Q3_PG"
@@ -27,6 +27,47 @@ actor PPE_Q3PlasmaGun : PPE_Quake3WeaponBase
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3PlasmaS8",0,1,0,1,1,0)
+		//TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuff",FBF_NORANDOMPUFFZ,256)
+		TNT1 A 0 A_PlaySound("weapons/quake3/plasma/fire",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		Q3PG ABC 1 bright
+		TNT1 A 0 A_ReFire("Hold")
+		Q3PG D 1 bright
+    	Goto Ready.Ready
+	Hold:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_Q3PlasmaS8",0,1,0,1,1,0)
+		//TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuff",FBF_NORANDOMPUFFZ,256)
+		TNT1 A 0 A_PlaySound("weapons/quake3/plasma/fire",1)
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		Q3PG EFGH 1 bright
+		TNT1 A 0 A_ReFire("Fire")
+    	Goto Ready.Ready
+	Flash:
+    	TNT1 A 1 A_Light1
+		TNT1 A 1 A_SetPitch(pitch-0.2)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.2)
+		Goto LightDone
+	Spawn:
+		Q3PG W -1
+		Stop
+   }
+}
+
+Actor PPE_Q3PlasmaGunS6 : PPE_Q3PlasmaGun 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_Q3PlasmaGun" 
+	Weapon.AmmoUse 1
+	States
+	{
+	Fire:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_FireCustomMissile("PPE_Q3Plasma",0,1,0,1,1,0)
 		//TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_Q3PlasmaSpawnPuff",FBF_NORANDOMPUFFZ,256)
 		TNT1 A 0 A_PlaySound("weapons/quake3/plasma/fire",1)
@@ -46,19 +87,8 @@ actor PPE_Q3PlasmaGun : PPE_Quake3WeaponBase
 		Q3PG EFGH 1 bright
 		TNT1 A 0 A_ReFire("Fire")
     	Goto Ready.Ready
-	Flash:
-    	TNT1 A 1 A_Light1
-		TNT1 A 1 A_SetPitch(pitch-0.2)
-		TNT1 A 0 A_Light2
-		TNT1 A 1 A_SetPitch(pitch+0.2)
-		Goto LightDone
-	Spawn:
-		Q3PG W -1
-		Stop
-   }
+	}
 }
-
-Actor PPE_Q3PlasmaGunS6 : PPE_Q3PlasmaGun { Weapon.SlotNumber 6 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_Q3PlasmaGun" }
 
 Actor PPE_Q3PlasmaPuff : BulletPuff
 {
@@ -133,6 +163,20 @@ actor PPE_Q3Plasma : PPE_SlowMissileBase
 	Death:
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_Explode(20,64,1,0,32)
+		TNT1 A 0 A_SpawnItem("PPE_Q3PlasmaShockwave")
+		PLCR ABCD 3 bright
+		Stop
+	}
+}
+
+actor PPE_Q3PlasmaS8 : PPE_Q3Plasma
+{
+	Damage (10)
+	States
+	{
+	Death:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_Explode(40,72,1,0,32)
 		TNT1 A 0 A_SpawnItem("PPE_Q3PlasmaShockwave")
 		PLCR ABCD 3 bright
 		Stop

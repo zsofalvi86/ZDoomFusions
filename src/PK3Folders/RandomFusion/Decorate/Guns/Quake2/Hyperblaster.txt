@@ -5,7 +5,7 @@ Actor PPE_Q2HyperBlaster : PPE_Quake2WeaponBase
 	Weapon.SelectionOrder 105
 	Weapon.SlotNumber 8
 	Weapon.SlotPriority 8
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 2
 	Weapon.AmmoType "PPE_Cells"
 	Weapon.AmmoGive 40
 	PPE_WeaponBase.SlotAlt1 "PPE_Q2HyperBlasterS6"
@@ -27,13 +27,14 @@ Actor PPE_Q2HyperBlaster : PPE_Quake2WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/windup",5,1-(CountInv("PowerSilencer")*0.7))
 		TNT1 A 0 A_SetInventory("PPE_XPos",3)
 		TNT1 A 0 A_SetInventory("PPE_YPos",6)
+		TNT1 A 0 A_Jump(256,"FireHyperblaster")
 	FireHyperblaster:
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
 		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/fire",1,1-(CountInv("PowerSilencer")*0.7))
-		TNT1 A 0 A_FireCustomMissile("PPE_HyperBlasterBolt",0,1,CountInv("PPE_XPos")-3,CountInv("PPE_YPos")+1,1,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_HyperBlasterBoltS8",0,1,CountInv("PPE_XPos")-3,CountInv("PPE_YPos")+1,1,0)
 		Goto FireAnimation
 	FireAnimation:
 		TNT1 A 0 A_JumpIfInventory("PPE_HybState",3,"FireCont3")
@@ -122,7 +123,22 @@ Actor PPE_Q2HyperBlaster : PPE_Quake2WeaponBase
 	}
 }
 
-Actor PPE_Q2HyperBlasterS6 : PPE_Q2HyperBlaster { Weapon.SlotNumber 6 PPE_WeaponBase.SlotAlt1 "PPE_Q2HyperBlaster" }
+Actor PPE_Q2HyperBlasterS6 : PPE_Q2HyperBlaster 
+{ 
+	Weapon.SlotNumber 6 PPE_WeaponBase.SlotAlt1 "PPE_Q2HyperBlaster"
+	Weapon.AmmoUse 1
+	States
+	{
+	FireHyperblaster:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireCustomMissile("PPE_HyperBlasterBolt",0,1,CountInv("PPE_XPos")-3,CountInv("PPE_YPos")+1,1,0)
+		Goto FireAnimation
+	}
+}
 
 Actor PPE_HyperBlasterBolt : PPE_SlowMissileBase
 {
@@ -149,6 +165,11 @@ Actor PPE_HyperBlasterBolt : PPE_SlowMissileBase
 		TNT1 A 1
 		stop
 	}
+}
+
+Actor PPE_HyperBlasterBoltS8 : PPE_HyperBlasterBolt
+{
+	Damage (50)
 }
 
 Actor PPE_HybState : Inventory

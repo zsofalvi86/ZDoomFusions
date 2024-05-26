@@ -6,8 +6,8 @@ Actor PPE_SSSniperRifle : PPE_SeriousSamScoped
 	Weapon.SlotNumber 9
 	Weapon.SlotPriority 8
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoUse 1
-	Weapon.AmmoGive 8
+	Weapon.AmmoUse 8
+	Weapon.AmmoGive 80
 	Weapon.Kickback 10
 	Decal "BulletChip"
 	DamageType "SeriousSniper"
@@ -58,9 +58,9 @@ Actor PPE_SSSniperRifle : PPE_SeriousSamScoped
 		TNT1 A 0 A_Refire
 		Goto Ready.Ready
 	FireScope:
-		TNT1 A 0 A_JumpIfinventory("PPE_Shells",3,1)
+		TNT1 A 0 A_JumpIfinventory("PPE_Shells",30,1)
 		Goto DeZoom
-		TNT1 A 0 A_TakeInventory("PPE_Shells",2)
+		TNT1 A 0 A_TakeInventory("PPE_Shells",22)
 	    TNT1 A 0 A_FireBullets(0,0,1,(300),"PPE_SniperPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		SSSS YYY 2 bright
 		SSSS Y 13 bright

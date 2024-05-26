@@ -4,9 +4,9 @@ Actor PPE_SSCoachGun : PPE_SeriousSamWeaponBase
 	Weapon.SelectionOrder 400
 	Weapon.SlotNumber 3
 	Weapon.SlotPriority 7
-	Weapon.AmmoUse 2
+	Weapon.AmmoUse 20
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoGive 8
+	Weapon.AmmoGive 80
 	Decal "BulletChip"
 	DamageType "SeriousSuperShell"
 	PPE_WeaponBase.SpawnerId1 0,2

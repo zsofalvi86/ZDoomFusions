@@ -5,11 +5,12 @@ Actor PPE_Q2ChainGun : PPE_Quake2WeaponBase
 	Weapon.SlotNumber 6
 	Weapon.SlotPriority 9
 	Weapon.AmmoType "PPE_Bullets"
-	Weapon.AmmoUse 1
-	Weapon.AmmoGive 20
+	Weapon.AmmoUse 10
+	Weapon.AmmoGive 200
 	Decal "BulletChip"
 	PPE_WeaponBase.SlotAlt1 "PPE_Q2ChainGunS5"
 	PPE_WeaponBase.SlotAlt2 "PPE_Q2ChainGunS4"
+	PPE_WeaponBase.SlotAlt3 "PPE_Q2ChainGunS8"
 	PPE_WeaponBase.SpawnerId1 2,2
 	PPE_WeaponBase.SpawnerId2 2,4
 	PPE_WeaponBase.SpawnerId3 14,2
@@ -40,6 +41,7 @@ Actor PPE_Q2ChainGun : PPE_Quake2WeaponBase
 	SkipLoopSound:
 		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",6,"FireSpeed3")
 		TNT1 A 0 A_JumpIfInventory("PPE_ChaingunSpin",2,"FireSpeed2")
+		TNT1 A 0 A_Jump(256,"FireSpeed1")
 	FireSpeed1:
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
@@ -148,9 +150,230 @@ Actor PPE_Q2ChainGun : PPE_Quake2WeaponBase
 	}
 }
 
-Actor PPE_Q2ChaingunS5 : PPE_Q2Chaingun { Weapon.SlotNumber 5 Weapon.SlotPriority 7 PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS4" }
+Actor PPE_Q2ChaingunS5 : PPE_Q2Chaingun 
+{ 
+	Weapon.SlotNumber 5 Weapon.SlotPriority 7 
+	PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" 
+	PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS4" 
+	PPE_WeaponBase.SlotAlt3 "PPE_Q2ChainGunS8"
+	Weapon.AmmoUse 8
+	States
+	{
+	FireSpeed1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF AAB 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7)) // 8
+		TNT1 A 0 A_FireBullets(3.3,3.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF CCDD 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(3.3,3.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	FireSpeed2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF AB 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(4.3,4.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF CD 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(4.3,4.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	FireSpeed3:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF A 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF B 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF C 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF D 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(8),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	}
+}
 
-Actor PPE_Q2ChaingunS4 : PPE_Q2Chaingun { Weapon.SlotNumber 4 Weapon.SlotPriority 10 PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS5" }
+Actor PPE_Q2ChaingunS4 : PPE_Q2Chaingun 
+{ 
+	Weapon.SlotNumber 4 Weapon.SlotPriority 10 
+	PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" 
+	PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS5"
+	PPE_WeaponBase.SlotAlt3 "PPE_Q2ChainGunS8"
+	Weapon.AmmoUse 6
+	States
+	{
+	FireSpeed1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF AAB 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7)) // 8
+		TNT1 A 0 A_FireBullets(3.3,3.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF CCDD 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(3.3,3.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	FireSpeed2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF AB 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(4.3,4.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF CD 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(4.3,4.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	FireSpeed3:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF A 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF B 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF C 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF D 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(6),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	}
+}
+
+Actor PPE_Q2ChaingunS8 : PPE_Q2Chaingun 
+{ 
+	Weapon.SlotNumber 8 Weapon.SlotPriority 7
+	PPE_WeaponBase.SlotAlt1 "PPE_Q2Chaingun" 
+	PPE_WeaponBase.SlotAlt2 "PPE_Q2ChaingunS4"
+	PPE_WeaponBase.SlotAlt3 "PPE_Q2ChainGunS5"
+	Weapon.AmmoUse 12
+	States
+	{
+	FireSpeed1:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF AAB 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7)) // 8
+		TNT1 A 0 A_FireBullets(3.3,3.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF CCDD 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(3.3,3.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	FireSpeed2:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF AB 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(4.3,4.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF CD 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(4.3,4.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	FireSpeed3:
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		Q2CF A 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF B 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF C 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_GunFlash
+		Q2CF D 1 bright
+		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/chaingun/fire",1,1-(CountInv("PowerSilencer")*0.7))
+		TNT1 A 0 A_FireBullets(5.3,5.3,-1,(12),"PPE_Quake2BulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_Q2CGBulletCasingShooter",0,0,0,-4)
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Released
+	}
+}
 
 Actor PPE_ChaingunOvershoot : Inventory
 {

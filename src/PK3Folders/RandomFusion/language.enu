@@ -64,7 +64,7 @@ TAG_SW_RG = "Railgun";
 TAG_SW_HEAD = "Guardian Head";
 TAG_SW_HEART = "Ripper Heart";
 //Serious Sam
-TAG_SS_CS = "Bonecracke P-LAH Chainsaw";
+TAG_SS_CS = "Bonecracker P-LAH Chainsaw";
 TAG_SS_PS = "Schofield TMAR Pistol";
 TAG_SS_SG = "Headless Hunter Shotgun";
 TAG_SS_SSG = "Bonesnapper Coach Gun";

@@ -4,7 +4,7 @@ Actor PPE_Q2PlasmaBeam : PPE_Quake2WeaponBase
 	Tag "$TAG_Q2_PB"
 	Decal Q2CellScorch
 	Inventory.PickupSound "items/q2weapon"
-	Weapon.AmmoUse 1
+	Weapon.AmmoUse 2
 	Weapon.AmmoType "PPE_Cells"
 	Weapon.AmmoGive 40
 	Weapon.SlotNumber 8
@@ -35,10 +35,10 @@ Actor PPE_Q2PlasmaBeam : PPE_Quake2WeaponBase
 		TNT1 A 0 A_PlaySound("weapons/quake2/plasmabeam/fire",6,1-(CountInv("PowerSilencer")*0.7),1)
 		PBMF A 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc") // 15 - upscaled to more or less match other cell users
 		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
-		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		TNT1 A 0 A_FireBullets(0,0,1,(40),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
 		PBMF BC 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
 		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
-		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		TNT1 A 0 A_FireBullets(0,0,1,(40),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
 		TNT1 A 0 A_ReFire("Fire2")
 		Goto Winddown
 	Fire2:
@@ -47,10 +47,10 @@ Actor PPE_Q2PlasmaBeam : PPE_Quake2WeaponBase
 		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
 		PBMF CB 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
 		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
-		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		TNT1 A 0 A_FireBullets(0,0,1,(40),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
 		PBMF AB 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
 		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
-		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		TNT1 A 0 A_FireBullets(0,0,1,(40),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
 		PBMF C 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
 		TNT1 A 0 A_ReFire("Fire")
 	Winddown:
@@ -75,7 +75,39 @@ Actor PPE_Q2PlasmaBeam : PPE_Quake2WeaponBase
 	}
 }
 
-Actor PPE_Q2PlasmaBeamS6 : PPE_Q2PlasmaBeam { Weapon.SlotNumber 6 PPE_WeaponBase.SlotAlt1 "PPE_Q2PlasmaBeam" }
+Actor PPE_Q2PlasmaBeamS6 : PPE_Q2PlasmaBeam 
+{
+	Weapon.SlotNumber 6 PPE_WeaponBase.SlotAlt1 "PPE_Q2PlasmaBeam"
+	Weapon.AmmoUse 1
+	States
+	{
+	Fire:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_PlaySound("weapons/quake2/plasmabeam/fire",6,1-(CountInv("PowerSilencer")*0.7),1)
+		PBMF A 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc") // 15 - upscaled to more or less match other cell users
+		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		PBMF BC 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
+		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		TNT1 A 0 A_ReFire("Fire2")
+		Goto Winddown
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("items/quad/amp",2,CountInv("PowerQuadDamage"))
+		PBMF CB 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
+		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		PBMF AB 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
+		//TNT1 A 0 A_RailAttack((22),0,1,"none","none",RGF_SILENT|RGF_NOPIERCING,0,"none",0,0,3500,0,9,0,"none",3)
+		TNT1 A 0 A_FireBullets(0,0,1,(20),"PPE_PlasmabeamPuff",FBF_USEAMMO|FBF_NORANDOM,9000,"none",0)
+		PBMF C 1 bright {A_FlatBeam("PPE_PlasmaBeamTrail",9000);A_TravelingRings("PPE_PlasmaRing",9000);}//A_GunFlash("FireAnimFunc")
+		TNT1 A 0 A_ReFire("Fire")
+	}
+}
 
 Actor PPE_PlasmaBeamTrail : PPE_TrailBase
 {
