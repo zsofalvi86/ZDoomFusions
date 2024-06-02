@@ -5,6 +5,8 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 	double tilt; double desiredTilt; double dmgTilt; double bobtilt;
 	const maxtilt = 1.8;
 	int tic;
+	PPE_CustomBase usedThing;
+	PPE_WeaponBase usedWeapon;
 	
 	Override void Tick ()
 	{
@@ -34,6 +36,36 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 				if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
 				else { SetInventory("PPE_TempHealth", 0); }
 			}
+		}
+		
+		//Get the actor that we're looking at
+		FLineTraceData hit80;
+		LineTrace(angle, 80, pitch, TRF_ALLACTORS, player.viewheight, 0, 0, hit80);
+			
+		let possibleUsedThing = PPE_CustomBase(hit80.HitActor);
+		if (possibleUsedThing != usedThing)
+		{
+			if (usedThing){usedThing.StopUse(self);}
+			usedThing = possibleUsedThing;
+		}
+		let possibleUsedWeapon = PPE_WeaponBase(hit80.HitActor);
+		if (possibleUsedWeapon != usedWeapon)
+		{
+			if (usedWeapon){usedWeapon.StopUse(self);}
+			usedWeapon = possibleUsedWeapon;
+		}
+		
+		if (GetPlayerInput(INPUT_BUTTONS) & BT_USE)
+		{
+			//A_Print("e: "..usedThing..usedWeapon);
+			if (usedThing){usedThing.ReactToUse(self);}
+			if (usedWeapon){usedWeapon.ReactToUse(self);}
+		}
+		else if (GetPlayerInput(MODINPUT_OLDBUTTONS) & BT_USE)
+		{
+			//A_Print("f: "..usedThing..usedWeapon);
+			if (usedThing){usedThing.StopUse(self);}
+			if (usedWeapon){usedWeapon.StopUse(self);}
 		}
 	}
 	

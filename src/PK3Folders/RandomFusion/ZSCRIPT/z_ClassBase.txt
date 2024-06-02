@@ -1,0 +1,40 @@
+Class PPE_ClassBase : PPE_CustomBase abstract
+{
+	bool swapping;
+	
+	//Overrides
+	Override bool TryPickup(in out Actor toucher)
+	{
+		if (!toucher || !toucher.player) {return Super.TryPickup(toucher);}
+		
+		if (!swapping)
+		{
+			let classmod = PPE_ClassBase(toucher.FindInventory("PPE_ClassBase",true));
+		
+			if (classmod)
+			{
+				return false;
+			}
+		}
+		return Super.TryPickup(toucher);
+	}
+	
+	Override bool LongPressUse(Actor toucher)
+	{
+		let classmod = PPE_ClassBase(toucher.FindInventory("PPE_ClassBase",true));
+		
+		if (classmod)
+		{
+			swapping = true;
+			Touch(toucher);
+			swapping = false;
+			toucher.A_DropInventory(classmod.GetClass());
+		}
+		return true;
+	}
+
+	Default
+	{
+
+	}
+}

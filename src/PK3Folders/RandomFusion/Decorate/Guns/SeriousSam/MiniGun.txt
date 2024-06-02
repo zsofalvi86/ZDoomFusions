@@ -123,6 +123,7 @@ Actor PPE_SSMiniGunS4 : PPE_SSMiniGun
 		TNT1 A 0 A_FireCustomMissile("PPE_SSMGBulletCasingShooter",0,0,0,-4)
 		SSMF ABCD 1 bright A_GunFlash
 		TNT1 A 0 A_ReFire("Hold1")
+		Goto WindDown
 	}
 }
 
@@ -151,12 +152,13 @@ Actor PPE_SSMiniGunS5 : PPE_SSMiniGun
 		TNT1 A 0 A_FireCustomMissile("PPE_SSMGBulletCasingShooter",0,0,0,-4)
 		SSMF ABCD 1 bright A_GunFlash
 		TNT1 A 0 A_ReFire("Hold1")
+		Goto WindDown
 	}
 }
 
 Actor PPE_SSMiniGunS8 : PPE_SSMiniGun 
 { 
-	Weapon.SlotNumber 5 Weapon.SlotPriority 8 
+	Weapon.SlotNumber 8 Weapon.SlotPriority 7 
 	PPE_WeaponBase.SlotAlt1 "PPE_SSMiniGun" 
 	PPE_WeaponBase.SlotAlt2 "PPE_SSMiniGunS4" 
 	PPE_WeaponBase.SlotAlt3 "PPE_SSMiniGunS5" 
@@ -179,6 +181,7 @@ Actor PPE_SSMiniGunS8 : PPE_SSMiniGun
 		TNT1 A 0 A_FireCustomMissile("PPE_SSMGBulletCasingShooter",0,0,0,-4)
 		SSMF ABCD 1 bright A_GunFlash
 		TNT1 A 0 A_ReFire("Hold1")
+		Goto WindDown
 	}
 }
 

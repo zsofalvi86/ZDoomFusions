@@ -1,0 +1,54 @@
+Class PPE_CustomBase : Inventory abstract
+{
+	mixin PPE_LongUseable;
+	
+	virtual void WorldThingDied (WorldEvent e)
+	{
+	}
+	
+	virtual void WorldThingDamaged (WorldEvent e)
+	{
+	}
+	
+	Default
+	{
+
+	}
+}
+
+Mixin Class PPE_LongUseable// : Actor
+{
+	Actor user;
+	int useTicks;
+	
+	bool ReactToUse(Actor toucher)
+	{
+		if (user == toucher)
+		{
+			useTicks++;
+		}
+		else
+		{
+			useTicks = 0;
+		}
+		user = toucher;
+		
+		if (useTicks >= 32)
+		{
+			StopUse(toucher);
+			return LongPressUse(toucher);
+		}
+		return false;
+	}
+	
+	void StopUse(Actor toucher)
+	{
+		useTicks = 0;
+		user = null;
+	}
+	
+	virtual bool LongPressUse (Actor toucher)
+	{
+		return false;
+	}
+}

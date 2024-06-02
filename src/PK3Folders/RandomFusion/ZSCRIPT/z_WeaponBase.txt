@@ -1,4 +1,9 @@
-Class PPE_WeaponBase : Weapon abstract
+Class PPE_WeaponBaseBase : Weapon abstract
+{	
+	mixin PPE_LongUseable; // to allow overriding virtuals
+}
+
+Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
 {	
 	States
 	{
@@ -258,6 +263,61 @@ Class PPE_WeaponBase : Weapon abstract
 	}
 	
 	//Overrides
+	Override bool LongPressUse(Actor toucher)
+	{
+		if (!toucher || !toucher.player) {return false;}
+		
+		let readygun = PPE_WeaponBase(toucher.player.ReadyWeapon);
+		
+		if (readygun)
+		{
+			let readygunSlot = readygun.SlotNumber;
+			
+			let thisWeap = Weapon(toucher.FindInventory(self.GetClass(),false));
+			let slotAltWeap1 = Weapon(toucher.FindInventory(SlotAlt1,false));
+			let slotAltWeap2 = Weapon(toucher.FindInventory(SlotAlt2,false));
+			let slotAltWeap3 = Weapon(toucher.FindInventory(SlotAlt3,false));
+		
+			let thisSlotF = SlotFull(toucher, SlotNumber);
+			let altSlot1F = SlotAlt1 && SlotFull(toucher, GetDefaultByType(SlotAlt1).SlotNumber);
+			let altSlot2F = SlotAlt2 && SlotFull(toucher, GetDefaultByType(SlotAlt2).SlotNumber);
+			let altSlot3F = SlotAlt3 && SlotFull(toucher, GetDefaultByType(SlotAlt3).SlotNumber);
+			
+			if (readygunSlot == SlotNumber)
+			{
+				if (thisSlotF) {toucher.A_DropInventory(readygun.GetClass());}
+				Touch(toucher);
+			}
+			if (SlotAlt1 && readygunSlot == GetDefaultByType(SlotAlt1).SlotNumber)
+			{
+				if (altSlot1F) {toucher.A_DropInventory(readygun.GetClass());}
+				let altItem1 = Weapon(Spawn(SlotAlt1,pos));
+				altItem1.Touch(toucher);
+				GoAwayAndDie();
+			}
+			if (SlotAlt2 && readygunSlot == GetDefaultByType(SlotAlt2).SlotNumber)
+			{
+				if (altSlot2F) {toucher.A_DropInventory(readygun.GetClass());}
+				let altItem2 = Weapon(Spawn(SlotAlt1,pos));
+				altItem2.Touch(toucher);
+				GoAwayAndDie();
+			}
+			if (SlotAlt3 && readygunSlot == GetDefaultByType(SlotAlt3).SlotNumber)
+			{
+				if (altSlot3F) {toucher.A_DropInventory(readygun.GetClass());}
+				let altItem3 = Weapon(Spawn(SlotAlt1,pos));
+				altItem3.Touch(toucher);
+				GoAwayAndDie();
+			}
+			else
+			{
+				Touch(toucher);
+			}
+			//swapping = false;
+		}
+		return true;
+	}
+	
 	override bool HandlePickup (Inventory item)
 	{
 		let oldammo = AmmoType1;
