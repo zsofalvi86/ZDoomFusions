@@ -55,7 +55,7 @@ Actor PPE_SSCannon : PPE_SeriousSamWeaponBase
 		TNT1 A 0 A_StopSound(6)
 		TNT1 A 0 A_JumpIfInventory("PPE_MC_Charge",10,"CannonChargeRelease3")
 		TNT1 A 0 A_JumpIfInventory("PPE_MC_Charge",5,"CannonChargeRelease2")
-		TNT1 A 0 A_Jump("256","CannonChargeRelease1")
+		TNT1 A 0 A_Jump(256,"CannonChargeRelease1")
 		Goto CannonChargeRelease1
 	CannonChargeRelease1:
 		//TNT1 AAAAAAAAAAA 0 A_FireCustomMissile("PPE_CannonBall1",0,0,0,-2,1,3)

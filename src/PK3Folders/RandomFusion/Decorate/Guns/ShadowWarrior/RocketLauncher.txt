@@ -26,14 +26,14 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		SRLG B 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
 	ReadyCReadyNuke:
-		TNT1 A 0 A_PlayWeaponSound("weapons/nuke/standby")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/standby")
 		SRLG AA 20 {A_WeaponReady(WRF_NOPRIMARY|WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3);A_Overlay(2,"Nuke4");}
 		SRLG A 25 A_WeaponReady(WRF_NOPRIMARY|WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
-		TNT1 A 0 A_PlayWeaponSound("weapons/nuke/countdown")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/countdown")
 		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke1");} //35
 		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke2");} //35
 		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke3");} //35
-		TNT1 A 0 A_PlayWeaponSound("weapons/nuke/ready")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/ready")
 		SRLG AAA 20 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke4");} //10-10
 		TNT1 A 0 A_PlaySound("q/nukeup",5)
 		TNT1 A 0 A_SetInventory("PPE_NukeReady",1)
@@ -60,7 +60,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, "FireSeeker")
 		SRLG AA 2 bright
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlayWeaponSound("weapons/rocket/fire")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
 		TNT1 A 0 A_FireProjectile("PPE_SWRocket",0,1,0,4)
 		TNT1 A 0 A_GunFlash
 		SRLG AAA 2 bright
@@ -73,7 +73,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		Goto Ready
 		SRLG BB 2 bright
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlayWeaponSound("weapons/rocket/fire")
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
 		TNT1 A 0 A_FireProjectile("PPE_SWRocket_Seeker",0,1,0,4)
 		TNT1 A 0 A_TakeInventory("PPE_HeatSeekerCard",1)
 		TNT1 A 0 A_GunFlash
@@ -90,8 +90,8 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		Goto Ready
 		SRLG CC 2 bright
 		TNT1 A 0 A_AlertMonsters
-		TNT1 A 0 A_PlayWeaponSound("weapons/rocket/fire")
-		TNT1 A 0 A_PlaySound("weapons/nuke/warn",6)
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
+		TNT1 A 0 A_PlaySound("weapons/sw/nuke/warn",6)
 		TNT1 A 0 A_FireProjectile("PPE_SWNuke",0,0,0,4,FPF_NOAUTOAIM)
 		TNT1 A 0 A_TakeInventory("PPE_Nukes",1)
 		TNT1 A 0 A_SetInventory("PPE_NukeReady",0)
@@ -184,7 +184,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 Actor PPE_SWRocket : PPE_SlowMissileBase
 {
   SeeSound ""
-  DeathSound "weapons/rocket/explode"
+  DeathSound "weapons/sw/rocket/explode"
   Speed 25
   Damage (100)
   States
@@ -212,7 +212,7 @@ actor PPE_SWRocket_Seeker : PPE_SWRocket
 	{
 	Spawn:
 		TNT1 A 0
-		TNT1 A 0 A_PlaySound("weapons/rocket/seek")
+		TNT1 A 0 A_PlaySound("weapons/sw/rocket/seek")
 	Loopy:
 		ROXF AAAAAAAAAA 1 bright
 		{
@@ -220,7 +220,7 @@ actor PPE_SWRocket_Seeker : PPE_SWRocket
 			A_SpawnItem("PPE_SWRocketTrail");
 		}
 		TNT1 A 0 A_Jump(72,2)
-		TNT1 A 0 A_PlaySound("weapons/rocket/seek")
+		TNT1 A 0 A_PlaySound("weapons/sw/rocket/seek")
 		TNT1 A 0
 		Loop
 	}
@@ -229,7 +229,7 @@ actor PPE_SWRocket_Seeker : PPE_SWRocket
 Actor PPE_SWNuke : PPE_SlowMissileBase
 {
   SeeSound ""
-  DeathSound "weapons/nuke/explode"
+  DeathSound "weapons/sw/nuke/explode"
   Speed 20
   Damage (400)
   +FORCERADIUSDMG

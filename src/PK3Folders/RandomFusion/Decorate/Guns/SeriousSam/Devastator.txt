@@ -6,8 +6,8 @@ Actor PPE_SSDevastator : PPE_SeriousSamScoped
 	Weapon.SlotNumber 9
 	Weapon.SlotPriority 5
 	Weapon.AmmoType "PPE_Shells"
-	Weapon.AmmoUse 3
-	Weapon.AmmoGive 8
+	Weapon.AmmoUse 26
+	Weapon.AmmoGive 80
 	Decal "BulletChip"
 	DamageType "SeriousSniper"
 	PPE_WeaponBase.SlotAlt1 "PPE_SSDevastatorS7"

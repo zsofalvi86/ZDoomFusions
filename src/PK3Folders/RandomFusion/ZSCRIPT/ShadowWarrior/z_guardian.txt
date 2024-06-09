@@ -28,6 +28,30 @@ Class PPE_GuardianHeadBall : PlasmaBall
 	}
 }
 
+Class PPE_GuardianHeadBallS0 : PPE_GuardianHeadBall
+{	
+	Default
+	{
+		DamageFunction 20;
+	}
+}
+
+Class PPE_GuardianHeadBallS6 : PPE_GuardianHeadBall
+{
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		target.GiveInventory("PPE_SwOnFireS6",5);
+		let inv = target.FindInventory("PPE_SwOnFireS6");
+		if (inv) { inv.target = self.target; }
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	Default
+	{
+		DamageFunction 5;
+	}
+}
+
 Class PPE_GuardianHeadFireCircle : Actor
 {
 	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
@@ -56,6 +80,19 @@ Class PPE_GuardianHeadFireCircle : Actor
 		+FORCEXYBILLBOARD;
 		Radius 1;
 		Height 1;
+	}
+}
+
+Class PPE_GuardianHeadFireCircleS6 : PPE_GuardianHeadFireCircle
+{
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		target.GiveInventory("PPE_SwOnFireS6",50);
+		let inv = target.FindInventory("PPE_SwOnFireS6");
+		if (inv) { inv.target = self.target; }
+		self.bShootable = true;
+		A_Die("Normal");
+		return Super.DoSpecialDamage(target,damage,damagetype);
 	}
 }
 
@@ -124,6 +161,14 @@ Class PPE_SwOnFire : Inventory
 		DamageFunction 8;
 		Inventory.MaxAmount 100;
 		+BLOODLESSIMPACT;
+	}
+}
+
+Class PPE_SwOnFireS6 : PPE_SwOnFire
+{
+	Default
+	{
+		DamageFunction 4;
 	}
 }
 
