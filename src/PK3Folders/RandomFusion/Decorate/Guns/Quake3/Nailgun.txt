@@ -54,7 +54,33 @@ Actor PPE_Q3Nailgun : PPE_Quake3WeaponBase
 	}
 }
 
-Actor PPE_Q3NailgunS6 : PPE_Q3Nailgun { Weapon.SlotNumber 6 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_Q3Nailgun" }
+Actor PPE_Q3NailgunS6 : PPE_Q3Nailgun 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_Q3Nailgun" 
+	Weapon.AmmoUse1 30
+	Weapon.AmmoUse2 30
+	States
+	{
+	Fire:
+		TNT1 A 0 A_PlayWeaponSound("weapons/quake3/nailgun/fire")
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlaySound("items/quad/active",2,CountInv("PowerQuadDamage"))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNail1S6",FRandom(-4.3,4.3),1,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNail2S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNail3S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNail4S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounce1S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AA 0 A_FireProjectile("PPE_ShotNailBounce2S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 AA 0 A_FireProjectile("PPE_ShotNailBounce3S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		TNT1 A 0 A_FireProjectile("PPE_ShotNailBounce4S6",FRandom(-4.3,4.3),0,0,6,FPF_AIMATANGLE|FPF_NOAUTOAIM,FRandom(-3.7,3.7))
+		3NSG BCD 2 bright
+		3NSG EFGHI 3
+		3NSG A 14
+		TNT1 A 0 A_ReFire
+		Goto Ready.Ready
+	}
+}
 
 Actor PPE_ShotNailBase : PPE_NailBase
 {
@@ -174,4 +200,58 @@ Actor PPE_ShotNailBounce3H : PPE_ShotNailBounceBase
 Actor PPE_ShotNailBounce4H : PPE_ShotNailBounceBase
 {
 	Speed 54
+}
+
+Actor PPE_ShotNailBounceBaseS6 : PPE_ShotNailBase
+{
+	BounceType Doom
+	BounceCount 3
+	BounceFactor 1.0
+	WallBounceFactor 1.0
+	Damage (30)
+}
+
+Actor PPE_ShotNailBase2S6 : PPE_ShotNailBase
+{
+	Damage (30)
+}
+
+Actor PPE_ShotNail1S6 : PPE_ShotNailBase2S6
+{
+	Speed 28
+}
+
+Actor PPE_ShotNail2S6 : PPE_ShotNailBase2S6
+{
+	Speed 30
+}
+
+Actor PPE_ShotNail3S6 : PPE_ShotNailBase2S6
+{
+	Speed 32
+}
+
+Actor PPE_ShotNail4S6 : PPE_ShotNailBase2S6
+{
+	Speed 34
+}
+
+Actor PPE_ShotNailBounce1S6 : PPE_ShotNailBounceBaseS6
+{
+	Speed 28
+}
+
+Actor PPE_ShotNailBounce2S6 : PPE_ShotNailBounceBaseS6
+{
+	Speed 30
+}
+
+Actor PPE_ShotNailBounce3S6 : PPE_ShotNailBounceBaseS6
+{
+	Speed 32
+}
+
+Actor PPE_ShotNailBounce4S6 : PPE_ShotNailBounceBaseS6
+{
+	Speed 34
 }

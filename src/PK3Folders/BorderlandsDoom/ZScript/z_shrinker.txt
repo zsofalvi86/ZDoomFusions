@@ -1,0 +1,78 @@
+Class PPE_ShrinkerMissileBase : Rocket
+{	
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		//A_SetRenderStyle(1,STYLE_None); // done by flash
+		if (target && 
+		!target.Morph(self.target,"PPE_ActionFigurePlayer","PPE_ActionFigureMonster",410,MRF_FULLHEALTH|MRF_TRANSFERTRANSLATION,"PPE_ShrinkFog","PPE_UnShrinkFog"))
+		{
+			if (target is 'MorphedMonster'){return 0;}
+			else{return super.DoSpecialDamage(target, damage, damagetype);}
+		}
+		
+		MorphedMonster mo;
+		ThinkerIterator	ShrFinder = ThinkerIterator.Create("PPE_ActionFigureMonster");
+		while (mo = MorphedMonster(ShrFinder.Next()))
+		{
+			if (mo.UnmorphedMe == target) // find the one that was morphed by this projectile
+			{ 
+				mo.health = target.health;
+				mo.sprite = target.sprite;
+				mo.frame = target.frame;
+				mo.A_SetRenderStyle(target.alpha,target.GetRenderStyle());
+			}
+		}
+		
+		return 0;
+	}
+}
+
+Class PPE_ShrinkFog : Actor
+{
+	double scale; int oldrenderstyle;
+	Default {RenderStyle "None";}
+	States
+	{
+	Spawn:
+		"####" "#" 0;
+		"####" "#" 0 A_PlaySound("weapons/shrinker/hit",5);
+		"####" "#" 0 {oldrenderstyle = target.GetRenderStyle(); target.A_SetRenderStyle(1,STYLE_None); scale = 1.0;}
+		"####" "############################" 1
+		{
+			A_Warp(AAPTR_TARGET);
+			let shadow = Spawn("PPE_ShrinkShadow",self.pos);
+			shadow.A_SetScale(scale);
+			shadow.sprite = target.sprite;
+			shadow.frame = target.frame;
+			shadow.A_SetRenderStyle(1,oldrenderstyle);
+			scale-=0.025;
+		}
+		"####" A 0 {target.A_SetRenderStyle(1,oldrenderstyle);}
+		Stop;
+	}
+}
+
+Class PPE_UnShrinkFog : Actor
+{
+	double scale; int oldrenderstyle;
+	Default {RenderStyle "None";}
+	States
+	{
+	Spawn:
+		"####" "#" 0;
+		"####" "#" 0 {oldrenderstyle = target.GetRenderStyle(); target.A_SetRenderStyle(1,STYLE_None); scale = 0.25;}
+		"####" "############################" 1
+		{
+			target.reactiontime = 4; // keep reseting this to make it not attack
+			A_Warp(AAPTR_TARGET);
+			let shadow = Spawn("PPE_ShrinkShadow",self.pos);
+			shadow.A_SetScale(scale);
+			shadow.sprite = target.sprite;
+			shadow.frame = target.frame;
+			shadow.A_SetRenderStyle(1,oldrenderstyle);
+			scale+=0.025;
+		}
+		"####" A 0 {target.A_SetRenderStyle(1,oldrenderstyle);}
+		Stop;
+	}
+}

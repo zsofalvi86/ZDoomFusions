@@ -5,7 +5,7 @@ Actor PPE_Q2ETF : PPE_Quake2WeaponBase
 	Weapon.SlotNumber 4
 	Weapon.SlotPriority 6
 	Weapon.AmmoType "PPE_Bullets"
-	Weapon.AmmoUse 13
+	Weapon.AmmoUse 10
 	Weapon.AmmoGive 200
 	Decal "BulletChip"
 	DamageType "Quake2"
@@ -61,7 +61,7 @@ Actor PPE_Q2ETFS6 : PPE_Q2ETF
 { 
 	Weapon.SlotNumber 6 Weapon.SlotPriority 3 
 	PPE_WeaponBase.SlotAlt1 "PPE_Q2ETF" 
-	Weapon.AmmoUse 22
+	Weapon.AmmoUse 20
 	States
 	{
 	Fire:
@@ -93,7 +93,7 @@ Actor PPE_ETFlechette : PPE_NailBase
 	+PIERCEARMOR
 	//Decal BulletChip
 	DeathSound "weapons/quake2/etf/hit"
-	Damage (13) // 10 - upscaled to match bullets
+	Damage (10) // 10 - upscaled to match bullets
 	DamageType "Quake2Flech"
 	Speed 35
 	States
@@ -109,5 +109,5 @@ Actor PPE_ETFlechette : PPE_NailBase
 
 Actor PPE_ETFlechetteS6 : PPE_ETFlechette
 {
-	Damage (22)
+	Damage (20)
 }

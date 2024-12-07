@@ -1,0 +1,197 @@
+Class PPE_DNWeaponBase : Weapon
+{
+	States
+	{
+	Select:
+	Deselect:
+	Ready:
+		TNT1 A 0 A_Overlay(-3,"KickOverlay",false);
+		TNT1 A 0 A_Jump(256,"Ready.Ready");
+	KickOverlay:
+    	TNT1 A 1
+		{
+			tracer = null;
+			If(invoker.owner.CheckProximity("PPE_ActionFigureMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
+			invoker.owner.CheckProximity("PPE_ActionFigurePlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
+			{
+				if (tracer.GetRenderStyle() == STYLE_None) {return ResolveState(null);}
+				else {return ResolveState("Stomp");}
+			}
+			If(invoker.owner.CheckProximity("PPE_FrozenMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
+			invoker.owner.CheckProximity("PPE_FrozenPlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
+			{
+				return ResolveState("FaceQuickKick");
+			}
+			If(GetPlayerInput(INPUT_BUTTONS) & BT_ALTATTACK) 
+			{
+				return ResolveState("QuickKick");
+			}
+			return ResolveState(null);
+		}
+    	Loop;
+	Fire:
+	FaceQuickKick:
+		TNT1 A 1 A_Face(tracer,40,55);
+		TNT1 A 1 A_Face(tracer,40,55);
+		TNT1 A 1 A_Face(tracer);
+	QuickKick:
+		DKIK C 1 offset(-102,44-32);
+		DKIK C 1 offset(-94,38-32);
+		DKIK C 1 offset(-86,32-32);
+		DKIK D 1 offset(-43,36-32);
+		DKIK D 1 offset(-35,32-32);
+		TNT1 A 0 {if (tracer) {A_Face(tracer);}}
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_KickPuff",FBF_NORANDOM,100);
+		DKIK D 2;
+		DKIK D 1 offset(-43,36-32);
+		DKIK C 1 offset(-86,32-32);
+		DKIK C 1 offset(-94,38-32);
+		DKIK C 1 offset(-102,44-32);
+		TNT1 A 4;
+		//TNT1 A 0 A_ReFire("QuickKick") // Do not refire, it picks up PRIMARY and derails the weapon
+		Goto KickOverlay;
+	Stomp:
+		TNT1 AA 1 A_FocusTracer(true);
+		TNT1 AA 1 A_FocusTracer();
+		DKIK C 1 offset(-102,44-32) A_FocusTracer();
+		DKIK C 1 offset(-94,38-32) A_FocusTracer();
+		DKIK C 1 offset(-86,32-32) A_FocusTracer();
+		DKIK D 1 offset(-43,36-32) A_FocusTracer();
+		DKIK D 1 offset(-35,32-32) A_FocusTracer();
+		TNT1 A 0 A_DamageTracer (9999,"Kick",DMSS_KILL,"PPE_ActionFigureMonster");
+		TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_KickPuff",FBF_NORANDOM,100);
+		DKIK D 1 offset(-33,38-32) A_FocusTracer();
+		DKIK D 1 offset(-31,42-32) A_FocusTracer();
+		DKIK D 1 offset(-29,46-32) A_FocusTracer();
+		DKIK D 1 offset(-31,42-32) A_FocusTracer();
+		DKIK D 1 offset(-33,38-32) A_FocusTracer();
+		DKIK D 1 offset(-37,38-32) A_FocusTracer();
+		DKIK D 1 offset(-39,42-32) A_FocusTracer();
+		DKIK D 1 offset(-41,46-32) A_FocusTracer();
+		DKIK D 1 offset(-39,42-32) A_FocusTracer();
+		DKIK D 1 offset(-37,38-32) A_FocusTracer();
+		DKIK D 1 offset(-33,38-32) A_FocusTracer();
+		DKIK D 1 offset(-31,42-32) A_FocusTracer();
+		DKIK D 1 offset(-29,46-32) A_FocusTracer();
+		DKIK D 1 offset(-31,42-32) A_FocusTracer();
+		DKIK D 1 offset(-33,38-32) A_FocusTracer();
+		DKIK D 1 offset(-43,36-32) A_FocusTracer();
+		DKIK C 1 offset(-86,32-32) A_FocusTracer();
+		DKIK C 1 offset(-94,38-32) A_ReleaseFocus(true);
+		DKIK C 1 offset(-102,44-32) A_ReleaseFocus();
+		TNT1 A 2;
+		Goto KickOverlay;
+	}
+	
+	class<Ammo> AmmoTypeAlt;
+	Property AmmoTypeAlt: AmmoTypeAlt;
+	
+	bool instd;
+	Override State GetDownState()
+	{
+		if (instd) {instd = false; return ResolveState("Deselect.Instant");}
+		return super.GetDownState();
+	}
+	
+	Action void A_QueueInstantDeselect()
+	{
+		invoker.instd = true;
+	}
+	
+	Action void A_CheckForAmmo(int amnt)
+	{
+		if (invoker.Ammo1.Amount < amnt)
+		{
+			PlayerPawn(invoker.owner).PickNewWeapon(null);
+		}
+	}
+	
+	Action void A_ForceReload()
+	{
+		invoker.ReloadCounter = 1;
+	}
+	
+	Action State A_CheckIfNoReload(statelabel noreload)
+	{
+		if (invoker.ReloadCounter == 0) { return ResolveState(noreload); }
+		return ResolveState(null);
+	}
+	
+	Action state A_JumpIfAltAmmo(statelabel alt)
+	{
+		if (invoker.AmmoType1 == invoker.AmmoTypeAlt) { return ResolveState(alt); }
+		return ResolveState(null);
+	}
+	
+	Action state A_JumpIfRegularAmmo(statelabel notalt)
+	{
+		if (invoker.AmmoType1 == invoker.Default.AmmoType1) { return ResolveState(notalt); }
+		return ResolveState(null);
+	}
+	
+	Action state A_JumpIfOnlyOtherAmmo(statelabel alt)
+	{
+		if(invoker.HasAmmo(invoker.AmmoType1,invoker.AmmoUse1)) { return ResolveState(null); }
+		let NewAmmo = invoker.GetOtherAmmoType();
+		if(invoker.HasAmmo(NewAmmo,invoker.AmmoUse1)) { return ResolveState(alt); }
+		return ResolveState(null);
+	}
+	
+	Action void A_SwapIfOnlyOtherAmmo()
+	{
+		if(invoker.HasAmmo(invoker.AmmoType1,invoker.AmmoUse1)) { return; }
+		A_SwapAmmo();
+	}
+	
+	Action void A_SwapAmmo()
+	{
+		let NewAmmo = invoker.GetOtherAmmoType();
+		if(invoker.HasAmmo(NewAmmo,invoker.AmmoUse1))
+		{
+			invoker.AmmoType1 = NewAmmo;
+			invoker.Ammo1 = invoker.AddAmmo(invoker.Owner,invoker.AmmoType1,0);
+		}
+	}
+	
+	Action void A_FocusTracer(bool pitchdown = false)
+	{
+		int pitchd = 90;
+		if (pitchdown) {pitch += 10; pitchd = 270;}
+		A_Face(tracer,40,pitchd,0,0,FAF_BOTTOM);
+		A_ScaleVelocity(0);
+		tracer.A_SetSpeed(0);
+	}
+	
+	Action void A_ReleaseFocus(bool resetSpeed = false)	
+	{
+		if (resetSpeed && tracer) 
+		{
+			tracer.A_SetSpeed(GetDefaultSpeed(tracer.GetClass()));
+			invoker.Owner.player.centering = true;
+		}
+		//pitch -= 10;
+	}
+	
+	Class<Ammo> GetOtherAmmoType()
+	{
+		if (AmmoType1 == AmmoTypeAlt) { return Default.AmmoType1; }
+		else { return AmmoTypeAlt; }
+	}
+	
+	bool HasAmmo(Class<Ammo> ammotype, int amnt)
+	{
+		let ammoitem = Ammo(owner.FindInventory(ammotype));
+		return ammoitem && ammoitem.Amount >= amnt;
+	}
+	
+	override bool HandlePickup (Inventory item)
+	{
+		let oldammo = AmmoType1;
+		AmmoType1 = Default.AmmoType1; // use DEFAULT and not current ammo type for pickup
+		Ammo1 = AddAmmo(Owner,AmmoType1,0);
+		let b = Super.HandlePickup(item);
+		AmmoType1 = oldammo;
+		Ammo1 = AddAmmo(Owner,AmmoType1,0);
+		return b;
+	}
+}

@@ -1,0 +1,228 @@
+Actor PPE_DNShrinker : PPE_DNWeaponBase
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DNSHR"
+	Tag "$TAG_PPE_DNSHR"
+	Weapon.SelectionOrder 1100
+	Weapon.SlotNumber 7
+	Inventory.PickupSound "weapons/pickup/quote"
+	Weapon.UpSound "weapons/select"
+	Weapon.AmmoType "PPE_Shrinkers"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 4
+	Weapon.SisterWeapon "PPE_DNExpander"
+	States
+	{
+	Spawn:
+		SHRP AAAAAABBCCDDCCBB 1
+		Loop
+	Ready.Ready:
+		SHRG AAAABBBCCCDDDEEEEDDDCCCBBBAA 1 A_WeaponReady
+		Loop
+	Deselect:
+		SHRG A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		SHRG A 1 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+    Fire:
+		TNT1 A 0 A_PlaySound("Weapons/Shrinker/Fire",1)
+        TNT1 A 0 A_AlertMonsters
+		SHRC ABC 2 bright
+		TNT1 A 0 A_GunFlash("FlashShrinker")
+		TNT1 A 0 A_FireCustomMissile("PPE_ShrinkerMissile",0,1,0,4,1,0)
+		//TNT1 A 0 A_FireCustomMissile("EggFX",0,1,0,4,1,0)
+		SHRF ABCD 2 bright
+		SHRG EDCDE 1
+		TNT1 A 0 A_ReFire("FireS")
+		SHRG DCBA 1
+		Goto Ready.Ready
+	FlashShrinker:
+    	TNT1 A 0 A_Light1
+		TNT1 AAAAAA 1 //A_SetPitch(pitch-0.62)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 //A_SetPitch(pitch+1.15)
+		Goto LightDone
+	}
+}
+
+Actor PPE_DNExpander : PPE_DNWeaponBase
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Inventory.Pickupmessage "$GOT_PPE_DNSHR"
+	Tag "$TAG_PPE_DNSHR"
+	Weapon.SelectionOrder 800
+	Weapon.SlotNumber 7
+	Inventory.PickupSound "weapons/pickup/quote"
+	Weapon.UpSound "weapons/select"
+	Weapon.AmmoType "PPE_Expanders"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 14
+	States
+	{
+	Spawn:
+		SHEP AAAAAABBCCDDCCBB 1
+		Loop
+	Ready.Ready:
+		SHEG AAAABBBCCCDDDEEEEDDDCCCBBBAA 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		Loop
+	Deselect:
+		SHEG A 1 A_Lower
+		TNT1 A 0 A_Lower
+		Loop
+	Select:
+		SHEG A 1 A_Raise
+		TNT1 A 0 A_Raise
+		Loop
+    Fire:
+		TNT1 A 0 A_PlaySound("Weapons/Expander/Fire",1)
+        TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash("FlashExpander")
+		TNT1 A 0 A_FireBullets(0,0,1,(15),"PPE_ExpanderPuff",FBF_USEAMMO|FBF_NORANDOM)
+		SHEF ABCD 1 bright
+		SHEG DC 1
+		TNT1 A 0 A_ReFire
+		Goto Ready.Ready
+	FlashExpander:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 //A_SetPitch(pitch-0.44)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 //A_SetPitch(pitch+0.7)
+		Goto LightDone
+	}
+}
+
+ACTOR PPE_ShrinkerMissile : PPE_ShrinkerMissileBase//PPE_SlowMissileBase //MorphProjectile
+{
+	Radius 8
+	Height 8
+	Speed 22
+	SeeSound ""
+	DeathSound "Weapons/Shrinker/Impact"
+	Damage (250)
+	-ROCKETTRAIL
+	+NOBLOOD
+	States
+	{
+	Spawn:
+		BMRB ABCD 3 bright
+		Loop
+	Death:
+	Crash:
+	XDeath:
+		BMRB EFGH 3 bright
+		Stop
+	}
+}
+
+Actor PPE_ShrinkerMode : Inventory
+{
+	Inventory.MaxAmount 1
+}
+
+Actor PPE_ShrinkShadow
+{
+	+NOINTERACTION +NOBLOCKMAP
+	RenderStyle Translucent
+	Alpha 0.9
+	Scale 1.0
+	Height 56
+	States
+	{
+	Spawn:
+		"####" "#" 1 A_FadeOut(0.1)
+		//TROO A 1 A_FadeOut(0.1)
+		loop
+	}
+}
+
+Actor PPE_ActionFigureMonster : Chicken
+{
+  Health 1000
+  PainChance 0
+  SeeSound "chicken/pain"
+  AttackSound "chicken/attack"
+  PainSound "chicken/pain"
+  DeathSound "chicken/death"
+  ActiveSound "chicken/active"
+  Obituary "$OB_CHICKEN"
+  //+COUNTKILL
+  //+TOUCHY
+  DamageFactor "DukeKick", 1000
+  RenderStyle None
+  Scale 0.25
+  Mass 100000
+  Height 48
+  ReactionTime 0
+  States
+  {
+  Spawn:
+	"####" "#" 0
+  LookLoop:
+	"####" AB 1 A_Look
+    Loop
+  See:
+	"####" A 0 A_SetRenderStyle(1,STYLE_Normal)
+  SeeLoop:
+	"####" AABBCCDD 3 A_Wander
+    Loop
+  Death:
+	"####" A 0 A_SetRenderStyle(1,STYLE_Normal)
+	"####" A 0 A_ScaleVelocity(0)
+	TROO O 1 A_XScream
+	TROO P 1
+	TROO Q 1 A_NoBlocking
+	TROO RST 1
+	TROO U 1
+	POL5 A -1
+	Stop
+  UnMorph:
+	Stop
+  }
+}
+
+ACTOR PPE_ActionFigurePlayer : PPE_DukePlayer
+{
+  Radius 16
+  Height 48
+  Speed 1
+  +NOSKIN
+  +CANSUPERMORPH
+  Player.JumpZ 1
+  Player.Viewheight 21
+  Player.ForwardMove 1.22, 1.22
+  Player.SideMove 1.22, 1.22
+  Player.SpawnClass "Action Figure"
+  Player.DisplayName "Action Figure"
+  Player.MorphWeapon "Beak"
+  Scale 0.25
+  -PICKUP
+}
+
+Actor PPE_ExpanderPuff : PPE_ExpanderPuffBase
+{
+	+ALWAYSPUFF
+	+PUFFONACTORS
+	+BLOODLESSIMPACT
+	-ALLOWPARTICLES
+	VSpeed 0
+	RenderStyle Normal
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,"A","B","C","D")
+		A: BMEB ABCD 2 bright
+		stop
+		B: BMEB BCDA 2 bright
+		stop
+		C: BMEB CDAB 2 bright
+		stop
+		D: BMEB DABC 2 bright
+		stop
+	}
+}

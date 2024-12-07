@@ -391,6 +391,8 @@ weapons/blood/sawedoff/fire shotfire
 weapons/blood/sawedoff/altfire shotfir2
 weapons/blood/sawedoff/load shotload
 weapons/blood/sawedoff/cock shotcock
+misc/blood/blood	BLDSPRY1
+misc/blood/blood/hit	BLUDSPLT
 
 //Shadow Warrior
 weapons/sw/pickup			pitem

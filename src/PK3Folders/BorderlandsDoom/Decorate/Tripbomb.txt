@@ -1,0 +1,59 @@
+Actor PPE_DNTripbomb : PPE_TripBombBase
+{
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	+WEAPON.NOAUTOFIRE
+	Inventory.Pickupmessage "$GOT_PPE_DNTB"
+	Tag "$TAG_PPE_DNTB"
+	Inventory.PickupSound "items/pickup/quote"
+	Weapon.SelectionOrder 3500
+	Weapon.SlotNumber 9
+	Weapon.AmmoType "PPE_Tripbombs"
+	Weapon.AmmoUse 1
+	Weapon.AmmoGive 0
+	States
+	{
+	Spawn:
+		RTRB A -1
+		Stop
+	Ready.Ready:
+		DTRB A 1 A_WeaponReady
+		Loop
+	Deselect:
+		TNT1 A 0 A_JumpIfNoAmmo("EDeseLoop")
+	DeseLoop:
+		DTRB A 1 A_Lower(12)
+		Loop
+	EDeseLoop:
+		DTRB B 1 A_Lower(12)
+		Loop
+	Select:
+		DTRB A 1 A_Raise(12)
+		Loop
+	Fire:
+		TNT1 A 0 A_CheckWall
+		DTRB A 5 A_WeaponOffset(0,-32,WOF_ADD|WOF_INTERPOLATE)
+		TNT1 A 0 A_LayTripbomb
+		DTRB B 4 A_WeaponOffset(0,32,WOF_ADD|WOF_INTERPOLATE)
+		TNT1 A 0 A_CheckReload
+		DTRB B 14 A_WeaponOffset(0,72,WOF_INTERPOLATE)
+		DTRB A 6 A_WeaponOffset(0,32,WOF_INTERPOLATE)
+    	Goto Ready.Ready
+	Cancel:
+		DTRB A 5 A_WeaponOffset(0,32,WOF_INTERPOLATE)
+		Goto Ready.Ready
+	}
+}
+
+Actor PPE_TripBombLaser : PPE_TrailBase
+{
+	RenderStyle "Translucent"
+	Alpha 0.8
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+    	TRBB A 1 bright
+		Stop
+	}
+}

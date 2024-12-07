@@ -1,7 +1,7 @@
 Actor PPE_RipperHeart : PPE_SWWeaponBase
 {
 	+WEAPON.NOAUTOAIM
-	Tag "$TAG_SW_HRT"
+	Tag "$TAG_SW_HEART"
 	Weapon.SelectionOrder 1600
 	Weapon.SlotNumber 0
 	Weapon.SlotPriority 3

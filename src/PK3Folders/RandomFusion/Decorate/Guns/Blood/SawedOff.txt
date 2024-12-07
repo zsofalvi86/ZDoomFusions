@@ -44,7 +44,7 @@ Actor PPE_BloodSawedOffShotgun : PPE_BloodWeaponBase
 	AltFire:
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_CheckForReload(1,"ContAltFire",true)
-		Goto Reload
+		Goto Fire
 	ContAltFire:
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_FireBullets(7.9,3.9,18,(10),"PPE_BloodBulletPuff",FBF_USEAMMO|FBF_NORANDOM)

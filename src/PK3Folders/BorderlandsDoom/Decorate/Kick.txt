@@ -1,0 +1,58 @@
+Actor PPE_DNMightyFoot : PPE_DNWeaponBase
+{
+	Weapon.SelectionOrder 2000
+	Inventory.Pickupmessage "$GOT_PPE_DNFOOT"
+	Tag "$TAG_PPE_DNFOOT"
+	Weapon.SlotNumber 1
+	Weapon.Kickback 180
+	Weapon.UpSound "items/q3switch"
+	Inventory.PickupSound "items/q3weapon"
+	States
+	{
+	Ready.Ready:
+    	TNT1 A 1 A_WeaponReady
+    	Loop
+	Deselect:
+		TNT1 A 1 A_Lower(12)
+    	Loop
+  	Select:
+		TNT1 A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		DKIK A 1 offset(32,44)
+		DKIK A 1 offset(24,38)
+		DKIK A 1 offset(16,32)
+		DKIK B 1 offset(8,36)
+		DKIK B 1 offset(0,32)
+		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_KickPuff",FBF_NORANDOM,100)
+		DKIK B 2
+		DKIK B 1 offset(8,36)
+		DKIK A 1 offset(16,32)
+		DKIK A 1 offset(24,38)
+		DKIK A 1 offset(32,44)
+		TNT1 A 2
+		TNT1 A 0 A_ReFire("Fire")
+		Goto Ready.Ready
+	}
+}
+
+Actor PPE_KickPuff : BulletPuff
+{
+	+PUFFONACTORS
+	+FORCEDECAL
+	Decal "Foot"
+	SeeSound ""
+	AttackSound ""
+	DamageType "DukeKick"
+	States
+	{
+	Spawn:
+	Crash:
+	Melee:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/mightyfoot/hit")
+		WTRL AB 2
+		WTRL CDEF 2
+		Stop
+  }
+}

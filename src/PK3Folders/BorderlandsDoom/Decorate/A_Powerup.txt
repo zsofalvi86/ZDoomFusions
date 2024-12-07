@@ -1,0 +1,130 @@
+Actor PPE_Steroids : PPE_SteroidPers replaces Berserk
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.UseSound "items/steroids"
+	Inventory.PickupMessage "$GOTSTEROIDS"
+	Inventory.Icon "DSTRA0"
+	Tag "$TAG_PPE_STEROIDS"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Inventory.InterHubAmount 100
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.INVBAR
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",100)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",1,50)
+	AnimLoop:
+		DSTR A -1
+		stop
+	}
+}
+
+Actor PPE_Holodecoy : PPE_HolodecoyBase replaces BlurSphere
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.UseSound "items/holo"
+	Inventory.PickupMessage "$GOTHOLO"
+	Inventory.Icon "DHOLA0"
+	Tag "$TAG_PPE_HOLO"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Inventory.InterHubAmount 100
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.INVBAR
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",25)
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterAmmo",2,50)
+	AnimLoop:
+		DHOL ABCD 3 bright
+		Loop
+	}
+}
+
+
+Actor PPE_EnviroPack : PPE_DukeEnviroPers replaces RadSuit
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.PickupMessage "$GOTBOOTS"
+	Inventory.Icon "DENVA0"
+	Tag "$TAG_PPE_BOOTS"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Inventory.InterHubAmount 100
+	+INVENTORY.INVBAR
+	States
+	{
+	Spawn:
+		DENV A -1
+		stop
+	Use:
+		TNT1 A 0 //auto use, can't use manually
+		fail
+	}
+}
+
+Actor PPE_NightVisonGoggles : PPE_DukeGogglesPers replaces Infrared
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.UseSound "items/goggles"
+	Inventory.PickupMessage "$GOTGOGGLES"
+	Inventory.Icon "DNVNA0"
+	Tag "$TAG_PPE_GOGGLES"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Inventory.InterHubAmount 100
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.INVBAR
+	+COUNTITEM
+	States
+	{
+	Spawn:
+		DNVN A -1
+		stop
+	}
+}
+
+Actor PPE_JetpackPu : CustomInventory replaces Backpack
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.PickupMessage "$GOTJETPACK"
+	+INVENTORY.ALWAYSPICKUP
+	States
+    {
+    Spawn:
+		DJPK A -1
+		Stop
+	Pickup:
+		TNT1 A 0
+		TNT1 A 0 A_GiveInventory("Backpack",1)
+		TNT1 A 0 A_GiveInventory("PPE_Jetpack",25)
+		Stop
+    }
+}
+
+Actor PPE_Jetpack : PPE_DukeJetpackPers
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.PickupMessage "$GOTJETPACK"
+	Inventory.Icon "DJPKA0"
+	Tag "$TAG_PPE_JETPACK"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Inventory.InterHubAmount 100
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.INVBAR
+	+INVENTORY.KEEPDEPLETED
+	States
+    {
+    Spawn:
+		DJPK A -1
+		Stop
+    }
+}

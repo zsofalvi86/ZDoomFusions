@@ -7,7 +7,7 @@ Actor PPE_Q1Nailgun : PPE_Quake1WeaponBase
 	Weapon.SlotPriority 8
 	Weapon.AmmoType "PPE_Bullets"
 	PPE_WeaponBase.AmmoTypeAlt "PPE_Cells"
-	Weapon.AmmoUse 10
+	Weapon.AmmoUse 9
 	Weapon.AmmoGive 200
 	PPE_WeaponBase.SlotAlt1 "PPE_Q1NailgunS2"
 	PPE_WeaponBase.SpawnerId1 2,1
@@ -21,7 +21,7 @@ Actor PPE_Q1Nailgun : PPE_Quake1WeaponBase
 		Stop
 	Ready.Ready:
 		TNT1 A 0 A_JumpIfAltAmmo("Ready.Lava")
-		TNT1 A 0 A_ChangeAmmoUse(10)
+		TNT1 A 0 A_ChangeAmmoUse(9)
 	Ready.Ready.Loop:
 		NG1G A 1 A_WeaponReady
 		Loop
@@ -194,7 +194,7 @@ Actor PPE_NailgunNail : PPE_Nail2Base
 {
 	DamageType "Quake1Nail"
 	Speed 40
-	Damage (10) // 9
+	Damage (9) // 9
 	States
 	{
 	Spawn:

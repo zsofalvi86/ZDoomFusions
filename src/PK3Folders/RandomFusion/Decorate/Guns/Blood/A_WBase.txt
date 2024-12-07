@@ -1,5 +1,9 @@
 Actor PPE_BloodBulletPuff : BulletPuff
 {
+	+PUFFONACTORS
+	+BLOODSPLATTER
+	+HITTARGET
+	-ALLOWPARTICLES
 	States
 	{
 	Spawn:
@@ -32,6 +36,10 @@ Actor PPE_BloodBloodChunk : PPE_BloodChunk
 		TNT1 A 0
 		TNT1 A 0 A_PlaySound("misc/blood/blood")
 		goto SpawnLoop
+	Crash:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("misc/blood/blood/hit")
+		goto Super::Crash
 	}
 }
 

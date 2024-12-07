@@ -10,6 +10,7 @@ Actor PPE_RiotGun : PPE_SWWeaponBase
 	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoGive 80
 	Decal "BulletChip"
+	PPE_WeaponBase.SlotAlt1 "PPE_RiotGunS5"
 	PPE_WeaponBase.SpawnerId1 0,2
 	PPE_WeaponBase.SpawnerId1 1,1
 	PPE_WeaponBase.SpawnerId1 1,3
@@ -162,6 +163,8 @@ Actor PPE_RiotGun : PPE_SWWeaponBase
     	Stop
 	}
 }
+
+Actor PPE_RiotGunS5 : PPE_RiotGun { Weapon.SlotNumber 5 Weapon.SlotPriority 5 PPE_WeaponBase.SlotAlt1 "PPE_RiotGun" }
 
 Actor PPE_RiotShellCasingShooter //: PPE_CasingShooterBase
 {

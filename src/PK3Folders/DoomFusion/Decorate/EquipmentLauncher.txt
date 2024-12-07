@@ -1,4 +1,4 @@
-Actor PPE_TAProximityLauncher : RocketLauncher
+Actor PPE_EquipmentLauncher : PPE_GunBase
 {
 	Weapon.SelectionOrder 2200
 	Weapon.AmmoUse1 1

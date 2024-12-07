@@ -10,16 +10,16 @@ ACTOR PPE_DoomFusionPlayer : DoomPlayer
 	Player.DisplayName "Slayer"
 	Player.SoundClass PPE_Quake3Player
 	
-	Player.WeaponSlot 1, PPE_Q3Gauntlet
-	Player.WeaponSlot 2, PPE_Q3MachineGun, PPE_TAChainGun
-	Player.WeaponSlot 3, PPE_Q3Shotgun, PPE_TANailShotgun
-	Player.WeaponSlot 4, PPE_TAProximityLauncher, PPE_Q3GrenadeLauncher
-	Player.WeaponSlot 5, PPE_Q3RocketLauncher
-	Player.WeaponSlot 6, PPE_Q3LightningGun
-	Player.WeaponSlot 7, PPE_Q3RailGun
-	Player.WeaponSlot 8, PPE_Q3PlasmaGun
-	Player.WeaponSlot 9, PPE_Q3Bfg
-	//Player.WeaponSlot 0, PPE_TANailShotgun, PPE_Q3ChainGun
+	Player.WeaponSlot 1, PPE_Equipment, PPE_EquipmentLauncher
+	Player.WeaponSlot 2, PPE_Pistol, PPE_HeavyRifle
+	Player.WeaponSlot 3, PPE_Shotgun
+	Player.WeaponSlot 4, PPE_Chaingun
+	Player.WeaponSlot 5, PPE_RocketLauncher
+	Player.WeaponSlot 6, PPE_SuperShotgun
+	Player.WeaponSlot 7, PPE_GaussCannon
+	Player.WeaponSlot 8, PPE_PlasmaRifle
+	Player.WeaponSlot 9, PPE_Bfg
+	Player.WeaponSlot 0, PPE_TANailShotgun, PPE_Q3ChainGun
 	
 	DamageFactor "Quake3", 0.5
 	DamageFactor "Quake3Plasma", 0.5

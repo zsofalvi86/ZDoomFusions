@@ -1,0 +1,176 @@
+ACTOR PPE_Stimpack : Stimpack replaces Stimpack
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.PickupMessage "$GOTHTH1"
+	Inventory.Amount 10
+	States
+	{
+	Spawn:
+		DHPS A -1
+		Stop
+	}
+}
+
+ACTOR PPE_MediKit : MediKit //replaces MediKit
+{
+	Inventory.PickupSound "items/dn"
+	Inventory.PickupMessage "$GOTHTH2"
+	Inventory.Amount 30
+	States
+	{
+	Spawn:
+		DHPL A -1
+		Stop
+	}
+}
+
+Actor PPE_MediKitSpawner : PPE_Spawner replaces MediKit
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",75) == 1,"Spawn3")
+		TNT1 A 0 A_JumpIf(CallAcs("SpendHP",5) == 1,"Spawn2")
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",15)
+		TNT1 A 0 A_SpawnPermanent("PPE_Stimpack")
+		stop
+	Spawn2:
+		TNT1 A 0 A_SpawnPermanent("PPE_MediKit")
+		stop
+	Spawn3:
+		TNT1 A 0 A_SpawnPermanent("PPE_DNPortableMedikit")
+		stop
+	}
+}
+
+ACTOR PPE_DNHealthBonus : HealthBonus replaces HealthBonus
+{
+    Inventory.PickupSound "items/dn"
+    Inventory.Amount 1
+    Inventory.MaxAmount 200
+    //States
+    //{
+    //Spawn:
+	//	3HPS A -1 bright
+	//	Stop
+    //}
+}
+
+ACTOR PPE_AtomicHealth : SoulSphere replaces SoulSphere
+{
+    Inventory.PickupSound "items/atom"
+	Inventory.Amount 50
+    States
+    {
+    Spawn:
+		TNT1 A 0
+		TNT1 A 0 ACS_NamedExecuteWithResult("RegisterHP",50)
+	AnimLoop:
+		ATMH ABCDEFGH 2 bright
+		Loop
+    }
+}
+
+ACTOR PPE_DNPortableMedikit : CustomInventory
+{
+	+INVENTORY.INVBAR
+	Inventory.Icon "DHPPA0"
+	Inventory.Amount 100
+	Inventory.MaxAmount 100
+	Inventory.InterHubAmount 100
+	Inventory.PickupSound "items/dn"
+	Inventory.PickupMessage "$GOTPORTMED"
+	Tag "$TAG_PPE_DNPORTMED"
+	States
+	{
+	Spawn:
+		DHPP A -1
+		Stop
+	Use:
+		TNT1 A 0 A_JumpIfHealthLower(100+stamina, "GiveHealth") //If below 100 (+adr) health, give health
+		Fail
+	GiveHealth:
+		TNT1 A 0 A_JumpIfInventory("PPE_DNPortableMedikit",0,"GiveHealthFirst")
+		TNT1 A 0 A_PlaySound("items/meduse1")
+		Goto GiveHealthNow
+	GiveHealthFirst:
+		TNT1 A 0 A_PlaySound("items/meduse2")
+	GiveHealthNow:
+		TNT1 A 0 A_SetInventory("PPE_PortableHealBuffer",min(CountInv("PPE_DNPortableMedikit"),(100+stamina)-health))
+		TNT1 A 0 A_SetHealth(health+CountInv("PPE_PortableHealBuffer")) //Add health
+		TNT1 A 0 A_TakeInventory("PPE_DNPortableMedikit",max(1,CountInv("PPE_PortableHealBuffer")-1)) //Take rest of inv
+		Stop
+	}
+}
+
+ACTOR PPE_PortableHealBuffer : Inventory
+{
+  Inventory.MaxAmount 100
+}
+
+ACTOR PPE_DNArmorBonus : ArmorBonus replaces ArmorBonus
+{
+    Inventory.PickupSound "items/dn"
+    Inventory.Icon "DARMA0"
+    Armor.SaveAmount 1
+    Armor.MaxSaveAmount 200
+    //States
+    //{
+    //Spawn:
+	//	ARSD AABCDDCBA 2 bright
+	//	Loop
+    //}
+}
+
+ACTOR PPE_DNArmor : GreenArmor replaces GreenArmor
+{
+	Inventory.PickupSound "items/armor"
+	Inventory.Icon "DARMA0"
+	Inventory.PickupMessage "$GOTARMOR1"
+	//Armor.SavePercent 66.66
+	Armor.SaveAmount 100
+	States
+    {
+    Spawn:
+		DARM A -1
+		Stop
+    }
+}
+
+ACTOR PPE_DNUsedArmor : PPE_DNArmor
+{
+	Armor.SaveAmount 50
+	Inventory.PickupMessage "$GOTARMOR0"
+}
+
+ACTOR PPE_DNAtomicArmor : BlueArmor replaces BlueArmor
+{
+	Inventory.PickupSound "items/armor"
+	Inventory.Icon "DARMB0"
+	Inventory.PickupMessage "$GOTARMOR2"
+	//Armor.SavePercent 66.66
+	Armor.SaveAmount 200
+	States
+    {
+    Spawn:
+		DARM B -1
+		Stop
+    }
+}
+
+ACTOR PPE_AtomicPack : Megasphere replaces Megasphere
+{
+	Inventory.PickupMessage "$GOTAPACK"
+	Inventory.PickupSound "items/atom"
+	States
+	{
+	Spawn:
+		DNNS ABCDEFG 2 bright
+		Loop
+	Pickup:
+		TNT1 A 0 A_GiveInventory("PPE_DNAtomicArmor", 1)
+		TNT1 A 0 A_GiveInventory("MegasphereHealth", 1)
+		Stop
+	}
+}

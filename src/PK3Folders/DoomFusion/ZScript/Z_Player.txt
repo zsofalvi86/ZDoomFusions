@@ -82,14 +82,14 @@ Class PPE_DoomFusionPlayer : DoomPlayer
 		Gravity 1.0;
 		Species "Player";
 		Player.JumpZ 7.5;
-		Player.StartItem "PPE_AssaultRifle";
+		Player.StartItem "PPE_Pistol";
 		Player.StartItem "PPE_EquipmentLauncher";
 		Player.StartItem "PPE_Bullets" 50;
 		Player.DisplayName "Slayer";
 		Player.SoundClass "PPE_DoomFusionPlayer";
 	
-		Player.WeaponSlot 1, "PPE_EquipmentLauncher";
-		Player.WeaponSlot 2, "PPE_AssaultRifle";
+		Player.WeaponSlot 1, "PPE_Equipment", "PPE_EquipmentLauncher";
+		Player.WeaponSlot 2, "PPE_Pistol", "PPE_AssaultRifle";
 		Player.WeaponSlot 3, "PPE_Shotgun";
 		Player.WeaponSlot 4, "PPE_Chaingun";
 		Player.WeaponSlot 5, "PPE_RocketLauncher";
@@ -97,7 +97,7 @@ Class PPE_DoomFusionPlayer : DoomPlayer
 		Player.WeaponSlot 7, "PPE_GaussCannon";
 		Player.WeaponSlot 8, "PPE_PlasmaGun";
 		Player.WeaponSlot 9, "PPE_BFG";
-		Player.WeaponSlot 0, "PPE_ChainsawCrucible";
+		Player.WeaponSlot 0, "PPE_ChainsawCrucible", "PPE_Artifact";
 	}
 	
 	States

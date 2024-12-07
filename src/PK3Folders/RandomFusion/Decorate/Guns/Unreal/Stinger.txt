@@ -7,11 +7,13 @@ Actor PPE_UnrStinger : PPE_UWeaponBase
 	Weapon.SlotPriority 3
 	Weapon.UpSound "weapons/unr/stinger/up"
 	Weapon.AmmoType1 "PPE_Bullets"
-	Weapon.AmmoUse1 14
+	Weapon.AmmoUse1 20
     Weapon.AmmoType2 "PPE_Bullets"
-	Weapon.AmmoUse2 75
+	Weapon.AmmoUse2 100
 	Weapon.AmmoGive1 200
-	PPE_WeaponBase.SlotAlt1 "PPE_UnrStingerS4"
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrStingerS2"
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrStingerS4"
+	PPE_WeaponBase.SlotAlt3 "PPE_UnrStingerS6"
 	PPE_WeaponBase.SpawnerId1 2,1
 	PPE_WeaponBase.SpawnerId2 2,3
 	PPE_WeaponBase.SpawnerId3 14,1
@@ -34,6 +36,7 @@ Actor PPE_UnrStinger : PPE_UWeaponBase
 	Fire:
 	StartFire:		
         TNT1 A 0 A_PlayWeaponSound("weapons/unr/stinger/firestart")
+		TNT1 A 0 A_Jump(256,"FireCont")
     FireCont:
         TNT1 A 0 A_AlertMonsters
         TNT1 A 0 A_GunFlash("FlashStinger")
@@ -49,6 +52,7 @@ Actor PPE_UnrStinger : PPE_UWeaponBase
 		TNT1 A 0 A_FireCustomMissile("PPE_StingerShard",FRandom(-1.2,1.2),1,0,4,1,FRandom(-0.9,0.9))
 		USTT AABBCCC 1 bright
 		TNT1 A 0 A_ReFire("ReFire")
+		Goto Spindown
     Spindown:
 		TNT1 A 0 A_PlayWeaponSound("weapons/unr/stinger/fireend")
 		USTS CBA 1
@@ -80,7 +84,95 @@ Actor PPE_UnrStinger : PPE_UWeaponBase
 	}
 }
 
-Actor PPE_UnrStingerS4 : PPE_UnrStinger { Weapon.SlotNumber 4 Weapon.SlotPriority 5 PPE_WeaponBase.SlotAlt1 "PPE_UnrStinger" }
+Actor PPE_UnrStingerS2 : PPE_UnrStinger 
+{ 
+	Weapon.SlotNumber 2 Weapon.SlotPriority 6 
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrStinger" 
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrStingerS4" 
+	PPE_WeaponBase.SlotAlt3 "PPE_UnrStingerS6" 
+	Weapon.AmmoUse1 14
+	Weapon.AmmoUse2 70
+	States
+	{
+	FireCont:
+        TNT1 A 0 A_AlertMonsters
+        TNT1 A 0 A_GunFlash("FlashStinger")
+		TNT1 A 0 A_FireCustomMissile("PPE_StingerShardS2",FRandom(-0.8,0.8),1,0,4,1,FRandom(-0.6,0.6))
+		USTT AABBCCC 1 bright
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Spindown
+	ReFire:
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/stinger/firecont")
+		TNT1 A 0 A_AlertMonsters		
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_GunFlash("FlashStinger")
+		TNT1 A 0 A_FireCustomMissile("PPE_StingerShardS2",FRandom(-1.2,1.2),1,0,4,1,FRandom(-0.9,0.9))
+		USTT AABBCCC 1 bright
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Spindown
+	AltFire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash("FlashStingerAlt")
+        TNT1 A 0 A_PlayWeaponSound("weapons/unr/stinger/alt")
+		TNT1 A 0 A_FireCustomMissile("PPE_ShotgunStingerShardS2",FRandom(-4.2,4.2),1,0,4,1,FRandom(-2.9,2.9))
+		TNT1 AAAA 0 A_FireCustomMissile("PPE_ShotgunStingerShardS2",FRandom(-4.2,4.2),0,0,4,1,FRandom(-2.9,2.9))
+		USTT DEF 3 bright
+		USTS ABCD 1 bright
+		USTS EFGHHHHH 2
+		USTS FGE 1
+		USTS DCB 1
+		Goto Ready
+	}
+}
+
+Actor PPE_UnrStingerS4 : PPE_UnrStinger 
+{ 
+	Weapon.SlotNumber 4 Weapon.SlotPriority 5 
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrStinger" 
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrStingerS2" 
+	PPE_WeaponBase.SlotAlt3 "PPE_UnrStingerS6" 
+}
+
+Actor PPE_UnrStingerS6 : PPE_UnrStinger 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 3 
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrStinger" 
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrStingerS2" 
+	PPE_WeaponBase.SlotAlt3 "PPE_UnrStingerS4" 
+	Weapon.AmmoUse1 32
+	Weapon.AmmoUse2 160
+	States
+	{
+	FireCont:
+        TNT1 A 0 A_AlertMonsters
+        TNT1 A 0 A_GunFlash("FlashStinger")
+		TNT1 A 0 A_FireCustomMissile("PPE_StingerShardS6",FRandom(-0.8,0.8),1,0,4,1,FRandom(-0.6,0.6))
+		USTT AABBCCC 1 bright
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Spindown
+	ReFire:
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/stinger/firecont")
+		TNT1 A 0 A_AlertMonsters		
+		TNT1 A 0 A_CheckReload
+		TNT1 A 0 A_GunFlash("FlashStinger")
+		TNT1 A 0 A_FireCustomMissile("PPE_StingerShardS6",FRandom(-1.2,1.2),1,0,4,1,FRandom(-0.9,0.9))
+		USTT AABBCCC 1 bright
+		TNT1 A 0 A_ReFire("ReFire")
+		Goto Spindown
+	AltFire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash("FlashStingerAlt")
+        TNT1 A 0 A_PlayWeaponSound("weapons/unr/stinger/alt")
+		TNT1 A 0 A_FireCustomMissile("PPE_ShotgunStingerShardS6",FRandom(-4.2,4.2),1,0,4,1,FRandom(-2.9,2.9))
+		TNT1 AAAA 0 A_FireCustomMissile("PPE_ShotgunStingerShardS6",FRandom(-4.2,4.2),0,0,4,1,FRandom(-2.9,2.9))
+		USTT DEF 3 bright
+		USTS ABCD 1 bright
+		USTS EFGHHHHH 2
+		USTS FGE 1
+		USTS DCB 1
+		Goto Ready
+	}
+}
 
 Actor PPE_StingerShard : FastProjectile
 {
@@ -89,7 +181,7 @@ Actor PPE_StingerShard : FastProjectile
 	Speed 45
 	Radius 4
 	Height 3
-	Damage (14)
+	Damage (20)
 	MissileHeight 8
 	States
 	{
@@ -113,7 +205,27 @@ Actor PPE_StingerShard : FastProjectile
 	}
 }
 
+Actor PPE_StingerShardS2 : PPE_StingerShard
+{
+	Damage (14)
+}
+
+Actor PPE_StingerShardS6 : PPE_StingerShard
+{
+	Damage (32)
+}
+
 Actor PPE_ShotgunStingerShard : PPE_StingerShard
 {
-	Damage (15)
+	Damage (20)
+}
+
+Actor PPE_ShotgunStingerShardS2 : PPE_StingerShard
+{
+	Damage (14)
+}
+
+Actor PPE_ShotgunStingerShardS6 : PPE_StingerShard
+{
+	Damage (32)
 }

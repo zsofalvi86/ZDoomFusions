@@ -95,7 +95,7 @@ Actor PPE_SSCannonS7 : PPE_SSCannon
 { 
 	Weapon.SlotNumber 7 Weapon.SlotPriority 10 
 	PPE_WeaponBase.SlotAlt1 "PPE_SSCannon" 
-	PPE_WeaponBase.SlotAlt1 "PPE_SSCannonS9" 
+	PPE_WeaponBase.SlotAlt2 "PPE_SSCannonS9" 
 	Weapon.AmmoUse 12
 	States
 	{
@@ -121,7 +121,7 @@ Actor PPE_SSCannonS9 : PPE_SSCannon
 { 
 	Weapon.SlotNumber 9 Weapon.SlotPriority 8 
 	PPE_WeaponBase.SlotAlt1 "PPE_SSCannon" 
-	PPE_WeaponBase.SlotAlt1 "PPE_SSCannonS7" 
+	PPE_WeaponBase.SlotAlt2 "PPE_SSCannonS7" 
 	Weapon.AmmoUse 16
 	States
 	{

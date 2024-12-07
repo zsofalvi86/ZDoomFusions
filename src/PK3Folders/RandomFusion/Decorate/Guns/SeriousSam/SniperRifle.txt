@@ -3,7 +3,7 @@ Actor PPE_SSSniperRifle : PPE_SeriousSamScoped
 	+WEAPON.NOAUTOAIM
 	Tag "$TAG_SS_RIF"
 	Weapon.SelectionOrder 800
-	Weapon.SlotNumber 9
+	Weapon.SlotNumber 7
 	Weapon.SlotPriority 8
 	Weapon.AmmoType "PPE_Shells"
 	Weapon.AmmoUse 8
@@ -11,7 +11,7 @@ Actor PPE_SSSniperRifle : PPE_SeriousSamScoped
 	Weapon.Kickback 10
 	Decal "BulletChip"
 	DamageType "SeriousSniper"
-	PPE_WeaponBase.SlotAlt1 "PPE_SSSniperRifleS7"
+	PPE_WeaponBase.SlotAlt1 "PPE_SSSniperRifleS9"
 	PPE_WeaponBase.SpawnerId1 0,3
 	PPE_WeaponBase.SpawnerId1 1,2
 	States
@@ -47,6 +47,7 @@ Actor PPE_SSSniperRifle : PPE_SeriousSamScoped
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("Weapons/ss/sniper/fire")
 		TNT1 A 0 A_JumpIfinventory("PPE_SniperZoom",1,"FireScope")
+		TNT1 A 0 A_Jump(256,"FireNormal")
 	FireNormal:
 	    TNT1 A 0 A_FireBullets(0,0,1,(70),"PPE_SniperPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		SSSS BCD 2 bright
@@ -131,7 +132,36 @@ Actor PPE_SSSniperRifle : PPE_SeriousSamScoped
 	}
 }
 
-Actor PPE_SSSniperRifleS7 : PPE_SSSniperRifle { Weapon.SlotNumber 7 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_SSSniperRifle" }
+Actor PPE_SSSniperRifleS9 : PPE_SSSniperRifle 
+{ 
+	Weapon.SlotNumber 9 Weapon.SlotPriority 7 PPE_WeaponBase.SlotAlt1 "PPE_SSSniperRifle"
+	Weapon.AmmoUse 8
+	States
+	{
+	FireNormal:
+	    TNT1 A 0 A_FireBullets(0,0,1,(70),"PPE_SniperPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		SSSS BCD 2 bright
+		SSSS A 2 Offset(0,38)
+		SSSS A 2 Offset(0,36)
+		SSSS A 2 Offset(0,34)
+		SSSS A 2 Offset(0,32)
+		SSSS A 35
+		TNT1 A 0 A_Refire
+		Goto Ready.Ready
+	FireScope:
+		TNT1 A 0 A_JumpIfinventory("PPE_Shells",40,1)
+		Goto DeZoom
+		TNT1 A 0 A_TakeInventory("PPE_Shells",32)
+	    TNT1 A 0 A_FireBullets(0,0,1,(400),"PPE_SniperPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		SSSS YYY 2 bright
+		SSSS Y 13 bright
+		SSSS YYYYYYYYYYY 1 bright A_WeaponReady(WRF_NOPRIMARY|WRF_NOBOB)
+		SSSS YYYYYYYYYYY 1 bright A_WeaponReady(WRF_NOPRIMARY|WRF_NOBOB)
+		SSSS YYYYYYYYYZZ 1 bright A_WeaponReady(WRF_NOPRIMARY|WRF_NOBOB)
+		TNT1 A 0 A_ReFire
+		Goto Ready.Ready
+	}
+}
 
 Actor PPE_SniperPuff : PPE_SSBulletPuff
 {

@@ -1,0 +1,50 @@
+Class PPE_FreezerMissileBase : PlasmaBall
+{
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		let oldHp = target.health;
+		let dd = super.DoSpecialDamage(target, damage, damagetype);
+		if (oldHp > 0 && oldHp-dd <= 0)
+		{
+			if (target && !target.bNoIceDeath)
+			{
+				if (!target.Morph(self.target,"PPE_FrozenPlayer","PPE_FrozenMonster",200,0,"PPE_FreezeFog","PPE_FreezeFog"))
+				{
+					if (target is 'PPE_FrozenPlayer' || target is 'PPE_FrozenMonster'){return 0;}
+					else{return dd;}
+				}	
+			}
+			else{return dd;}
+			
+			target.A_PlaySound("weapons/freezethrower/freeze",6);
+			MorphedMonster mo;
+			ThinkerIterator	FrzFinder = ThinkerIterator.Create("PPE_FrozenMonster");
+			while (mo = MorphedMonster(FrzFinder.Next()))
+			{
+				if (mo.UnmorphedMe == target) // find the one that was morphed by this projectile
+				{ 
+					mo.sprite = target.sprite;
+					mo.frame = target.frame;
+					mo.height = target.height;
+					mo.species = target.species;
+					//mo.radius = target.radius;
+					return 0;
+				}
+			}
+		}
+		return dd;
+	}
+}
+
+Class PPE_FreezeFog : Actor
+{
+	Default {RenderStyle "None";}
+	States
+	{
+	Spawn:
+		TNT1 A 0;
+		TNT1 A 0 {if (target) target.health = 1;} // make sure... unmorph resets it by default
+		TNT1 A 5;
+		Stop;
+	}
+}

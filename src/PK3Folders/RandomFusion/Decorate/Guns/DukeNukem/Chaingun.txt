@@ -6,11 +6,11 @@ Actor PPE_DNRipper : PPE_DNWeaponBase
 	Weapon.SelectionOrder 700
 	Weapon.SlotNumber 4
 	Weapon.SlotPriority 6
-	Weapon.AmmoUse 11
+	Weapon.AmmoUse 9
 	Weapon.AmmoType "PPE_Bullets"
 	Weapon.AmmoGive 200
 	Decal "BulletChip"
-	PPE_WeaponBase.SlotAlt1 "PPE_DNRipperS6"
+	PPE_WeaponBase.SlotAlt1 "PPE_DNRipperS5"
 	PPE_WeaponBase.SpawnerId1 2,1
 	PPE_WeaponBase.SpawnerId2 2,3
 	PPE_WeaponBase.SpawnerId3 4,3
@@ -30,7 +30,7 @@ Actor PPE_DNRipper : PPE_DNWeaponBase
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/dn/ripper/fire")
-		TNT1 A 0 A_FireBullets(3.3,2.7,-1,(11),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(3.3,2.7,-1,(9),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		Goto ChooseFireAnim
 	ChooseFireAnim:
 		TNT1 A 0 A_JumpIfInventory("PPE_RipperDouble",0,"FireDouble")
@@ -109,17 +109,17 @@ Actor PPE_DNRipper : PPE_DNWeaponBase
 	}
 }
 
-Actor PPE_DNRipperS6 : PPE_DNRipper 
+Actor PPE_DNRipperS5 : PPE_DNRipper 
 { 
-	Weapon.SlotNumber 6 PPE_WeaponBase.SlotAlt1 "PPE_DNRipper" 
-	Weapon.AmmoUse 16
+	Weapon.SlotNumber 5 PPE_WeaponBase.SlotAlt1 "PPE_DNRipper" 
+	Weapon.AmmoUse 12
 	States
 	{
 	Fire:
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/dn/ripper/fire")
-		TNT1 A 0 A_FireBullets(3.3,2.7,-1,(16),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(3.3,2.7,-1,(12),"PPE_DNBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		Goto ChooseFireAnim
 	}
 }

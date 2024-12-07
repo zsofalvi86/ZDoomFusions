@@ -1,6 +1,6 @@
 Actor PPE_ChainsawCruicible : PPE_GunBase
 {
-	Weapon.SlotNumber 1
+	Weapon.SlotNumber 0
 	Weapon.SelectionOrder 2200
 	Weapon.UpSound ""
 	Inventory.Pickupmessage "$GOT_PPE_CS"

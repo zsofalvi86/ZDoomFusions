@@ -1,4 +1,4 @@
-Actor PPE_Q2ChainGun : PPE_GunBase
+Actor PPE_ChainGun : PPE_GunBase
 {
 	+WEAPON.NOALERT
 	Inventory.Pickupmessage "$GOT_PPE_CG"
