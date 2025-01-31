@@ -1,3 +1,7 @@
 #Include Decorate/Guns/Unreal/A_WBase.txt
 #Include Decorate/Guns/Unreal/Stinger.txt
+#Include Decorate/Guns/Unreal/ASMD.txt
+#Include Decorate/Guns/Unreal/Eightball.txt
 #Include Decorate/Guns/Unreal/FlakCannon.txt
+#Include Decorate/Guns/Unreal/BioRifle.txt
+#Include Decorate/Guns/Unreal/Rifle.txt

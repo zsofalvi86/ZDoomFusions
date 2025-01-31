@@ -245,14 +245,14 @@ weapons/unr/asmd/explode		asmdx1
 weapons/unr/asmd/combo		asmdx2
 weapons/unr/asmd/shockwave	asmdxx
 //Eightball
-weapons/eball/up	eballup
-weapons/eball/load	eballl
-weapons/eball/fire	eballf
-weapons/eball/alt	eballalt
-weapons/eball/bounce	eballgb
-weapons/eball/explode	eballexp
-weapons/eball/lock	eballlck
-weapons/eball/unlock	eballlx
+weapons/unr/eball/up	eballup
+weapons/unr/eball/load	eballl
+weapons/unr/eball/fire	eballf
+weapons/unr/eball/alt	eballalt
+weapons/unr/eball/bounce	eballgb
+weapons/unr/eball/explode	eballexp
+weapons/unr/eball/lock	eballlck
+weapons/unr/eball/unlock	eballlx
 //Flak
 weapons/unr/flak/up	flkup
 weapons/unr/flak/reload	flkre

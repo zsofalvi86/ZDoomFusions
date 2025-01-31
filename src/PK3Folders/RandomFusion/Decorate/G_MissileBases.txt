@@ -12,6 +12,18 @@ Actor PPE_TrailBase
 	Height 1
 }
 
+Actor PPE_ProxyBase
+{
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+NOTELEPORT
+	+CANNOTPUSH
+	+FORCEXYBILLBOARD
+	+NOTONAUTOMAP
+	Radius 1
+	Height 1
+}
+
 Actor PPE_DodgeableMissileBase : PPE_PPEMissileBase
 {
 	Radius 11

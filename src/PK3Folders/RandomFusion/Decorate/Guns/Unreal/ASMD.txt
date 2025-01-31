@@ -1,0 +1,295 @@
+Actor PPE_UnrASMD : PPE_UWeaponBase
+{
+	+DONTGIB
+	+WEAPON.NOAUTOAIM
+	+WEAPON.NOALERT
+	Tag "$TAG_UNR_ASMD"
+	Weapon.SelectionOrder 100
+	Weapon.SlotNumber 4
+	Weapon.SlotPriority 9
+	Weapon.AmmoUse1 2
+	Weapon.AmmoUse2 2
+	Weapon.AmmoType1 "PPE_Cells"
+	Weapon.AmmoType2 "PPE_Cells"
+	Weapon.AmmoGive 20
+	Weapon.UpSound "weapons/unr/asmd/up"
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrASMDS6" 
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrASMDS7"
+	PPE_WeaponBase.SpawnerId1 4,1
+	PPE_WeaponBase.SpawnerId2 4,3
+	States
+	{
+	Ready:
+    	ASMD A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+    	Loop
+  	Deselect:
+		TNT1 A 0 A_StopSound(6)
+	DeseLoop:
+    	ASMD A 1 A_Lower
+		TNT1 A 0 A_Lower
+    	Loop
+  	Select:
+    	ASMD A 1 A_Raise
+		TNT1 A 0 A_Raise
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/asmd/fire")
+		TNT1 A 0 A_FireBullets(0,0,1,(50),"PPE_ASMDPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_NORANDOMPUFFZ,8192,"PPE_ShockBullet",0,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_ComboPopper",0,0,0,3,1,0)
+		Goto AnimP
+	AnimP:
+		ASMD AAAA 3 bright
+		ASMD A 15
+		//ASMD BCDEFBCDEFBCDEF 1
+    	TNT1 A 0 A_ReFire
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/vape",5)
+		Goto Ready
+	AltFire:
+		TNT1 A 0 A_FireCustomMissile("PPE_ComboBall",0,1,0,4,1,0)
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/asmd/alt")
+		TNT1 A 0 A_GunFlash
+		Goto AnimA
+	AnimA:
+    	ASMD AAAA 3 bright
+		ASMD A 5
+		//ASMD BCDEF 1
+    	TNT1 A 0 A_ReFire
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/vape",5)
+		Goto Ready
+  	Flash:
+    	TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.45)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.6)
+		Goto LightDone
+  	Spawn:
+		PLAS A 1
+		Loop
+	}
+}
+
+Actor PPE_UnrASMDS6 : PPE_UnrASMD 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 5 
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrASMD" 
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrASMDS7" 
+	Weapon.AmmoUse1 3
+	Weapon.AmmoUse2 3
+	States
+	{
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/asmd/fire")
+		TNT1 A 0 A_FireBullets(0,0,1,(75),"PPE_ASMDPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_NORANDOMPUFFZ,8192,"PPE_ShockBullet",0,0)
+		TNT1 A 0 A_FireCustomMissile("PPE_ComboPopper",0,0,0,3,1,0)
+		Goto AnimP
+	AltFire:
+		TNT1 A 0 A_FireCustomMissile("PPE_ComboBallS6",0,1,0,4,1,0)
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/asmd/alt")
+		TNT1 A 0 A_GunFlash
+		Goto AnimA
+	}
+}
+
+Actor PPE_UnrASMDS7 : PPE_UnrASMDS6 
+{ 
+	Weapon.SlotNumber 7 Weapon.SlotPriority 9 
+	PPE_WeaponBase.SlotAlt1 "PPE_UnrASMD" 
+	PPE_WeaponBase.SlotAlt2 "PPE_UnrASMDS6" 
+}
+
+Actor PPE_ComboBall : PPE_SlowMissileBase
+{
+	+SPECTRAL
+	+SHOOTABLE
+	+NOBLOOD
+	-NOBLOCKMAP
+	+MTHRUSPECIES
+	+PAINLESS
+	SeeSound ""
+	DeathSound ""
+	PainChance 256
+	Health 10000
+	GibHealth 10000
+	Mass 99999
+	Radius 14
+	Height 10
+	Species Player
+	DamageFactor "ShockCombo", 1
+	Speed 15
+	Damage (0)
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/tazerfly",1,0.5,1)
+		PSSM ABCD 3 bright
+		loop
+	Crash:
+	Death:
+	XDeath:
+		TNT1 A 0 A_Explode(60,96,1,1)
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/explode",1)
+		TNT1 A 0 A_Quake(2,4,0,168,"")
+		TNT1 A 0 A_Quake(1,4,0,256,"")
+		PSXE ABCDE 3 bright
+		stop
+	Pain:
+		TNT1 A 0 A_SetInvulnerable
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/combo",1)
+		TNT1 A 0 A_TakeFromTarget("PPE_Cells",3,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_REPLACE)
+		TNT1 A 0 A_SpawnItem("PPE_ShockShockWave")
+		TNT1 A 0 A_Quake(5,6,0,480,"")
+		TNT1 A 0 A_Quake(3,7,0,1024,"")
+		TNT1 A 0 A_Quake(2,7,0,4096,"")
+		PSSE ABCDE 4 Bright
+		stop
+	}
+}
+
+Actor PPE_ComboBallS6 : PPE_ComboBall
+{
+	States
+	{
+	XDeath:
+		TNT1 A 0 A_Explode(85,96,1,1)
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/explode",1)
+		TNT1 A 0 A_Quake(2,4,0,168,"")
+		TNT1 A 0 A_Quake(1,4,0,256,"")
+		PSXE ABCDE 3 bright
+		stop
+	Pain:
+		TNT1 A 0 A_SetInvulnerable
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/combo",1)
+		TNT1 A 0 A_TakeFromTarget("PPE_Cells",4,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_REPLACE)
+		TNT1 A 0 A_SpawnItem("PPE_ShockShockWaveS6")
+		TNT1 A 0 A_Quake(5,6,0,480,"")
+		TNT1 A 0 A_Quake(3,7,0,1024,"")
+		TNT1 A 0 A_Quake(2,7,0,4096,"")
+		PSSE ABCDE 4 Bright
+		stop
+	}
+}
+
+Actor PPE_ShockShockWave : PPE_ProxyBase
+{
+	RenderStyle Normal
+	Alpha 1.0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/shockwave",1)
+		TNT1 A 0 A_Explode(300,256,0,1)
+		PSHK ABCDEFGHIJKLMNOPQR 1 bright
+		stop
+	}
+}
+
+Actor PPE_ShockShockWaveS6 : PPE_ProxyBase
+{
+	RenderStyle Normal
+	Alpha 1.0
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/unr/asmd/shockwave",1)
+		TNT1 A 0 A_Explode(350,320,0,1)
+		PSHK ABCDEFGHIJKLMNOPQR 1 bright
+		stop
+	}
+}
+
+Actor PPE_ShockBullet : FastProjectile
+{
+	+SPECTRAL
+	-BLOODSPLATTER
+	Radius 5
+	Height 3
+	//MissileType "PPE_PlasmaShockTrail"
+	MissileHeight 8
+	Damage (0)//(50+(getdistance(true)*0.1))
+	Speed 100
+	ProjectileKickBack 250
+	States
+	{
+	Spawn:
+		TNT1 A 1 A_SpawnItem("PPE_ASMDTrail")
+		TNT1 A 0 A_CheckProximity("Death","PPE_ASMDPuff",72,1,CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("Death","PPE_ShockShockWave",72,1,CPXF_CLOSEST)
+		//TNT1 A 0 A_SetUserVar("user_amp",user_amp+1)
+		loop
+	Crash:
+	XDeath:
+	Death:
+		TNT1 A 1
+		//PSPE ABCDE 3 bright
+    	Stop
+	}
+}
+
+Actor PPE_ComboPopper : FastProjectile
+{
+	+SPECTRAL
+	-BLOODSPLATTER
+	Radius 5
+	Height 3
+	MissileType ""
+	Damage (1)
+	DamageType "ShockCombo"
+	RenderStyle "None"
+	Speed 400
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		loop
+	Crash:
+	XDeath:
+	Death:
+		TNT1 A 1
+    	Stop
+	}
+}
+
+Actor PPE_ASMDPuff : BulletPuff
+{
+	+ALWAYSPUFF
+	+PUFFONACTORS
+	+NOEXTREMEDEATH
+	-ALLOWPARTICLES
+	-RANDOMIZE
+	+FORCEXYBILLBOARD
+	+SPECTRAL
+	+FORCERADIUSDMG
+	+PUFFGETSOWNER
+	+FORCEPAIN
+	+WALLSPRITE
+	RenderStyle Normal
+	Alpha 1.0
+	Vspeed 0
+	States
+	{
+	Spawn:
+		PSPE ABCDE 3 bright
+		stop
+	}
+}
+
+Actor PPE_ASMDTrail : PPE_TrailBase
+{
+	+WALLSPRITE
+	Mass 8
+	States
+	{
+  	Spawn:
+    	PSPF ABCDE 3 bright
+    	Stop
+	}
+}

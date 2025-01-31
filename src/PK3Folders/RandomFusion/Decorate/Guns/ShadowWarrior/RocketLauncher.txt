@@ -38,7 +38,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_PlaySound("q/nukeup",5)
 		TNT1 A 0 A_SetInventory("PPE_NukeReady",1)
 	ReadyC:
-		TNT1 A 0 A_JumpIfInventory("PPE_Nukes", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, 2)
 		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
 		Goto Ready
 		TNT1 A 0 A_JumpIfInventory("PPE_NukeReady", 1, 1)
@@ -85,7 +85,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_ReFire
 		Goto ReadyB
 	FireNuke:
-		TNT1 A 0 A_JumpIfInventory("PPE_Nukes", 1, 2)
+		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, 2)
 		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
 		Goto Ready
 		SRLG CC 2 bright
@@ -93,7 +93,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
 		TNT1 A 0 A_PlaySound("weapons/sw/nuke/warn",6)
 		TNT1 A 0 A_FireProjectile("PPE_SWNuke",0,0,0,4,FPF_NOAUTOAIM)
-		TNT1 A 0 A_TakeInventory("PPE_Nukes",1)
+		TNT1 A 0 A_TakeInventory("PPE_Rockets",20)
 		TNT1 A 0 A_SetInventory("PPE_NukeReady",0)
 		TNT1 A 0 A_GunFlash("FlashNuke")
 		SRLG CCC 2 bright
@@ -104,7 +104,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, "CheckNuke")
 		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, "User2")
 	CheckNuke:
-		TNT1 A 0 A_JumpIfInventory("PPE_Nukes", 1, "User3")
+		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, "User3")
 		Goto User1
 	User1:
 		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, 1)
@@ -125,7 +125,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		SRLG BBBBBBBBB 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
 		Goto ReadyB
 	User3:
-		TNT1 A 0 A_JumpIfInventory("PPE_Nukes", 1, 1)
+		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, 1)
 		Goto Ready
 		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 2, "ReadyC")
 		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",2)

@@ -1,0 +1,590 @@
+Actor PPE_BioBallSmall : PPE_SlowMissileBase
+{
+	var int user_countdown;
+	var int user_x;
+	var int user_y;
+	var int user_z;
+	var int user_aim;
+	-NOGRAVITY
+	+HITTRACER
+	+FORCEXYBILLBOARD
+	+FORCERADIUSDMG
+	Gravity 0.3
+	SeeSound ""
+	DeathSound ""
+	Radius 10
+	Height 10
+	Speed 20
+	Damage (1)
+	States
+	{
+	// VIRTUAL - normal flying sequence, will take frame from here for the rest of its life
+	Spawn:
+		BIOS ABCDEF 2 bright A_SpawnItem("PPE_BioTrailMedium",0,0,0,1)
+		loop
+	Death:
+		TNT1 A 0 A_PlaySound("weapons/unr/bio/hit",1)
+		// If hits ceiling, aim the globes and chunks downwards
+		TNT1 A 0 A_CheckCeiling("SetAimDown")
+		TNT1 A 0 A_SetUserVar("user_aim",1)
+		goto DeathCont
+	SetAimDown:
+		TNT1 A 0 A_SetUserVar("user_aim",-1)
+	DeathCont:
+		TNT1 A 0 A_CheckProximity("Merge3","PPE_BioBallBigStuck",24,1,CPXF_SETMASTER|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("Merge2","PPE_BioBallMediumStuck",24,1,CPXF_SETMASTER|CPXF_CLOSEST)
+		TNT1 A 0 A_CheckProximity("Merge1","PPE_BioBallSmallStuck",24,1,CPXF_SETMASTER|CPXF_CLOSEST)
+		TNT1 A 0 A_Jump(256,"Splat")
+	// VIRTUAL - sticking to a wall, also spawn other globes here if needed
+	Splat:
+		TNT1 AAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),user_aim*FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_SpawnItem("PPE_BioBallSmallStuck")
+		stop
+	// VIRTUAL - merge with a small globe
+	Merge1:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 A 0 A_SpawnItem("PPE_BioBallMediumStuck")
+		stop
+	// VIRTUAL - merge with a medium globe
+	Merge2:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	// VIRTUAL - merge with a big globe
+	Merge3:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 A 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Crash:
+	XDeath:
+		"####" "#" 0 A_PlaySound("weapons/unr/bio/hit",1)
+		"####" "#" 0 A_SetUserVar("user_x",Random(6,32))
+		"####" "#" 0 A_SetUserVar("user_y",Random(-24,24))
+		"####" "#" 0 A_SetUserVar("user_z",Random(25,90))
+		"####" "#" 0 A_Jump(256,"SetCount")
+	// VIRTUAL - successful hit, set stick on actor duration, also spawn other globes here if needed
+	SetCount:
+		"####" "#" 0 A_SetUserVar("user_countdown",Random(12,16))
+		Goto StickLoop
+	StickLoop:
+		"####" "#" 0 A_JumpIf(user_countdown==0,"StickEnd")
+		"####" "#" 1 bright A_Warp(AAPTR_TRACER,user_x,user_y,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,0,user_z*0.01)
+		"####" "#" 0 A_SetUserVar("user_countdown",user_countdown-1)
+		Goto StickLoop
+	StickEnd:
+		TNT1 A 0 A_NoGravity
+		TNT1 A 0 A_ChangeVelocity(0,0,0,CVF_RELATIVE|CVF_REPLACE)
+		TNT1 A 0 A_PlaySound("weapons/unr/bio/explode",1)
+		TNT1 A 0 A_Jump(256,"Explode")
+	// VIRTUAL - explode on an actor
+	Explode:
+		TNT1 A 0 A_Explode(50,96,0)
+		TNT1 AAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),user_aim*FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_Quake(2,4,0,168,"")
+		TNT1 A 0 A_Quake(1,4,0,256,"")
+		BIOX ABCD 3 bright
+		stop
+	}
+}
+
+Actor PPE_BioBallSmallCluster : PPE_BioBallSmall
+{
+	Speed 10
+	Gravity 0.9
+}
+
+Actor PPE_BioBallSmallStuck : PPE_BioBallSmall
+{
+	+NOGRAVITY
+	+DONTTHRUST
+	BloodType PPE_BloodBio, PPE_BloodSplatterBio
+	Health 20
+	Speed 0
+	States
+	{
+	// VIRTUAL - Get a random frame and jump to stick counter
+	Spawn:
+		BIOS ABCDEF 0 A_Jump(32,"SetStickCount")
+		loop
+	// VIRTUAL - Set timing for stick on wall/floor/ceiling
+	SetStickCount:
+		"####" "#" 0 A_SetUserVar("user_countdown",Random(50,60))
+		Goto Stick
+	Stick:
+		"####" "#" 0 A_CheckFloor("StickLoopFall")
+		"####" "#" 0 A_CheckCeiling("StickLoopCeiling")
+	StickLoop:
+		"####" "#" 0 A_JumpIf(user_countdown==0,"StickEnd")
+		"####" "#" 10 bright A_SpawnItemEx("PPE_BioDrop",FRandom(-2.5,2.5),FRandom(-2.5,2.5),FRandom(-5.5,-7),0,0,0,0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,192)
+		"####" "#" 0 A_SetUserVar("user_countdown",user_countdown-1)
+		Goto StickLoop
+	StickLoopFall:
+		"####" "#" 0 A_Gravity
+		Goto StickLoopFloor
+	StickLoopFloor:
+		"####" "#" 0 A_JumpIf(user_countdown==0,"StickEnd")
+		"####" "#" 10 bright
+		"####" "#" 0 A_SetUserVar("user_countdown",user_countdown-1)
+		Goto StickLoopFloor
+	StickLoopCeiling:
+		"####" "#" 0 A_JumpIf(user_countdown==0,"StickEnd")
+		"####" "#" 10 bright A_SpawnItemEx("PPE_BioDrop",FRandom(-2.5,2.5),FRandom(-2.5,2.5),FRandom(-5.5,-7),0,0,0,0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,192)
+		"####" "#" 0 A_SetUserVar("user_countdown",user_countdown-1)
+		Goto StickLoopCeiling
+	// Will go to the xdeath, don't forget to override "Explode" for derived globe to get correct explosion and damage
+	Death:
+		Goto XDeath
+	}
+}
+
+Actor PPE_BioBallMedium : PPE_BioBallSmall
+{
+	Gravity 0.4
+	Speed 18
+	Damage (1)
+	States
+	{
+	Spawn:
+		BIOM ABCDEF 2 bright A_SpawnItem("PPE_BioTrail",0,0,0,1)
+		loop
+	SetCount:
+		"####" "#" 0 A_SetUserVar("user_countdown",Random(24,30))
+		"####" "###" 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		Goto StickLoop
+	Splat:
+		TNT1 AAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 AAAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),user_aim*FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_SpawnItem("PPE_BioBallMediumStuck")
+		stop
+	Merge1:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 AAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Merge2:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 AAAAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Merge3:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 AAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_CustomMissile("PPE_BioBallMediumCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Explode:
+		TNT1 A 0 A_Explode(75,128,0)
+		TNT1 AAAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),user_aim*FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_Quake(2,4,0,192,"")
+		TNT1 A 0 A_Quake(1,4,0,320,"")
+		BIOX ABCD 3 bright
+		stop
+	}
+}
+
+Actor PPE_BioBallMediumCluster : PPE_BioBallMedium
+{
+	Speed 8
+	Gravity 1.0
+}
+
+Actor PPE_BioBallMediumStuck : PPE_BioBallSmallStuck
+{
+	Speed 0
+	States
+	{
+	Spawn:
+		BIOM ABCDEF 0 A_Jump(32,"SetStickCount")
+		loop
+	SetStickCount:
+		"####" "#" 0 A_SetUserVar("user_countdown",Random(80,100))
+		Goto Stick
+	Explode:
+		TNT1 A 0 A_Explode(75,128,0)
+		TNT1 AAAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_Quake(2,4,0,192,"")
+		TNT1 A 0 A_Quake(1,4,0,320,"")
+		BIOX ABCD 3 bright
+		stop
+	}
+}
+
+Actor PPE_BioBallBig : PPE_BioBallSmall
+{
+	Gravity 0.5
+	Speed 16
+	Damage (1)
+	States
+	{
+	Spawn:
+		BIOB ABCDEF 2 bright A_SpawnItem("PPE_BioTrail",0,0,0,1)
+		loop
+	SetCount:
+		"####" "#" 0 A_SetUserVar("user_countdown",Random(36,42))
+		"####" "#####" 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		Goto StickLoop
+	Splat:
+		TNT1 AAAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_CustomMissile("PPE_BioBallMediumCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 AAAAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),user_aim*FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Merge1:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 A 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Merge2:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 AAAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_CustomMissile("PPE_BioBallMediumCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Merge3:
+		TNT1 A 0 A_RemoveMaster(RMVF_MISSILES)
+		TNT1 AAAAAA 0 A_CustomMissile("PPE_BioBallSmallCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 AA 0 A_CustomMissile("PPE_BioBallMediumCluster",0,0,Random(0,360),CMF_AIMDIRECTION|CMF_TRACKOWNER,user_aim*Random(5,70))
+		TNT1 A 0 A_SpawnItem("PPE_BioBallBigStuck")
+		stop
+	Explode:
+		TNT1 A 0 A_Explode(125,192,0)
+		TNT1 A 0 A_PlaySound("weapons/unr/bio/explode",6)
+		TNT1 AAAAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),user_aim*FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_Quake(2,4,0,224,"")
+		TNT1 A 0 A_Quake(1,4,0,384,"")
+		BIOX ABCD 3 bright
+		stop
+	}
+}
+
+Actor PPE_BioBallBigStuck : PPE_BioBallSmallStuck
+{
+	Speed 0
+	States
+	{
+	Spawn:
+		BIOB ABCDEF 0 A_Jump(32,"SetStickCount")
+		loop
+	SetStickCount:
+		"####" "#" 0 A_SetUserVar("user_countdown",Random(130,150))
+		Goto Stick
+	Explode:
+		TNT1 A 0 A_Explode(125,192,0)
+		TNT1 A 0 A_PlaySound("weapons/unr/bio/explode",6)
+		TNT1 AAAAA 0 A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,64)
+		TNT1 A 0 A_Quake(2,4,0,224,"")
+		TNT1 A 0 A_Quake(1,4,0,384,"")
+		BIOX ABCD 3 bright
+		stop
+	}
+}
+
+Actor PPE_UnrBioRifle : PPE_UWeaponBase
+{
++WEAPON.NOAUTOAIM
++WEAPON.NOALERT
+Tag "$TAG_UNR_BIO"
+Weapon.SelectionOrder 900
+Weapon.SlotNumber 8
+Weapon.AmmoUse1 2
+Weapon.AmmoUse2 10
+Weapon.AmmoType1 "PPE_Cells"
+Weapon.AmmoType2 "PPE_Cells"
+Weapon.AmmoGive 20
+Weapon.UpSound "weapons/unr/bio/up"
+PPE_WeaponBase.SlotAlt1 "PPE_UnrBioRifleS6"
+PPE_WeaponBase.SpawnerId1 4,3
+States
+	{
+	Ready:
+    	BRFG A 1 A_WeaponReady
+    	Loop
+  	Deselect:
+    	BRFG A 1 A_Lower
+		TNT1 A 0 A_Lower
+    	Loop
+  	Select:
+    	BRFG A 1 A_Raise
+		TNT1 A 0 A_Raise
+    	Loop
+  	AltFire:
+		TNT1 A 0 A_PlaySound("weapons/unr/bio/load",6,1,1)
+		BRFG A 1
+		TNT1 A 0 A_GiveInventory("PPE_BioRifleCharge",1)
+		TNT1 A 0 A_JumpIfInventory("PPE_BioRifleCharge",0,"Release")
+		TNT1 A 0 A_ReFire
+	Fire:
+	Release:
+		TNT1 A 0 A_StopSound(6)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlaySound("weapons/unr/bio/fire",1)
+		TNT1 A 0 A_JumpIfInventory("PPE_BioRifleCharge",30,"ReleaseBig")
+		TNT1 A 0 A_JumpIfInventory("PPE_BioRifleCharge",17,"ReleaseMedium")
+		TNT1 A 0 A_JumpIfInventory("PPE_BioRifleCharge",5,"ReleaseSmall")
+		Goto ReleaseSmall
+	ReleaseSmall:
+		TNT1 A 0 A_TakeInventory("PPE_Cells",2,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_GunFlash("Flash1")
+		TNT1 A 0 A_FireCustomMissile("PPE_BioBallSmall", 0, 0 , 0 , 0 , 1, 8)
+		BRFG AAAA 1 bright
+		Goto FireEnd
+	ReleaseMedium:
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",5,"ReleaseContMedium")
+		Goto ReleaseSmall
+	ReleaseContMedium:
+		TNT1 A 0 A_TakeInventory("PPE_Cells",5,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_GunFlash("Flash2")
+		TNT1 A 0 A_FireCustomMissile("PPE_BioBallMedium", 0, 0 , 0 , 0 , 1, 9)
+		BRFG AAAA 1 bright
+		Goto FireEnd
+	ReleaseBig:
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",10,"ReleaseContBig")
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",5,"ReleaseContMedium")
+		Goto ReleaseSmall
+	ReleaseContBig:
+		TNT1 A 0 A_TakeInventory("PPE_Cells",10,TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_GunFlash("Flash3")
+		TNT1 A 0 A_FireCustomMissile("PPE_BioBallBig", 0, 0 , 0 , 0 , 1, 10)
+		BRFG AAAA 1 bright
+		Goto FireEnd
+	FireEnd:
+		TNT1 A 0 A_TakeInventory("PPE_BioRifleCharge",255)
+		BRFG AAAAAA 1
+		Goto Ready
+  	Flash1:
+    	TNT1 A 0 A_Light1
+		TNT1 AAA 1 A_SetPitch(pitch-0.45)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 A_SetPitch(pitch+0.6)
+		Goto LightDone
+	Flash2:
+    	TNT1 A 0 A_Light1
+		TNT1 AAA 1 A_SetPitch(pitch-0.5)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 A_SetPitch(pitch+0.65)
+		Goto LightDone
+	Flash3:
+    	TNT1 A 0 A_Light1
+		TNT1 AAA 1 A_SetPitch(pitch-0.55)
+		TNT1 A 0 A_Light2
+		TNT1 AA 1 A_SetPitch(pitch+0.7)
+		Goto LightDone
+	AltFlash:
+		TNT1 A 0 A_Light1
+		TNT1 AAAA 1 A_SetPitch(pitch-0.5)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+0.6)
+		Goto LightDone
+  	Spawn:
+		BRFP A -1
+		Stop
+	}
+}
+
+Actor PPE_UnrBioRifleS6 : PPE_UnrBioRifle 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_UnrBioRifle" 
+	Weapon.AmmoUse 1
+}
+
+Actor PPE_BioRifleCharge : Inventory
+{
+	Inventory.MaxAmount 80
+}
+
+
+Actor PPE_BioChunk
+{
+	Health 1
+	Radius 8
+	Height 1
+	+CORPSE
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		BGCK ABCD 2 bright A_SpawnItem("PPE_BioChunkTrail",0,0,0,1)
+		loop
+	Crash:
+		TNT1 A 0 A_SpawnItem("PPE_BioSpot",0,0,0,1)
+		stop
+	}
+}
+
+Actor PPE_BioSpot
+{
+	Radius 10
+	Height 2
+	+NOTELEPORT
+	-NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("bloodsplat")
+		TNT1 A 0 A_Jump(256,"DA","DB","DC","DD")
+	DA:
+		BGCS A 1500 bright
+		stop
+	DB:
+		BGCS B 1500 bright
+		stop
+	DC:
+		BGCS C 1500 bright
+		stop
+	DD:
+		BGCS D 1500 bright
+		stop
+	}
+}
+
+Actor PPE_BioDrop
+{
+	Health 1
+	Radius 8
+	Height 1
+	+CORPSE
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/bio/drip")
+	SpawnLoop:
+		BGDR A 1 bright
+		loop
+	Crash:
+		TNT1 A 0 A_SpawnItem("PPE_BioDropSpot",0,0,0,1)
+		stop
+	}
+}
+
+Actor PPE_BioDropSpot
+{
+	Radius 10
+	Height 2
+	+NOTELEPORT
+	-NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		BGSP ABCD 2 bright
+		BGPL A 20 bright
+		stop
+	}
+}
+
+Actor PPE_BioTrail
+{
+	Gravity 0.2
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 3
+		TNT1 A 0 A_Jump(128,"Reverse")
+		BGTR ABCD 4 bright
+		stop
+	Reverse:
+		BGTR EFGH 4 bright
+		stop
+	}
+}
+
+Actor PPE_BioTrailMedium
+{
+	Gravity 0.18
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 3
+		TNT1 A 0 A_Jump(128,"Reverse")
+		BXTR ABCD 4 bright
+		stop
+	Reverse:
+		BXTR EFGH 4 bright
+		stop
+	}
+}
+
+Actor PPE_BioTrailSmall
+{
+	Gravity 0.16
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 3
+		TNT1 A 0 A_Jump(128,"Reverse")
+		BYTR ABCD 4 bright
+		stop
+	Reverse:
+		BYTR EFGH 4 bright
+		stop
+	}
+}
+
+Actor PPE_BioChunkTrail
+{
+	Gravity 0.2
+	+NOTELEPORT
+	+NOBLOCKMAP
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(128,"Reverse")
+		BGTR ABCD 4 bright
+		stop
+	Reverse:
+		BGTR EFGH 4 bright
+		stop
+	}
+}
+
+Actor PPE_BloodBio : Blood
+{
+	States
+	{
+	Spawn:
+		GBLD C 1 bright
+		Goto GT12
+		GBLD B 1 bright
+		Goto B8N12
+		GBLD A 1 bright
+		Goto LT8
+	GT12:
+		GBLD C 7 bright A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,96)
+		GBLD BA 8 bright
+		stop
+	B8N12:
+		GBLD B 7 bright A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,128)
+		GBLD A 8 bright
+		stop
+	LT8:
+		GBLD C 7 bright A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,168)
+		stop
+	}
+}
+
+Actor PPE_BloodSplatterBio : BloodSplatter
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		GBLD C 8 bright A_SpawnItemEx("PPE_BioChunk",0,0,0,FRandom(-3,3),FRandom(-3,3),FRandom(6,10),0,SXF_NOCHECKPOSITION|SXF_USEBLOODCOLOR,144)
+		GBLD B 8 bright
+		GBLD A 8 bright
+		stop
+	}
+}
