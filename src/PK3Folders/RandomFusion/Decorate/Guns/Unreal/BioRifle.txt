@@ -287,6 +287,7 @@ Actor PPE_UnrBioRifle : PPE_UWeaponBase
 Tag "$TAG_UNR_BIO"
 Weapon.SelectionOrder 900
 Weapon.SlotNumber 8
+Weapon.SlotPriority 4
 Weapon.AmmoUse1 2
 Weapon.AmmoUse2 10
 Weapon.AmmoType1 "PPE_Cells"
@@ -384,7 +385,7 @@ States
 
 Actor PPE_UnrBioRifleS6 : PPE_UnrBioRifle 
 { 
-	Weapon.SlotNumber 6 Weapon.SlotPriority 9 PPE_WeaponBase.SlotAlt1 "PPE_UnrBioRifle" 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 7 PPE_WeaponBase.SlotAlt1 "PPE_UnrBioRifle" 
 	Weapon.AmmoUse 1
 }
 

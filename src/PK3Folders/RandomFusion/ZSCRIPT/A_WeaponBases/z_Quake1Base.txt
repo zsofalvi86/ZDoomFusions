@@ -1,0 +1,77 @@
+Class PPE_Quake1WeaponBase : PPE_WeaponBase abstract
+{
+	Default {Weapon.UpSound "weapons/quake1/switch"; Inventory.PickupSound "weapons/quake1/pickup"; ActiveSound "weapons/quake1/ammo";}
+	
+	mixin PPE_FlatBeam;
+	mixin PPE_SpriteBeam;
+	
+	Override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		if (source && owner && owner.Player && owner.Player.mo && owner.Player.ReadyWeapon == self)
+		{
+			if (passive) //passive = taking dmg
+			{
+				if (source == owner)
+				{
+					newdamage = damage / 2;
+				}
+				else
+				{
+					newdamage = damage;
+				}
+			}
+		}
+	}
+	
+	Action void A_ThunderboltBeam(class<Actor> beam, int range, int step = 21, int skipsteps = 3)
+	{
+		int hgt = 32;
+		
+		FLineTraceData trc;
+		LineTrace(angle,range,pitch,0,hgt,0,0,trc);
+		
+		let bobdelta = invoker.owner.player.viewz - invoker.owner.pos.Z - invoker.owner.player.viewheight - invoker.owner.floorclip;
+		double lastxbias = 0.0;
+		double lastzbias = 0.0;
+		double anglebias = 0.0;
+		double pitchbias = 0.0;
+		Vector3 ppos = (0,0,0);
+		
+		for (int i=step*skipsteps; i<trc.distance; i+=step)
+		{
+			if (i % 2 == 1) //zig
+			{
+				lastxbias = FRandom(-9,9);
+				lastzbias = FRandom(-9,9);
+				anglebias = -atan2(lastxbias, 24);
+				pitchbias = -atan2(lastzbias, 24);
+				let lastBiasHitStep = (RotateVector(trc.HitDir.xy,anglebias)*step,-lastzbias);
+				ppos = Vec3Offset(0,0,hgt + bobdelta) + (i-step) * trc.HitDir + lastBiasHitStep;
+			}
+			else //zag
+			{
+				lastxbias = -lastxbias;
+				lastzbias = -lastzbias;
+				anglebias = -atan2(lastxbias, 24);
+				pitchbias = -atan2(lastzbias, 24);
+				ppos = Vec3Offset(0,0,hgt + bobdelta) + i * trc.HitDir;
+			}
+			//console.printf("%s%d x:%d i:%i", "angle:", anglebias, lastxbias, i % 2);
+			//console.printf("%s%d z:%d", "pitch:", pitchbias, lastzbias);
+			
+			//let anglebias = VectorAngle(pretonext.x, pretonext.y);
+			//let pitchbias = VectorAngle(pretonext.z, pretonext.xy.length());
+			
+			let beamp1 = Spawn(beam,ppos);
+			let beamp2 = Spawn(beam,ppos);
+			
+			beamp1.bFlatSprite = true;
+			beamp1.pitch = pitch-pitchbias;
+			beamp1.angle = angle+anglebias;
+			beamp2.bWallSprite = true;
+			beamp2.bRollSprite = true;
+			beamp2.angle = angle+anglebias+90;
+			beamp2.roll = -pitch+pitchbias-90;
+		}
+	}
+}

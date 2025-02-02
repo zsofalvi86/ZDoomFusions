@@ -1,0 +1,8 @@
+#include "zscript/a_weaponbases/z_dnbase.txt"
+#include "zscript/a_weaponbases/z_swbase.txt"
+#include "zscript/a_weaponbases/z_bloodbase.txt"
+#include "zscript/a_weaponbases/z_quake1base.txt"
+#include "zscript/a_weaponbases/z_quake2base.txt"
+#include "zscript/a_weaponbases/z_quake3base.txt"
+#include "zscript/a_weaponbases/z_ubase.txt"
+#include "zscript/a_weaponbases/z_ssbase.txt"

@@ -144,6 +144,21 @@ Actor PPE_SWGasGrenade : PPE_SlowMissileBase
   }
 }
 
+Actor PPE_NukeGas : PPE_SWGasGrenade
+{
+	BounceType "None"
+	DeathSound ""
+	Speed 0
+	States
+	{
+	Spawn:
+	Death:
+		TNT1 A 0
+		TNT1 A 0 A_SetUserVar("user_timedlife",200)
+		Goto GasLoop
+	}
+}
+
 Actor PPE_GLFireChunk
 {
 	Health 1

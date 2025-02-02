@@ -1,0 +1,105 @@
+Class PPE_SeriousSamWeaponBase : PPE_WeaponBase abstract
+{
+	Default {Inventory.PickupSound "weapons/ss/pickup"; ActiveSound "weapons/ss/ammo";}
+	
+	mixin PPE_SpriteBeam;
+	mixin PPE_FlatBeam;
+	
+	Override void DoEffect()
+	{
+		if (!owner.CountInv("PPE_SniperZoom") && owner.player.readyweapon == self)
+		{
+			let xhair = PPE_SamCrosshair(owner.FindInventory("PPE_SamCrosshair"));
+			if (!xhair) 
+			{
+				xhair = PPE_SamCrosshair(owner.GiveInventoryType("PPE_SamCrosshair"));
+				return;
+			}
+			return;
+			
+			let bobdelta = owner.player.viewz - owner.pos.Z - owner.player.viewheight;
+		
+			FLineTraceData hit;
+			owner.LineTrace(owner.angle, 256, owner.pitch, 0, owner.player.viewheight + bobdelta, 0, 0, hit);
+			let distratio = min(4, 1/(hit.Distance/256));
+			
+			if(hit.HitActor)
+			{
+				double hpratio = double(hit.HitActor.health) / hit.HitActor.GetSpawnHealth();
+			}
+		}
+		else
+		{
+			owner.TakeInventory("PPE_SamCrosshair",1);
+		}
+	}
+}
+
+Class PPE_SamCrosshair : CustomInventory
+{
+	Double distratio;
+	
+	Action bool SetXhairSprite()
+	{
+		let bobdelta = invoker.owner.player.viewz - invoker.owner.pos.Z - invoker.owner.player.viewheight - invoker.owner.floorclip;
+		
+		FLineTraceData hit;
+		invoker.owner.LineTrace(invoker.owner.angle, 99999, invoker.owner.pitch, 0, invoker.owner.player.viewheight + bobdelta, 0, 0, hit);
+		invoker.distratio = max(0.25,min(2, 1/(hit.Distance/128)));
+		if(hit.HitActor)
+		{
+			double hpratio = double(hit.HitActor.health) / hit.HitActor.GetSpawnHealth();
+				
+			if (hpratio < 0.33) { A_Overlay(11,"SpawnRed"); }
+			else if (hpratio < 0.66) { A_Overlay(11,"SpawnYellow"); }
+			else { A_Overlay(11,"SpawnGreen"); }
+		}
+		else { A_Overlay(11,"SpawnWhite"); }
+		
+		return true;
+	}
+	
+	Action void GroomXhair()
+	{
+		A_OverlayFlags(11,PSPF_PIVOTPERCENT|PSPF_RENDERSTYLE|PSPF_FORCESTYLE,true);
+		A_OverlayPivot(11,0.5,0.5);
+		A_OverlayRenderstyle(11,STYLE_Normal);
+		A_OverlayScale(11,invoker.distratio,invoker.distratio);
+	}
+	
+	Default 
+	{
+	Inventory.Amount 1; 
+	Inventory.MaxAmount 1;
+	+INVENTORY.AUTOACTIVATE;
+	}
+	
+	States
+	{
+		Spawn:
+			TNT1 A 0;
+			stop;
+		Pickup:
+			TNT1 A 0 {return true;}
+			stop;
+		Use: //does not persist without use
+			TNT1 A 0 SetXhairSprite();
+			stop;
+		SpawnWhite:
+			TNT1 A 0 GroomXhair();
+			SXHP A 1 Bright;
+			loop;
+		SpawnGreen:
+			TNT1 A 0 GroomXhair();
+			SXHP B 1 Bright;
+			loop;
+		SpawnYellow:
+			TNT1 A 0 GroomXhair();
+			SXHP C 1 Bright;
+			loop;
+		SpawnRed:
+			TNT1 A 0 GroomXhair();
+			SXHP D 1 Bright;
+			loop;
+	}
+}

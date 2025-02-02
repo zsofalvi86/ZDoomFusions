@@ -1,0 +1,40 @@
+Class PPE_DukeClassMod : PPE_ClassBase
+{
+	Default {Weapon.UpSound "weapons/dn/select"; Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";}
+	
+	int dmgbuffer;
+	int lastquotetime;
+	int lastkilltime;
+	
+	override void WorldThingDied (WorldEvent e)
+	{
+		if (e.Thing && e.Thing.Target && e.Thing.bIsMonster)
+		{
+			lastkilltime = level.time;
+			if (e.Thing.GetSpawnHealth() > 1000)
+			{
+				e.Thing.Target.GiveInventory("PPE_BossQuote",1);
+				lastquotetime = level.time;
+			}
+			else if (level.time > lastquotetime + 230)
+			{
+				if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150))
+				{
+					e.Thing.Target.GiveInventory("PPE_GibQuote",1);
+					lastquotetime = level.time;
+					//console.printf("%s", "gib");
+				}
+				else if (dmgbuffer >= 2500)
+				{
+					dmgbuffer = 0;
+					e.Thing.Target.GiveInventory("PPE_DeathQuote",1);
+					lastquotetime = level.time;
+				}
+				else
+				{
+					dmgbuffer += e.Thing.GetSpawnHealth() + 500 - min(500,(level.time-lastkilltime)*10);
+				}
+			}
+		}
+	}
+}

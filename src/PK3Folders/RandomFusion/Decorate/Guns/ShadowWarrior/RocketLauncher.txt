@@ -3,10 +3,13 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 	Tag "$TAG_SW_RL"
 	Weapon.SelectionOrder 2100
 	Weapon.SlotNumber 5
+	Weapon.SlotPriority 8
 	Weapon.AmmoUse 1
 	Weapon.AmmoGive 2
 	Weapon.AmmoType "PPE_Rockets"
 	Weapon.KickBack 100
+	PPE_WeaponBase.SlotAlt1 "PPE_SwRocketLauncherS7"
+	PPE_WeaponBase.SpawnerId1 3,1
 	States
 	{
 	Ready:
@@ -181,6 +184,8 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 	}
 }
 
+Actor PPE_SwRocketLauncherS7 : PPE_SwRocketLauncher { Weapon.SlotNumber 7 Weapon.SlotPriority 4 PPE_WeaponBase.SlotAlt1 "PPE_SwRocketLauncher" }
+
 Actor PPE_SWRocket : PPE_SlowMissileBase
 {
   SeeSound ""
@@ -190,7 +195,7 @@ Actor PPE_SWRocket : PPE_SlowMissileBase
   States
   {
   Spawn:
-		TNT1 A 0 A_SpawnItem("PPE_SmokeTrail")
+		TNT1 A 0 A_SpawnItem("PPE_SWSmokeTrail")
 		ROXF A 1 bright
 		Loop
   Death:
@@ -203,6 +208,19 @@ Actor PPE_SWRocket : PPE_SlowMissileBase
 		BMXP BCDEF 3 bright
 		Stop
   }
+}
+
+Actor PPE_SWSmokeTrail : PPE_TrailBase
+{
+	RenderStyle "Translucent"
+	Alpha 0.3
+	States
+	{
+  	Spawn:
+		TNT1 A 2
+    	WTRL ABCDEF 3
+    	Stop
+	}
 }
 
 actor PPE_SWRocket_Seeker : PPE_SWRocket
@@ -236,7 +254,7 @@ Actor PPE_SWNuke : PPE_SlowMissileBase
   States
   {
   Spawn:
-		TNT1 A 0 A_SpawnItem("PPE_SmokeTrail")
+		TNT1 A 0 A_SpawnItem("PPE_SWSmokeTrail")
 		ROXF A 1 bright
 		Loop
   Death:
@@ -298,6 +316,21 @@ Actor PPE_SWRocketTrail : PPE_TrailBase
 Actor PPE_RocketLauncherMode : Inventory
 {
 	Inventory.MaxAmount 2
+}
+
+Actor PPE_HeatSeekerCard : Inventory
+{
+	Inventory.PickupSound "items/pickup"
+	Inventory.PickupMessage "$GOTSEEKER"
+	Inventory.Amount 5
+	Inventory.MaxAmount 5
+	Inventory.InterHubAmount 5
+	States
+	{
+	Spawn:
+		SHSC A -1 bright
+		stop
+	}
 }
 
 Actor PPE_NukeReady : Inventory

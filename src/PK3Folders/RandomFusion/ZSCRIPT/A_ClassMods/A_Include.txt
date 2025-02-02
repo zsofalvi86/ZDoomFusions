@@ -1,0 +1,7 @@
+//#include "zscript/a_classmods/z_duke.txt"
+//#include "zscript/a_classmods/z_lowang.txt"
+//#include "zscript/a_classmods/z_quake1class.txt"
+//#include "zscript/a_classmods/z_quake2class.txt"
+//#include "zscript/a_classmods/z_quake3class.txt"
+//#include "zscript/a_classmods/z_ubase.txt"
+//#include "zscript/a_classmods/z_serioussam.txt"

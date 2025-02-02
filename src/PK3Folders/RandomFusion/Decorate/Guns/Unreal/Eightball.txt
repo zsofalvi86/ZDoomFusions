@@ -9,8 +9,7 @@ actor PPE_EBRocket : PPE_SlowMissileBase
 	{
 	Spawn:
 		MISL A 2 bright
-		TNT1 A 0 A_SpawnItem("PPE_PRocketTrailSmoke")
-		TNT1 A 0 A_SpawnItem("PPE_RocketTrailSpark",0,1)
+		TNT1 A 0 A_SpawnItem("PPE_EBRocketTrailSmoke")
 		Loop
 	Death:
 		TNT1 A 0 A_Explode(128,128)
@@ -27,7 +26,7 @@ actor PPE_EBGrenade : PPE_SlowMissileBase
 {
   +USEBOUNCESTATE
   -ROCKETTRAIL
-  +GRENADETRAIL
+  -GRENADETRAIL
   -NOGRAVITY
   BounceType Doom
   Gravity 0.4
@@ -42,10 +41,10 @@ actor PPE_EBGrenade : PPE_SlowMissileBase
 	{
 	Spawn:
 		DGRD A 2
-		TNT1 A 0 A_SpawnItem("PPE_WhiteTrailSmoke")
+		TNT1 A 0 A_SpawnItem("PPE_EBGrenadeTrailSmoke")
 		Loop
 	Bounce:
-		DGRR ABCDEFGHIJKL 2 A_SpawnItem("PPE_WhiteTrailSmoke")
+		DGRR ABCDEFGHIJKL 2 A_SpawnItem("PPE_EBGrenadeTrailSmoke")
 		Loop
 	Death:
 		TNT1 A 0 A_NoGravity
@@ -72,14 +71,13 @@ actor PPE_EBRocketSpiral : PPE_EBRocket
 		MISL A 1 bright A_SeekerMissile(5, 3)
 		TNT1 A 0 A_Weave(3, 3, 1, 1)
 		TNT1 A 0 A_SpawnItem("PPE_SpiralRocketTrailSmoke")
-		TNT1 A 0 A_SpawnItem("PPE_RocketTrailSpark")
 		MISL A 1 bright A_SeekerMissile(5, 3)
 		TNT1 A 0 A_Weave(3, 3, 1, 1)
 		loop
 	}
 }
 
-Actor PPE_PRocketTrailSmoke : PPE_TrailBase
+Actor PPE_EBRocketTrailSmoke : PPE_TrailBase
 {
 	RenderStyle Translucent
 	Alpha 0.3
@@ -87,14 +85,19 @@ Actor PPE_PRocketTrailSmoke : PPE_TrailBase
 	{
 	Spawn:
 		TNT1 A 2
-		MTRL ABCDEF 2 bright
+		WTRL ABCDEF 2 bright
 		Stop
 	}
 }
 
-Actor PPE_SpiralRocketTrailSmoke : PPE_PRocketTrailSmoke
+Actor PPE_SpiralRocketTrailSmoke : PPE_EBRocketTrailSmoke
 {
 	Alpha 0.2
+}
+
+Actor PPE_EBGrenadeTrailSmoke : PPE_EBRocketTrailSmoke
+{
+	Alpha 0.25
 }
 
 actor PPE_UnrEightball : PPE_UWeaponBase
@@ -106,7 +109,7 @@ actor PPE_UnrEightball : PPE_UWeaponBase
    Weapon.AmmoType1 "PPE_Rockets"
    Weapon.AmmoType2 "PPE_Rockets"
    Weapon.SlotNumber 5
-   Weapon.SlotPriority 9
+   Weapon.SlotPriority 7
    Weapon.UpSound "weapons/unr/eball/up"
    PPE_WeaponBase.SlotAlt1 "PPE_UnrEightballS7"
    PPE_WeaponBase.SpawnerId1 3,2
@@ -163,6 +166,9 @@ actor PPE_UnrEightball : PPE_UWeaponBase
 	 TNT1 A 0 A_JumpIfInventory("PPE_Rockets",1,"CheckLoaded")
 	 Goto UnloadToleranceLoop
    CheckLoaded:
+	 TNT1 A 0 A_ReFire("CheckLoadedCont")
+	 Goto Unload
+   CheckLoadedCont:
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_Load",6,"UnloadToleranceLoop")
 	 EBRL F 4
 	 TNT1 A 0 A_ReFire

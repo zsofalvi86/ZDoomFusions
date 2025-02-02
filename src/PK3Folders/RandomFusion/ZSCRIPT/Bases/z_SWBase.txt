@@ -1,5 +1,0 @@
-Class PPE_SWWeaponBase : PPE_WeaponBase abstract
-{
-	Default {Weapon.UpSound "weapons/sw/boltup"; Inventory.PickupSound "weapons/sw/pickup"; ActiveSound "weapons/sw/pickup";}
-	
-}

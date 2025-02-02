@@ -105,14 +105,14 @@ Actor PPE_UnrRifleS7 : PPE_UnrRifle
 		TNT1 A 0 A_JumpIfinventory("PPE_RifleZoom",1,"FireScope")
 		TNT1 A 0 A_FireBullets(0,0,1,(70),"PPE_URiflePuffS7",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_GunFlash
-		TNT1 A 0 A_PlayWeaponSound("weapons/rifle/fire")
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/rifle/fire")
 		RIFF ABC 3 bright
 		RIFG A 12
 		TNT1 A 0 A_ReFire
 		Goto Ready
 	FireScope:
 	    TNT1 A 0 A_FireBullets(0,0,1,(70),"PPE_URiflePuffS7",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
-		TNT1 A 0 A_PlayWeaponSound("weapons/rifle/fire")
+		TNT1 A 0 A_PlayWeaponSound("weapons/unr/rifle/fire")
 		TNT1 A 0 A_GunFlash
 		SSSS ZZZZZZ 2 bright
 		SSSS Z 12 bright
