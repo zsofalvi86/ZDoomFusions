@@ -1,0 +1,32 @@
+Actor PPE_DNBulletPuff : BulletPuff
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(190,"SkipRicochet")
+		TNT1 A 0 A_PlaySound("weapons/dn/ric",3)
+		TNT1 A 0 A_SpawnItem("PPE_DNBulletSpark")
+	SkipRicochet:
+		WTRL AB 2
+	Melee:
+		WTRL CDEF 2
+		Stop
+  }
+}
+
+Actor PPE_DNBulletPuff_NoGib : PPE_DNBulletPuff 
+{
+	+NOEXTREMEDEATH
+}
+
+Actor PPE_DNBulletSpark
+{
+	+NOGRAVITY +NOINTERACTION
+	States
+	{
+	Spawn:
+		DNPF ABCD 3 bright
+		Stop
+  }
+}

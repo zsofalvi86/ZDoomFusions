@@ -422,6 +422,7 @@ weapons/sw/uzi/reload3		uzir3
 weapons/sw/rocket/fire		rockf
 weapons/sw/rocket/explode	rockx
 weapons/sw/rocket/seek		sbombb
+weapons/sw/seekercard		cardlock
 weapons/sw/nuke/standby		rnukesb
 weapons/sw/nuke/countdown	rnukecd
 weapons/sw/nuke/ready		rnukesr

@@ -39,6 +39,32 @@ Class PPE_Spawner : CustomInventory
 	}
 }
 
+Class PPE_DroppableSpawner : PPE_Spawner
+{
+	class<Inventory> asSpawn;
+	Property SpawnAs: asSpawn;
+	class<Inventory> asDrop;
+	Property DropAs: asDrop;
+	
+	Override void PostBeginPlay()
+	{
+		if (!bDropped || (asDrop && asDrop.GetClassName() == GetClassName()) || !asDrop)
+		{
+			lastspawn = Spawn(asSpawn, pos);
+			InitSpawnedItem(lastspawn,SXF_TRANSFERSPECIAL|SXF_CLEARCALLERSPECIAL);
+			lastspawn.bDropped = bDropped;
+			GoAwayAndDie();
+		}
+		else if (asDrop)
+		{
+			lastspawn = A_DropItem(asDrop);
+			InitSpawnedItem(lastspawn,SXF_TRANSFERSPECIAL|SXF_CLEARCALLERSPECIAL);
+			lastspawn.bDropped = bDropped;
+			GoAwayAndDie();
+		}
+	}
+}
+
 Class PPE_WeaponSpawner : PPE_Spawner
 {
 	//PROPERTIES
@@ -51,7 +77,7 @@ Class PPE_WeaponSpawner : PPE_Spawner
 	
 	Override void PostBeginPlay()
 	{
-		if (!bDropped || (asDrop && asDrop.GetClassName() == GetClassName()))
+		if (!bDropped || (asDrop && asDrop.GetClassName() == GetClassName()) || !asDrop)
 		{
 			CVar debugcv = CVar.FindCVar('debug'); let debug = debugcv && debugcv.GetBool();
 			
@@ -108,7 +134,7 @@ Class PPE_WeaponSpawner : PPE_Spawner
 		}
 		else if (asDrop)
 		{
-			lastspawn = Spawn(asDrop);
+			lastspawn = A_DropItem(asDrop);//Spawn(asDrop);
 			InitSpawnedItem(lastspawn,SXF_TRANSFERSPECIAL|SXF_CLEARCALLERSPECIAL);
 			lastspawn.bDropped = bDropped;
 			GoAwayAndDie();

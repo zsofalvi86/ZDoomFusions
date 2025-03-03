@@ -1,11 +1,11 @@
-#Include Decorate/Guns/Quake1/A_Include.txt
-#Include Decorate/Guns/Quake2/A_Include.txt
-#Include Decorate/Guns/Quake3/A_Include.txt
-#Include Decorate/Guns/Unreal/A_Include.txt
-#Include Decorate/Guns/DukeNukem/A_Include.txt
-#Include Decorate/Guns/Blood/A_Include.txt
-#Include Decorate/Guns/ShadowWarrior/A_Include.txt
-#Include Decorate/Guns/SeriousSam/A_Include.txt
+#Include Decorate/Guns/Quake1/1_Include.txt
+#Include Decorate/Guns/Quake2/1_Include.txt
+#Include Decorate/Guns/Quake3/1_Include.txt
+#Include Decorate/Guns/Unreal/1_Include.txt
+#Include Decorate/Guns/DukeNukem/1_Include.txt
+#Include Decorate/Guns/Blood/1_Include.txt
+#Include Decorate/Guns/ShadowWarrior/1_Include.txt
+#Include Decorate/Guns/SeriousSam/1_Include.txt
 
 Actor PPE_StartingGunRandomGiver : CustomInventory replaces Pistol
 {

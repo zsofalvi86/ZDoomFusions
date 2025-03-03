@@ -1,0 +1,75 @@
+Mixin Class PPE_AmmoPickupLogic// : Ammo abstract
+{
+	int AddExistingAmmoFlex (Inventory ammo, int amount)
+	{
+		if (ammo != NULL && (ammo.Amount < ammo.MaxAmount || sv_unlimited_pickup))
+		{
+			int preAmount = ammo.Amount;
+			// extra ammo in baby mode and nightmare mode
+			if (!bIgnoreSkill)
+			{
+				amount = int(amount * (G_SkillPropertyFloat(SKILLP_AmmoFactor) * sv_ammofactor));
+			}
+			ammo.Amount += amount;
+			if (ammo.Amount > ammo.MaxAmount && !sv_unlimited_pickup)
+			{
+				ammo.Amount = ammo.MaxAmount;
+			}
+			return ammo.Amount - preAmount;
+		}
+		return 0;
+	}
+}
+
+Class PPE_AmmoPickupBase : Ammo //abstract//cannot actually be abstract due to Backpack instantiating it via GetDefaultByType
+{
+	mixin PPE_AmmoPickupLogic;
+	
+	class<Ammo> AmmoTypeParent;
+	Property AmmoTypeParent: AmmoTypeParent;
+	
+	Override Class<Ammo> GetParentAmmo()
+	{
+		if (AmmoTypeParent) { return AmmoTypeParent; }
+		else return Super.GetParentAmmo();
+	}
+	
+	Override string PickupMessage()
+	{
+		return super.PickupMessage();
+	}
+	
+	Override bool TryPickup(in out Actor toucher)
+	{
+		let ppwner = PlayerPawn(toucher);
+		if (!toucher || !toucher.player || !ppwner) {return Super.TryPickup(toucher);}
+		
+		int gotstuff = 0;
+
+		Ammo ammoItem = Ammo(ppwner.FindInventory(AmmoTypeParent));
+		if (!ammoItem) 
+		{
+			ppwner.GiveInventory(AmmoTypeParent,0);
+			ammoItem = Ammo(ppwner.FindInventory(AmmoTypeParent));
+		} //idk if possible, earlier functions should copy
+		
+		gotstuff = AddExistingAmmoFlex(ammoItem, Amount);
+		Amount -= gotstuff;
+
+		// custom pickup logic
+		if (gotstuff > 0)
+		{
+			bool localview = toucher.CheckLocalView();
+			PrintPickupMessage(localview, PickupMessage());
+			PlayPickupSound (ppwner.player.mo);
+			if (!bNoScreenFlash && ppwner.player.playerstate != PST_DEAD)
+			{
+				ppwner.player.bonuscount = BONUSADD;
+			}
+		}
+
+		if (Amount <= 0) { GoAwayAndDie ();} 
+		
+		return false; //custom pickup logic above, skip the original
+	}
+}

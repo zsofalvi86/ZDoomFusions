@@ -4,8 +4,9 @@ const int PPE_C_SA_MEDIUM_CIRCLE = 420;
 const int PPE_C_SA_SMALL_CIRCLE = 166;
 
 
-ACTOR PPE_SmallBullet : PPE_Bullets
+ACTOR PPE_SmallBullet : PPE_AmmoPickupBase
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Bullets"
   Inventory.Amount 100
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTBULLETS"
@@ -18,8 +19,9 @@ ACTOR PPE_SmallBullet : PPE_Bullets
   }
 }
 
-ACTOR PPE_SmallShell : PPE_Shells replaces Shell
+ACTOR PPE_SmallShell : PPE_AmmoPickupBase replaces Shell
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Shells"
   Inventory.Amount 40
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLS"
@@ -32,8 +34,9 @@ ACTOR PPE_SmallShell : PPE_Shells replaces Shell
   }
 }
 
-ACTOR PPE_SmallRocket : PPE_Rockets replaces RocketAmmo
+ACTOR PPE_SmallRocket : PPE_AmmoPickupBase replaces RocketAmmo
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Rockets"
   Inventory.Amount 1
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTROCKET"
@@ -46,8 +49,9 @@ ACTOR PPE_SmallRocket : PPE_Rockets replaces RocketAmmo
   }
 }
 
-ACTOR PPE_SmallCell : PPE_Cells replaces Cell
+ACTOR PPE_SmallCell : PPE_AmmoPickupBase replaces Cell
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Cells"
   Inventory.Amount 20
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTCELL"
@@ -60,8 +64,9 @@ ACTOR PPE_SmallCell : PPE_Cells replaces Cell
   }
 }
 
-ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
+ACTOR PPE_LargeBullet : PPE_AmmoPickupBase replaces ClipBox
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Bullets"
   Inventory.Amount 500
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTBULLETBOX"
@@ -74,8 +79,9 @@ ACTOR PPE_LargeBullet : PPE_Bullets replaces ClipBox
   }
 }
 
-ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
+ACTOR PPE_LargeShell : PPE_AmmoPickupBase replaces ShellBox
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Shells"
   Inventory.Amount 200
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTSHELLBOX"
@@ -88,8 +94,9 @@ ACTOR PPE_LargeShell : PPE_Shells replaces ShellBox
   }
 }
 
-ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketBox
+ACTOR PPE_LargeRocket : PPE_AmmoPickupBase replaces RocketBox
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Rockets"
   Inventory.Amount 5
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTROCKBOX"
@@ -102,8 +109,9 @@ ACTOR PPE_LargeRocket : PPE_Rockets replaces RocketBox
   }
 }
 
-ACTOR PPE_LargeCell : PPE_Cells replaces CellPack
+ACTOR PPE_LargeCell : PPE_AmmoPickupBase replaces CellPack
 {
+  PPE_AmmoPickupBase.AmmoTypeParent "PPE_Cells"
   Inventory.Amount 100
   +FLOORCLIP +DONTGIB
   Inventory.PickupMessage "$GOTCELLBOX"

@@ -1,19 +1,23 @@
 Actor PPE_Accuracy : PPE_QuoteBase
 {
-	Inventory.PickupSound "announcer/q3/accuracy"
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "announcer/q3/accuracy" 
 }
 
 Actor PPE_Excellent : PPE_QuoteBase
 {
-	Inventory.PickupSound "announcer/q3/excellent"
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "announcer/q3/excellent" 
 }
 
 Actor PPE_Humiliation : PPE_QuoteBase
 {
-	Inventory.PickupSound "announcer/q3/humiliation"
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "announcer/q3/humiliation" 
 }
 
 Actor PPE_Impressive : PPE_QuoteBase
 {
-	Inventory.PickupSound "announcer/q3/impressive"
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "announcer/q3/impressive" 
 }

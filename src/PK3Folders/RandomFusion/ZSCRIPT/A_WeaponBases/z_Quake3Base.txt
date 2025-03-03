@@ -14,6 +14,14 @@ Class PPE_Quake3WeaponBase : PPE_WeaponBase abstract
 	int gibcount;
 	int hpbuffer;
 	
+	override void Travelled()
+	{
+		hpbuffer = 0;
+		killcount = 0;
+		gibcount = 0;
+		lastkill = level.time;
+	}
+	
 	override void WorldThingDied (WorldEvent e)
 	{
 		if (e.Thing && e.Thing.Target

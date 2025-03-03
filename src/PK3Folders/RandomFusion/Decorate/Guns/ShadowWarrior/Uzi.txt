@@ -1,4 +1,4 @@
-Actor PPE_SWUzi : PPE_SWWeaponBase
+Actor PPE_SWUziUpgradeable : PPE_SWWeaponBase
 {
 	Tag "$TAG_SW_UZI"
 	Weapon.SelectionOrder 1400
@@ -198,6 +198,304 @@ Actor PPE_SWUzi : PPE_SWWeaponBase
 	Spawn.U1:
 		SUZP B -1
 		Stop
+	}
+}
+
+Actor PPE_SWUziS4 : PPE_SWWeaponBase
+{
+	Weapon.SelectionOrder 1500
+	Weapon.AmmoUse 10
+	Weapon.AmmoGive 200
+	Weapon.SlotNumber 4
+	Weapon.SlotPriority 7
+	Weapon.AmmoType "PPE_Bullets"
+	Weapon.UpSound "weapons/sw/uzi/up"
+	Weapon.KickBack 100
+	Tag "$TAG_SW_UZIS"
+	PPE_WeaponBase.SlotAlt1 "PPE_SWUziS2"
+	PPE_WeaponBase.SlotAlt2 "PPE_SWUziS5"
+	PPE_WeaponBase.SlotAlt3 "PPE_SWUziS6"
+	PPE_WeaponBase.SpawnerId1 2,1
+	PPE_WeaponBase.SpawnerId2 2,3
+	PPE_WeaponBase.SpawnerId3 14,1
+	States
+	{
+	Ready.Ready:
+		SUZH A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Loop
+  	Deselect:
+    	SUZH A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	SUZH A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(3.5,3.5,2,(5),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterR",0,0,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterL",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(3,"SkipTracer")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1.5,1.5),0,-5,2,0,FRandom(-1.5,1.5))
+	SkipTracer:
+		SUZI ABC 1 bright 
+		TNT1 A 0 A_ReFire("Fire2")
+		Goto Ready.Ready
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(3.5,3.5,2,(5),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterR",0,0,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterL",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(3,"SkipTracer2")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1.5,1.5),0,5,2,0,FRandom(-1.5,1.5))
+	SkipTracer2:
+		SUZI ABC 1 bright 
+		//SUZG A 1
+		TNT1 A 0 A_ReFire("Fire")
+		Goto Ready.Ready
+	Reload:
+		SUZH AAAAAAAA 1 A_WeaponOffset(0,11,WOF_ADD)
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 1, "ReloadReal")
+		TNT1 A 0 A_Overlay(-2,"MagFake")
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR A 10
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR A 7
+		Goto ReloadEnd
+	ReloadReal:
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		TNT1 A 0 A_Overlay(-2,"MagRight")
+		SUZR A 14
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR A 5
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,11,WOF_ADD)
+		SUZR BBBBBBBB 1 A_WeaponOffset(0,-11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		TNT1 A 0 A_Overlay(-2,"MagLeft")
+		SUZR B 14
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR B 5
+		TNT1 A 0 A_SetInventory("PPE_SWUziMag",0)
+		SUZR BBBBBBBB 1 A_WeaponOffset(0,11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload2")
+		SUZH AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		Goto Ready.Ready
+	ReloadEnd:
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload2")
+		SUZH AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		SUZH A 20 A_WeaponReady
+		Goto Ready.Ready
+	MagLeft:
+		SUZM CCCCCCCC 1 A_OverlayOffset(-2,12,12,WOF_ADD)
+		TNT1 A 2
+		SUZM DDDDDDDD 1 A_OverlayOffset(-2,-12,-12,WOF_ADD)
+		SUZM D 8
+		Goto LightDone
+	MagRight:
+		SUZM AAAAAAAA 1 A_OverlayOffset(-2,-12,12,WOF_ADD)
+		TNT1 A 2
+		SUZM BBBBBBBB 1 A_OverlayOffset(-2,12,-12,WOF_ADD)
+		SUZM B 8
+		Goto LightDone
+	MagFake:
+		SUZM B 8
+		SUZM BBBBBB 1 A_OverlayOffset(-2,-8,8,WOF_ADD)
+		SUZM B 5
+		SUZM BBBBBB 1 A_OverlayOffset(-2,8,-8,WOF_ADD)
+		SUZM B 8
+		Goto LightDone
+  	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 A 1 A_SetPitch(pitch-0.2)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.2)
+		Goto LightDone
+  	Spawn:
+		SUZP B -1
+		Stop
+	}
+}
+
+Actor PPE_SWUziS2 : PPE_SWUziS4
+{
+	Tag "$TAG_SW_UZI"
+	Weapon.SelectionOrder 1400
+	Weapon.SlotNumber 2
+	Weapon.SlotPriority 5
+	Weapon.AmmoUse 5
+	Weapon.AmmoGive 200
+	PPE_WeaponBase.SlotAlt1 "PPE_SWUziS4"
+	PPE_WeaponBase.SlotAlt2 "PPE_SWUziS5"
+	PPE_WeaponBase.SlotAlt3 "PPE_SWUziS6"
+	States
+	{
+	Ready.Ready:
+		SUZG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		Loop
+  	Deselect:
+    	SUZG A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	SUZG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(2.5,2.5,-1,(5),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooter",0,0,0,2)
+		SUZF ABC 1 bright
+		TNT1 A 0 A_ReFire("Fire2")
+		Goto Ready.Ready
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(2.5,2.5,-1,(5),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooter",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(2,"SkipTracer")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1,1),0,0,2,0,FRandom(-1,1))
+	SkipTracer:
+		SUZF DEF 1 bright
+		//SUZG A 1
+		TNT1 A 0 A_ReFire("Fire")
+		Goto Ready.Ready
+	Reload:
+		SUZG AAAAAAAA 1 A_WeaponOffset(0,11,WOF_ADD)
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 1, "ReloadReal")
+		TNT1 A 0 A_Overlay(-2,"MagFake")
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR A 10
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR A 7
+		Goto ReloadEnd
+	ReloadReal:
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		TNT1 A 0 A_Overlay(-2,"MagRight")
+		SUZR A 14
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload1")
+		SUZR A 5
+		TNT1 A 0 A_SetInventory("PPE_SWUziMag",0)
+		Goto ReloadEnd
+	ReloadEnd:
+		SUZR AAAAAAAA 1 A_WeaponOffset(0,11,WOF_ADD)
+		TNT1 A 0 A_PlaySound("weapons/sw/uzi/reload2")
+		SUZG AAAAAAAA 1 A_WeaponOffset(0,-11,WOF_ADD)
+		SUZG A 20 A_WeaponReady
+		Goto Ready.Ready
+  	Flash:
+		TNT1 A 1 A_Light1
+		TNT1 A 1 A_SetPitch(pitch-0.15)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.15)
+		Goto LightDone
+  	Spawn:
+		SUZP A -1
+		Stop
+	}
+}
+
+Actor PPE_SWUziS5 : PPE_SWUziS4 
+{ 
+	Weapon.SlotNumber 5 Weapon.SlotPriority 6 
+	PPE_WeaponBase.SlotAlt1 "PPE_SWUziS2"
+	PPE_WeaponBase.SlotAlt2 "PPE_SWUziS4"
+	PPE_WeaponBase.SlotAlt3 "PPE_SWUziS6"
+	Weapon.AmmoUse 14
+	States
+	{
+	Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(3.5,3.5,2,(7),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterR",0,0,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterL",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(3,"SkipTracer")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1.5,1.5),0,-5,2,0,FRandom(-1.5,1.5))
+		Goto SkipTracer
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(3.5,3.5,2,(7),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterR",0,0,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterL",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(3,"SkipTracer2")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1.5,1.5),0,5,2,0,FRandom(-1.5,1.5))
+		Goto SkipTracer2
+	}
+}
+
+Actor PPE_SWUziS6 : PPE_SWUziS4 
+{ 
+	Weapon.SlotNumber 6 Weapon.SlotPriority 5
+	PPE_WeaponBase.SlotAlt1 "PPE_SWUziS2"
+	PPE_WeaponBase.SlotAlt2 "PPE_SWUziS4"
+	PPE_WeaponBase.SlotAlt3 "PPE_SWUziS5"
+	Weapon.AmmoUse 18
+	States
+	{
+	Fire:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(3.5,3.5,2,(9),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterR",0,0,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterL",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(3,"SkipTracer")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1.5,1.5),0,-5,2,0,FRandom(-1.5,1.5))
+		Goto SkipTracer
+	Fire2:
+		TNT1 A 0 A_JumpIfInventory("PPE_SWUziMag", 0, "Reload")
+		TNT1 A 0 A_GiveInventory("PPE_SWUziMag",1)
+		TNT1 A 0 A_Jump(236,2)
+		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/uzi/fire")
+		TNT1 A 0 A_FireBullets(3.5,3.5,2,(9),"PPE_SWBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterR",0,0,0,2)
+		TNT1 A 0 A_FireCustomMissile("PPE_SWUziCasingShooterL",0,0,0,2)
+		TNT1 A 0 A_CheckForReload(3,"SkipTracer2")
+		TNT1 A 0 A_FireCustomMissile("PPE_SWTracer",FRandom(-1.5,1.5),0,5,2,0,FRandom(-1.5,1.5))
+		Goto SkipTracer2
 	}
 }
 

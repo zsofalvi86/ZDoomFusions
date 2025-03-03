@@ -4,50 +4,44 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 	Weapon.SelectionOrder 2100
 	Weapon.SlotNumber 5
 	Weapon.SlotPriority 8
-	Weapon.AmmoUse 1
-	Weapon.AmmoGive 2
-	Weapon.AmmoType "PPE_Rockets"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoUse2 0
+	Weapon.AmmoGive1 2
+	Weapon.AmmoType1 "PPE_Rockets"
+	Weapon.AmmoType2 "PPE_Cells"
 	Weapon.KickBack 100
 	PPE_WeaponBase.SlotAlt1 "PPE_SwRocketLauncherS7"
 	PPE_WeaponBase.SpawnerId1 3,1
 	States
 	{
-	Ready:
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 2, "ReadyC")
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, "ReadyB")
-	ReadyA:
+	Ready.Ready:
+		TNT1 A 0 A_JumpIfMode(1,"Ready.M1")
+		TNT1 A 0 A_JumpIfMode(2,"Ready.M2")
+	Ready.M0:
 		TNT1 A 0 A_ClearOverlays(2,2)
-	ReadyALoop:
+	ReadyM0Loop:
 		SRLG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
-	ReadyB:
-		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 2)
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
-		Goto Ready
+	Ready.M1:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 1)
+		Goto Ready.M1.Empty
 		TNT1 A 0 A_Overlay(2,"SeekerOverlay")
-	ReadyBLoop:
+		Goto Ready.M1.Loop
+	Ready.M1.Empty:
+		TNT1 A 0 A_Overlay(2,"SeekerOverlayEmpty")
+		Goto Ready.M1.Loop
+	Ready.M1.Loop:
 		SRLG B 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
-	ReadyCReadyNuke:
-		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/standby")
-		SRLG AA 20 {A_WeaponReady(WRF_NOPRIMARY|WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3);A_Overlay(2,"Nuke4");}
-		SRLG A 25 A_WeaponReady(WRF_NOPRIMARY|WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
-		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/countdown")
-		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke1");} //35
-		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke2");} //35
-		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke3");} //35
-		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/ready")
-		SRLG AAA 20 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke4");} //10-10
-		TNT1 A 0 A_PlaySound("q/nukeup",5)
-		TNT1 A 0 A_SetInventory("PPE_NukeReady",1)
-	ReadyC:
-		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, 2)
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
-		Goto Ready
+	Ready.M2:
 		TNT1 A 0 A_JumpIfInventory("PPE_NukeReady", 1, 1)
-		Goto ReadyCReadyNuke
+		Goto Ready.M2.Empty
 		TNT1 A 0 A_Overlay(2,"NukeLoop")
-	ReadyCLoop:
+		Goto Ready.M2.Loop
+	Ready.M2.Empty:
+		TNT1 A 0 A_Overlay(2,"NukeOverlayEmpty")
+		Goto Ready.M2.Loop
+	Ready.M2.Loop:
 		SRLG C 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
   	Deselect:
@@ -59,8 +53,9 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
   	Fire:
 		TNT1 A 0 A_Jump(216,2)
 		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 2, "FireNuke")
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, "FireSeeker")
+		TNT1 A 0 A_JumpIfMode(1,"Fire.Seeker")
+		TNT1 A 0 A_JumpIfMode(2,"Fire.Nuke")
+	Fire.Normal:
 		SRLG AA 2 bright
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
@@ -69,76 +64,120 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		SRLG AAA 2 bright
 		SRLG A 16
 		TNT1 A 0 A_ReFire
-		Goto ReadyA
-	FireSeeker:
-		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 2)
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
-		Goto Ready
+		Goto Ready.Ready
+	Fire.Seeker:
+		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 1)
+		Goto Fire.Seeker.Normal
 		SRLG BB 2 bright
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
 		TNT1 A 0 A_FireProjectile("PPE_SWRocket_Seeker",0,1,0,4)
 		TNT1 A 0 A_TakeInventory("PPE_HeatSeekerCard",1)
 		TNT1 A 0 A_GunFlash
+		Goto Fire.Seeker.End
+	Fire.Seeker.Normal:
+		SRLG BB 2 bright
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
+		TNT1 A 0 A_FireProjectile("PPE_SWRocket",0,1,0,4)
+		TNT1 A 0 A_GunFlash
+		Goto Fire.Seeker.End
+	Fire.Seeker.End:
 		SRLG BBB 2 bright
 		SRLG B 16
-		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 2)
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
-		Goto Ready
 		TNT1 A 0 A_ReFire
-		Goto ReadyB
-	FireNuke:
-		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, 2)
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
-		Goto Ready
+		Goto Ready.Ready
+	Fire.Nuke:
+		TNT1 A 0 A_JumpIfInventory("PPE_NukeReady", 1, 2)
+		TNT1 A 0 A_SwapMode(0)
+		Goto Fire.Normal
+		TNT1 A 0 A_PlaySound("weapons/sw/nuke/warn",6)
 		SRLG CC 2 bright
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_PlayWeaponSound("weapons/sw/rocket/fire")
-		TNT1 A 0 A_PlaySound("weapons/sw/nuke/warn",6)
-		TNT1 A 0 A_FireProjectile("PPE_SWNuke",0,0,0,4,FPF_NOAUTOAIM)
-		TNT1 A 0 A_TakeInventory("PPE_Rockets",20)
+		TNT1 A 0 A_FireProjectile("PPE_SWNuke",0,1,0,4,FPF_NOAUTOAIM)
 		TNT1 A 0 A_SetInventory("PPE_NukeReady",0)
 		TNT1 A 0 A_GunFlash("FlashNuke")
 		SRLG CCC 2 bright
 		SRLG C 16
-		Goto Ready
+		TNT1 A 0 A_SwapMode(0)
+		Goto Ready.Ready
+	Reload:
+		TNT1 A 0 A_JumpIfMode(2, "Reload.Nuke")
+		TNT1 A 0 A_JumpIfMode(1, "Reload.Seeker")
+		TNT1 A 0 A_SwapMode(1)
+		Goto Reload.Seeker
+	Reload.Seeker:
+		TNT1 A 0 A_ClearOverlays(2,2)
+		TNT1 A 0 A_Overlay(2,"SeekerOverlay")
+		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard",0,"Ready.M1")
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",5-countinv("PPE_HeatSeekerCard"),1)
+		Goto Ready.Ready
+		TNT1 A 0 A_TakeInventory("PPE_Cells",5-countinv("PPE_HeatSeekerCard"),TIF_NOTAKEINFINITE)
+		TNT1 A 0 A_PlaySound("weapons/sw/seekercard",6)
+		TNT1 A 0 A_SetInventory("PPE_HeatSeekerCard",5)
+		SRLG BBBBBBBBB 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
+		Goto Ready.Ready
+	Reload.Nuke:
+		TNT1 A 0 A_ClearOverlays(2,2)
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",100,1)
+		Goto Ready.Ready
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/standby")
+		SRLG AA 20 {A_WeaponReady(WRF_NOPRIMARY|WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3);A_Overlay(2,"Nuke4");}
+		SRLG A 25 A_WeaponReady(WRF_NOPRIMARY|WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/countdown")
+		TNT1 A 0 A_JumpIfInventory("PPE_Cells",100,1)
+		Goto Ready.Ready
+		TNT1 A 0 A_TakeInventory("PPE_Cells",100,TIF_NOTAKEINFINITE)
+		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke1");} //35
+		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke2");} //35
+		SRLG A 35 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke3");} //35
+		TNT1 A 0 A_PlayWeaponSound("weapons/sw/nuke/ready")
+		SRLG AAA 20 {A_WeaponReady(WRF_NOPRIMARY|WRF_NOSECONDARY);A_Overlay(2,"Nuke4");} //10-10
+		TNT1 A 0 A_PlaySound("q/nukeup",5)
+		TNT1 A 0 A_SetInventory("PPE_NukeReady",1)
+		Goto Ready.M2
 	AltFire:
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 2, "User1")
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, "CheckNuke")
-		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, "User2")
-	CheckNuke:
-		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, "User3")
-		Goto User1
+		TNT1 A 0 A_JumpIfMode(1, "User3")
+		TNT1 A 0 A_JumpIfMode(2, "User1")
+		Goto User2
 	User1:
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, 1)
-		Goto Ready
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",0)
+		TNT1 A 0 A_JumpIfMode(0, "Ready.M0")
+		TNT1 A 0 A_SwapMode(0)
 		TNT1 A 0 //A_PlaySound("weapons/boltup")
 		TNT1 A 0 A_ClearOverlays(2,2)
 		SRLG AAAAAAAAA 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
-		Goto ReadyA
+		Goto Ready.Ready
 	User2:
+		TNT1 A 0 A_JumpIfMode(1, "Ready.M1")
+		TNT1 A 0 A_SwapMode(1)
+		TNT1 A 0 //A_PlaySound("weapons/boltup")
+		TNT1 A 0 A_ClearOverlays(2,2)
 		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 1)
-		Goto Ready
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 1, "ReadyB")
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",1)
-		TNT1 A 0 //A_PlaySound("weapons/boltup")
-		TNT1 A 0 A_ClearOverlays(2,2)
+		Goto User2.Empty
 		TNT1 A 0 A_Overlay(2,"SeekerOverlay")
+		Goto User2.End
+	User2.Empty:
+		TNT1 A 0 A_Overlay(2,"SeekerOverlayEmpty")
+		Goto User2.End
+	User2.End:
 		SRLG BBBBBBBBB 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
-		Goto ReadyB
+		Goto Ready.Ready
 	User3:
-		TNT1 A 0 A_JumpIfInventory("PPE_Rockets", 20, 1)
-		Goto Ready
-		TNT1 A 0 A_JumpIfInventory("PPE_RocketLauncherMode", 2, "ReadyC")
-		TNT1 A 0 A_SetInventory("PPE_RocketLauncherMode",2)
+		TNT1 A 0 A_JumpIfMode(2, "Ready.M2")
+		TNT1 A 0 A_SwapMode(2)
 		TNT1 A 0 //A_PlaySound("weapons/boltup")
-		TNT1 A 0 A_JumpIfInventory("PPE_NukeReady", 1, 1)
-		Goto ReadyCReadyNuke
 		TNT1 A 0 A_ClearOverlays(2,2)
+		TNT1 A 0 A_JumpIfInventory("PPE_NukeReady", 1, 1)
+		Goto User3.Empty
 		TNT1 A 0 A_Overlay(2,"NukeLoop")
+		Goto User3.End
+	User3.Empty:
+		TNT1 A 0 A_Overlay(2,"NukeOverlayEmpty")
+		Goto User3.End
+	User3.End:
 		SRLG CCCCCCCCC 1 A_WeaponReady(WRF_NOSECONDARY|WRF_NOBOB)
-		Goto ReadyC
+		Goto Ready.Ready
 	SeekerOverlay:
 		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard",5,"Seeker5")
 		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard",4,"Seeker4")
@@ -156,6 +195,10 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		Goto SeekerOverlay
 	Seeker5: SRLH E 1 bright 
 		Goto SeekerOverlay
+	SeekerOverlayEmpty:
+		SRLH E 10 bright
+		TNT1 A 10
+		Goto SeekerOverlayEmpty
 	Nuke1: SRLC A 35 bright
 		Goto LightDone
 	Nuke2: SRLC B 35 bright
@@ -166,6 +209,10 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		Goto LightDone
 	NukeLoop: SRLN A 1 bright
 		Loop
+	NukeOverlayEmpty:
+		SRLN A 10 bright
+		TNT1 A 10
+		Goto NukeOverlayEmpty
   	Flash:
 		TNT1 A 1 A_Light1
 		TNT1 AAAAAA 1 A_SetPitch(pitch-0.6)
@@ -311,11 +358,6 @@ Actor PPE_SWRocketTrail : PPE_TrailBase
     	WTRL ABCDEF 5
     	Stop
 	}
-}
-
-Actor PPE_RocketLauncherMode : Inventory
-{
-	Inventory.MaxAmount 2
 }
 
 Actor PPE_HeatSeekerCard : Inventory

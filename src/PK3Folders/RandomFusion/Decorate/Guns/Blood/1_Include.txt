@@ -1,0 +1,2 @@
+#Include Decorate/Guns/Blood/2_WBase.txt
+#Include Decorate/Guns/Blood/SawedOff.txt

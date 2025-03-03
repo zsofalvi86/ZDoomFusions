@@ -1,0 +1,16 @@
+#Include Decorate/Guns/SeriousSam/2_WBase.txt
+#Include Decorate/Guns/SeriousSam/Chainsaw.txt
+#Include Decorate/Guns/SeriousSam/Pistol.txt
+#Include Decorate/Guns/SeriousSam/Shotgun.txt
+#Include Decorate/Guns/SeriousSam/CoachGun.txt
+#Include Decorate/Guns/SeriousSam/TommyGun.txt
+#Include Decorate/Guns/SeriousSam/MiniGun.txt
+#Include Decorate/Guns/SeriousSam/RocketLauncher.txt
+#Include Decorate/Guns/SeriousSam/GrenadeLauncher.txt
+#Include Decorate/Guns/SeriousSam/Flamethrower.txt
+#Include Decorate/Guns/SeriousSam/LaserGun.txt
+#Include Decorate/Guns/SeriousSam/Ghostbuster.txt
+#Include Decorate/Guns/SeriousSam/SniperRifle.txt
+#Include Decorate/Guns/SeriousSam/Devastator.txt
+#Include Decorate/Guns/SeriousSam/Cannon.txt
+#Include Decorate/Guns/SeriousSam/SeriousBomb.txt

@@ -2,11 +2,16 @@ Class PPE_QuoteBase : Inventory abstract
 {
 	default {inventory.maxamount 1;}
 	
+	bool startedPlaying;
+	
 	override void AttachToOwner(Actor other)
 	{
+		startedPlaying = false;
 		if (!other.FindInventory("PPE_QuoteBase",true))
 		{
 			PlayPickupSound(other);
+			startedPlaying = true;
+			//other.A_Print("start_n: "..GetClassName());
 		}
 		super.AttachToOwner(other);
 	}
@@ -15,7 +20,17 @@ Class PPE_QuoteBase : Inventory abstract
 	{
 		if (!owner.IsActorPlayingSound(CHAN_ITEM,PickupSound))
 		{
-			owner.SetInventory(GetClass(),0);
+			if (!startedPlaying && bAdditiveTime) //hijacking this flag for the queueing
+			{
+				PlayPickupSound(owner);
+				startedPlaying = true;
+				//owner.A_Print("start_q: "..GetClassName());
+			}
+			else
+			{
+				owner.A_Print("stop: "..GetClassName());
+				//owner.SetInventory(GetClass(),0);
+			}
 		}
 		Super.DoEffect();
 	}
