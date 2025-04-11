@@ -10,6 +10,12 @@ Actor PPE_TrailBase
 	+FORCEXYBILLBOARD
 	Radius 1
 	Height 1
+	States
+	{
+		Spawn:
+		TNT1 A 0
+		stop
+	}
 }
 
 Actor PPE_ProxyBase
@@ -22,6 +28,12 @@ Actor PPE_ProxyBase
 	+NOTONAUTOMAP
 	Radius 1
 	Height 1
+	States
+	{
+		Spawn:
+		TNT1 A 0
+		stop
+	}
 }
 
 Actor PPE_DodgeableMissileBase : PPE_PPEMissileBase

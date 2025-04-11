@@ -5,11 +5,16 @@ actor PPE_EBRocket : PPE_SlowMissileBase
   SeeSound "weapons/unr/eball/fire"
   DeathSound "weapons/unr/eball/explode"
   Obituary "$OB_MPROCKET"
+  +SEEKERMISSILE
   States
 	{
 	Spawn:
-		MISL A 2 bright
+		MISL AAAA 2 bright A_SpawnItem("PPE_EBRocketTrailSmoke")
+	SeekLoop:
+		TNT1 A 0 A_PlaySoundEx("trirloop","SoundSlot5",1)
+		MISL A 1 bright A_SeekerMissile(5, 3)
 		TNT1 A 0 A_SpawnItem("PPE_EBRocketTrailSmoke")
+		MISL A 1 bright A_SeekerMissile(5, 3)
 		Loop
 	Death:
 		TNT1 A 0 A_Explode(128,128)
@@ -100,7 +105,7 @@ Actor PPE_EBGrenadeTrailSmoke : PPE_EBRocketTrailSmoke
 	Alpha 0.25
 }
 
-actor PPE_UnrEightball : PPE_UWeaponBase
+actor PPE_UnrEightball : PPE_ULockOn
 {
    Tag "$TAG_UNR_EBRL"
    Weapon.AmmoUse1 1
@@ -123,10 +128,14 @@ actor PPE_UnrEightball : PPE_UWeaponBase
 	 TNT1 A 0 A_TakeInventory("PPE_EBRL_Load",6) // Cheat bugging prevention (IDKFA)
      Loop
    Deselect:
+	 TNT1 A 0 A_ClearOverlays(11,11)
+   DeSeLoop:
      EBRL A 1 A_Lower
 	 TNT1 A 0 A_Lower
      Loop
    Select:
+	 TNT1 A 0 A_GroomEBXhair
+   SeLoop:
      EBRL A 1 A_Raise
 	 TNT1 A 0 A_Raise
      Loop
@@ -192,130 +201,130 @@ actor PPE_UnrEightball : PPE_UWeaponBase
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",2,"FireOneSpiral")
    	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",1,"FireOneGrenade")
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-   	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 0, 0 , 0 , 0 , 0, 0)
+   	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 0, 0 , 0 , 0 , 0, 0)
 	 Goto Animate
    FireOneSpiral:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral", 0, 0 , 0 , 6 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral", 0, 0 , 0 , 6 , 1, 0)
      Goto Animate
    FireOneGrenade:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/alt",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", 0, 0 , 0 , 0 , 1, 9)
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", 0 , 0 , 0 , 0 , 1, -9)
      Goto Animate
    FireTwo:
    	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",2,"FireTwoSpiral")
    	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",1,"FireTwoGrenade")
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 2, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -2, 0 , 0 , 0 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 2, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -2, 0 , 0 , 0 , 1, 0)
 	 Goto Animate
    FireTwoSpiral:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral21", 0, 0 , 0 , -8 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral22", 0, 0 , 0 , 8 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral21", 0, 0 , 0 , -8 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral22", 0, 0 , 0 , 8 , 1, 0)
      Goto Animate
    FireTwoGrenade:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/alt",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-4,4), 0 , 0 , 0 , 1, Random(7,11))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-4,4), 0 , 0 , 0 , 1, Random(7,11))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-4,4), 0 , 0 , 0 , 1, -Random(7,11))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-4,4), 0 , 0 , 0 , 1, -Random(7,11))
      Goto Animate
    FireThree:
    	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",2,"FireThreeSpiral")
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",1,"FireThreeGrenade")
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 4, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 0, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -4, 0 , 0 , 0 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 4, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 0, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -4, 0 , 0 , 0 , 1, 0)
 	 Goto Animate
    FireThreeSpiral:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral31", 0, 0 , 0 , 7 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral32", 0, 0 , 7 , -5 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral33", 0, 0 , -7 , -5 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral31", 0, 0 , 0 , 7 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral32", 0, 0 , 7 , -5 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral33", 0, 0 , -7 , -5 , 1, 0)
      Goto Animate
    FireThreeGrenade:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/alt",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-7,7), 0 , 0 , 0 , 1, Random(6,12))
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-7,7), 0 , 0 , 0 , 1, Random(6,12))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-7,7), 0 , 0 , 0 , 1, Random(6,12))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-7,7), 0 , 0 , 0 , 1, -Random(6,12))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-7,7), 0 , 0 , 0 , 1, -Random(6,12))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-7,7), 0 , 0 , 0 , 1, -Random(6,12))
      Goto Animate
    FireFour:
    	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",2,"FireFourSpiral")
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",1,"FireFourGrenade")
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 5.25, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 1.75, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -1.75, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -5.25, 0 , 0 , 0 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 5.25, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 1.75, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -1.75, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -5.25, 0 , 0 , 0 , 1, 0)
 	 Goto Animate
    FireFourSpiral:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral21", 0, 0 , 0 , -8 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral22", 0, 0 , 0 , 8 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral43", 0, 0 , -8 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral44", 0, 0 , 8 , 0 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral21", 0, 0 , 0 , -8 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral22", 0, 0 , 0 , 8 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral43", 0, 0 , -8 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral44", 0, 0 , 8 , 0 , 1, 0)
      Goto Animate
    FireFourGrenade:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/alt",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, Random(5,13))
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, Random(5,13))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, Random(5,13))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, Random(5,13))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, -Random(5,13))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, -Random(5,13))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, -Random(5,13))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-8,8), 0 , 0 , 0 , 1, -Random(5,13))
      Goto Animate
    FireFive:
    	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",2,"FireFiveSpiral")
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",1,"FireFiveGrenade")
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 6, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 3, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 0, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -3, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -6, 0 , 0 , 0 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 6, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 3, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 0, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -3, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -6, 0 , 0 , 0 , 1, 0)
 	 Goto Animate
    FireFiveSpiral:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral51", 0, 0 , 8 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral52", 0, 0 , 3.2 , -6.4 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral53", 0, 0 , 3.2 , 6.4 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral54", 0, 0 , -6.4 , 3.2 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral55", 0, 0 , -6.4 , -3.2 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral51", 0, 0 , 8 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral52", 0, 0 , 3.2 , -6.4 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral53", 0, 0 , 3.2 , 6.4 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral54", 0, 0 , -6.4 , 3.2 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral55", 0, 0 , -6.4 , -3.2 , 1, 0)
      Goto Animate
    FireFiveGrenade:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/alt",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, Random(4,14))
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, Random(4,14))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, Random(4,14))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, Random(4,14))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, Random(4,14))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, -Random(4,14))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, -Random(4,14))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, -Random(4,14))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, -Random(4,14))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-9,9), 0 , 0 , 0 , 1, -Random(4,14))
      Goto Animate
    FireSix:
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",2,"FireSixSpiral")
 	 TNT1 A 0 A_JumpIfInventory("PPE_EBRL_MODE",1,"FireSixGrenade")
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 6.25, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 3.75, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", 1.25, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -1.25, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -3.75, 0 , 0 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocket", -6.25, 0 , 0 , 0 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 6.25, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 3.75, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", 1.25, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -1.25, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -3.75, 0 , 0 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocket", -6.25, 0 , 0 , 0 , 1, 0)
 	 Goto Animate
    FireSixSpiral:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/fire",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral43", 0, 0 , -8 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral44", 0, 0 , 8 , 0 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral61", 0, 0 , 4 , 6 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral62", 0, 0 , 4 , -6 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral63", 0, 0 , -4 , -6 , 1, 0)
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBRocketSpiral64", 0, 0 , -4 , 6 , 1, 0)
+     TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral43", 0, 0 , -8 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral44", 0, 0 , 8 , 0 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral61", 0, 0 , 4 , 6 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral62", 0, 0 , 4 , -6 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral63", 0, 0 , -4 , -6 , 1, 0)
+	 TNT1 A 0 A_FireProjectileEB ("PPE_EBRocketSpiral64", 0, 0 , -4 , 6 , 1, 0)
      Goto Animate
    FireSixGrenade:
 	 TNT1 A 0 A_PlaySound("weapons/unr/eball/alt",1)
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, Random(3,15))
-     TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, Random(3,15))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, Random(3,15))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, Random(3,15))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, Random(3,15))
-	 TNT1 A 0 A_FireCustomMissile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, Random(3,15))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, -Random(3,15))
+     TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, -Random(3,15))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, -Random(3,15))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, -Random(3,15))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, -Random(3,15))
+	 TNT1 A 0 A_FireProjectile ("PPE_EBGrenade", Random(-10,10), 0 , 0 , 0 , 1, -Random(3,15))
      Goto Animate
    Animate:
      TNT1 A 0 A_TakeInventory("PPE_EBRL_Load",255)
@@ -327,6 +336,14 @@ actor PPE_UnrEightball : PPE_UWeaponBase
 	 EBRL A 2
 	 TNT1 A 0 A_ReFire
      Goto Ready
+   LockStart:
+	 TNT1 A 0 A_SetLockSprite
+   LockNoLock:
+	 TNT1 A 1 
+	 Goto LockStart
+   LockLock:
+	 SXHP D 1 bright Offset(0,-32)
+	 Goto LockStart
    Flash:
    AltFlash:
 	 TNT1 A 1 A_Light1

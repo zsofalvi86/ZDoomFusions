@@ -1,0 +1,110 @@
+Class PPE_ULockOn : PPE_UWeaponBase
+{
+	int lockFrame;
+	int unlockFrame;
+	bool acquiring;
+	bool locked;
+	Actor acquireTarget;
+	Actor lockTarget;
+	
+	Override void DoEffect()
+	{
+		if (owner.player.readyweapon == self)
+		{
+			let bobdelta = owner.player.viewz - owner.pos.Z - owner.player.viewheight;
+			FLineTraceData hit;
+			owner.LineTrace(owner.angle, 99999, owner.pitch, 0, owner.player.viewheight + bobdelta, 0, 0, hit);
+			
+			if(hit.HitActor && hit.HitActor == acquireTarget && !acquireTarget.bKilled)
+			{
+				lockFrame++;
+				
+				if (lockFrame >= 36)
+				{
+					if (acquiring)
+					{
+						if (lockTarget != hit.HitActor)
+						{
+							owner.A_PlaySound("weapons/unr/eball/lock",5);
+						}
+						acquiring = false;
+						acquireTarget = null;
+					}
+					lockTarget = hit.HitActor;
+					
+					unlockFrame = 28;
+					locked = true;
+					lockFrame = 36;
+				}
+			}
+			else
+			{
+				if (hit.HitActor)
+				{
+					acquireTarget = hit.HitActor;
+					lockFrame = 2;
+					acquiring = true;
+				}
+			
+				unlockFrame --;
+				lockFrame--;
+				
+				if (unlockFrame <= 0 || (lockTarget && lockTarget.bKilled))
+				{
+					if (locked)
+					{
+						locked = false;
+						owner.A_PlaySound("weapons/unr/eball/unlock",5);
+					}
+				
+					lockTarget = null;
+					lockFrame = 0;
+					unlockFrame = 0;
+				}
+			}
+		}
+	}
+	
+	Action State A_SetLockSprite()
+	{
+		let pspr = player.FindPSprite(11);
+		let ret = ResolveState(null);
+		if (pspr)
+		{
+			if (invoker.locked)
+			{
+				ret = ResolveState("LockLock");
+			}
+			else
+			{
+				ret = ResolveState("LockNoLock");
+			}
+		}
+		return ret;
+	}
+	
+	Action void A_GroomEBXhair()
+	{
+		A_Overlay(11,"LockStart",false);
+		A_OverlayFlags(11,PSPF_PIVOTPERCENT|PSPF_RENDERSTYLE|PSPF_ADDWEAPON|PSPF_FORCESTYLE,true);
+		A_OverlayFlags(11,PSPF_ADDBOB,false);
+		A_OverlayPivot(11,0.5,0.5);
+		A_OverlayRenderstyle(11,STYLE_Normal);
+		A_OverlayScale(11,0.5,0.5);
+	}
+	
+	Action void A_FireProjectileEB(class<Actor> missiletype, 
+	double angle = 0, bool useammo = true, double spawnofs_xy = 0, double spawnheight = 0, 
+	EFireCustomMissileFlags flags = 0, double pitch = 0)
+	{
+	
+		//Actor p1, p2;
+		//[p1, p2] = A_FireProjectile(missiletype,angle,useammo,spawnofs_xy,spawnheight,flags,pitch);
+		Actor p2;
+		p2 = A_FireProjectile(missiletype,angle,useammo,spawnofs_xy,spawnheight,flags,pitch);
+		if (p2 && invoker.locked && invoker.lockTarget)
+		{
+			p2.Tracer = invoker.lockTarget;
+		}
+	}
+}

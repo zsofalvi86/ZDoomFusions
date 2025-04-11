@@ -28,8 +28,8 @@ Class PPE_QuoteBase : Inventory abstract
 			}
 			else
 			{
-				owner.A_Print("stop: "..GetClassName());
-				//owner.SetInventory(GetClass(),0);
+				//owner.A_Print("stop: "..GetClassName());
+				owner.SetInventory(GetClass(),0);
 			}
 		}
 		Super.DoEffect();

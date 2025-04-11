@@ -77,7 +77,6 @@ ACTOR PPE_SeriousBomb : PPE_SeriousSamWeaponBase
 		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
 		SBMX AAAAAAAAA 1 A_WeaponReady(WRF_NOFIRE)
 		TNT1 A 0 A_WeaponReady
-		TNT1 A 0 A_SelectWeapon("PPE_LaserGun",SWF_SELECTPRIORITY)
 		Goto Ready
     } 
 }

@@ -16,7 +16,7 @@ Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
     	TNT1 A 1
 		{
 			tracer = null;
-			If(invoker.owner)
+			If(invoker.owner.bKilled) {return ResolveState(null);}
 			If(invoker.owner.CheckProximity("PPE_ActionFigureMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
 			invoker.owner.CheckProximity("PPE_ActionFigurePlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
 			{
