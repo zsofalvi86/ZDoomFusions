@@ -1,0 +1,111 @@
+Actor PPE_DoomPlasmaGun : PPE_DoomWeaponBase
+{
+	Tag "$TAG_DOOM_PG"
+	Inventory.PickupSound "weapons/doom/plasma/pickup"
+	Weapon.SelectionOrder 750
+	Weapon.SlotNumber 6
+	Weapon.SlotPriority 9
+	Weapon.AmmoUse 1
+	Weapon.AmmoType "PPE_Cells"
+	Weapon.AmmoGive 40
+	Decal "BulletChip"
+	PPE_WeaponBase.SlotAlt1 "PPE_DoomPlasmaGunS8"
+	PPE_WeaponBase.SpawnerId1 4,1
+	States
+	{
+	Ready.Ready:
+    	DPSG ABBCCDDEEFFAAAAAAAAAAAAAAAAA 1 A_WeaponReady
+    	Loop
+  	Deselect:
+    	DPSG A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	DPSG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/plasma/fire")
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomPlasma",0,1,0,2,1,0)
+		Goto Anim1
+	Anim1:
+    	DPPF ABC 1 bright
+		TNT1 A 0 A_ReFire("FireB")
+		Goto Winddown
+	FireB:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/plasma/fire")
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomPlasma",0,1,0,2,1,0)
+		Goto Anim2
+	Anim2:
+		DPPF DEF 1 bright
+		TNT1 A 0 A_ReFire("Fire")
+	Winddown:
+		DPPF G 1 bright
+		DPSG A 1
+		DPSR ABBBBA 3
+		Goto Ready.Ready
+  	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.14)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.28)
+		Goto LightDone
+	Spawn:
+    	DPLW AAAAAABBCCDDCCBB 1
+		Loop
+	}
+}
+
+Actor PPE_DoomPlasmaGunS8 : PPE_DoomPlasmaGun
+{ 
+	Weapon.SlotNumber 8 PPE_WeaponBase.SlotAlt1 "PPE_DoomPlasmaGun" 
+	Weapon.AmmoUse 2
+	States
+	{
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/plasma/fire")
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomPlasmaS8",0,1,0,2,1,0)
+		Goto Anim1
+	FireB:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/plasma/fire")
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomPlasmaS8",0,1,0,2,1,0)
+		Goto Anim2
+	}
+}
+
+actor PPE_DoomPlasma : PPE_SlowMissileBase
+{
+	-BLOODSPLATTER
+	Speed 25
+	ProjectileKickBack 100
+	Damage (22)
+	Decal QPlasmaScorch
+	SeeSound ""
+	DeathSound "weapons/doom/plasma/explode"
+	Obituary "$OB_MPROCKET"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_PlaySound("weapons/doom/plasma/fly",6,1,1)
+		TNT1 A 0 A_Jump(256,1,2,3)
+	Loopy:
+		PLDR ABCD 2 bright
+		loop
+	Death:
+		TNT1 A 0 A_StopSound(6)
+		PLSE ABCDE 2 bright
+		Stop
+	}
+}
+
+actor PPE_DoomPlasmaS8 : PPE_DoomPlasma
+{
+	Damage (44)
+}

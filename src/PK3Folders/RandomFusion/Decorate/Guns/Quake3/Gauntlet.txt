@@ -17,7 +17,7 @@ Actor PPE_Q3Gauntlet : PPE_Quake3WeaponBase
 		Q3GN A 1 A_Lower(12)
     	Loop
   	Select:
-		SSKN A 1 A_Raise(12)
+		Q3GN A 1 A_Raise(12)
     	Loop
   	Fire:
 		TNT1 A 0 A_PlaySound("weapons/quake3/gauntlet/run",6,1,1)

@@ -1,6 +1,10 @@
 Class PPE_DukeClassMod : PPE_ClassBase
 {
-	Default {Weapon.UpSound "weapons/dn/select"; Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";}
+	Default 
+	{
+		Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";
+		Inventory.PickupMessage "$GOTCMODDUKE";
+	}
 	
 	int dmgbuffer;
 	int lastquotetime;
@@ -36,5 +40,12 @@ Class PPE_DukeClassMod : PPE_ClassBase
 				}
 			}
 		}
+	}
+	
+	States
+	{
+	Spawn:
+		CMDN ABCDEFG 2 bright;
+		Loop;
 	}
 }

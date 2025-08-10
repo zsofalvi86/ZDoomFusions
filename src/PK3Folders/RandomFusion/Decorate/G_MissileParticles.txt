@@ -195,3 +195,79 @@ ACTOR PPE_TeleportSpark : PPE_IteratorEffect //replaces TeleportFog
 		Stop
 	}
 }
+
+Actor PPE_RedBloodExplo : PPE_IteratorEffect
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 100; A_SetUserVar(user_i, user_i + 1))
+			{
+				A_SpawnParticle(red,SPF_FULLBRIGHT|SPF_RELATIVE,20,7,FRandom(0,360),0,0,0,Random(1,18),0,Random(-10,18),0,0,-2);
+				A_SpawnParticle(orange,SPF_FULLBRIGHT|SPF_RELATIVE,16,7,FRandom(0,360),0,0,0,Random(1,14),0,Random(-6,14),0,0,-2);
+				A_SpawnParticle(yellow,SPF_FULLBRIGHT|SPF_RELATIVE,12,7,FRandom(0,360),0,0,0,Random(1,9),0,Random(-4,9),0,0,-2);
+			}
+		}
+    	Stop
+	}
+}
+
+Actor PPE_RedBloodExploSparse : PPE_IteratorEffect
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 35; A_SetUserVar(user_i, user_i + 1))
+			{
+				A_SpawnParticle(red,SPF_FULLBRIGHT|SPF_RELATIVE,20,7,FRandom(0,360),0,0,0,Random(1,18),0,Random(-10,18),0,0,-2);
+				A_SpawnParticle(orange,SPF_FULLBRIGHT|SPF_RELATIVE,16,7,FRandom(0,360),0,0,0,Random(1,14),0,Random(-6,14),0,0,-2);
+				A_SpawnParticle(yellow,SPF_FULLBRIGHT|SPF_RELATIVE,12,7,FRandom(0,360),0,0,0,Random(1,9),0,Random(-4,9),0,0,-2);
+			}
+		}
+    	Stop
+	}
+}
+
+Actor PPE_RedBloodFlareSparks : PPE_IteratorEffect
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0
+		{
+			//for (A_SetUserVar(user_i, 0); user_i < 5; A_SetUserVar(user_i, user_i + 1))
+			//{
+				A_SpawnParticle(red,SPF_FULLBRIGHT|SPF_RELATIVE,20,7,FRandom(0,360),0,0,0,Random(1,10),0,Random(-6,8),0,0,-2);
+				A_SpawnParticle(orange,SPF_FULLBRIGHT|SPF_RELATIVE,16,7,FRandom(0,360),0,0,0,Random(1,8),0,Random(-4,6),0,0,-2);
+				A_SpawnParticle(yellow,SPF_FULLBRIGHT|SPF_RELATIVE,12,7,FRandom(0,360),0,0,0,Random(1,6),0,Random(-2,4),0,0,-2);
+			//}
+		}
+    	Stop
+	}
+}
+
+Actor PPE_DukeExploChunks : PPE_IteratorEffect
+{
+	States
+	{
+  	Spawn:
+		TNT1 A 0
+		TNT1 A 0
+		{
+			for (A_SetUserVar(user_i, 0); user_i < 2; A_SetUserVar(user_i, user_i + 1))
+			{
+				A_SpawnItemEx("PPE_GrayMetalChunk",0,0,0,FRandom(-5,5),FRandom(-5,5),FRandom(9,15),0,SXF_NOCHECKPOSITION,48);
+				A_SpawnItemEx("PPE_GrayMetalChunk",0,0,0,FRandom(-5,5),FRandom(-5,5),FRandom(9,15),0,SXF_NOCHECKPOSITION,48);
+				A_SpawnItemEx("PPE_GrayMetalChunk2",0,0,0,FRandom(-4,4),FRandom(-4,4),FRandom(8,13),0,SXF_NOCHECKPOSITION,48);
+			}
+		}
+    	Stop
+	}
+}

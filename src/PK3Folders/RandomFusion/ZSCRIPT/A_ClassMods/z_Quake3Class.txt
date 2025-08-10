@@ -2,8 +2,8 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 {
 	Default 
 	{
-	Weapon.UpSound "weapons/quake3/switch"; Inventory.PickupSound "weapons/quake3/pickup"; ActiveSound "weapons/quake3/ammo";
-	+WEAPON.NOAUTOAIM;
+		Inventory.PickupSound "weapons/quake3/pickup"; ActiveSound "weapons/quake3/ammo";
+		Inventory.PickupMessage "$GOTCMODQ3";
 	}
 	
 	mixin PPE_SpriteBeam;
@@ -119,5 +119,12 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 			}
 			lasthit = level.time;
 		}
+	}
+	
+	States
+	{
+	Spawn:
+		CMQ3 A 2 bright;
+		Loop;
 	}
 }

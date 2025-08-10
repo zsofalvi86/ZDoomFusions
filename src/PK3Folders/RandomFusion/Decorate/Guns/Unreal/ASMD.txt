@@ -20,7 +20,7 @@ Actor PPE_UnrASMD : PPE_UWeaponBase
 	States
 	{
 	Ready:
-    	ASMD A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+    	ASMD AAAAAAAAABBCCDDEEDDCCBBAA 1 A_WeaponReady
     	Loop
   	Deselect:
 		TNT1 A 0 A_StopSound(6)
@@ -40,9 +40,9 @@ Actor PPE_UnrASMD : PPE_UWeaponBase
 		TNT1 A 0 A_FireCustomMissile("PPE_ComboPopper",0,0,0,3,1,0)
 		Goto AnimP
 	AnimP:
-		ASMD AAAA 3 bright
-		ASMD A 15
-		//ASMD BCDEFBCDEFBCDEF 1
+		ASMD FGH 3 bright
+		ASMD BCDEDCBABCDEDCB 1
+		ASMD A 3
     	TNT1 A 0 A_ReFire
 		TNT1 A 0 A_PlaySound("weapons/unr/asmd/vape",5)
 		Goto Ready
@@ -52,9 +52,9 @@ Actor PPE_UnrASMD : PPE_UWeaponBase
 		TNT1 A 0 A_GunFlash
 		Goto AnimA
 	AnimA:
-    	ASMD AAAA 3 bright
-		ASMD A 5
-		//ASMD BCDEF 1
+    	ASMD FGH 3 bright
+		ASMD BCDEDCB 1
+		ASMD A 1
     	TNT1 A 0 A_ReFire
 		TNT1 A 0 A_PlaySound("weapons/unr/asmd/vape",5)
 		Goto Ready
@@ -65,7 +65,7 @@ Actor PPE_UnrASMD : PPE_UWeaponBase
 		TNT1 A 1 A_SetPitch(pitch+0.6)
 		Goto LightDone
   	Spawn:
-		PLAS A 1
+		ASMW A 1
 		Loop
 	}
 }

@@ -1,0 +1,4 @@
+Class PPE_DoomWeaponBase : PPE_WeaponBase abstract
+{
+	Default {Weapon.UpSound "weapons/doom/select"; Inventory.PickupSound "weapons/doom/pickup"; ActiveSound "weapons/dom/pickup";}
+}

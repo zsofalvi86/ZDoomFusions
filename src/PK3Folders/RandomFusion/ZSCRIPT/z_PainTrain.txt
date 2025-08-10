@@ -1,0 +1,12 @@
+Class PPE_PainTrain : Powerup
+{
+	override void DoEffect()
+	{
+		owner.TriggerPainChance('Normal',false);
+	}
+	
+	Default
+	{
+		Powerup.Duration 35;
+	}
+}

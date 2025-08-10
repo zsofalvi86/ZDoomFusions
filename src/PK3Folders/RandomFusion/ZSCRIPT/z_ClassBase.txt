@@ -32,6 +32,19 @@ Class PPE_ClassBase : PPE_CustomBase abstract
 		}
 		return true;
 	}
+	
+	Override void AttachToOwner(Actor other)
+	{
+		other.A_PlaySound(ActiveSound,3);
+		Super.AttachToOwner(other);
+	}
+	
+	Override void DetachFromOwner()
+	{
+		Super.DetachFromOwner();
+	}
+	
+	virtual int GetSwapSpeed() { return 6; }
 
 	Default
 	{

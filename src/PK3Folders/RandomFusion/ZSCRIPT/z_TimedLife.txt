@@ -1,0 +1,43 @@
+Mixin Class PPE_TimedLife
+{
+	int tics; int tic;
+	string deathState;
+	Property LifeTics: tics;
+	Property TimeoutDeathState: deathState;
+	
+	void TimedLifeTick()
+	{
+		tic++;
+		if (tic >= tics)
+		{
+			A_Die(deathState);
+		}
+	}
+	
+	Action void A_ChangeTics(int amount)
+	{
+		invoker.tic += amount;
+	}
+}
+
+Class PPE_BasicTimedLife : Actor
+{
+	mixin PPE_TimedLife;
+	
+	override void Tick()
+	{
+		TimedLifeTick();
+		Super.Tick();
+	}
+}
+
+Class PPE_TimedMissile : PPE_SlowMissileBase
+{
+	mixin PPE_TimedLife;
+	
+	override void Tick()
+	{
+		TimedLifeTick();
+		Super.Tick();
+	}
+}

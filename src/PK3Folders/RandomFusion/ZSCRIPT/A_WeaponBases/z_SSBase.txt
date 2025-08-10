@@ -35,7 +35,7 @@ Class PPE_SeriousSamWeaponBase : PPE_WeaponBase abstract
 	}
 }
 
-Class PPE_SamCrosshair : CustomInventory
+Class PPE_SamCrosshair2 : CustomInventory
 {
 	Double distratio;
 	

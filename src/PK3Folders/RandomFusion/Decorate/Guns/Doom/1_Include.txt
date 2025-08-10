@@ -1,0 +1,7 @@
+#Include Decorate/Guns/Doom/2_WBase.txt
+#Include Decorate/Guns/Doom/Fist.txt
+#Include Decorate/Guns/Doom/Pistol.txt
+#Include Decorate/Guns/Doom/Shotgun.txt
+#Include Decorate/Guns/Doom/Chaingun.txt
+#Include Decorate/Guns/Doom/PlasmaGun.txt
+#Include Decorate/Guns/Doom/BFG.txt

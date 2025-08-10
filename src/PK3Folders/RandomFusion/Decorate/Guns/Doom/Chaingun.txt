@@ -1,0 +1,100 @@
+Actor PPE_DoomChaingun : PPE_DoomWeaponBase
+{
+	Tag "$TAG_DOOM_CG"
+	Inventory.PickupSound "weapons/doom/chaingun/pickup"
+	Weapon.SelectionOrder 700
+	Weapon.SlotNumber 4
+	Weapon.SlotPriority 5
+	Weapon.AmmoUse 10
+	Weapon.AmmoType "PPE_Bullets"
+	Weapon.AmmoGive 200
+	Decal "BulletChip"
+	PPE_WeaponBase.SlotAlt1 "PPE_DoomChaingunS5"
+	PPE_WeaponBase.SpawnerId1 2,1
+	PPE_WeaponBase.SpawnerId2 2,3
+	PPE_WeaponBase.SpawnerId4 14,1
+	States
+	{
+	Ready.Ready:
+    	DCGG A 1 A_WeaponReady
+    	Loop
+  	Deselect:
+    	DCGG A 1 A_Lower(12)
+    	Loop
+  	Select:
+    	DCGG A 1 A_Raise(12)
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/chaingun/fire")
+		TNT1 A 0 A_FireBullets(5.4,1.0,1,(10),"PPE_DoomBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomCGBulletCasingShooter",0,0,0,2)
+		Goto Anim1
+	Anim1:
+    	DCGF AB 2 bright
+		TNT1 A 0 A_Jump(256,"FireB")
+	FireB:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/chaingun/fire")
+		TNT1 A 0 A_FireBullets(5.4,1.0,1,(10),"PPE_DoomBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomCGBulletCasingShooter",0,0,0,2)
+		Goto Anim2
+	Anim2:
+		DCGF CD 2 bright
+		TNT1 A 0 A_ReFire
+	Winddown:
+		DCGX A 1 A_WeaponReady
+		DCGX ABB 1 A_WeaponReady
+		DCGX CCDD 1 A_WeaponReady
+		DCGG D 1 A_WeaponReady
+		DCGG AAABBBBCCCCDDDDD 1 A_WeaponReady
+		Goto Ready.Ready
+  	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 AA 1 A_SetPitch(pitch-0.15)
+		TNT1 A 0 A_Light2
+		TNT1 A 1 A_SetPitch(pitch+0.3)
+		Goto LightDone
+	Spawn:
+    	DCGW A -1
+		Stop
+	}
+}
+
+Actor PPE_DoomChaingunS5 : PPE_DoomChaingun
+{ 
+	Weapon.SlotNumber 5 PPE_WeaponBase.SlotAlt1 "PPE_DoomChaingun" 
+	Weapon.AmmoUse 14
+	States
+	{
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/chaingun/fire")
+		TNT1 A 0 A_FireBullets(5.4,1.0,1,(14),"PPE_DoomBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomCGBulletCasingShooter",0,0,0,2)
+		Goto Anim1
+	FireB:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/chaingun/fire")
+		TNT1 A 0 A_FireBullets(5.4,1.0,1,(14),"PPE_DoomBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomCGBulletCasingShooter",0,0,0,2)
+		Goto Anim2
+	}
+}
+
+Actor PPE_DoomCGBulletCasingShooter : PPE_CasingShooterBase
+{
+	Speed 11
+	States
+	{
+	Spawn:
+		TNT1 A 1
+	Death:
+		TNT1 A 0 A_SpawnProjectile("PPE_BulletCasing",0,0,FRandom(-60,-75),CMF_AIMDIRECTION|CMF_TRACKOWNER,FRandom(-13,-22))
+		Stop
+	}
+}

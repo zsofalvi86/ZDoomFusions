@@ -46,30 +46,31 @@ Class PPE_SSOnFire : Inventory
 		{
 			if (target && owner)
 			{
-				if (owner.CountInv("PPE_SSOnFire") > 35)
+				let count = owner.CountInv(GetClassName());
+				if (count > 35)
 				{
 					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SSOnFire",1);
+					owner.TakeInventory(GetClassName(),1);
 				}
-				if (owner.CountInv("PPE_SSOnFire") > 25)
+				if (count > 25)
 				{
 					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SSOnFire",1);
+					owner.TakeInventory(GetClassName(),1);
 				}
-				if (owner.CountInv("PPE_SSOnFire") > 15)
+				if (count > 15)
 				{
 					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SSOnFire",1);
+					owner.TakeInventory(GetClassName(),1);
 				}
-				if (owner.CountInv("PPE_SSOnFire") > 10)
+				if (count > 10)
 				{
 					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SSOnFire",1);
+					owner.TakeInventory(GetClassName(),1);
 				}
-				if (owner.CountInv("PPE_SSOnFire") > 0)
+				if (count > 0)
 				{
 					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SSOnFire",1);
+					owner.TakeInventory(GetClassName(),1);
 				}
 				else
 				{
@@ -84,7 +85,7 @@ Class PPE_SSOnFire : Inventory
 	override void DetachFromOwner()
 	{
 		//console.printf("%s", "detached");
-		if (owner.CountInv("PPE_SSOnFire") == 0 && fireActor) {fireActor.bShootable=true; fireActor.A_Die("Normal");}
+		if (owner.CountInv(GetClassName()) == 0 && fireActor) {fireActor.bShootable=true; fireActor.A_Die("Normal");}
 		super.DetachFromOwner();
 	}
 	

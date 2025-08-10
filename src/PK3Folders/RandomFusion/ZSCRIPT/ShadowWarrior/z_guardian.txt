@@ -1,66 +1,38 @@
-Class PPE_GuardianHeadBall : PlasmaBall
-{
-	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
-	{
-		target.GiveInventory("PPE_SwOnFire",5);
-		let inv = target.FindInventory("PPE_SwOnFire");
-		if (inv) { inv.target = self.target; }
-		return Super.DoSpecialDamage(target,damage,damagetype);
-	}
-	
-	States
-	{
-	Spawn:
-		GHFB ABCD 1 bright;
-		Loop;
-	Death:
-		BMYP ABCDEF 2 bright;
-		Stop;
-	}
-	
-	Default
-	{
-		DamageFunction 10;
-		SeeSound "";
-		DeathSound "weapons/sw/head/impact";
-		RenderStyle "Normal";
-		+BLOODLESSIMPACT;
-	}
-}
-
-Class PPE_GuardianHeadBallS0 : PPE_GuardianHeadBall
-{	
-	Default
-	{
-		DamageFunction 20;
-	}
-}
-
-Class PPE_GuardianHeadBallS6 : PPE_GuardianHeadBall
-{
-	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
-	{
-		target.GiveInventory("PPE_SwOnFireS6",5);
-		let inv = target.FindInventory("PPE_SwOnFireS6");
-		if (inv) { inv.target = self.target; }
-		return Super.DoSpecialDamage(target,damage,damagetype);
-	}
-	
-	Default
-	{
-		DamageFunction 5;
-	}
-}
-
 Class PPE_GuardianHeadFireCircle : Actor
 {
+	mixin PPE_TimedLife;
+	
+	override void Tick()
+	{
+		tic++;
+		if (tic >= tics)
+		{
+			self.bShootable = true;
+			A_Die(deathState);
+		}
+		Super.Tick();
+	}
+	
+	class<PPE_DotProvider> dotType;
+	Property DotType: dotType;
+	class<Actor> visualType;
+	Property VisualType: visualType;
+	int dotDamage;
+	Property DotDamage: dotDamage;
+	int period;
+	Property Period: period;
+	int periods;
+	Property Periods: periods;
+	
 	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
 	{
-		target.GiveInventory("PPE_SwOnFire",50);
-		let inv = target.FindInventory("PPE_SwOnFire");
-		if (inv) { inv.target = self.target; }
+		target.GiveInventory(dotType.GetClassName(),10);
+		let inv = PPE_DotProvider(target.FindInventory(dotType.GetClassName()));
+		if (inv) { inv.target = self.target; inv.Init(visualType, dotDamage, period, periods); }
+		
 		self.bShootable = true;
 		A_Die("Normal");
+		
 		return Super.DoSpecialDamage(target,damage,damagetype);
 	}
 	
@@ -83,84 +55,35 @@ Class PPE_GuardianHeadFireCircle : Actor
 	}
 }
 
-Class PPE_GuardianHeadFireCircleS6 : PPE_GuardianHeadFireCircle
+Class PPE_SwOnFire : PPE_DotProvider
 {
-	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	int add;
+	override void Init(class<Actor> visType, int dd, int prd, int prds)
 	{
-		target.GiveInventory("PPE_SwOnFireS6",50);
-		let inv = target.FindInventory("PPE_SwOnFireS6");
-		if (inv) { inv.target = self.target; }
-		self.bShootable = true;
-		A_Die("Normal");
-		return Super.DoSpecialDamage(target,damage,damagetype);
-	}
-}
-
-Class PPE_SwOnFire : Inventory
-{
-	Actor fireActor; int tic;
-	override void DoEffect()
-	{
-		if (!fireActor)
+		visualType = visType;
+		dotDamage = dd;
+		period = prd;
+		periods = prds;
+		if (add < 1)
 		{
-			fireActor = Spawn("PPE_SwFireActor",Vec3Offset(owner.pos.x,owner.pos.y + owner.radius*0.2,owner.pos.z + owner.height*0.2));
-			fireActor.tracer = owner;
-			//console.printf("%s", "spawnedFire");
+			timers.Push(prds);
+			add++;
 		}
-		
-		if (tic <= 0) {tic += 3;}
-		else {tic--;}
-		if (tic <= 0)
+		else
 		{
-			if (target && owner)
-			{
-				if (owner.CountInv("PPE_SwOnFire") > 35)
-				{
-					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SwOnFire",1);
-				}
-				if (owner.CountInv("PPE_SwOnFire") > 25)
-				{
-					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SwOnFire",1);
-				}
-				if (owner.CountInv("PPE_SwOnFire") > 15)
-				{
-					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SwOnFire",1);
-				}
-				if (owner.CountInv("PPE_SwOnFire") > 10)
-				{
-					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SwOnFire",1);
-				}
-				if (owner.CountInv("PPE_SwOnFire") > 0)
-				{
-					DoMissileDamage(owner);
-					owner.TakeInventory("PPE_SwOnFire",1);
-				}
-				else
-				{
-					if (fireActor) {fireActor.bShootable=true; fireActor.A_Die("Normal");}
-				}
-				//console.printf("%s%i", "fires:", owner.CountInv("PPE_OnFire"));
-			}
+			timers[timers.Size()-1] += prds;
+			add = 0;
 		}
-		super.DoEffect();
 	}
 	
-	override void DetachFromOwner()
+	override void TimerExpired(int index)
 	{
-		//console.printf("%s", "detached");
-		if (owner.CountInv("PPE_SwOnFire") == 0 && fireActor) {fireActor.bShootable=true; fireActor.A_Die("Normal");}
-		super.DetachFromOwner();
+		owner.TakeInventory(GetClassName(),1);
 	}
 	
-	Default
+	override int GetDamage()
 	{
-		DamageFunction 8;
-		Inventory.MaxAmount 100;
-		+BLOODLESSIMPACT;
+		return dotDamage * timers.Size();
 	}
 }
 

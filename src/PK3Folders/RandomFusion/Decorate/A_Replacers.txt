@@ -143,3 +143,11 @@ ACTOR PPE_ZombiemanBackpack : PPE_Spawner
 }
 
 Actor PPE_ZombiemanLoot : Inventory { Inventory.MaxAmount 1 Inventory.InterHubAmount 0 }
+
+Actor PPE_ClassModRandomSpawner : RandomSpawner
+{
+	DropItem "PPE_DukeClassMod", 255, 1
+	DropItem "PPE_ShadowWarriorClassMod", 255, 1
+	DropItem "PPE_Quake3ClassMod", 255, 1
+	DropItem "PPE_SeriousSamClassMod", 255, 1
+}

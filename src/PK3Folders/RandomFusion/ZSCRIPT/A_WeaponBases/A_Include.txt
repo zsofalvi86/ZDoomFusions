@@ -1,3 +1,4 @@
+#include "zscript/a_weaponbases/z_doombase.txt"
 #include "zscript/a_weaponbases/z_dnbase.txt"
 #include "zscript/a_weaponbases/z_swbase.txt"
 #include "zscript/a_weaponbases/z_bloodbase.txt"

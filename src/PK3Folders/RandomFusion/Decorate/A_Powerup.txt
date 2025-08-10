@@ -46,12 +46,14 @@ Actor PPE_ShadowFake : PPE_Shadow
 Actor PowerSilencer : PowerProtection
 {
   Inventory.Icon "PINSA0"
+  DamageFactor "Normal", 1
 }
 
 Actor PowerShadow_Fake : PowerProtection
 {
   SeeSound "items/ring/pickup"
   DeathSound "items/ring/fade"
+  DamageFactor "Normal", 1
 }
 
 Actor PPE_QuadDamage : CustomInventory //replaces BlurSphere

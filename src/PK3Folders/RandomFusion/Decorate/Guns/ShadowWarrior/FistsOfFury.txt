@@ -3,11 +3,12 @@ Actor PPE_FistsOfFury: PPE_SWWeaponBase
 	+Weapon.AMMO_OPTIONAL
     +Weapon.NOAUTOAIM
 	Weapon.SlotNumber 1
+	Weapon.SlotPriority 6
 	Weapon.SelectionOrder 2200
 	Inventory.PickupSound "weapons/sw/pu"
 	Weapon.UpSound "weapons/sw/fist/up"
 	Weapon.ReadySound ""
-	Tag "$TAG_SW_FOF"
+	Tag "$TAG_SW_FST"
 	States
 	{
 	Ready.Ready:
@@ -78,8 +79,9 @@ Actor PPE_FistsOfFury: PPE_SWWeaponBase
 		SFOF A 1 Offset(0, 48)
 		SFOF A 1 Offset(0, 32)
 		Goto ReadyLoop
-	Spawn:
-		Stop
+  	Spawn:
+    	DFKW A -1
+    	Stop
 	}
 }
 

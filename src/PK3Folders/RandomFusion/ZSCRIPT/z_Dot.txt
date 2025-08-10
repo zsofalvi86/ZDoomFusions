@@ -1,0 +1,166 @@
+Class PPE_DotMissile : PPE_SlowMissileBase
+{
+	class<PPE_DotProvider> dotType;
+	Property DotType: dotType;
+	class<Actor> visualType;
+	Property VisualType: visualType;
+	int dotDamage;
+	Property DotDamage: dotDamage;
+	int period;
+	Property Period: period;
+	int periods;
+	Property Periods: periods;
+	int stacks;
+	Property Stacks: stacks;
+	
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		target.GiveInventory(dotType.GetClassName(),stacks);
+		let inv = PPE_DotProvider(target.FindInventory(dotType.GetClassName()));
+		
+		if (inv) { inv.target = self.target; inv.Init(visualType, dotDamage, period, periods); }
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	Default
+	{
+		PPE_DotMissile.Stacks 1;
+	}
+}
+
+Class PPE_DotProvider : Inventory
+{
+	class<Actor> visualType;
+	int dotDamage;
+	int period;
+	int periods;
+	
+	Array<int> timers;
+	Actor visActor; int tic;
+	
+	virtual void Init(class<Actor> visType, int dd, int prd, int prds)
+	{
+		visualType = visType;
+		dotDamage = dd;
+		period = prd;
+		periods = prds;
+		timers.Push(prds);
+	}
+	
+	virtual void TimerExpired(int index)
+	{
+		owner.TakeInventory(GetClassName(),1);
+	}
+	
+	virtual Vector3 GetSpawnOffset()
+	{
+		return Vec3Offset(owner.pos.x,owner.pos.y + owner.radius*0.2,owner.pos.z + owner.height*0.2);
+	}
+	
+	virtual int GetDamage()
+	{
+		return dotDamage;
+	}
+	
+	override void DoEffect()
+	{
+		if (!visActor)
+		{
+			visActor = Spawn(visualType.GetClassName(),GetSpawnOffset());
+			visActor.tracer = owner;
+			//console.printf("%s", "spawnedFire");
+		}
+		
+		if (tic <= 0) {tic += period;}
+		else {tic--;}
+		if (tic <= 0)
+		{
+			if (target && owner)
+			{
+				DoMissileDamage(owner);
+				
+				for (int i=0; i<timers.Size(); i++)
+				{
+					timers[i]--;
+					if (timers[i]<=0) { timers.Delete(i); TimerExpired(i); }
+				}
+				
+				timers.ShrinkToFit();
+				
+				if (visActor && (!owner || owner.CountInv(GetClassName()) == 0))
+				{
+					visActor.bShootable=true; visActor.A_Die("Normal");
+				}
+			}
+		}
+		
+		super.DoEffect();
+	}
+	
+	override void DetachFromOwner()
+	{
+		//console.printf("%s", "detached");
+		if (owner.CountInv(GetClassName()) == 0 && visActor) {visActor.bShootable=true; visActor.A_Die("Normal");}
+		super.DetachFromOwner();
+	}
+	
+	Default
+	{
+		DamageFunction GetDamage();
+	}
+}
+
+Class PPE_DotStickyMissile : PPE_SlowMissileBase
+{
+	int period;
+	Property Period: period;
+	int periods;
+	Property Periods: periods;
+	int tic;
+	Actor stuckTo; Vector3 hitOffset;
+	
+	override void Tick()
+	{
+		if (stuckTo && periods > 0)
+		{
+			if (!InStateSequence(curState,ResolveState("Stuck")))
+			{
+				SetStateLabel("Stuck");
+			}
+			
+			SetOrigin(stuckTo.Vec3Offset(hitOffset.x,hitOffset.y,hitOffset.z), true);
+			
+			if (tic <= 0) {tic += period;}
+			else {tic--;}
+			if (tic <= 0)
+			{
+				periods--;
+				if (target && stuckTo)
+				{
+					DoMissileDamage(stuckTo);
+				}
+			}
+			if (periods <= 0 || stuckTo.bKilled) { SetStateLabel("Disappear"); }
+		}
+		//console.printf("%d%s%d%s%d", pos.x, " - ", pos.y, " - ", pos.z);
+		Super.Tick();
+	}
+	
+	Override int DoSpecialDamage(Actor target, int damage, name damagetype)
+	{
+		//console.printf("%s%d%s%d%s%d", "sent: ", pos.x, " - ", pos.y, " - ", pos.z);
+		//console.printf("%s%d%s%d%s%d", "target: ", self.target.pos.x, " - ", self.target.pos.y, " - ", self.target.pos.z);
+		if(!stuckTo) {stuckTo = target; hitOffset = target.Vec3To(self);}
+		return Super.DoSpecialDamage(target,damage,damagetype);
+	}
+	
+	States
+	{
+	Stuck:
+		TNT1 A 1;
+		loop;
+	Disappear:
+		TNT1 A 1;
+		stop;
+	}
+}

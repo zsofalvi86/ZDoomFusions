@@ -1,0 +1,45 @@
+Class PPE_MedikitPickupBase : Health abstract
+{	
+	int HealthToTake;
+	Override string PickupMessage()
+	{
+		let stAmount = String.Format("%i",HealthToTake);
+		if (PrevHealth < LowHealth)
+		{
+			let msg1 = StringTable.Localize(LowHealthMessage);
+			msg1.Replace("$AM",stAmount);
+			return msg1;
+		}
+		let msg2 = StringTable.Localize(pickupMsg);
+		msg2.Replace("$AM",stAmount);
+		return msg2;
+	}
+	
+	Override bool TryPickup(in out Actor toucher)
+	{
+		let ppwner = PlayerPawn(toucher);
+		if (!toucher || !toucher.player || !ppwner) {return Super.TryPickup(toucher);}
+		
+		PrevHealth = ppwner.Health;
+		let missingHealth = ppwner.GetMaxHealth(true) - PrevHealth;
+		HealthToTake = min(missingHealth,Amount);
+		
+		if (HealthToTake > 0 && ppwner.GiveBody(HealthToTake,MaxAmount))
+		{
+			Amount -= HealthToTake;
+		
+			// custom pickup logic
+			bool localview = toucher.CheckLocalView();
+			PrintPickupMessage(localview, PickupMessage());
+			PlayPickupSound (ppwner.player.mo);
+			if (!bNoScreenFlash && ppwner.player.playerstate != PST_DEAD)
+			{
+				ppwner.player.bonuscount = BONUSADD;
+			}
+
+			if (Amount <= 0) { GoAwayAndDie ();} 
+		}
+		
+		return false; //custom pickup logic above, skip the original
+	}
+}

@@ -1,0 +1,32 @@
+Actor PPE_FlashBomb : CustomInventory
+{
+	Inventory.PickupSound "items/pickup"
+	Inventory.UseSound "items/bomb"
+	Inventory.PickupMessage "$GOTFLASH"
+	Inventory.Icon "SFBMA0"
+	Tag "$TAG_PPE_FLASH"
+	Inventory.Amount 1
+	Inventory.MaxAmount 2
+	Inventory.InterHubAmount 2
+	+INVENTORY.INVBAR
+	States
+	{
+	Spawn:
+		SFBM A -1
+		stop
+	Use:
+		TNT1 A 0
+ 		TNT1 A 0 A_FireProjectile("PPE_Flasher",0,0)
+		TNT1 A 0 A_GiveInventory("PPE_FlashFear",1)
+		stop
+	}
+}
+
+ACTOR PPE_FlashFear : PowerupGiver
+{
+   +INVENTORY.AUTOACTIVATE
+   +INVENTORY.ALWAYSPICKUP
+   +INVENTORY.QUIET
+   Powerup.Type Frightener
+   Powerup.Duration 80
+}

@@ -2,11 +2,12 @@ Actor PPE_ExtraHealth : Inventory { +InvBar Inventory.MaxAmount 999 }
 Actor PPE_ExtraPower : Inventory { +InvBar Inventory.MaxAmount 999 }
 Actor PPE_WeaponUpgrade : PPE_PPEUpgrade { +InvBar Inventory.MaxAmount 999 }
 
-ACTOR PPE_QStimpack : Stimpack replaces Stimpack
+ACTOR PPE_QStimpack : PPE_MedikitPickupBase replaces Stimpack
 {
 	+FLOATBOB
 	Inventory.PickupSound "items/health2"
 	Inventory.Amount 10
+	Inventory.PickupMessage "$GOTSTIM"
 	States
 	{
 	Spawn:
@@ -15,11 +16,13 @@ ACTOR PPE_QStimpack : Stimpack replaces Stimpack
 	}
 }
 
-ACTOR PPE_QMediKit : MediKit replaces MediKit
+ACTOR PPE_QMediKit : PPE_MedikitPickupBase replaces MediKit
 {
 	+FLOATBOB
 	Inventory.PickupSound "items/health3"
 	Inventory.Amount 25
+	Inventory.PickupMessage "$GOTMEDIKIT"
+	Health.LowMessage 25, "$GOTMEDINEED"
 	States
 	{
 	Spawn:
@@ -113,12 +116,15 @@ ACTOR PPE_MegaHealth : CustomInventory replaces Soulsphere
 	States
 	{
 	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItem("PPE_ClassModRandomSpawner")
+	Loopy:
 		MHSP AABCDEFGH 2 bright
 		Loop
 	Pickup:
 		TNT1 A 0 A_GiveInventory("PPE_HealthBonus",100)
-		TNT1 A 0 A_GiveInventory("PPE_TempHealth",100)
-		TNT1 A 0 A_GiveInventory("PPE_TempHealthBuffer",5)
+		//TNT1 A 0 A_GiveInventory("PPE_TempHealth",100)
+		//TNT1 A 0 A_GiveInventory("PPE_TempHealthBuffer",5)
 		Stop
 	}
 }

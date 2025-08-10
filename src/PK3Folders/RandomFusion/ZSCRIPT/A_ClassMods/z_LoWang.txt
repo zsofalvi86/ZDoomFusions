@@ -1,6 +1,10 @@
 Class PPE_ShadowWarriorClassMod : PPE_ClassBase
 {
-	Default {Weapon.UpSound "weapons/dn/select"; Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";}
+	Default 
+	{
+		Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";
+		Inventory.PickupMessage "$GOTCMODSW";
+	}
 	
 	int dmgbuffer;
 	int lastquotetime;
@@ -43,5 +47,12 @@ Class PPE_ShadowWarriorClassMod : PPE_ClassBase
 				dmgbuffer += e.Thing.GetSpawnHealth() + 500;
 			}
 		}
+	}
+	
+	States
+	{
+	Spawn:
+		CMSW A 2 bright;
+		Loop;
 	}
 }

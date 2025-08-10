@@ -1,0 +1,75 @@
+Actor PPE_ChunkBase
+{
+	Health 1
+	Radius 8
+	Height 1
+	+CORPSE
+	+NOTELEPORT
+	+NOBLOCKMAP
+	+NOTONAUTOMAP 
+	Gravity 0.85
+}
+
+Actor PPE_GrayMetalChunk : PPE_ChunkBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2,3,4,5,6,7,8,9)
+	SpawnLoop:
+		FRAG ABCDEFGHIJ 3
+		loop
+	Crash:
+		TNT1 A 0
+		stop
+	}
+}
+
+Actor PPE_BrownMetalChunk : PPE_ChunkBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2,3,4,5,6,7,8,9)
+	SpawnLoop:
+		FRAB ABCDEFGHIJ 3
+		loop
+	Crash:
+		TNT1 A 0
+		stop
+	}
+}
+
+Actor PPE_GrayMetalChunk2 : PPE_ChunkBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2)
+	SpawnLoop:
+		GFRG ABC 3
+		loop
+	Crash:
+		TNT1 A 0
+		stop
+	}
+}
+
+Actor PPE_BrownMetalChunk2 : PPE_ChunkBase
+{
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_Jump(256,1,2)
+	SpawnLoop:
+		GFRB ABC 3
+		loop
+	Crash:
+		TNT1 A 0
+		stop
+	}
+}

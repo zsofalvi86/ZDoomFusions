@@ -14,7 +14,7 @@ Actor PPE_Q1LaserCannon : PPE_Quake1WeaponBase
 	Spawn:
 		QLSW AAAAAABBCCDDCCBB 1
 		Loop
-	Ready:
+	Ready.Ready:
 		QLSG A 1 A_WeaponReady
 		Loop
 	Deselect:
@@ -34,7 +34,7 @@ Actor PPE_Q1LaserCannon : PPE_Quake1WeaponBase
 		QLSF E 1 bright
 		QLSF F 1 bright
 		TNT1 A 0 A_Refire
-		Goto Ready
+		Goto Ready.Ready
 	Hold:
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_AlertMonsters
@@ -47,7 +47,7 @@ Actor PPE_Q1LaserCannon : PPE_Quake1WeaponBase
 		QLSF C 1 bright
 		QLSG A 1
 		TNT1 A 0 A_ClearRefire
-		goto Ready
+		goto Ready.Ready
 	Flash:
 		TNT1 A 0 A_Light1
 		TNT1 AA 1 A_SetPitch(pitch-0.3)

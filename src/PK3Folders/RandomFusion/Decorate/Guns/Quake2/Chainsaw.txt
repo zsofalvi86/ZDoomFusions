@@ -69,7 +69,7 @@ Actor PPE_Q2Chainsaw : PPE_Quake2WeaponBase
 		2SWS A 1 Offset(-16, 48)
 		2SWS A 1 Offset(-8, 40)
 		2SWS A 1
-		Goto Ready
+		Goto Ready.Ready
 	SwingRightOff:
 		2SWS A 1 Offset(-8, 40)
 		2SWS A 1 Offset(-16, 48)
@@ -107,7 +107,7 @@ Actor PPE_Q2Chainsaw : PPE_Quake2WeaponBase
 		2SWS A 1 Offset(16, 48)
 		2SWS A 1 Offset(8, 40)
 		2SWS A 1
-		Goto Ready
+		Goto Ready.Ready
 	Spawn:
 		2SWW A -1
 		stop

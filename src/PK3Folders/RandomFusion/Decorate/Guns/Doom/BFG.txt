@@ -1,0 +1,133 @@
+Actor PPE_DoomBfg : PPE_DoomWeaponBase
+{
+	Tag "$TAG_DOOM_BFG"
+	Inventory.PickupSound "weapons/doom/bfg/pickup"
+	Weapon.UpSound "weapons/doom/bfg/up"
+	Weapon.SelectionOrder 2600
+	Weapon.SlotPriority 8
+	Weapon.SlotNumber 0
+	Weapon.AmmoUse1 40
+	Weapon.AmmoUse2 40
+	Weapon.AmmoType1 "PPE_Cells"
+	Weapon.AmmoType2 "PPE_Cells"
+	Weapon.AmmoGive 40
+	PPE_WeaponBase.SlotAlt1 "PPE_DoomBfgS7"
+	PPE_WeaponBase.SpawnerId1 5,1
+	States
+	{
+	Ready.Ready:
+		DBFG ABBCCDDEEFFGGHHIIAAAAAAAAAAAAAAAAAAAAA 1 A_WeaponReady
+    	Loop
+	Deselect:
+    	DBFG A 1 A_Lower
+		TNT1 A 0 A_Lower
+    	Loop
+  	Select:
+    	DBFG A 1 A_Raise
+		TNT1 A 0 A_Raise
+    	Loop
+  	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		TNT1 A 0 A_PlayWeaponSound("weapons/doom/bfg/fire")
+		DBFC ABCD 2 bright
+		DBFC EFGHIJ 2 bright
+		DBFC EFGHI 2 bright
+		TNT1 A 0 A_Jump(256,"Launch")
+	Launch:
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomBfgBall",0,1,0,2,1,0)
+		Goto Winddown
+	Winddown:
+		DBFF ABC 3 bright
+		DBFR AB 2 bright
+		TNT1 A 0 A_ReFire
+		DBFR A 1 bright
+		DBFR C 3
+		DBFG A 16
+    	Goto Ready.Ready
+  	Flash:
+    	TNT1 A 20 A_Light1
+		TNT1 A 10 A_Light2
+		TNT1 A 2
+		TNT1 AAAAAA 1 A_SetPitch(pitch-0.4)
+		TNT1 A 0 A_Light1
+		TNT1 AAA 1 A_SetPitch(pitch+0.8)
+		Goto LightDone
+  	Spawn:
+    	DBFW AAAAAABBCCDDCCBB 1
+    	Loop
+	}
+}
+
+Actor PPE_DoomBfgS7 : PPE_DoomBfg 
+{ 
+	Weapon.SlotNumber 7 PPE_WeaponBase.SlotAlt1 "PPE_DoomBfg" 
+	Weapon.AmmoUse 25
+	States
+	{
+	Launch:
+		TNT1 A 0 A_FireCustomMissile("PPE_DoomBfgBallS7",0,1,0,2,1,0)
+		Goto Winddown
+	}
+}
+
+Actor PPE_DoomBFGBall : PPE_SlowMissileBase
+{
+	-BLOODSPLATTER
+	Radius 13
+	Height 8
+	Speed 25
+	Damage (450)
+	RenderStyle Normal
+	SeeSound ""
+	DeathSound "weapons/doom/bfg/explode"
+	States
+	{
+	Spawn:
+		BFGB ABCD 3 Bright
+		Loop
+	Death:
+		TNT1 A 0 A_Quake(8,9,0,640,"")
+		TNT1 A 0 A_Quake(5,10,0,1280,"")
+		TNT1 A 0 A_Quake(3,12,0,9064,"")
+		BFGX ABCDE 3 Bright
+		BFGX F 1 Bright
+		TNT1 A 0 A_BFGSpray("PPE_BFG9kFlash",40,0,90,1024,32,68)
+		BFGX F 2 Bright
+		BFGX GHIJK 3 Bright
+		Stop
+  }
+}
+
+Actor PPE_DoomBFGBallS7 : PPE_DoomBFGBall
+{
+	Damage (300)
+	States
+	{
+	Death:
+		TNT1 A 0 A_Quake(8,9,0,640,"")
+		TNT1 A 0 A_Quake(5,10,0,1280,"")
+		TNT1 A 0 A_Quake(3,12,0,9064,"")
+		BFGX ABCDE 3 Bright
+		BFGX F 1 Bright
+		TNT1 A 0 A_BFGSpray("PPE_BFG9kFlash",40,0,90,1024,32,36)
+		BFGX F 2 Bright
+		BFGX GHIJK 3 Bright
+		Stop
+  }
+}
+
+ACTOR PPE_BFG9kFlash : BFGExtra
+{
+  +NOBLOCKMAP
+  +NOGRAVITY
+  RenderStyle Normal
+  Alpha 1.0
+  DamageType "BFGSplash"
+  States
+  {
+  Spawn:
+    BFEX ABCDEFGHIJKLMNO 2 Bright
+    Stop
+  }
+}

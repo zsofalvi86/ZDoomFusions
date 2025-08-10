@@ -153,7 +153,7 @@ Actor PPE_HyperBlasterBolt : PPE_SlowMissileBase
 	Spawn:
 		TNT1 A 0
 		TNT1 A 0 A_PlaySound("weapons/quake2/hyperblaster/fly",6,1.0,1)
-		Loopy:
+	Loopy:
 		OLAP A 1 bright
 		loop
 	Crash:

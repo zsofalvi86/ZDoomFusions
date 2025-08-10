@@ -37,6 +37,8 @@ Actor PPE_SSShotgun : PPE_SeriousSamWeaponBase
 		TNT1 A 0 A_FireBullets(3,0.35,-1,(10),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_FireBullets(-3,0.35,-1,(10),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/ss/shotgun/fire")
+		Goto Pump
+	Pump:
     	SSSF ABC 2 bright
 		SSSG B 2 Offset(25,52)
 		SSSG B 2 Offset(0,32)
@@ -68,7 +70,28 @@ Actor PPE_SSShotgun : PPE_SeriousSamWeaponBase
 	}
 }
 
-Actor PPE_SSShotgunS2 : PPE_SSShotgun { Weapon.SlotNumber 2 Weapon.SlotPriority 8 PPE_WeaponBase.SlotAlt1 "PPE_SSShotgun" }
+Actor PPE_SSShotgunS2 : PPE_SSShotgun 
+{ 
+	Weapon.SlotNumber 2 Weapon.SlotPriority 8 PPE_WeaponBase.SlotAlt1 "PPE_SSShotgun" 
+	Weapon.AmmoUse 5
+	States
+	{
+	Fire:
+		TNT1 A 0 A_AlertMonsters
+		TNT1 A 0 A_GunFlash
+		// Top row, 3 pellets
+		TNT1 A 0 A_FireBullets(0,-0.35,-1,(6),"PPE_ShotgunPuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(2,-0.35,-1,(6),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-2,-0.35,-1,(6),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		// Bottom row, 4 pellets
+		TNT1 A 0 A_FireBullets(0.6,0.35,-1,(6),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-0.6,0.35,-1,(6),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(3,0.35,-1,(6),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_FireBullets(-3,0.35,-1,(6),"PPE_ShotgunPuff",FBF_NORANDOM|FBF_EXPLICITANGLE)
+		TNT1 A 0 A_PlayWeaponSound("weapons/ss/shotgun/fire")
+		Goto Pump
+	}
+}
 
 Actor PPE_ShotgunPuff : PPE_SSBulletPuff {} // searched for in zscript to make close gibbing
 

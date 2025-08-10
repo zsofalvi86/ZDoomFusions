@@ -1,0 +1,45 @@
+Class PPE_BloodFlareAltOnFire : PPE_DotProvider
+{
+	override int GetDamage()
+	{
+		//console.printf("%i%s%s%s%i", owner.CountInv(GetClassName())," - ",GetClassName()," - ",singleDamage);
+		if (owner) { return dotDamage * owner.CountInv(GetClassName()); }
+		return dotDamage;
+	}
+	
+	Default
+	{
+		Inventory.MaxAmount 100;
+		
+		+BLOODLESSIMPACT;
+		+PAINLESS;
+
+	}
+}
+
+Class PPE_BloodFlareAltOnFireActor : Actor
+{
+	States
+	{
+	Spawn:
+		GHFR QPO 2 bright A_Warp(AAPTR_TRACER,0,0,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,null,0.2,0.2);
+	Loopy:
+		GHFR ABCDEFGHIJKLMN 2 bright A_Warp(AAPTR_TRACER,0,0,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,null,0.2,0.2);
+		TNT1 A 0 { if(!tracer) {return ResolveState("Death");} return ResolveState(null);}
+		Loop;
+	Death:
+		GHFR OPQ 2 bright A_Warp(AAPTR_TRACER,0,0,0,0,WARPF_NOCHECKPOSITION|WARPF_COPYINTERPOLATION,null,0.2,0.2);
+		Stop;
+	}
+	
+	Default
+	{
+		+NOBLOCKMAP;
+		+NOGRAVITY;
+		+NOTELEPORT;
+		+CANNOTPUSH;
+		+NODAMAGETHRUST;
+		+NOINTERACTION;
+		+CLIENTSIDEONLY;
+	}
+}

@@ -2,3 +2,41 @@ Class PPE_PPEMissileBase : Actor
 {
 	
 }
+
+Class PPE_DodgeableMissileBase : PPE_PPEMissileBase
+{
+	Default
+	{
+		Radius 11;
+		Height 8;
+		Speed 20;
+		Damage 20;
+		Projectile;
+	}
+	
+	States
+	{
+	Spawn:
+		TNT1 A 1;
+		Loop;
+	Death:
+		TNT1 A 1;
+		Stop;
+	}
+}
+
+Class PPE_SlowMissileBase : PPE_DodgeableMissileBase
+{
+	Default
+	{
+		Radius 11;
+		Height 8;
+		Speed 20;
+		Damage 20;
+		Projectile;
+		SeeSound "weapons/rocklf";
+		DeathSound "weapons/rocklx";
+		Obituary "$OB_MPROCKET"; // "%o rode %k's rocket."
+		+BLOODSPLATTER;
+	}
+}

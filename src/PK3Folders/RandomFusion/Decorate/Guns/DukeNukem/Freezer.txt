@@ -186,3 +186,15 @@ ACTOR PPE_FrozenPlayer : PPE_RandomFusionPlayer
     Stop
   }
 }
+
+ACTOR PPE_AtomicHealth : SoulSphere
+{
+    Inventory.PickupSound "items/atom"
+	Inventory.Amount 50
+    States
+    {
+    Spawn:
+		ATMH ABCDEFGH 2 bright
+		Loop
+    }
+}

@@ -1,13 +1,14 @@
 Class PPE_SeriousSamClassMod : PPE_ClassBase
 {
-	Default {Inventory.PickupSound "weapons/ss/pickup"; ActiveSound "weapons/ss/ammo";}
-	
-	mixin PPE_SpriteBeam;
-	mixin PPE_FlatBeam;
+	Default 
+	{
+		Inventory.PickupSound "weapons/ss/pickup"; ActiveSound "weapons/ss/ammo";
+		Inventory.PickupMessage "$GOTCMODSAM";
+	}
 	
 	Override void DoEffect()
 	{
-		if (!owner.CountInv("PPE_SniperZoom") && owner.player.readyweapon == self)
+		if (!owner.CountInv("PPE_SniperZoom"))
 		{
 			let xhair = PPE_SamCrosshair(owner.FindInventory("PPE_SamCrosshair"));
 			if (!xhair) 
@@ -32,6 +33,13 @@ Class PPE_SeriousSamClassMod : PPE_ClassBase
 		{
 			owner.TakeInventory("PPE_SamCrosshair",1);
 		}
+	}
+	
+	States
+	{
+	Spawn:
+		CMSS A 2 bright;
+		Loop;
 	}
 }
 

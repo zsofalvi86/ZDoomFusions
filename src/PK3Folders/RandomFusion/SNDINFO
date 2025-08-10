@@ -36,6 +36,36 @@ items/visor/use			ir_start
 
 items/q2pickup			ipkup
 
+//Doom
+weapons/doom/fist/swing dsskeswg
+weapons/doom/fist/hit dsskepch
+weapons/doom/fist/flesh DSPUNCH
+$pitchshiftrange 3
+weapons/doom/chainsaw/up			dssawup
+weapons/doom/chainsaw/idle			dssawidl
+weapons/doom/chainsaw/run			dssawful
+weapons/doom/chainsaw/hit			dssawhit
+$pitchshiftrange 4
+
+weapons/doom/pistol/fire			dspistol
+weapons/doom/shotgun/fire			dsshotgn
+weapons/doom/shotgun/cock			dssgcock
+weapons/doom/sshotgun/fire			dsdshtgn
+weapons/doom/sshotgun/open			dsdbopn
+weapons/doom/sshotgun/close			dsdbcls
+weapons/doom/sshotgun/load			dsdbload
+weapons/doom/chaingun/fire			dspistol
+weapons/doom/rocket/explode			dsbarexp
+weapons/doom/rocket/fire			dsrlaunc
+weapons/doom/plasma/fire			dsmodpg
+weapons/doom/plasma/explode			dsfirxpl
+weapons/doom/bfg/fire			dsbfg
+weapons/doom/bfg/explode			dsrxplod
+weapons/doom/railgun/fire			railgf1
+weapons/doom/grenade/bounce          dsbounce
+weapons/doom/grenade/explode			dsgrnexp
+weapons/doom/grenade/fire			dsglaunc
+
 //Quake 1
 weapons/quake1/pickup	q1wpkup
 weapons/quake1/ammo	q1apkup
@@ -382,11 +412,22 @@ $attenuation weapons/dn/smexplosion 0.15
 items/blood/pickup	BPickup
 items/blood/ammo	BLAmmo
 items/blood/weapon	bweapon
+weapons/blood/pitchfork/up	claw
+weapons/blood/pitchfork/swing	claw
+weapons/blood/pitchfork/flesh	bflesh
+$limit weapons/blood/pitchfork/flesh 66 
+$volume weapons/blood/pitchfork/flesh 0.3
+weapons/blood/pitchfork/hit	bladedrp
+$limit weapons/blood/pitchfork/hit 33 
+$volume weapons/blood/pitchfork/hit 0.3
 blric1 blric1 blric2 blric2
 $random weapons/blood/ric { blric1 blric2 }
 blbc1 shtshl blbc2 shtshl3
 $random weapons/blood/casing/bullet { blbc1 blbc2 }
 weapons/blood/casing/shell shtshll
+weapons/blood/flaregun/fire flaref
+weapons/blood/flare/fly flarair2
+weapons/blood/flare/impact explodfl
 weapons/blood/sawedoff/fire shotfire
 weapons/blood/sawedoff/altfire shotfir2
 weapons/blood/sawedoff/load shotload
