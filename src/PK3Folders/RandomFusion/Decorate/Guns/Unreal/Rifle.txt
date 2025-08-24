@@ -16,22 +16,14 @@ ACTOR PPE_UnrRifle : PPE_UWeaponBase
 	PPE_WeaponBase.SpawnerId1 1,2
 	States
 	{
-	Ready:
+	Ready.Ready:
 		TNT1 A 0 A_JumpIfinventory("PPE_RifleZoom",1,"ReadyScope")
-		RIFG A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+		RIFG A 1 A_WeaponReady2(WRF_ALLOWRELOAD)
 		Loop
 	ReadyScope:
 		TNT1 A 0 A_StopSound(6)
 	ReadyScopeLoop:
-		SSSS Z 1 bright A_WeaponReady(WRF_NOBOB)
-		Loop
-	Deselect:
-		TNT1 A 0 A_Lower
-		RIFG A 1 A_Lower
-		Loop
-	Select:
-		TNT1 A 0 A_Raise
-		RIFG A 1 A_Raise
+		SSSS Z 1 bright A_WeaponReady2(WRF_NOBOB)
 		Loop
 	Fire:
 		TNT1 A 0 A_AlertMonsters
@@ -42,7 +34,7 @@ ACTOR PPE_UnrRifle : PPE_UWeaponBase
 		RIFF ABC 3 bright
 		RIFG A 12
 		TNT1 A 0 A_ReFire
-		Goto Ready
+		Goto Ready.Ready
 	FireScope:
 	    TNT1 A 0 A_FireBullets(0,0,1,(90),"PPE_URiflePuff",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/unr/rifle/fire")
@@ -50,7 +42,7 @@ ACTOR PPE_UnrRifle : PPE_UWeaponBase
 		SSSS ZZZZZZ 2 bright
 		SSSS Z 12 bright
 		TNT1 A 0 A_ReFire
-		Goto Ready
+		Goto Ready.Ready
 	AltFire:
 		TNT1 A 0 A_JumpIfinventory("PPE_RifleZoom",1,"DeZoom")
 		TNT1 A 0 A_SetInventory("PPE_RifleZoom",1)
@@ -80,18 +72,18 @@ ACTOR PPE_UnrRifle : PPE_UWeaponBase
 		TNT1 A 0 A_SetInventory("PPE_RifleZoom",0)
 		SSSS Z 5 bright
 		SSSS A 10
-		Goto Ready
-  Flash:
-    TNT1 A 0 A_Light1
-	TNT1 A 1
-	TNT1 AAA 1 A_SetPitch(pitch-0.82)
-	TNT1 A 0 A_Light2
-	TNT1 AAA 1 A_SetPitch(pitch+0.82)
-	Goto LightDone
-  Spawn:
-	RIFL A -1
-	Stop
-  }
+		Goto Ready.Ready
+	Flash:
+		TNT1 A 0 A_Light1
+		TNT1 A 1
+		TNT1 AAA 1 A_SetPitch(pitch-0.82)
+		TNT1 A 0 A_Light2
+		TNT1 AAA 1 A_SetPitch(pitch+0.82)
+		Goto LightDone
+	Spawn:
+		RIFL A -1
+		Stop
+	}
 }
 
 Actor PPE_UnrRifleS7 : PPE_UnrRifle 
@@ -109,7 +101,7 @@ Actor PPE_UnrRifleS7 : PPE_UnrRifle
 		RIFF ABC 3 bright
 		RIFG A 12
 		TNT1 A 0 A_ReFire
-		Goto Ready
+		Goto Ready.Ready
 	FireScope:
 	    TNT1 A 0 A_FireBullets(0,0,1,(70),"PPE_URiflePuffS7",FBF_USEAMMO|FBF_NORANDOM|FBF_EXPLICITANGLE)
 		TNT1 A 0 A_PlayWeaponSound("weapons/unr/rifle/fire")
@@ -117,7 +109,7 @@ Actor PPE_UnrRifleS7 : PPE_UnrRifle
 		SSSS ZZZZZZ 2 bright
 		SSSS Z 12 bright
 		TNT1 A 0 A_ReFire
-		Goto Ready
+		Goto Ready.Ready
 	}
 }
 
@@ -147,6 +139,7 @@ Actor PPE_URiflePuffS7 : PPE_URiflePuff
 {
 	Damage (70)
 	PPE_HeadShot.HeadShotDamage 160
+	PPE_MissileBase.Tags "impressive"
 }
 
 Actor PPE_RifleZoom : Inventory

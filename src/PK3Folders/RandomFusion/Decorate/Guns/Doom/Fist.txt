@@ -4,16 +4,11 @@ Actor PPE_DoomFist : PPE_DoomWeaponBase
 	Weapon.SlotNumber 1
 	Weapon.SlotPriority 2
 	Decal "BulletChip"
+	PPE_WeaponBaseBase.Tags "fist"
 	States
 	{
 	Ready.Ready:
-    	DFKG A 1 A_WeaponReady
-    	Loop
-  	Deselect:
-		DFKG A 1 A_Lower(12)
-    	Loop
-  	Select:
-		DFKG A 1 A_Raise(12)
+    	DFKG A 1 A_WeaponReady2
     	Loop
   	Fire:
 		TNT1 A 0 A_AlertMonsters
@@ -52,11 +47,12 @@ Actor PPE_DoomFist : PPE_DoomWeaponBase
 	}
 }
 
-Actor PPE_DoomFistPuff : BulletPuff
+Actor PPE_DoomFistPuff : PPE_BulletPuffBase
 {
 	+PUFFONACTORS
 	SeeSound "weapons/doom/fist/flesh"
 	AttackSound "weapons/doom/fist/hit"
+	PPE_MissileBase.Tags "humiliation"
 	States
 	{
 	Spawn:

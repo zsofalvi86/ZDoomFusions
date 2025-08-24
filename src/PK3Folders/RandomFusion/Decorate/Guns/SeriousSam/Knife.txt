@@ -8,15 +8,7 @@ Actor PPE_SSKnife : PPE_SeriousSamWeaponBase
 	States
 	{
 	Ready.Ready:
-    	SSKN A 1 A_WeaponReady
-    	Loop
-  	Deselect:
-		SSKN A 1 A_Lower
-		TNT1 A 0 A_Lower
-    	Loop
-  	Select:
-		SSKN A 1 A_Raise
-		TNT1 A 0 A_Raise
+    	SSKN A 1 A_WeaponReady2
     	Loop
   	Fire:
 		TNT1 A 0 A_AlertMonsters
@@ -41,7 +33,7 @@ Actor PPE_SSKnife : PPE_SeriousSamWeaponBase
 	}
 }
 
-Actor PPE_SSKnifePuff : BulletPuff
+Actor PPE_SSKnifePuff : PPE_BulletPuffBase
 {
 	+NOEXTREMEDEATH
 	SeeSound ""

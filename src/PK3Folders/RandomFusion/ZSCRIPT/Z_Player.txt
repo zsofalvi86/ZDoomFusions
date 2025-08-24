@@ -8,7 +8,7 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 	PPE_CustomBase usedThing;
 	PPE_WeaponBase usedWeapon;
 	
-	Override void Tick ()
+	Override void Tick()
 	{
 		Super.Tick();
 		if (!player || !player.mo || player.mo != self){return;}
@@ -79,6 +79,7 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 			if (self.Health > 100 + self.stamina) { A_SetHealth(self.Health-1); }
 			else { SetInventory("PPE_TempHealth", 0); }
 		}
+		super.Travelled();
 	}
 	
 	Override class<Actor> GetBloodType(int type)
@@ -118,6 +119,10 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 		return Super.TakeSpecialDamage(inflictor, source, damage, damagetype);
 	}
 	
+	Override void FireWeapon(State stat) { if(GetClassMod()){GetClassMod().OnShoot(stat);} Super.FireWeapon(stat); }
+	
+	Override void FireWeaponAlt(State stat) { if(GetClassMod()){GetClassMod().OnShoot(stat);} Super.FireWeaponAlt(stat); }
+	
 	void SetTilt(bool left, bool right)
 	{
 		if (left && !right) {desiredTilt = -maxtilt;}
@@ -144,6 +149,11 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 		if (tic <= 0) {tic = 35;}
 		else {tic--;}
 	}
+	
+	PPE_ClassBase GetClassMod()
+	{
+		return PPE_ClassBase(FindInventory("PPE_ClassBase", true));
+	}
 
 	Default
 	{
@@ -153,7 +163,7 @@ Class PPE_RandomFusionPlayer : DoomPlayer
 		Species "Player";
 		Player.StartItem "PPE_StartingGunRandomGiver";
 		Player.DisplayName "Marine";
-		Player.SoundClass "PPE_QuakePlayer";
+		//Player.SoundClass "player";
 	}
 	
 	States

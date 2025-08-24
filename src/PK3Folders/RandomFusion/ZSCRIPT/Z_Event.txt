@@ -19,7 +19,7 @@ Class PPE_EventHandler : EventHandler
 		let weapon = PPE_WeaponBase(killer.player.ReadyWeapon);
 		if (weapon) { weapon.WorldThingDied(e); }
 		let classmod = PPE_ClassBase(killer.FindInventory("PPE_ClassBase",true));
-		if (classmod) { weapon.WorldThingDied(e); }
+		if (classmod) { classmod.WorldThingDied(e); }
 	}
 	
 	override void WorldThingDamaged (WorldEvent e)
@@ -29,6 +29,6 @@ Class PPE_EventHandler : EventHandler
 		let weapon = PPE_WeaponBase(inflictor.player.ReadyWeapon);
 		if (weapon) { weapon.WorldThingDamaged(e); }
 		let classmod = PPE_ClassBase(inflictor.FindInventory("PPE_ClassBase",true));
-		if (classmod) { weapon.WorldThingDamaged(e); }
+		if (classmod) { classmod.WorldThingDamaged(e); }
 	}
 }

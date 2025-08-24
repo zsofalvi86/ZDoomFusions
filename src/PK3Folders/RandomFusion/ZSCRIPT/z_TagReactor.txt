@@ -1,0 +1,10 @@
+Mixin Class PPE_TagReactor
+{
+	bool ActorHasTag(Actor supposedTagged, string tagToCheck)
+	{
+		return PPE_MissileBase(supposedTagged) && PPE_MissileBase(supposedTagged).HasTag(tagToCheck)
+			|| PPE_FastProjectileBase(supposedTagged) && PPE_FastProjectileBase(supposedTagged).HasTag(tagToCheck)
+			|| PPE_WeaponBaseBase(supposedTagged) && PPE_WeaponBaseBase(supposedTagged).HasTag(tagToCheck)
+			;
+	}
+}

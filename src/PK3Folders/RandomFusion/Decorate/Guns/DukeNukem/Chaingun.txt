@@ -15,16 +15,11 @@ Actor PPE_DNRipper : PPE_DNWeaponBase
 	PPE_WeaponBase.SpawnerId2 2,3
 	PPE_WeaponBase.SpawnerId3 4,3
 	PPE_WeaponBase.SpawnerId4 14,1
+	PPE_WeaponBaseBase.Tags "automatic"
 	States
 	{
 	Ready.Ready:
-    	RIPG A 1 A_WeaponReady
-    	Loop
-  	Deselect:
-    	RIPG A 1 A_Lower(12)
-    	Loop
-  	Select:
-    	RIPG A 1 A_Raise(12)
+    	RIPG A 1 A_WeaponReady2
     	Loop
   	Fire:
 		TNT1 A 0 A_AlertMonsters

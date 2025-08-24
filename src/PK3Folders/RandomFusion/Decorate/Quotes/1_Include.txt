@@ -1,0 +1,4 @@
+#Include Decorate/Quotes/DNQuotes.txt
+#Include Decorate/Quotes/SWQuotes.txt
+#Include Decorate/Quotes/Q3Quotes.txt
+#Include Decorate/Quotes/SamQuotes.txt

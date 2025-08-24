@@ -4,7 +4,10 @@ Class PPE_DukeClassMod : PPE_ClassBase
 	{
 		Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";
 		Inventory.PickupMessage "$GOTCMODDUKE";
+		PPE_ClassBase.SoundClass "PPE_DukePlayer";
 	}
+	
+	override int GetSwapSpeed() { return 12; }
 	
 	int dmgbuffer;
 	int lastquotetime;
@@ -17,21 +20,21 @@ Class PPE_DukeClassMod : PPE_ClassBase
 			lastkilltime = level.time;
 			if (e.Thing.GetSpawnHealth() > 1000)
 			{
-				e.Thing.Target.GiveInventory("PPE_BossQuote",1);
+				e.Thing.Target.GiveInventory("PPE_DnBossQuote",1);
 				lastquotetime = level.time;
 			}
 			else if (level.time > lastquotetime + 230)
 			{
 				if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150))
 				{
-					e.Thing.Target.GiveInventory("PPE_GibQuote",1);
+					e.Thing.Target.GiveInventory("PPE_DnGibQuote",1);
 					lastquotetime = level.time;
 					//console.printf("%s", "gib");
 				}
 				else if (dmgbuffer >= 2500)
 				{
 					dmgbuffer = 0;
-					e.Thing.Target.GiveInventory("PPE_DeathQuote",1);
+					e.Thing.Target.GiveInventory("PPE_DnDeathQuote",1);
 					lastquotetime = level.time;
 				}
 				else

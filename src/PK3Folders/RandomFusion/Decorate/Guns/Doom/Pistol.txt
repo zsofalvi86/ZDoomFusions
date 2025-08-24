@@ -14,23 +14,18 @@ Actor PPE_DoomPistol : PPE_DoomWeaponBase
 	Decal "BulletChip"
 	PPE_WeaponBase.SpawnerId1 16,1
 	PPE_WeaponBase.SpawnerId2 16,2
+	PPE_WeaponBaseBase.Tags "pistol"
 	States
 	{
 	Ready.Ready:
-		DPNG A 1 A_WeaponReady
-    	Loop
-	Deselect:
-    	DPNG A 1 A_Lower(12)
-    	Loop
-  	Select:
-    	DPNG A 1 A_Raise(12)
+		DPNG A 1 A_WeaponReady2
     	Loop
   	Fire:
 		DPNG A 4
 		TNT1 A 0 A_AlertMonsters
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlayWeaponSound("weapons/doom/pistol/fire")
-		TNT1 A 0 A_FireBullets(5.4,0.35,1,(14),"PPE_DoomBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
+		TNT1 A 0 A_FireBullets(5.4,0.35,1,(14),"PPE_DoomPistolBulletPuff",FBF_USEAMMO|FBF_NORANDOM)
 		DPNF ABC 2 bright
 		TNT1 A 0 A_FireCustomMissile("PPE_DoomPSBulletCasingShooter",0,0,0,6)
     	DPNG CDED 1
@@ -47,6 +42,11 @@ Actor PPE_DoomPistol : PPE_DoomWeaponBase
     	DPUN A -1
     	Stop
 	}
+}
+
+Actor PPE_DoomPistolBulletPuff : PPE_DoomBulletPuff
+{
+	PPE_MissileBase.Tags "humiliation"
 }
 
 Actor PPE_DoomPSBulletCasingShooter : PPE_CasingShooterBase

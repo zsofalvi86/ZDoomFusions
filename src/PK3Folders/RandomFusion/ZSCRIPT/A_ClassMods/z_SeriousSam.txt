@@ -4,6 +4,21 @@ Class PPE_SeriousSamClassMod : PPE_ClassBase
 	{
 		Inventory.PickupSound "weapons/ss/pickup"; ActiveSound "weapons/ss/ammo";
 		Inventory.PickupMessage "$GOTCMODSAM";
+		PPE_ClassBase.SoundClass "PPE_QuakePlayer";
+	}
+	
+	override int GetSwapSpeed() { return 12; }
+	
+	override void WorldThingDied (WorldEvent e)
+	{
+		if (e.Thing && e.Thing.Target
+		&& e.Thing.bIsMonster && e.Thing.Target == owner)
+		{
+			if (e.Thing.GetSpawnHealth() > 1000)
+			{
+				e.Thing.Target.GiveInventory("PPE_SSBossQuote",1);
+			}
+		}
 	}
 	
 	Override void DoEffect()

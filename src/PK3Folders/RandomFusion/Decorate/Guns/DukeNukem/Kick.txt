@@ -7,16 +7,11 @@ Actor PPE_DNMightyFoot : PPE_DNWeaponBase
 	Weapon.Kickback 180
 	Weapon.UpSound "items/q3switch"
 	Inventory.PickupSound "items/q3weapon"
+	PPE_WeaponBaseBase.Tags "humiliation"
 	States
 	{
 	Ready.Ready:
-    	TNT1 A 1 A_WeaponReady
-    	Loop
-	Deselect:
-		TNT1 A 1 A_Lower(12)
-    	Loop
-  	Select:
-		TNT1 A 1 A_Raise(12)
+    	TNT1 A 1 A_WeaponReady2
     	Loop
   	Fire:
 		DKIK A 1 offset(32,44)
@@ -39,10 +34,11 @@ Actor PPE_DNMightyFoot : PPE_DNWeaponBase
 	}
 }
 
-Actor PPE_KickPuff : BulletPuff
+Actor PPE_KickPuff : PPE_BulletPuffBase
 {
 	+PUFFONACTORS
 	+FORCEDECAL
+	PPE_MissileBase.Tags "humiliation"
 	Decal "Foot"
 	SeeSound ""
 	AttackSound ""

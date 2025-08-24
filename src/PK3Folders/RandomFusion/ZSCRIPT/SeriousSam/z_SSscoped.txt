@@ -1,4 +1,4 @@
-Class PPE_SeriousSamScoped : PPE_SeriousSamWeaponBase
+Class PPE_SeriousSamScoped : PPE_SeriousSamWeaponBase abstract
 {
 	int scopeframe;
 	int scopeframemem;

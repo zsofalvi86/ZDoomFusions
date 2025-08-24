@@ -4,53 +4,62 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 	{
 		Inventory.PickupSound "weapons/quake3/pickup"; ActiveSound "weapons/quake3/ammo";
 		Inventory.PickupMessage "$GOTCMODQ3";
+		PPE_ClassBase.SoundClass "PPE_QuakePlayer";
 	}
 	
-	mixin PPE_SpriteBeam;
-	mixin PPE_FlatBeam;
+	override int GetSwapSpeed() { return 18; }
 	
 	int lastkill;
 	int killcount;
 	int gibcount;
 	int hpbuffer;
 	
-	override void Travelled()
-	{
-		hpbuffer = 0;
-		killcount = 0;
-		gibcount = 0;
-		lastkill = level.time;
-	}
-	
 	override void WorldThingDied (WorldEvent e)
 	{
 		if (e.Thing && e.Thing.Target
 		&& (e.Thing.bIsMonster || e.Thing.Player))
 		{
-			if (e.Inflictor && e.Inflictor.GetClassName() == "PPE_GauntletPuff" && (e.Thing.GetSpawnHealth() > 200 || e.Thing.Player))
+			if (e.Inflictor 
+			&& (e.Thing.GetSpawnHealth() > 200 || e.Thing.Player)
+			&& ActorHasTag(e.Inflictor,"humiliation"))
 			{
-				owner.GiveInventory("PPE_Humiliation",1);
+				owner.GiveInventory("PPE_Q3Humiliation",1);
 			}
 			
-			if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150)) { gibcount++; }
-			hpbuffer += e.Thing.GetSpawnHealth();
-			killcount++;
-			
-			if (level.time < lastkill + 70)
+			if (level.Killed_Monsters == level.Total_Monsters-4)
 			{
-				if (hpbuffer > 500 || killcount > 3 || gibcount > 1)
+				e.Thing.Target.GiveInventory("PPE_Q33Frag",1);
+			}
+			else if (level.Killed_Monsters == level.Total_Monsters-3)
+			{
+				e.Thing.Target.GiveInventory("PPE_Q32Frag",1);
+			}
+			else if (level.Killed_Monsters == level.Total_Monsters-2)
+			{
+				e.Thing.Target.GiveInventory("PPE_Q31Frag",1);
+			}
+			else
+			{
+				if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150)) { gibcount++; }
+				hpbuffer += e.Thing.GetSpawnHealth();
+				killcount++;
+			
+				if (level.time < lastkill + 70)
 				{
-					owner.GiveInventory("PPE_Excellent",1);
+					if (hpbuffer > 500 || killcount > 3 || gibcount > 1)
+					{
+						owner.GiveInventory("PPE_Q3Excellent",1);
+						hpbuffer = 0;
+						killcount = 0;
+						gibcount = 0;
+					}
+				}
+				else
+				{
 					hpbuffer = 0;
 					killcount = 0;
 					gibcount = 0;
 				}
-			}
-			else
-			{
-				hpbuffer = 0;
-				killcount = 0;
-				gibcount = 0;
 			}
 			lastkill = level.time;
 		}
@@ -67,15 +76,21 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 		if (e.Thing 
 		&& (e.Thing.bIsMonster || e.Thing.Player))
 		{
-			if (e.Inflictor && e.Inflictor.GetClassName() == "PPE_Q3RailPuff")
+			double hpratio = double(e.Thing.health) / e.Thing.GetSpawnHealth();
+				
+			if (hpratio < 0.33) { owner.A_PlaySound("quake3/hitlo",4); }
+			else if (hpratio < 0.66) { owner.A_PlaySound("quake3/hitmed",4); }
+			else { owner.A_PlaySound("quake3/hithi",4); }
+		
+			if (e.Inflictor && ActorHasTag(e.Inflictor,"impressive"))
 			{
 				if ((level.time < lastrail + 35) || (level.time < lastrail + 70 && e.Thing.Player))
 				{
-					owner.GiveInventory("PPE_Impressive",1);
+					owner.GiveInventory("PPE_Q3Impressive",1);
 				}
 				else if (level.time > lastrail + 70 && e.Thing.Distance3D(owner) > 1024)
 				{
-					owner.GiveInventory("PPE_Accuracy",1);
+					owner.GiveInventory("PPE_Q3Accuracy",1);
 				}
 				lastrail = level.time;
 			}
@@ -89,8 +104,8 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 				double ratio = double(hits) / double(shots);
 				if (ratio > 0.75)
 				{
-					console.printf("%s%f", "ratio:", ratio);
-					owner.GiveInventory("PPE_Accuracy",1);
+					//console.printf("%s%f", "ratio:", ratio);
+					owner.GiveInventory("PPE_Q3Accuracy",1);
 				}
 				shots = 0;
 				hits = 0;
@@ -109,7 +124,7 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 			{
 				if (dmgbuffer >= 200) 
 				{
-					owner.GiveInventory("PPE_Accuracy",1);
+					owner.GiveInventory("PPE_Q3Accuracy",1);
 					dmgbuffer = 0;
 				}
 			}
@@ -119,6 +134,17 @@ Class PPE_Quake3ClassMod : PPE_ClassBase
 			}
 			lasthit = level.time;
 		}
+	}
+	
+	override void Travelled()
+	{
+		hpbuffer = 0;
+		killcount = 0;
+		gibcount = 0;
+		lastkill = level.time;
+		lasthit = level.time;
+		lastrail = level.time;
+		super.Travelled();
 	}
 	
 	States

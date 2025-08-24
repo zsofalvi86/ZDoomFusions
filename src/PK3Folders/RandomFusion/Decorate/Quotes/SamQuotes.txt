@@ -1,0 +1,4 @@
+Actor PPE_SSBossQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/ss/boss" 
+}

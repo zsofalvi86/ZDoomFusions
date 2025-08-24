@@ -9,16 +9,11 @@ Actor PPE_Q2Bfg : PPE_Quake2WeaponBase
 	Weapon.AmmoType "PPE_Cells"
 	Weapon.AmmoGive 40
 	PPE_WeaponBase.SpawnerId1 5,1
+	PPE_WeaponBaseBase.Tags "bfg"
 	States
 	{
 	Ready.Ready:
-    	QBFG AABBCCDDEEFF 1 A_WeaponReady
-    	Loop
-  	Deselect:
-    	QBFG A 1 A_Lower(18)
-    	Loop
-  	Select:
-    	QBFG A 1 A_Raise(18)
+    	QBFG AABBCCDDEEFF 1 A_WeaponReady2
     	Loop
 	Fire:
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)

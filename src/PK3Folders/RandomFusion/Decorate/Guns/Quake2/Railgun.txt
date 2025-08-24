@@ -1,4 +1,4 @@
-Actor PPE_Q2RailGun : PPE_Quake2WeaponBase
+Actor PPE_Q2RailGun : PPE_Quake2RailgunBase
 {
 	+WEAPON.NOAUTOAIM
 	Tag "$TAG_Q2_RG"
@@ -13,6 +13,7 @@ Actor PPE_Q2RailGun : PPE_Quake2WeaponBase
 	PPE_WeaponBase.SlotAlt1 "PPE_Q2RailGunS7"
 	PPE_WeaponBase.SpawnerId1 0,3
 	PPE_WeaponBase.SpawnerId2 1,2
+	PPE_WeaponBaseBase.Tags "railgun"
 	States
 	{
 	Spawn:
@@ -20,23 +21,16 @@ Actor PPE_Q2RailGun : PPE_Quake2WeaponBase
 		Loop
 	Ready.Ready:
 		TNT1 A 0 A_JumpIfinventory("PPE_RailgunZoom",1,"ReadyScope")
-		2RGG EEEDDCCBBAAAABBCCDD 1 A_WeaponReady
+		2RGG EEEDDCCBBAAAABBCCDD 1 A_WeaponReady2
 		Loop
 	ReadyScope:
 		TNT1 A 0 A_StopSound(6)
 	ReadyScopeLoop:
-		SSSS Z 1 bright A_WeaponReady(WRF_NOBOB)
+		SSSS Z 1 bright A_WeaponReady2(WRF_NOBOB)
 		Loop
 	Deselect:
-		TNT1 A 0 A_StopSound(6)
-		TNT1 A 0 A_ZoomFactor(1)
 		TNT1 A 0 A_SetInventory("PPE_RailgunZoom",0)
-	DeseLoop:
-		2RGG A 1 A_Lower(18)
-		Loop
-	Select:
-		2RGG A 1 A_Raise(18)
-		Loop
+		Goto Super::Deselect
 	Fire:
 		TNT1 A 0 A_GunFlash
 		TNT1 A 0 A_PlaySound("items/quad/use",2,CountInv("PowerQuadDamage"))
@@ -122,8 +116,9 @@ Actor PPE_RailgunZoom : Inventory
 	Inventory.MaxAmount 1
 }
 
-Actor PPE_Q2RailPuff : BulletPuff
+Actor PPE_Q2RailPuff : PPE_BulletPuffBase
 {
+	PPE_MissileBase.Tags "impressive"
 	-ALLOWPARTICLES
 	+ALWAYSPUFF
 	+PUFFONACTORS

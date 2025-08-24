@@ -1,0 +1,119 @@
+Class PPE_WeaponFeet : Weapon abstract
+{	
+	void CheckInitFeet()
+	{
+		let psp = owner.player.FindPsprite(-3);
+		if (!psp && level.time > 5) // avoid pspr too early
+		{
+			//console.printf("%s", "Feet AOResolvestate Set");
+			owner.player.SetPsprite(-3,FindState("KickOverlay"),false);
+			psp = owner.player.GetPsprite(-3);
+		}
+	}
+	
+	Action void A_FocusTracer(bool pitchdown = false)
+	{
+		int pitchd = 90;
+		if (pitchdown) {invoker.owner.pitch += 10; pitchd = 270;}
+		invoker.owner.A_Face(invoker.owner.tracer,40,pitchd,0,0,FAF_BOTTOM);
+		invoker.owner.A_ScaleVelocity(0);
+		invoker.owner.tracer.A_SetSpeed(0);
+	}
+	
+	Action void A_ReleaseFocus(bool resetSpeed = false)	
+	{
+		if (resetSpeed && invoker.owner.tracer) 
+		{
+			invoker.owner.tracer.A_SetSpeed(GetDefaultSpeed(invoker.owner.tracer.GetClass()));
+			invoker.owner.player.centering = true;
+		}
+		//pitch -= 10;
+	}
+	
+	Default 
+	{
+	Inventory.Amount 1; 
+	Inventory.MaxAmount 1;
+	//+INVENTORY.AUTOACTIVATE;
+	}
+	
+	States
+	{
+		KickOverlay:
+			TNT1 A 1
+			{
+				invoker.owner.tracer = null;
+				//console.printf("%s", "Feet Resolvestate Begin");
+				If(invoker.owner.bKilled) {return ResolveState(null);}
+				If(invoker.owner.CheckProximity("PPE_ActionFigureMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
+				invoker.owner.CheckProximity("PPE_ActionFigurePlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
+				{
+					if (invoker.owner.tracer.GetRenderStyle() == STYLE_None) {return ResolveState(null);}
+					else {return ResolveState("Stomp");}
+				}
+				If(invoker.owner.CheckProximity("PPE_FrozenMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
+				invoker.owner.CheckProximity("PPE_FrozenPlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
+				{
+					return ResolveState("FaceQuickKick");
+				}
+				If((invoker.owner.GetPlayerInput(INPUT_BUTTONS) & BT_USE) && invoker.owner.CheckIfTargetInLOS(40,JLOSF_COMBATANTONLY|JLOSF_NOAUTOAIM|JLOSF_DEADNOJUMP,100))
+				{
+					return ResolveState("QuickKick");
+				}
+				//console.printf("%s", "Feet Resolvestate Null");
+				return ResolveState(null);
+			}
+			Loop;
+		FaceQuickKick:
+			TNT1 A 1 {invoker.owner.A_Face(invoker.owner.tracer,40,55);}
+			TNT1 A 1 {invoker.owner.A_Face(invoker.owner.tracer,40,55);}
+			TNT1 A 1 {invoker.owner.A_Face(invoker.owner.tracer);}
+		QuickKick:
+			DKIK C 1 offset(-102,44-32);
+			DKIK C 1 offset(-94,38-32);
+			DKIK C 1 offset(-86,32-32);
+			DKIK D 1 offset(-43,36-32);
+			DKIK D 1 offset(-35,32-32);
+			TNT1 A 0 {if (invoker.owner.tracer) {invoker.owner.A_Face(invoker.owner.tracer);}}
+			TNT1 A 0 {LineAttack(invoker.owner.angle,100,invoker.owner.pitch,(10),"normal","PPE_KickPuff",LAF_ISMELEEATTACK);}
+			DKIK D 2;
+			DKIK D 1 offset(-43,36-32);
+			DKIK C 1 offset(-86,32-32);
+			DKIK C 1 offset(-94,38-32);
+			DKIK C 1 offset(-102,44-32);
+			TNT1 A 4;
+			//TNT1 A 0 A_ReFire("QuickKick") // Do not refire, it picks up PRIMARY and derails the weapon
+			Goto KickOverlay;
+		Stomp:
+			TNT1 AA 1 A_FocusTracer(true);
+			TNT1 AA 1 A_FocusTracer();
+			DKIK C 1 offset(-102,44-32) A_FocusTracer();
+			DKIK C 1 offset(-94,38-32) A_FocusTracer();
+			DKIK C 1 offset(-86,32-32) A_FocusTracer();
+			DKIK D 1 offset(-43,36-32) A_FocusTracer();
+			DKIK D 1 offset(-35,32-32) A_FocusTracer();
+			TNT1 A 0 {invoker.owner.A_DamageTracer(9999,"Kick",DMSS_KILL,"PPE_ActionFigureMonster");}
+			TNT1 A 0 {LineAttack(invoker.owner.angle,100,invoker.owner.pitch,(0),"normal","PPE_KickPuff",LAF_ISMELEEATTACK);}
+			DKIK D 1 offset(-33,38-32) A_FocusTracer();
+			DKIK D 1 offset(-31,42-32) A_FocusTracer();
+			DKIK D 1 offset(-29,46-32) A_FocusTracer();
+			DKIK D 1 offset(-31,42-32) A_FocusTracer();
+			DKIK D 1 offset(-33,38-32) A_FocusTracer();
+			DKIK D 1 offset(-37,38-32) A_FocusTracer();
+			DKIK D 1 offset(-39,42-32) A_FocusTracer();
+			DKIK D 1 offset(-41,46-32) A_FocusTracer();
+			DKIK D 1 offset(-39,42-32) A_FocusTracer();
+			DKIK D 1 offset(-37,38-32) A_FocusTracer();
+			DKIK D 1 offset(-33,38-32) A_FocusTracer();
+			DKIK D 1 offset(-31,42-32) A_FocusTracer();
+			DKIK D 1 offset(-29,46-32) A_FocusTracer();
+			DKIK D 1 offset(-31,42-32) A_FocusTracer();
+			DKIK D 1 offset(-33,38-32) A_FocusTracer();
+			DKIK D 1 offset(-43,36-32) A_FocusTracer();
+			DKIK C 1 offset(-86,32-32) A_FocusTracer();
+			DKIK C 1 offset(-94,38-32) A_ReleaseFocus(true);
+			DKIK C 1 offset(-102,44-32) A_ReleaseFocus();
+			TNT1 A 2;
+			Goto KickOverlay;
+	}
+}

@@ -6,15 +6,7 @@ Actor PPE_BloodPitchfork : PPE_BloodWeaponBase
 	States
 	{
 	Ready.Ready:
-		PITF A 1 A_WeaponReady
-		Loop
-	Deselect:
-		TNT1 A 0 A_Lower
-		PITF A 1 A_Lower
-		Loop
-	Select:
-		TNT1 A 0 A_Raise
-		PITF A 1 A_Raise
+		PITF A 1 A_WeaponReady2
 		Loop
 	Fire:
 		TNT1 A 0 A_PlaySound("weapons/blood/pitchfork/swing",6,1)
@@ -40,11 +32,12 @@ Actor PPE_BloodPitchfork : PPE_BloodWeaponBase
   }
 }
 
-Actor PPE_PitchforkMissile : FastProjectile
+Actor PPE_PitchforkMissile : PPE_FastProjectileBase
 {
 	+NOEXTREMEDEATH
 	+BLOODSPLATTER
 	+FORCEXYBILLBOARD
+	PPE_FastProjectileBase.Tags "humiliation"
 	Radius 1
 	Height 3
 	Decal "BulletChip"

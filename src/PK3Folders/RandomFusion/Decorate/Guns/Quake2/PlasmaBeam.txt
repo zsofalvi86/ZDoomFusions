@@ -13,21 +13,14 @@ Actor PPE_Q2PlasmaBeam : PPE_Quake2WeaponBase
 	DamageType "Quake2Plasma"
 	PPE_WeaponBase.SlotAlt1 "PPE_Q2PlasmaBeamS6"
 	PPE_WeaponBase.SpawnerId1 4,2
+	PPE_WeaponBaseBase.Tags "plasma"
 	States
 	{
 	Ready.Ready:
-		PBMG ABB 1
+		PBMG ABB 1 A_WeaponReady2
 	ReadyLoop:
-		PBMG CCDDEEFFEEDDCC 1 A_WeaponReady
+		PBMG CCDDEEFFEEDDCC 1 A_WeaponReady2
 		Loop
-  	Deselect:
-		TNT1 A 0 A_StopSound(6)
-	DeseLoop:
-    	PBMG A 1 A_Lower
-    	Loop
-  	Select:
-    	PBMG A 1 A_Raise
-    	Loop
 	Fire:
 		TNT1 A 0 A_JumpIfInventory("PowerSilencer",0,2)
 		TNT1 A 0 A_AlertMonsters

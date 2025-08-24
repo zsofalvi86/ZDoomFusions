@@ -1,6 +1,8 @@
-Class PPE_WeaponBaseBase : Weapon abstract
+Class PPE_WeaponBaseBase : PPE_WeaponFeet abstract
 {	
 	mixin PPE_LongUseable; // to allow overriding virtuals
+	mixin PPE_Taggable;
+	mixin PPE_TagReactor;
 }
 
 Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
@@ -8,85 +10,22 @@ Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
 	States
 	{
 	Select:
+		TNT1 A 0 {invoker.readyState = 1;}
+		TNT1 A 0 A_Jump(256,"Ready.Select");
 	Deselect:
+		TNT1 A 0 {invoker.readyState = 2;}
+		TNT1 A 0 A_SwapIfOnlyOtherAmmo();
+		TNT1 A 0 A_ResetReloadCounter();
+		TNT1 A 0 A_StopSound(6);
+		TNT1 A 0 A_ZoomFactor(1);
+		TNT1 A 0 A_Jump(256,"Ready.Select");
 	Ready:
-		TNT1 A 0 A_Overlay(-3,"KickOverlay",false);
+		TNT1 A 0 {invoker.readyState = 0;}
 		TNT1 A 0 A_Jump(256,"Ready.Ready");
-	KickOverlay:
-    	TNT1 A 1
-		{
-			tracer = null;
-			If(invoker.owner.bKilled) {return ResolveState(null);}
-			If(invoker.owner.CheckProximity("PPE_ActionFigureMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
-			invoker.owner.CheckProximity("PPE_ActionFigurePlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
-			{
-				if (tracer.GetRenderStyle() == STYLE_None) {return ResolveState(null);}
-				else {return ResolveState("Stomp");}
-			}
-			If(invoker.owner.CheckProximity("PPE_FrozenMonster",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST) ||
-			invoker.owner.CheckProximity("PPE_FrozenPlayer",64,1,CPXF_CHECKSIGHT|CPXF_SETTRACER|CPXF_CLOSEST))
-			{
-				return ResolveState("FaceQuickKick");
-			}
-			If((GetPlayerInput(INPUT_BUTTONS) & BT_USE) && invoker.owner.CheckIfTargetInLOS(40,JLOSF_COMBATANTONLY|JLOSF_NOAUTOAIM|JLOSF_DEADNOJUMP,100))
-			{
-				return ResolveState("QuickKick");
-			}
-			return ResolveState(null);
-		}
-    	Loop;
-	Fire:
-	FaceQuickKick:
-		TNT1 A 1 A_Face(tracer,40,55);
-		TNT1 A 1 A_Face(tracer,40,55);
-		TNT1 A 1 A_Face(tracer);
-	QuickKick:
-		DKIK C 1 offset(-102,44-32);
-		DKIK C 1 offset(-94,38-32);
-		DKIK C 1 offset(-86,32-32);
-		DKIK D 1 offset(-43,36-32);
-		DKIK D 1 offset(-35,32-32);
-		TNT1 A 0 {if (tracer) {A_Face(tracer);}}
-		TNT1 A 0 A_FireBullets(0,0,1,(10),"PPE_KickPuff",FBF_NORANDOM,100);
-		DKIK D 2;
-		DKIK D 1 offset(-43,36-32);
-		DKIK C 1 offset(-86,32-32);
-		DKIK C 1 offset(-94,38-32);
-		DKIK C 1 offset(-102,44-32);
-		TNT1 A 4;
-		//TNT1 A 0 A_ReFire("QuickKick") // Do not refire, it picks up PRIMARY and derails the weapon
-		Goto KickOverlay;
-	Stomp:
-		TNT1 AA 1 A_FocusTracer(true);
-		TNT1 AA 1 A_FocusTracer();
-		DKIK C 1 offset(-102,44-32) A_FocusTracer();
-		DKIK C 1 offset(-94,38-32) A_FocusTracer();
-		DKIK C 1 offset(-86,32-32) A_FocusTracer();
-		DKIK D 1 offset(-43,36-32) A_FocusTracer();
-		DKIK D 1 offset(-35,32-32) A_FocusTracer();
-		TNT1 A 0 A_DamageTracer (9999,"Kick",DMSS_KILL,"PPE_ActionFigureMonster");
-		TNT1 A 0 A_FireBullets(0,0,1,(0),"PPE_KickPuff",FBF_NORANDOM,100);
-		DKIK D 1 offset(-33,38-32) A_FocusTracer();
-		DKIK D 1 offset(-31,42-32) A_FocusTracer();
-		DKIK D 1 offset(-29,46-32) A_FocusTracer();
-		DKIK D 1 offset(-31,42-32) A_FocusTracer();
-		DKIK D 1 offset(-33,38-32) A_FocusTracer();
-		DKIK D 1 offset(-37,38-32) A_FocusTracer();
-		DKIK D 1 offset(-39,42-32) A_FocusTracer();
-		DKIK D 1 offset(-41,46-32) A_FocusTracer();
-		DKIK D 1 offset(-39,42-32) A_FocusTracer();
-		DKIK D 1 offset(-37,38-32) A_FocusTracer();
-		DKIK D 1 offset(-33,38-32) A_FocusTracer();
-		DKIK D 1 offset(-31,42-32) A_FocusTracer();
-		DKIK D 1 offset(-29,46-32) A_FocusTracer();
-		DKIK D 1 offset(-31,42-32) A_FocusTracer();
-		DKIK D 1 offset(-33,38-32) A_FocusTracer();
-		DKIK D 1 offset(-43,36-32) A_FocusTracer();
-		DKIK C 1 offset(-86,32-32) A_FocusTracer();
-		DKIK C 1 offset(-94,38-32) A_ReleaseFocus(true);
-		DKIK C 1 offset(-102,44-32) A_ReleaseFocus();
-		TNT1 A 2;
-		Goto KickOverlay;
+		Stop;
+	Ready.Select: // overwrite if a custom select/deselect loop is needed
+		TNT1 A 0 A_Jump(256,"Ready.Ready");
+		Stop;
 	}
 	
 	mixin PPE_AmmoPickupLogic;
@@ -120,6 +59,7 @@ Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
 	Property Upgrades: Up1, Up2, Up3, Up4;
 	
 	//Fields
+	int readyState;
 	int mode;
 	int upgradelevel;
 	bool instd;
@@ -128,6 +68,20 @@ Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
 	{
 		if (instd) {instd = false; return ResolveState("Deselect.Instant");}
 		return super.GetDownState();
+	}
+	
+	Action void A_WeaponReady2(int flags = 0)
+	{
+		if (invoker.readyState == 1) {A_Raise(invoker.GetSwapSpeed()); invoker.CheckInitFeet(); return;}
+		if (invoker.readyState == 2) {A_Lower(invoker.GetSwapSpeed()); return;}
+		A_WeaponReady(flags);
+	}
+	
+	int GetSwapSpeed()
+	{
+		let rfpo = PPE_RandomFusionPlayer(owner);
+		if (rfpo && rfpo.GetClassMod()) {return rfpo.GetClassMod().GetSwapSpeed();}
+		return 6;
 	}
 	
 	Action void A_QueueInstantDeselect()
@@ -232,25 +186,7 @@ Class PPE_WeaponBase : PPE_WeaponBaseBase abstract
 		return tookUpg;
 	}
 	
-	//Look functions
-	Action void A_FocusTracer(bool pitchdown = false)
-	{
-		int pitchd = 90;
-		if (pitchdown) {pitch += 10; pitchd = 270;}
-		A_Face(tracer,40,pitchd,0,0,FAF_BOTTOM);
-		A_ScaleVelocity(0);
-		tracer.A_SetSpeed(0);
-	}
-	
-	Action void A_ReleaseFocus(bool resetSpeed = false)	
-	{
-		if (resetSpeed && tracer) 
-		{
-			tracer.A_SetSpeed(GetDefaultSpeed(tracer.GetClass()));
-			invoker.Owner.player.centering = true;
-		}
-		//pitch -= 10;
-	}
+
 	
 	//AmmoType
 	Class<Ammo> GetOtherAmmoType()

@@ -4,7 +4,10 @@ Class PPE_ShadowWarriorClassMod : PPE_ClassBase
 	{
 		Inventory.PickupSound "weapons/dn/pickup"; ActiveSound "weapons/dn/pickup";
 		Inventory.PickupMessage "$GOTCMODSW";
+		PPE_ClassBase.SoundClass "PPE_LoWangPlayer";
 	}
+	
+	override int GetSwapSpeed() { return 12; }
 	
 	int dmgbuffer;
 	int lastquotetime;
@@ -12,34 +15,35 @@ Class PPE_ShadowWarriorClassMod : PPE_ClassBase
 	override void WorldThingDied (WorldEvent e)
 	{
 		if (e.Thing && e.Thing.Target
-		&& e.Thing.bIsMonster && e.Thing.Target.GetClassName() == "PPE_LoWangPlayer"
+		&& e.Thing.bIsMonster
 		&& level.time > lastquotetime + 200)
 		{
 			if (e.Thing.GetSpawnHealth() > 1000)
 			{
-				e.Thing.Target.GiveInventory("PPE_BossQuote",1);
+				e.Thing.Target.GiveInventory("PPE_SwBossQuote",1);
 				lastquotetime = level.time;
 			}
 			else if (level.Killed_Monsters == level.Total_Monsters-1)
 			{
-				e.Thing.Target.GiveInventory("PPE_LastDeathQuote",1);
+				e.Thing.Target.GiveInventory("PPE_SwLastDeathQuote",1);
 				lastquotetime = level.time;
 			}
-			else if (e.Inflictor && e.Inflictor.GetClassName() == "PPE_KatanaPuff")
+			else if (ActorHasTag(e.Inflictor,"sword") || ActorHasTag(e.Inflictor,"axe") || ActorHasTag(e.Inflictor,"chainsaw"))
 			{
-				e.Thing.Target.GiveInventory("PPE_KatanaDeathQuote",1);
+				e.Thing.Target.GiveInventory("PPE_SwKatanaDeathQuote",1);
 				lastquotetime = level.time;
+				//console.printf("%s", "katana");
 			}
 			else if (e.Thing.health < -1*min(e.Thing.GetSpawnHealth(),150))
 			{
-				e.Thing.Target.GiveInventory("PPE_GibQuote",1);
+				e.Thing.Target.GiveInventory("PPE_SwGibQuote",1);
 				lastquotetime = level.time;
 				//console.printf("%s", "gib");
 			}
 			else if (dmgbuffer >= 1750)
 			{
 				dmgbuffer = 0;
-				e.Thing.Target.GiveInventory("PPE_DeathQuote",1);
+				e.Thing.Target.GiveInventory("PPE_SwDeathQuote",1);
 				lastquotetime = level.time;
 			}
 			else
@@ -47,6 +51,24 @@ Class PPE_ShadowWarriorClassMod : PPE_ClassBase
 				dmgbuffer += e.Thing.GetSpawnHealth() + 500;
 			}
 		}
+	}
+	
+	override void OnShoot(State stat) 
+	{
+		if (level.time > lastquotetime + 200)
+		{
+			if (random(0,5) == 5)
+			{
+				owner.GiveInventory("PPE_SwShootYell",1);
+				lastquotetime = level.time;
+			}
+		}
+	}
+	
+	override void Travelled()
+	{
+		lastquotetime = level.time;
+		super.Travelled();
 	}
 	
 	States

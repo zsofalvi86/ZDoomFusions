@@ -1,4 +1,4 @@
-Actor PPE_Quake3BulletPuff : BulletPuff
+Actor PPE_Quake3BulletPuff : PPE_BulletPuffBase
 {
 	States
 	{
@@ -14,7 +14,7 @@ Actor PPE_Quake3BulletPuff : BulletPuff
   }
 }
 
-Actor PPE_Quake3TABulletPuff : BulletPuff
+Actor PPE_Quake3TABulletPuff : PPE_BulletPuffBase
 {
 	States
 	{

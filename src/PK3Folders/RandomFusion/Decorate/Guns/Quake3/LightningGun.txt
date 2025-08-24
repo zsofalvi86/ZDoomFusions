@@ -17,15 +17,7 @@ Actor PPE_Q3LightningGun : PPE_Quake3WeaponBase
 		3LGW A 1// AAAAABBCCDDCCBB 1
 		Loop
 	Ready.Ready:
-		3LGG AAABBCCDDDCCBBA 1 bright A_WeaponReady
-		Loop
-	Deselect:
-		TNT1 A 0 A_StopSound(6)
-	DeseLoop:
-		3LGG A 1 A_Lower(18)
-		Loop
-	Select:
-		3LGG A 1 A_Raise(18)
+		3LGG AAABBCCDDDCCBBA 1 bright A_WeaponReady2
 		Loop
 	Fire:
 		TNT1 A 0 A_PlaySound("weapons/quake3/lightning/start",CHAN_WEAPON)

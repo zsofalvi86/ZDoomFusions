@@ -1,6 +1,5 @@
 #Include Decorate/Guns/ShadowWarrior/2_WBase.txt
-#Include Decorate/Guns/ShadowWarrior/A_WPowerup.txt
-#Include Decorate/Guns/ShadowWarrior/A_WQuotes.txt
+#Include Decorate/Guns/ShadowWarrior/3_WPowerup.txt
 #Include Decorate/Guns/ShadowWarrior/FistsOfFury.txt
 #Include Decorate/Guns/ShadowWarrior/Katana.txt
 #Include Decorate/Guns/ShadowWarrior/Shuriken.txt

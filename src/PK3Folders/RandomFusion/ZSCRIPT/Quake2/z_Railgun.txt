@@ -1,0 +1,34 @@
+Class PPE_Quake2RailgunBase : PPE_Quake2WeaponBase abstract
+{
+	Array<Actor> memactors;
+	int memtic;
+
+	Override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+	{
+		//console.printf("%s%s%p", "q2d:", source.GetClassName(), self);
+		//if (owner && owner.Player) {console.printf("%s%p%p", "q2d:", owner.Player.ReadyWeapon, self);}
+		let playerOwner = PPE_RandomFusionPlayer(owner);
+		if (source && source.bIsMonster
+		&& owner && owner.Player && owner.Player.mo && playerOwner 
+		&& owner.Player.ReadyWeapon == self
+		&& playerOwner.GetClassMod() && playerOwner.GetClassMod().GetClassName() != "PPE_Quake2ClassMod")
+		{
+			let curtime = level.Time;
+			if (memtic != curtime) {memactors.Clear();}
+			let membered = memactors.Find(source) != memactors.Size();
+			//if((source.Target != owner || (memtic == curtime && membered)) && !source.Player)
+			if((source.InStateSequence(source.CurState,source.ResolveState("Spawn")) || (memtic == curtime && membered)) && !source.Player)
+			{
+				if (!membered) {memactors.Push(source);}
+				memtic = curtime;
+				//console.printf("%s", "ambush");
+				owner.A_StartSound("weapons/quake2/ambush");
+				newdamage = damage * 2;
+			}
+			else
+			{
+				newdamage = damage;
+			}
+		}
+	}
+}

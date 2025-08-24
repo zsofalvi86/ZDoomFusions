@@ -5,6 +5,7 @@ Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 	Weapon.SlotNumber 1
 	Weapon.SlotPriority 8
 	PPE_WeaponBase.SpawnerId1 6,1
+	PPE_WeaponBaseBase.Tags "chainsaw"
 	States
 	{
 	ReadySilent:
@@ -18,19 +19,18 @@ Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 		TNT1 A 0 A_WeaponOffset(Random(-1,1),33+Random(-2,2))
 	Ready.Ready:
 		TNT1 A 0 A_PlaySound("weapons/ss/saw/idle",6,1.0,1)
-    	SSWG EEEE 1 A_WeaponReady
+    	SSWG EEEE 1 A_WeaponReady2
 		TNT1 A 0 A_WeaponOffset(Random(-1,1),32+Random(-1,1))
     	Loop
+	Ready.Select:
+		SSWG E 1 A_WeaponReady2
+		Loop
   	Deselect:
-		TNT1 A 0 A_PlaySound("weapons/ss/saw/off",6)
-	DeseLoop:
-		SSWG E 1 A_Lower(12)
-    	Loop
+		TNT1 A 0 A_PlaySound("weapons/ss/saw/off",7)
+		Goto Super::Deselect
   	Select:
 		TNT1 A 0 A_PlaySound("weapons/ss/saw/on",7)
-	SeLoop:
-		SSWG E 1 A_Raise(12)
-    	Loop
+		Goto Super::Select
   	Fire:
 		TNT1 A 0 A_WeaponOffset(0,32)
 		TNT1 A 0 A_PlaySound("weapons/ss/saw/start",7)
@@ -75,8 +75,9 @@ Actor PPE_SSChainsaw : PPE_SeriousSamWeaponBase
 	}
 }
 
-Actor PPE_SSChainsawPuff : BulletPuff
+Actor PPE_SSChainsawPuff : PPE_BulletPuffBase
 {
+	PPE_MissileBase.Tags "chainsaw"
 	+EXTREMEDEATH
 	States
 	{

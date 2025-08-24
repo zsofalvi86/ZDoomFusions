@@ -1,0 +1,41 @@
+Actor PPE_Q3Accuracy : PPE_QuoteBase
+{
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "quote/q3/accuracy" 
+}
+
+Actor PPE_Q3Excellent : PPE_QuoteBase
+{
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "quote/q3/excellent" 
+}
+
+Actor PPE_Q3Humiliation : PPE_QuoteBase
+{
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "quote/q3/humiliation" 
+}
+
+Actor PPE_Q3Impressive : PPE_QuoteBase
+{
+	+Inventory.AdditiveTime
+	Inventory.PickupSound "quote/q3/impressive" 
+}
+
+Actor PPE_Q33Frag : PPE_QuoteBase
+{
+	+Inventory.AlwaysPickup
+	Inventory.PickupSound "quote/q3/3frag" 
+}
+
+Actor PPE_Q32Frag : PPE_QuoteBase
+{
+	+Inventory.AlwaysPickup
+	Inventory.PickupSound "quote/q3/2frag" 
+}
+
+Actor PPE_Q31Frag : PPE_QuoteBase
+{
+	+Inventory.AlwaysPickup
+	Inventory.PickupSound "quote/q3/1frag" 
+}

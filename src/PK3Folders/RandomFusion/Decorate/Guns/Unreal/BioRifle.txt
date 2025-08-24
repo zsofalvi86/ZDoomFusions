@@ -298,16 +298,8 @@ PPE_WeaponBase.SlotAlt1 "PPE_UnrBioRifleS6"
 PPE_WeaponBase.SpawnerId1 4,3
 States
 	{
-	Ready:
-    	BRFG A 1 A_WeaponReady
-    	Loop
-  	Deselect:
-    	BRFG A 1 A_Lower
-		TNT1 A 0 A_Lower
-    	Loop
-  	Select:
-    	BRFG A 1 A_Raise
-		TNT1 A 0 A_Raise
+	Ready.Ready:
+    	BRFG A 1 A_WeaponReady2
     	Loop
   	AltFire:
 		TNT1 A 0 A_PlaySound("weapons/unr/bio/load",6,1,1)

@@ -1,4 +1,5 @@
 #Include Decorate/Misc/1_Include.txt
+#Include Decorate/Quotes/1_Include.txt
 #Include Decorate/G_Bases.txt
 #Include Decorate/G_MissileBases.txt
 #Include Decorate/G_MissileParticles.txt

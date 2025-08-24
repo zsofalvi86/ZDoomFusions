@@ -1,4 +1,4 @@
-Actor PPE_DNBulletPuff : BulletPuff
+Actor PPE_DNBulletPuff : PPE_BulletPuffBase
 {
 	States
 	{

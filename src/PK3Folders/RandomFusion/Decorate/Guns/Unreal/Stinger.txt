@@ -16,21 +16,14 @@ Actor PPE_UnrStinger : PPE_UWeaponBase
 	PPE_WeaponBase.SpawnerId1 2,1
 	PPE_WeaponBase.SpawnerId2 2,3
 	PPE_WeaponBase.SpawnerId3 14,1
+	PPE_WeaponBaseBase.Tags "automatic"
 	States
 	{
 	Spawn:
 		NGNW A -1
 		Stop
 	Ready.Ready:
-		USTS AABBCCCC 1 A_WeaponReady
-		Loop
-	Deselect:
-		USTS A 1 A_Lower
-		TNT1 A 0 A_Lower
-		Loop
-	Select:
-		USTS A 1 A_Raise
-		TNT1 A 0 A_Raise
+		USTS AABBCCCC 1 A_WeaponReady2
 		Loop
 	Fire:
 	StartFire:		

@@ -7,9 +7,9 @@ Class PPE_QuoteBase : Inventory abstract
 	override void AttachToOwner(Actor other)
 	{
 		startedPlaying = false;
-		if (!other.FindInventory("PPE_QuoteBase",true))
+		if (!other.FindInventory("PPE_QuoteBase",true) || bAlwaysPickup) //hijacking this flag for the force play
 		{
-			PlayPickupSound(other);
+			other.A_StartSound(PickupSound, CHAN_VOICE, CHANF_MAYBE_LOCAL, 1);//PlayPickupSound(other);
 			startedPlaying = true;
 			//other.A_Print("start_n: "..GetClassName());
 		}
@@ -18,11 +18,11 @@ Class PPE_QuoteBase : Inventory abstract
 	
 	override void DoEffect()
 	{
-		if (!owner.IsActorPlayingSound(CHAN_ITEM,PickupSound))
+		if (!owner.IsActorPlayingSound(CHAN_VOICE,PickupSound))
 		{
 			if (!startedPlaying && bAdditiveTime) //hijacking this flag for the queueing
 			{
-				PlayPickupSound(owner);
+				owner.A_StartSound(PickupSound, CHAN_VOICE, CHANF_MAYBE_LOCAL, 1);//PlayPickupSound(owner);
 				startedPlaying = true;
 				//owner.A_Print("start_q: "..GetClassName());
 			}

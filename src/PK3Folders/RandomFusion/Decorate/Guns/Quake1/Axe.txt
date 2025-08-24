@@ -4,16 +4,11 @@ Actor PPE_Q1Axe : PPE_Quake1WeaponBase
 	Weapon.SlotNumber 1
 	Weapon.SlotPriority 2
 	Decal "BulletChip"
+	PPE_WeaponBaseBase.Tags "axe"
 	States
 	{
 	Ready.Ready:
-    	QAXE A 1 A_WeaponReady
-    	Loop
-  	Deselect:
-		QAXE A 0 A_Lower(12)
-    	Loop
-  	Select:
-		QAXE A 0 A_Raise(12)
+    	QAXE A 1 A_WeaponReady2
     	Loop
   	Fire:
 		TNT1 A 0 A_AlertMonsters
@@ -71,8 +66,9 @@ Actor PPE_Q1Axe : PPE_Quake1WeaponBase
 	}
 }
 
-Actor PPE_AxePuff : BulletPuff
+Actor PPE_AxePuff : PPE_BulletPuffBase
 {
+	PPE_MissileBase.Tags "humiliation,axe"
 	+PUFFONACTORS
 	SeeSound "weapons/quake1/axe/flesh"
 	AttackSound "weapons/quake1/axe/hit"

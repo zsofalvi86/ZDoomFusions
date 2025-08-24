@@ -229,13 +229,6 @@ weapons/quake3/bfg/fire		bfg_fire
 weapons/quake3/bfg/explode	rocklx1a
 $limit weapons/bfg/explode 6
 weapons/quake3/bfg/hum		bfghum
-//Announcer
-announcer/q3/accuracy q3aaacc
-aexc1 q3aaexc1 aexc2 q3aaexc2
-$random announcer/q3/excellent { aexc1 aexc2 }
-announcer/q3/humiliation q3aahum
-aimp1 q3aaimp1 aimp2 q3aaimp2
-$random announcer/q3/impressive { aimp1 aimp2 }
 
 //Unreal
 weapons/unr/ammo			uapkup
@@ -506,44 +499,25 @@ $random misc/sw/blood	{swgib1 swgib2}
 weapons/sw/casing/bullet bcas
 weapons/sw/casing/shell scas
 
-//Player
-ppain1		pain1
-ppain2		pain2
-ppain3		pain3
-ppain4		pain4
-ppain5		pain5
-ppain6		pain6
+//Quake Player
+qppain1	pain1 qppain2 pain2 qppain3 pain3 qppain4 pain4 qppain5 pain5 qppain6 pain6
+$random qplayer/pain { qppain1 qppain2 qppain3 qppain4 qppain5 qppain6 }
+qpdth1 death1 qpdth2 death2 qpdth3 death3 qpdth4 death4 qpdth5 death5 qpdth6 death6
+$random player/q1/death { qpdth1 qpdth2 qpdth3 qpdth4 qpdth5 qpdth6 }
+qpbrn1 lburn1 qpbrn2 lburn2
+$random player/q1/burn { qpbrn1 qpbrn2 }
+qpdrn1 drown1 qpdrn2 drown2
+$random player/q1/drown { qpdrn1 qpdrn2 }
 
-$random player/pain { ppain1 ppain2 ppain3 ppain4 ppain5 ppain6 }
-
-pdth1		death1
-pdth2		death2
-pdth3		death3
-pdth4		death4
-pdth5		death5
-pdth6		death6
-
-$random player/death { pdth1 pdth2 pdth3 pdth4 pdth5 pdth6 }
-
-pbrn1		lburn1
-pbrn2		lburn2
-
-$random player/burn { pbrn1 pbrn2 }
-
-pdrn1		drown1
-pdrn2		drown2
-
-$random player/drown { pdrn1 pdrn2 }
-
-$playeralias	PPE_QuakePlayer	male	*death		player/death
+$playeralias	PPE_QuakePlayer	male	*death		player/q1/death
 $playersound	PPE_QuakePlayer	male	*xdeath		udeath
 $playersound	PPE_QuakePlayer	male	*gibbed		udeath
 $playersound	PPE_QuakePlayer	male	*gibbed-telefrag	teledth1
-$playeralias	PPE_QuakePlayer	male	*pain100	player/pain
+$playeralias	PPE_QuakePlayer	male	*pain100	player/q1/pain
 $playersounddup	PPE_QuakePlayer	male	*pain75		*pain100
 $playersounddup	PPE_QuakePlayer	male	*pain50		*pain100
 $playersounddup	PPE_QuakePlayer	male	*pain25		*pain100
-$playeralias	PPE_QuakePlayer	male	*pain100-fire	player/burn
+$playeralias	PPE_QuakePlayer	male	*pain100-fire	player/q1/burn
 $playersounddup	PPE_QuakePlayer	male	*pain75-fire	*pain100-fire
 $playersounddup	PPE_QuakePlayer	male	*pain50-fire	*pain100-fire
 $playersounddup	PPE_QuakePlayer	male	*pain25-fire	*pain100-fire
@@ -551,7 +525,7 @@ $playersounddup	PPE_QuakePlayer	male	*pain100-slime	*pain100-fire
 $playersounddup	PPE_QuakePlayer	male	*pain75-slime	*pain100-fire
 $playersounddup	PPE_QuakePlayer	male	*pain50-slime	*pain100-fire
 $playersounddup	PPE_QuakePlayer	male	*pain25-slime	*pain100-fire
-$playeralias	PPE_QuakePlayer	male	*pain100-drowning	player/drown
+$playeralias	PPE_QuakePlayer	male	*pain100-drowning	player/q1/drown
 $playersounddup	PPE_QuakePlayer	male	*pain75-drowning	*pain100-drowning
 $playersounddup	PPE_QuakePlayer	male	*pain50-drowning	*pain100-drowning
 $playersounddup	PPE_QuakePlayer	male	*pain25-drowning	*pain100-drowning
@@ -563,6 +537,252 @@ $playersound	PPE_QuakePlayer	male	*grunt		land
 $playersounddup	PPE_QuakePlayer	male	*land		*grunt
 $playersound	PPE_QuakePlayer	male	*jump		plyrjmp8
 $playersounddup	PPE_QuakePlayer	male	*usefail	*grunt
+
+//Duke Player
+
+pushum pain87 pushwhere whrsit05
+$random player/dn/push { pushum pushum pushum pushum pushum pushum pushwhere }
+pscr1 dscrem04 pscr2 dscrem15 pscr3 dscrem16 pscr4 dscrem17 pscr5 dscrem18 pscr6 dscrem38
+$random player/dn/scream { pscr2 pscr3 pscr4 pscr5 }
+
+$playersound	PPE_DukePlayer	male	*death		dmdeath
+$playersound	PPE_DukePlayer	male	*xdeath		udeath
+$playersound	PPE_DukePlayer	male	*gibbed		udeath
+$playersound	PPE_DukePlayer	male	*gibbed-telefrag	teledth1
+$playersound	PPE_DukePlayer	male	*pain100	gasps07
+$playersound	PPE_DukePlayer	male	*pain75		gasps07
+$playersound	PPE_DukePlayer	male	*pain50		gasps07
+$playeralias	PPE_DukePlayer	male	*pain25		player/dn/scream
+$playersounddup	PPE_DukePlayer	male	*pain100-fire	*pain100
+$playersounddup	PPE_DukePlayer	male	*pain75-fire	*pain75
+$playersounddup	PPE_DukePlayer	male	*pain50-fire	*pain50
+$playersounddup	PPE_DukePlayer	male	*pain25-fire	*pain25
+$playersounddup	PPE_DukePlayer	male	*pain100-slime	*pain100
+$playersounddup	PPE_DukePlayer	male	*pain75-slime	*pain75
+$playersounddup	PPE_DukePlayer	male	*pain50-slime	*pain50
+$playersounddup	PPE_DukePlayer	male	*pain25-slime	*pain25
+$playersounddup	PPE_DukePlayer	male	*pain100-drowning	*pain100
+$playersounddup	PPE_DukePlayer	male	*pain75-drowning	*pain75
+$playersounddup	PPE_DukePlayer	male	*pain50-drowning	*pain50
+$playersounddup	PPE_DukePlayer	male	*pain25-drowning	*pain25
+$playersound	PPE_DukePlayer	male	*pain100-falling	fall1
+$playersounddup	PPE_DukePlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	PPE_DukePlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	PPE_DukePlayer	male	*pain25-falling		*pain100-falling
+$playersound	PPE_DukePlayer	male	*grunt		pain39
+$playersound	PPE_DukePlayer	male	*land		land02
+$playersound	PPE_DukePlayer	male	*jump		jump1
+$playeralias	PPE_DukePlayer	male	*usefail	player/dn/push
+
+//Shadow Warrior Player
+
+swpdth1 death1 swpdth2 death2 swpdth3 death3
+swppn1 pain1 swppn2 pain2 swppn3 pain3 swppn4 pain4
+swppnh1 painh1 swppnh2 painh2 swppnh3 painh3 swppnh4 painh4 swppnh5 painh5
+swpyel1 SOB15 swpyel2 WEAK03 swpyel3 SWYELL13 swpyel4 SWYELL14 swpyel5 SWYELL16 swpyel6 SWYELL22 swpyel7 SWYELL23
+swqyel1 SWYELL03 swqyel2 SWYELL05 swqyel3 SWYELL06
+
+$random player/sw/death { swpdth1 swpdth2 swpdth3 }
+$random player/sw/pain { swppn1 swppn2 swppn3 swppn4 }
+$random player/sw/painhi { swppnh1 swppnh2 swppnh3 swppnh4 swppnh5 }
+$random player/sw/painyell { swpyel1 swpyel2 swpyel3 swpyel4 swpyel5 swpyel6 swpyel7 }
+$random q/fistup { swqyel1 swqyel2 swqyel3 }
+$random q/yell { swqyel1 swqyel2 swqyel3 }
+
+swpush1 push1 swpush2 push2
+$random player/sw/push { swpush1 swpush1 swpush1 swpush1 swpush1 swpush1 swpush2 }
+
+$playeralias	PPE_LoWangPlayer	male	*death		player/sw/death
+$playersounddup	PPE_LoWangPlayer	male	*xdeath		*death
+$playersound	PPE_LoWangPlayer	male	*gibbed		udeath
+$playersound	PPE_LoWangPlayer	male	*gibbed-telefrag	teledth1
+$playeralias	PPE_LoWangPlayer	male	*pain100	player/sw/pain
+$playersounddup	PPE_LoWangPlayer	male	*pain75		*pain100
+$playeralias	PPE_LoWangPlayer	male	*pain50		player/sw/painhi
+$playeralias	PPE_LoWangPlayer	male	*pain25		player/sw/painyell
+$playersounddup	PPE_LoWangPlayer	male	*pain100-fire	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain75-fire	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain50-fire	*pain50
+$playersounddup	PPE_LoWangPlayer	male	*pain25-fire	*pain25
+$playersounddup	PPE_LoWangPlayer	male	*pain100-slime	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain75-slime	*pain100
+$playersounddup	PPE_LoWangPlayer	male	*pain50-slime	*pain50
+$playersounddup	PPE_LoWangPlayer	male	*pain25-slime	*pain25
+$playersound	PPE_LoWangPlayer	male	*pain100-drowning	swdrown
+$playersounddup	PPE_LoWangPlayer	male	*pain75-drowning	*pain100-drowning
+$playersounddup	PPE_LoWangPlayer	male	*pain50-drowning	*pain100-drowning
+$playersounddup	PPE_LoWangPlayer	male	*pain25-drowning	*pain100-drowning
+$playersound	PPE_LoWangPlayer	male	*pain100-falling	sspfall
+$playersounddup	PPE_LoWangPlayer	male	*pain75-falling		*pain100-falling
+$playersounddup	PPE_LoWangPlayer	male	*pain50-falling		*pain100-falling
+$playersounddup	PPE_LoWangPlayer	male	*pain25-falling		*pain100-falling
+$playersound	PPE_LoWangPlayer	male	*pain100-poisoncloud	swchoke
+$playersounddup	PPE_LoWangPlayer	male	*pain75-poisoncloud		*pain100-poisoncloud
+$playersounddup	PPE_LoWangPlayer	male	*pain50-poisoncloud		*pain100-poisoncloud
+$playersounddup	PPE_LoWangPlayer	male	*pain25-poisoncloud		*pain100-poisoncloud
+$playersound	PPE_LoWangPlayer	male	*pain100-caltrop		JGB106
+$playersounddup	PPE_LoWangPlayer	male	*pain75-caltrop			*pain100-caltrop
+$playersounddup	PPE_LoWangPlayer	male	*pain50-caltrop			*pain100-caltrop
+$playersounddup	PPE_LoWangPlayer	male	*pain25-caltrop			*pain100-caltrop
+$playersound	PPE_LoWangPlayer	male	*grunt		land
+$playersound	PPE_LoWangPlayer	male	*land		land
+$playersound	PPE_LoWangPlayer	male	*jump		sspjump
+$playeralias	PPE_LoWangPlayer	male	*usefail	player/sw/push	
+
+//Quotes
+//Duke
+quote/dn/boss DIESOB03
+
+dqgib1 AMESS06 dqgib2 BITCHN04 dqgib3 BLOWIT01 dqgib4 EATSHT01 dqgib5 FACE01 dqgib6 GOTHRT01
+dqgib7 HOLYCW01 dqgib8 HOLYSH02 dqgib9 IMGOOD12 dqgib10 INHELL01 dqgib11 LETGOD01 dqgib12 MDEVL01
+dqgib13 PIECE02 dqgib14 SUKIT01
+$random quote/dn/gib { dqgib1 dqgib2 dqgib3 dqgib4 dqgib5 dqgib6 dqgib7 dqgib8 dqgib9 dqgib10 dqgib11 dqgib12 dqgib13 dqgib14 }
+$random quote/dn/death { dqgib2 dqgib3 dqgib4 dqgib5 dqgib9 dqgib10 dqgib11 dqgib12 dqgib13 dqgib14 }
+
+dquwe1 cool01 dquwe2 getsom1a dquwe3 groovy02 dquwe4 hail01 dquwe5 wansom4a
+$random quote/dn/gun { dquwe1 dquwe2 dquwe3 dquwe4 dquwe5 }
+
+//Shadow Warrior
+qwe1 AHSO5 qwe2 BANZAI1 qwe3 BIGWPN01 qwe4 CBUNG01 qwe5 COMEGET2 qwe6 ERASER qwe7 HAHA19
+$random quote/sw/smallweapon	{qwe1 qwe2 qwe4 qwe5 qwe7}
+$random quote/sw/bigweapon		{qwe1 qwe2 qwe3 qwe4 qwe5 qwe7}
+$random quote/sw/railgun		{qwe1 qwe2 qwe3 qwe4 qwe5 qwe6 qwe7 qwe6 qwe6 qwe6}
+qhrt1 JG9002 qhrt2 JG9009
+$random quote/sw/heart			{qhrt1 qhrt2}
+quote/sw/uzi2 UZIW
+quote/sw/katanaup LIKSRD01
+quote/sw/shurikenup LIKSHK02
+quote/sw/shadow IAM01
+quote/sw/caltrop JGB106
+
+nuk1 HIRO03 nuk2 NAGA06 nuk3 PEARL03
+$random  quote/sw/nukeexp { nuk1 nuk1 nuk2 nuk2 nuk3 }
+sts1 TSTICK01 sts2 TSTICK05 sts3 TSTICK07 sts4 TSTICK10 
+$random quote/sw/stickystick { sts1 sts2 sts3 sts4 }
+
+quote/sw/alldead ILIKE01
+
+qol1 BADMAN04 qol2 CHARAD09 qol3 DTIME qol4 EAT02 qol5 FCRACK01 qol6 FWORKS01 qol7 GOODDAY4 qol8 HCOW03 qol09 HCOW06
+qol10 HSHIT03 qol11 HSHIT04 qol12 IHOPE01 qol13 KILLU05 qol14 KUNGFU06 qol15 LMOVE01 qol16 LWANG05 qol17 NATURAL4
+qol18 NOHONOR6 qol19 RAW01 qol20 REFLEX08 qol21 SAYON09 qol22 TAKSAN1 qol23 TDICK02 qol24 TOURN01 qol25 WWANG11 qol26 YAK02
+qol27 STUPID01 qol28 SNATCH01
+$random quote/sw/boss { qol4 qol8 qol10 qol12 qol13 qol14 qol16 qol18 qol19 qol21 qol24 qol25 }
+$random quote/sw/gib { qol1 qol2 qol3 qol4 qol5 qol6 qol7 qol8 qol9 qol10 qol11 qol12 qol13 qol14 qol15 qol16 qol17 qol18 qol19 qol20 qol21 qol22 qol23 qol24 qol25 qol26 qol27 qol28 }
+$random quote/sw/death { qol1 qol2 qol3 qol4 qol7 qol12 qol13 qol14 qol15 qol16 qol17 qol18 qol20 qol21 qol22 qol23 qol24 qol25 qol26 qol27 qol28 }
+
+liknuk LIKNUK01 hahanuk HAHA11
+$random quote/sw/nukeup { liknuk hahanuk qol7 }
+
+kat1 JG1103 kat2 TSWORD01 kat3 TSWORD05 kat4 TSWORD08
+$random quote/sw/katanadeath { kat1 kat2 kat3 kat4 }
+
+pyel1 SOB15 pyel2 WEAK03 pyel3 SWYELL13 pyel4 SWYELL14 pyel5 SWYELL16 pyel6 SWYELL22 pyel7 SWYELL23
+qyel1 SWYELL03 qyel2 SWYELL05 qyel3 SWYELL06
+$random quote/sw/painyell { pyel1 pyel2 pyel3 pyel4 pyel5 pyel6 pyel7 }
+$random quote/sw/fistup { qyel1 qyel2 qyel3 }
+$random quote/sw/yell { qyel1 qyel2 qyel3 }
+
+//Quake 3 Announcer
+quote/q3/accuracy q3aaacc
+aexc1 q3aaexc1 aexc2 q3aaexc2
+$random quote/q3/excellent { aexc1 aexc2 }
+quote/q3/humiliation q3aahum
+aimp1 q3aaimp1 aimp2 q3aaimp2
+$random quote/q3/impressive { aimp1 aimp2 }
+quote/q3/3frag q33frag
+quote/q3/2frag q32frag
+quote/q3/1frag q31frag
+
+quake3/hithi q3hit3
+quake3/hitmed q3hit2
+quake3/hitlo q3hit1
+
+//Serious Sam
+qcs1 qcs1 qcs2 qcs2 //lumberjack
+qsg1 qsg1 qsg2 qsg2 //old love, groovy
+qtg1 qtg1 qtg2 qtg2 //rythm, tune
+qmini qmini //minigun for max pleasure
+qgren qgren //hot potato
+qrok1 qrok1 qrok2 qrok2 //rocket ranger, roll
+qlas qlas //sci fi mumbo jumbo
+qbowl qbowl //bowling
+qflame qflame //all fired
+qeye qeye //until se loses an eye
+qdbl qdbl //double your...
+qlead1 qlead1 qlead2 qlead2 //enough lead
+qsize1 qsize1 qsize2 qsize2 //size doesn't matter, look at the size
+qinvul qinvul //try and hurt
+qspd qspd //srs speed
+qpow1 qpow1 //cmon play w me
+qpow2 qpow2 //party time
+qpow3 qpow3 //h comes trouble
+qwb1 qwb1 //ticket to hell
+qwb2 qwb2 //warm things up
+qwb3 qwb3 //what I call a gun
+qwb4 qwb4 //serious fpower
+qwb5 qwb5 //srs weapons 4 srs ppl
+qwb6 qwb6 //inflict srs pain
+qwb7 qwb7 //oh yea
+qwe1 qwe1 //ooh la la
+qwe2 qwe2 //rdy 4 battle
+qwe3 qwe3 //s hello 2 papa
+qwe4 qwe4 //yeah bb
+quip1 quip1 //cool
+quip2 quip2 //w I've always wanted
+quip3 quip3 //get serious
+quip4 quip4 //rdy 4 serious carnage
+quip5 quip5 //rock & roll
+quip6 quip6 //srsly srs
+quip7 quip7 //lucky day
+quip8 quip8 //much better
+qbos1 qbos1 //owned
+qbos2 qbos2 //srsly best you can do
+qbos3 qbos3 //whos next
+qbos4 qbos4 //maybe big, but im srs
+qbos5 qbos5 //am i the man
+qbos6 qbos6 //die when i kill u
+sampost1 sampost1 //am i the man
+sampost2 sampost2 //thought i saw the last
+sampost3 sampost3 //lot of bull
+sampost4 sampost4 //stupid things in large nr
+sampost5 sampost5 //all in the wrist
+sampost6 sampost6 //they never learn
+samclose samclose //tht was close
+samstart1 samstart1 //smell an ambush
+samstart2 samstart2 //wywf a one liner
+sampinky sampicky //omg i killed pinkys bros
+samkatrb samkatrb //kick ass two rooms back
+
+$random quote/ss/chainsaw/1 { qcs1 qcs2 }
+$random quote/ss/colt/1 { qeye qdbl }
+$random quote/ss/shotgun/1 { qsg1 qsg2 qwe2 }
+$random quote/ss/shotgun/2 { qsg1 qsg2 qeye qsize1 quip1 }
+$random quote/ss/coachgun/1 { qdbl qwb4 qwb5 qwb6 qsg1 quip8 }
+$random quote/ss/coachgun/2 { qwb4 qwb5 qwb6 qwe1 qwe3 }
+$random quote/ss/tommygun/1 { qtg1 qtg2 }
+$random quote/ss/minigun/1 { qmini qwb3 qwb4 }
+$random quote/ss/minigun/2 { qmini qwb3 qwb4 qwe1 qwe3 qlead1 qlead2 quip8 }
+$random quote/ss/rocket/1 { qrok1 qrok2 quip5 }
+$random quote/ss/rocket/2 { qrok1 qrok2 qwb1 qwb2 qwb3 qwb4 qwe2 quip5 }
+$random quote/ss/grenade/1 { qgren quip3 quip4 }
+$random quote/ss/grenade/2 { qgren qwb1 qwb2 qwb4 quip1 quip3 quip4 quip5 }
+$random quote/ss/laser/1 { qlas qwb1 }
+$random quote/ss/laser/2 { qlas qwb1 qwb2 qwb4 qwb5 qwb6 qwe1 quip1 quip3 quip8 }
+$random quote/ss/dev/1 { qwb3 qwb4 quip5 }
+$random quote/ss/dev/2 { qwb4 qsg2 quip1 quip3 }
+$random quote/ss/flame/1 { qflame qwb2 qwb4 }
+$random quote/ss/flame/2 { qflame qwb1 qwb2 qwb4 qwb5 qwb6 quip2 quip3 quip4 quip7 }
+$random quote/ss/sniper/1 { qwb1 qwb3 qwe3 quip2 quip7 quip8 }
+$random quote/ss/sniper/2 { qwb3 qwb4 qwb5 qwe1 qwe3 quip1 quip3 qeye }
+$random quote/ss/cannon/1 { qbowl qsize2 quip6 quip7 }
+$random quote/ss/cannon/2 { qbowl qwb2 qwb3 qwb4 qwb5 qwb6 qsize2 quip4 quip5 quip6 }
+$random quote/ss/backpack/1 { qlead1 qlead2 qwe2 quip2 quip7 quip8 }
+$random quote/ss/backpack/2 { qlead1 qlead2 qwe2 quip3 quip4 }
+$random quote/ss/seriouspack { qpow1 qpow2 qwe2 quip3 quip4 quip6 quip7 quip8 }
+$random quote/ss/damage/1 { qpow1 qpow2 qpow3 qwb6 quip3 quip4 }
+$random quote/ss/invul/1 { qinvul qpow1 qpow2 qpow3 qwe2 quip1 quip3 quip5 quip7 }
+$random quote/ss/speed/1 { qspd qpow2 qpow3 quip5 qtg1 }
+$random quote/ss/boss { qsize1 qbos1 qbos2 qbos3 qbos4 qbos5 qbos6 }
 
 //Misc
 menu/activate		menu2		// Activate a new menu

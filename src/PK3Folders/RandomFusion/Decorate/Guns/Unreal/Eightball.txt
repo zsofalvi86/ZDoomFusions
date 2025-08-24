@@ -118,27 +118,22 @@ actor PPE_UnrEightball : PPE_ULockOn
    Weapon.UpSound "weapons/unr/eball/up"
    PPE_WeaponBase.SlotAlt1 "PPE_UnrEightballS7"
    PPE_WeaponBase.SpawnerId1 3,2
+   PPE_WeaponBaseBase.Tags "rocket"
    +NOAUTOFIRE
    +NOALERT
    +NOAUTOAIM
    States
    {
-   Ready:
-     EBRL A 1 A_WeaponReady
+   Ready.Ready:
+     EBRL A 1 A_WeaponReady2
 	 TNT1 A 0 A_TakeInventory("PPE_EBRL_Load",6) // Cheat bugging prevention (IDKFA)
      Loop
    Deselect:
 	 TNT1 A 0 A_ClearOverlays(11,11)
-   DeSeLoop:
-     EBRL A 1 A_Lower
-	 TNT1 A 0 A_Lower
-     Loop
+	 Goto Super::Deselect
    Select:
 	 TNT1 A 0 A_GroomEBXhair
-   SeLoop:
-     EBRL A 1 A_Raise
-	 TNT1 A 0 A_Raise
-     Loop
+	 Goto Super::Select
    Fire:
      //TNT1 A 0 A_JumpIfInventory("PPE_RL_UnloadTolerance",1,"UnloadToleranceLoop") // We are in unload tolerance loop, continue it
 	 TNT1 A 0 A_JumpIfInventory("PPE_Rockets",1,1)

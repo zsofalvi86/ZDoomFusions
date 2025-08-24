@@ -1,4 +1,4 @@
-Actor PPE_BloodBulletPuff : BulletPuff
+Actor PPE_BloodBulletPuff : PPE_BulletPuffBase
 {
 	+PUFFONACTORS
 	+BLOODSPLATTER

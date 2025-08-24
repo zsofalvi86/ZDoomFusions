@@ -1,4 +1,4 @@
-Class PPE_DevastatorShot : FastProjectile
+Class PPE_DevastatorShot : PPE_FastProjectileBase
 {
 	bool exploding;
 	private int damageSpent;
@@ -54,5 +54,6 @@ Class PPE_DevastatorShot : FastProjectile
 		DeathSound "weapons/ssexp";
 		MissileType "PPE_DevTrail";
 		MissileHeight 4;
+		PPE_FastProjectileBase.Tags "impressive";
 	}
 }

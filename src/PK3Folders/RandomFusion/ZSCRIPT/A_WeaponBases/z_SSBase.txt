@@ -4,35 +4,6 @@ Class PPE_SeriousSamWeaponBase : PPE_WeaponBase abstract
 	
 	mixin PPE_SpriteBeam;
 	mixin PPE_FlatBeam;
-	
-	Override void DoEffect()
-	{
-		if (!owner.CountInv("PPE_SniperZoom") && owner.player.readyweapon == self)
-		{
-			let xhair = PPE_SamCrosshair(owner.FindInventory("PPE_SamCrosshair"));
-			if (!xhair) 
-			{
-				xhair = PPE_SamCrosshair(owner.GiveInventoryType("PPE_SamCrosshair"));
-				return;
-			}
-			return;
-			
-			let bobdelta = owner.player.viewz - owner.pos.Z - owner.player.viewheight;
-		
-			FLineTraceData hit;
-			owner.LineTrace(owner.angle, 256, owner.pitch, 0, owner.player.viewheight + bobdelta, 0, 0, hit);
-			let distratio = min(4, 1/(hit.Distance/256));
-			
-			if(hit.HitActor)
-			{
-				double hpratio = double(hit.HitActor.health) / hit.HitActor.GetSpawnHealth();
-			}
-		}
-		else
-		{
-			owner.TakeInventory("PPE_SamCrosshair",1);
-		}
-	}
 }
 
 Class PPE_SamCrosshair2 : CustomInventory

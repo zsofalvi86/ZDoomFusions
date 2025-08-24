@@ -9,16 +9,11 @@ Actor PPE_SWKatana: PPE_SWWeaponBase
 	Tag "$TAG_SW_KAT"
 	Decal "BulletChip"
 	PPE_WeaponBase.SpawnerId1 6,1
+	PPE_WeaponBaseBase.Tags "sword"
 	States
 	{
 	Ready.Ready:
-		KATG A 1 A_WeaponReady
-		Loop
-	Deselect:
-		KATG A 1 A_Lower(12)
-		Loop
-	Select:
-		KATG A 1 A_Raise(12)
+		KATG A 1 A_WeaponReady2
 		Loop
 	Fire:
 	SwingLeft:
@@ -79,8 +74,9 @@ Actor PPE_SWKatana: PPE_SWWeaponBase
   }
 }
 
-Actor PPE_KatanaPuff : BulletPuff
+Actor PPE_KatanaPuff : PPE_BulletPuffBase
 {
+	PPE_MissileBase.Tags "sword"
 	+EXTREMEDEATH
 	+PUFFONACTORS
 	-ALLOWPARTICLES

@@ -1,4 +1,4 @@
-Class PPE_Headshot : Actor
+Class PPE_Headshot : PPE_MissileBase
 {	
 	private double dmgHead; bool isHeadshot;
 	property HeadShotDamage: dmgHead;

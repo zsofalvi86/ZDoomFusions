@@ -1,0 +1,64 @@
+Actor PPE_SwBossQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/boss" 
+}
+
+Actor PPE_SwGibQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/gib"
+}
+
+Actor PPE_SwDeathQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/death"
+}
+
+Actor PPE_SwKatanaDeathQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/katanadeath"
+}
+
+Actor PPE_SwLastDeathQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/alldead"
+}
+
+Actor PPE_SwNukeQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/nukeexp"
+}
+
+Actor PPE_SwStickyQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/stickystick"
+}
+
+Actor PPE_SwHeartQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/heart"
+}
+
+Actor PPE_SwShootYell : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/yell"
+}
+
+Actor PPE_SwPainYell : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/painyell"
+}
+
+Actor PPE_SwFistQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/fistup"
+}
+
+Actor PPE_SwSwordQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/swordup"
+}
+
+Actor PPE_SwNukeReadyQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/sw/nukeup"
+}

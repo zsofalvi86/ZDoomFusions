@@ -9,21 +9,14 @@ Actor PPE_SSLaserGun : PPE_SeriousSamWeaponBase
 	Weapon.AmmoGive 40
 	PPE_WeaponBase.SlotAlt1 "PPE_SSLaserGunS8"
 	PPE_WeaponBase.SpawnerId1 4,1
+	PPE_WeaponBaseBase.Tags "plasma"
 	States
 	{
 	Spawn:
 		SSLW A -1
 		Stop
 	Ready.Ready:
-		SSLG A 1 A_WeaponReady
-		Loop
-	Deselect:
-		SSLG A 1 A_Lower
-		TNT1 A 0 A_Lower
-		Loop
-	Select:
-		SSLG A 1 A_Raise
-		TNT1 A 0 A_Raise
+		SSLG A 1 A_WeaponReady2
 		Loop
 	Fire:
 	Fire1:

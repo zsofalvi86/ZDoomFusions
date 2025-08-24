@@ -1,0 +1,19 @@
+Actor PPE_DnBossQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/dn/boss"
+}
+
+Actor PPE_DnGibQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/dn/gib"
+}
+
+Actor PPE_DnDeathQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/dn/death"
+}
+
+Actor PPE_DnGunQuote : PPE_QuoteBase
+{
+	Inventory.PickupSound "quote/dn/gun"
+}

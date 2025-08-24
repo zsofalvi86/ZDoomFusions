@@ -1,0 +1,12 @@
+Mixin Class PPE_Taggable
+{
+	string tagsJoined;
+	Property Tags: tagsJoined;
+	
+	bool HasTag(string tagToCheck)
+	{
+		Array<String> atags;
+		tagsJoined.Split(atags,",");
+		return atags.Find(tagToCheck) != atags.Size();
+	}
+}

@@ -148,6 +148,7 @@ Actor PPE_ClassModRandomSpawner : RandomSpawner
 {
 	DropItem "PPE_DukeClassMod", 255, 1
 	DropItem "PPE_ShadowWarriorClassMod", 255, 1
+	DropItem "PPE_Quake2ClassMod", 255, 1
 	DropItem "PPE_Quake3ClassMod", 255, 1
 	DropItem "PPE_SeriousSamClassMod", 255, 1
 }

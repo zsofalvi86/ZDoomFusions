@@ -12,6 +12,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 	Weapon.KickBack 100
 	PPE_WeaponBase.SlotAlt1 "PPE_SwRocketLauncherS7"
 	PPE_WeaponBase.SpawnerId1 3,1
+	PPE_WeaponBaseBase.Tags "rocket"
 	States
 	{
 	Ready.Ready:
@@ -20,7 +21,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 	Ready.M0:
 		TNT1 A 0 A_ClearOverlays(2,2)
 	ReadyM0Loop:
-		SRLG A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		SRLG A 1 A_WeaponReady2(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
 	Ready.M1:
 		TNT1 A 0 A_JumpIfInventory("PPE_HeatSeekerCard", 1, 1)
@@ -31,7 +32,7 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_Overlay(2,"SeekerOverlayEmpty")
 		Goto Ready.M1.Loop
 	Ready.M1.Loop:
-		SRLG B 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		SRLG B 1 A_WeaponReady2(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
 	Ready.M2:
 		TNT1 A 0 A_JumpIfInventory("PPE_NukeReady", 1, 1)
@@ -42,17 +43,9 @@ Actor PPE_SwRocketLauncher : PPE_SWWeaponBase
 		TNT1 A 0 A_Overlay(2,"NukeOverlayEmpty")
 		Goto Ready.M2.Loop
 	Ready.M2.Loop:
-		SRLG C 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
+		SRLG C 1 A_WeaponReady2(WRF_ALLOWRELOAD|WRF_ALLOWUSER1|WRF_ALLOWUSER2|WRF_ALLOWUSER3)
 		Loop
-  	Deselect:
-    	SRLG A 1 A_Lower(12)
-    	Loop
-  	Select:
-    	SRLG A 1 A_Raise(12)
-    	Loop
   	Fire:
-		TNT1 A 0 A_Jump(216,2)
-		TNT1 A 0 A_PlaySound("q/yell",5|CHAN_NOSTOP)
 		TNT1 A 0 A_JumpIfMode(1,"Fire.Seeker")
 		TNT1 A 0 A_JumpIfMode(2,"Fire.Nuke")
 	Fire.Normal:

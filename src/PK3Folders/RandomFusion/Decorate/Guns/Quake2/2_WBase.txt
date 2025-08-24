@@ -1,4 +1,4 @@
-Actor PPE_Quake2BulletPuff : BulletPuff
+Actor PPE_Quake2BulletPuff : PPE_BulletPuffBase
 {
 	States
 	{

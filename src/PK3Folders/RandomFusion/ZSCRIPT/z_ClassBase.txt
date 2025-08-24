@@ -1,5 +1,19 @@
 Class PPE_ClassBase : PPE_CustomBase abstract
 {
+	mixin PPE_TagReactor;
+
+	string soundClass;
+	Property SoundClass: soundClass;
+	
+	class<Inventory> Berserk; class<Inventory> BerserkHealth;
+	class<Inventory> Invisibility; class<Inventory> Invulnerability; 
+	class<Inventory> LightAmp; class<Inventory> RadSuit;
+	class<Inventory> Armor1; class<Inventory> Armor2;
+	Property Berserk: Berserk; Property BerserkHealth: BerserkHealth;
+	Property Invisibility: Invisibility; Property Invulnerability: Invulnerability;
+	Property LightAmp: LightAmp; Property RadSuit: RadSuit;
+	Property Armor1: Armor1; Property Armor2: Armor2;
+	
 	bool swapping;
 	
 	//Overrides
@@ -36,13 +50,30 @@ Class PPE_ClassBase : PPE_CustomBase abstract
 	Override void AttachToOwner(Actor other)
 	{
 		other.A_PlaySound(ActiveSound,3);
+		let playerOwner = PPE_RandomFusionPlayer(other);
+		if (playerOwner) {playerOwner.SoundClass = soundClass;}
+		console.printf("%s%s", "Attach: ", playerOwner.SoundClass);
 		Super.AttachToOwner(other);
 	}
 	
 	Override void DetachFromOwner()
 	{
+		let playerOwner = PPE_RandomFusionPlayer(owner);
+		if (playerOwner && !playerOwner.GetClassMod()) {playerOwner.SoundClass = "player";}
+		console.printf("%s%s", "Detach: ", playerOwner.SoundClass);
 		Super.DetachFromOwner();
 	}
+	
+	Override void Travelled()
+	{
+		let playerOwner = PPE_RandomFusionPlayer(owner);
+		console.printf("%s%s", "Travelled: ", playerOwner.SoundClass);
+		if (playerOwner) {playerOwner.SoundClass = soundClass;}
+		console.printf("%s%s", "Travelled: ", playerOwner.SoundClass);
+		super.Travelled();
+	}
+	
+	virtual void OnShoot(State stat) {}
 	
 	virtual int GetSwapSpeed() { return 6; }
 

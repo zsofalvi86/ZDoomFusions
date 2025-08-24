@@ -1,4 +1,4 @@
-Class PPE_ULockOn : PPE_UWeaponBase
+Class PPE_ULockOn : PPE_UWeaponBase abstract
 {
 	int lockFrame;
 	int unlockFrame;

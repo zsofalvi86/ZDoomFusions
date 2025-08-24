@@ -14,17 +14,12 @@ Actor PPE_SWRailgun : PPE_SWWeaponBase
 	PPE_WeaponBase.SlotAlt1 "PPE_SWRailgunS9"
 	PPE_WeaponBase.SpawnerId1 0,3
 	PPE_WeaponBase.SpawnerId1 1,2
+	PPE_WeaponBaseBase.Tags "railgun"
 	States
 	{
 	Ready.Ready:
-		SRGG BBCCDDEEAAAAA 1 bright A_WeaponReady
+		SRGG BBCCDDEEAAAAA 1 bright A_WeaponReady2
 		Loop
-  	Deselect:
-    	SRGG A 1 bright A_Lower(12)
-    	Loop
-  	Select:
-    	SRGG A 1 bright A_Raise(12)
-    	Loop
   	Fire:
 		SRGG FGH 1 bright
 		TNT1 A 0 A_AlertMonsters
@@ -83,8 +78,9 @@ Actor PPE_SWRailRing : PPE_TrailBase
 	}
 }
 
-Actor PPE_SWRailPuff : BulletPuff
+Actor PPE_SWRailPuff : PPE_BulletPuffBase
 {
+	PPE_MissileBase.Tags "impressive"
 	+ALWAYSPUFF
 	-ALLOWPARTICLES
 	RenderStyle Normal

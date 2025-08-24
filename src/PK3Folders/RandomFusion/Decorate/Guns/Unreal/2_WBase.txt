@@ -1,4 +1,4 @@
-Actor PPE_UnrealBulletPuff : BulletPuff
+Actor PPE_UnrealBulletPuff : PPE_BulletPuffBase
 {
 	States
 	{
